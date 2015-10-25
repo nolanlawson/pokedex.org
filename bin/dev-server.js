@@ -46,10 +46,6 @@ async function doIt() {
   var dumpfile = await fs.readFileAsync('./db/monsters.txt', 'utf-8');
   await db.load(dumpfile);
 
-  // create the index
-  await db.putIfNotExists(byNameDdoc);
-  await db.query('by-name');
-
   async function copyHtml() {
     console.log('copyHtml()');
     var rawHtml = await fs.readFileAsync('./src/index.html', 'utf-8');

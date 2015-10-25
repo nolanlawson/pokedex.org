@@ -7,14 +7,13 @@ var toJson = require('vdom-as-json/toJson');
 var diff = require('virtual-dom/diff');
 var byNameDdoc = require('../shared/byNameDdoc');
 var Stopwatch = require('../shared/stopwatch');
+var inMemoryDB = require('./inMemoryDatabase');
 
 var localDB = new PouchDB('monsters');
 var couchHome = self.location.origin.replace(/:[^:]+$/, ':6984');
 var remoteDB = new PouchDB(couchHome + '/monsters');
 
-
 var liveReplicationFinished = false;
-var indexBuilt = false;
 
 function replicate() {
   console.log('started replication');
@@ -29,23 +28,7 @@ function replicate() {
   }).on('complete', () => {
     console.log('done replicating');
     liveReplicationFinished = true;
-    buildIndex();
   });
-}
-
-async function checkReplicated() {
-  if (liveReplicationFinished) {
-    return true;
-  }
-  var info = await localDB.info();
-  return info.doc_count === 649;
-}
-
-async function buildIndex() {
-  await localDB.putIfNotExists(byNameDdoc);
-  await localDB.query('by-name', {limit: 0});
-  indexBuilt = true;
-  console.log('done building local index');
 }
 
 replicate();
@@ -53,34 +36,15 @@ replicate();
 var monstersList;
 
 async function getBestDB() {
-  var replicated = await checkReplicated();
-  if (!replicated) {
-    return remoteDB;
-  }
-  if (!indexBuilt) {
-    return remoteDB;
-  }
-
-  return localDB;
+  return liveReplicationFinished ? localDB : remoteDB;
 }
 
 async function getInitialMonsters() {
-  var db = await getBestDB();
-  var response = await db.allDocs({
-    include_docs: true,
-    endkey: '_design'
-  });
-  return response.rows.map(row => row.doc);
+  return inMemoryDB.findAll();
 }
 
 async function getFilteredMonsters(filter) {
-  var db = await getBestDB();
-  var response = await db.query('by-name', {
-    startkey: filter.toLowerCase(),
-    endkey: filter.toLowerCase() + '\ufff0',
-    include_docs: true
-  });
-  return response.rows.map(row => row.doc);
+  return inMemoryDB.findByNamePrefix(filter);
 }
 
 async function onMessage(message) {
