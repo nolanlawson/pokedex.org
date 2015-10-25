@@ -81,11 +81,16 @@ async function doIt() {
       .bundle().pipe(fs.createWriteStream(__dirname + '/../www/js/worker.js')));
   }
 
+  async function copyStatic() {
+    console.log('copyStatic()');
+    await ncp('./src/img', './www/img');
+  }
+
   async function copy() {
     console.log('copying from src to www');
     await rimraf('./www');
     await mkdirp('./www');
-    await* [copyHtml(), copyCss(), copyJs()];
+    await* [copyHtml(), copyCss(), copyJs(), copyStatic()];
     console.log('wrote html/css/js');
   }
 

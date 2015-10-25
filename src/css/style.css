@@ -181,3 +181,16 @@ button {
 .mui-appbar {
   background-color: #a040a0;
 }
+
+/* Search box */
+
+.mui-textfield>input:focus, .mui-textfield>textarea:focus {
+  border-color: #a040a0;
+}
+
+.mui-textfield {
+  background-image: url('../img/ic_search_black_18dp.png');
+  background-repeat: no-repeat;
+  background-position-x: right;
+  background-size: contain;
+}
