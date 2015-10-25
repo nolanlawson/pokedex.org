@@ -74,13 +74,13 @@ button {
   }
 
   #content-wrapper {
-    transform: translate(200px, 0);
-    transition: translate 0.2s;
+    margin-left: 200px;
+    transition: margin-left 0.2s;
   }
 
   #footer {
-    transform: translate(200px, 0);
-    transition: translate 0.2s;
+    margin-left: 200px;
+    transition: margin-left 0.2s;
   }
 
   body.hide-sidedrawer #header {
@@ -92,11 +92,11 @@ button {
   }
 
   body.hide-sidedrawer #content-wrapper {
-    transform: translate(0, 0);
+    margin-left: 0;
   }
 
   body.hide-sidedrawer #footer {
-    transform: translate(0, 0);
+    margin-left: 0;
   }
 }
 

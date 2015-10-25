@@ -9,7 +9,8 @@ var byNameDdoc = require('../shared/byNameDdoc');
 var Stopwatch = require('../shared/stopwatch');
 
 var localDB = new PouchDB('monsters');
-var remoteDB = new PouchDB('http://127.0.0.1:6984/monsters');
+var couchHome = self.location.origin.replace(/:[^:]+$/, ':6984');
+var remoteDB = new PouchDB(couchHome + '/monsters');
 
 
 var liveReplicationFinished = false;
