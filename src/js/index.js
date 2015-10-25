@@ -1,14 +1,11 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
   var $ = document.querySelector.bind(document);
   var sideDrawer = $('#sidedrawer');
 
-  // ==========================================================================
-  // Toggle Sidedrawer
-  // ==========================================================================
   function showSidedrawer() {
     // show overlay
     var options = {
-      onclose: function() {
+      onclose: () => {
         sideDrawer.classList.remove('active');
         document.body.appendChild(sideDrawer);
       }
@@ -18,11 +15,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // show element
     overlay.appendChild(sideDrawer);
-    setTimeout(function() {
-      sideDrawer.classList.add('active');
-    }, 20);
+    setTimeout(() => sideDrawer.classList.add('active'), 20);
   }
-
 
   function hideSidedrawer() {
     document.body.classList.toggle('hide-sidedrawer');

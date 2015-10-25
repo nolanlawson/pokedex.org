@@ -12,9 +12,17 @@
   "keywords": [],
   "author": "Nolan Lawson <nolan@nolanlawson.com>",
   "license": "Apache-2.0",
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
   "devDependencies": {
     "babel": "^5.8.29",
     "babel-eslint": "^4.1.3",
+    "babelify": "^6.4.0",
+    "bluebird": "^2.10.2",
+    "browserify": "^11.2.0",
     "eslint": "^1.7.3",
     "http-server": "^0.8.5",
     "memdown": "^1.1.0",
@@ -23,8 +31,14 @@
     "node-fetch": "^1.3.3",
     "node-watch": "^0.3.4",
     "pouchdb": "^5.0.0",
+    "pouchdb-load": "^1.4.1",
     "pouchdb-replication-stream": "^1.2.5",
+    "pouchdb-server": "^1.0.0",
     "regenerator": "^0.8.41",
-    "rimraf": "^2.4.3"
+    "rimraf": "^2.4.3",
+    "stream-to-promise": "^1.0.4",
+    "vdom-as-json": "^1.0.0",
+    "virtual-dom": "^2.1.1",
+    "watchify": "^3.4.0"
   }
 }
