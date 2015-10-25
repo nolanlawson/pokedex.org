@@ -3,6 +3,7 @@ var hs = require('http-server');
 var childProcess = require('child_process');
 var PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-load'));
+PouchDB.plugin(require('pouchdb-upsert'));
 var watchify = require('watchify');
 var browserify = require('browserify');
 var bluebird = require('bluebird');
@@ -11,6 +12,10 @@ var mkdirp = bluebird.promisify(require('mkdirp'));
 var rimraf = bluebird.promisify(require('rimraf'));
 var ncp = bluebird.promisify(require('ncp').ncp);
 var stream2promise = require('stream-to-promise');
+
+var byNameDdoc = require(__dirname + '/../src/js/shared/byNameDdoc');
+var renderMonstersList = require(__dirname + '/../src/js/shared/renderMonstersList');
+var toHtml = require('vdom-to-html');
 
 async function startPouchServer() {
   await mkdirp('db');
@@ -41,18 +46,46 @@ async function doIt() {
   var dumpfile = await fs.readFileAsync('./db/monsters.txt', 'utf-8');
   await db.load(dumpfile);
 
-  async function copy() {
-    console.log('copying from src to www');
-    await rimraf('./www');
-    await mkdirp('./www');
-    await ncp('./src/index.html', './www/index.html');
+  // create the index
+  await db.putIfNotExists(byNameDdoc);
+  await db.query('by-name');
+
+  async function copyHtml() {
+    console.log('copyHtml()');
+    var rawHtml = await fs.readFileAsync('./src/index.html', 'utf-8');
+    var docs = await db.allDocs({include_docs: true});
+    var monsters = docs.rows.map(row => row.doc);
+    var monstersList = renderMonstersList(monsters);
+    var monstersHtml = toHtml(monstersList);
+    var html = rawHtml.replace('<div id="monsters-list"></div>', monstersHtml);
+    await fs.writeFileAsync('./www/index.html', html, 'utf-8');
+  }
+
+  async function copyCss() {
+    console.log('copyCss()');
     await ncp('./src/css', './www/css');
+  }
+
+  async function copyJs() {
+    console.log('copyJs()');
     await mkdirp('./www/js');
     await stream2promise(browserify({
       fullPaths: true,
       debug: true
-    }).add(__dirname + '/../src/js/index.js')
+    }).add(__dirname + '/../src/js/client/index.js')
       .bundle().pipe(fs.createWriteStream(__dirname + '/../www/js/main.js')));
+    await stream2promise(browserify({
+      fullPaths: true,
+      debug: true
+    }).add(__dirname + '/../src/js/worker/index.js')
+      .bundle().pipe(fs.createWriteStream(__dirname + '/../www/js/worker.js')));
+  }
+
+  async function copy() {
+    console.log('copying from src to www');
+    await rimraf('./www');
+    await mkdirp('./www');
+    await* [copyHtml(), copyCss(), copyJs()];
     console.log('wrote html/css/js');
   }
 
@@ -61,4 +94,6 @@ async function doIt() {
   watch(__dirname + '/../src', copy);
 }
 
-doIt().catch(err => console.log(err));
+doIt().catch(err => console.error(err));
+
+process.on('unhandledRejection', err => console.error(err));
