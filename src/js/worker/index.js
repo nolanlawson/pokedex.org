@@ -6,24 +6,29 @@ var renderMonstersList = require('../shared/renderMonstersList');
 var toJson = require('vdom-as-json/toJson');
 var diff = require('virtual-dom/diff');
 var byNameDdoc = require('../shared/byNameDdoc');
+var Stopwatch = require('../shared/stopwatch');
 
 var localDB = new PouchDB('monsters');
 var remoteDB = new PouchDB('http://127.0.0.1:6984/monsters');
+
 
 var liveReplicationFinished = false;
 var indexBuilt = false;
 
 function replicate() {
   console.log('started replication');
-  remoteDB.replicate.to(localDB, {
+  var rep = remoteDB.replicate.to(localDB, {
     live: true,
     retry: true
   }).on('paused', err => {
     if (!err) {
-      console.log('done replicating');
-      liveReplicationFinished = true;
-      buildIndex();
+      // up to date
+      rep.cancel();
     }
+  }).on('complete', () => {
+    console.log('done replicating');
+    liveReplicationFinished = true;
+    buildIndex();
   });
 }
 
@@ -76,6 +81,8 @@ async function getFilteredMonsters(filter) {
 
 async function onMessage(message) {
 
+  var stopwatch = new Stopwatch();
+
   var filter = message.filter || '';
 
   if (!monstersList) {
@@ -89,18 +96,30 @@ async function onMessage(message) {
   } else {
     newMonsters = await getInitialMonsters();
   };
+
+  stopwatch.time('getting monsters');
+
   var newMonstersList = renderMonstersList(newMonsters);
 
+  stopwatch.time('rendering monsters');
+
   var patch = diff(monstersList, newMonstersList);
+
+  stopwatch.time('diffing monsters');
 
   monstersList = newMonstersList;
 
   var patchJson = toJson(patch);
+  var patchJsonAsString = JSON.stringify(patchJson);
+
+  stopwatch.time('stringifying');
 
   self.postMessage({
     type: 'monstersListPatch',
-    content: JSON.stringify(patchJson)
+    content: patchJsonAsString
   });
+
+  stopwatch.totalTime('worker (total)');
 }
 
 self.addEventListener('message', e => {
