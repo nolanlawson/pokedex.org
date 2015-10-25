@@ -25,6 +25,7 @@
     "browserify": "^11.2.0",
     "debounce": "^1.0.0",
     "eslint": "^1.7.3",
+    "htmltidy": "0.0.6",
     "http-server": "^0.8.5",
     "memdown": "^1.1.0",
     "mkdirp": "^0.5.1",

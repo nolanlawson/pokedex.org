@@ -53,10 +53,11 @@ async function doIt() {
   async function copyHtml() {
     console.log('copyHtml()');
     var rawHtml = await fs.readFileAsync('./src/index.html', 'utf-8');
-    var docs = await db.allDocs({include_docs: true});
+    var docs = await db.allDocs({include_docs: true, endkey: '_design'});
     var monsters = docs.rows.map(row => row.doc);
     var monstersList = renderMonstersList(monsters);
     var monstersHtml = toHtml(monstersList);
+    //monstersHtml = await tidy(monstersHtml);
     var html = rawHtml.replace('<div id="monsters-list"></div>', monstersHtml);
     await fs.writeFileAsync('./www/index.html', html, 'utf-8');
   }
@@ -85,6 +86,7 @@ async function doIt() {
     console.log('copyStatic()');
     await ncp('./src/img', './www/img');
     await ncp('./src/svg', './www/svg');
+    await ncp('./pokeapi/data/Pokemon_XY_Sprites', './www/img/sprites');
   }
 
   async function copy() {

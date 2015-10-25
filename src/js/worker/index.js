@@ -66,7 +66,10 @@ async function getBestDB() {
 
 async function getInitialMonsters() {
   var db = await getBestDB();
-  var response = await db.allDocs({include_docs: true});
+  var response = await db.allDocs({
+    include_docs: true,
+    endkey: '_design'
+  });
   return response.rows.map(row => row.doc);
 }
 
@@ -96,7 +99,7 @@ async function onMessage(message) {
     newMonsters = await getFilteredMonsters(filter);
   } else {
     newMonsters = await getInitialMonsters();
-  };
+  }
 
   stopwatch.time('getting monsters');
 

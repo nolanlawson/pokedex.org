@@ -15,6 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
     worker.postMessage({
       filter: filter
     });
-  }, 200));
+  }, 700));
 
 });

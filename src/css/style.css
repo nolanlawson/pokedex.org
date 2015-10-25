@@ -178,6 +178,18 @@ button {
   text-decoration: underline;
 }
 
+/* custom theming for pokedex app */
+
+@media (max-width: 767px) {
+  #main-title {
+    display: none;
+  }
+  .mui-textfield {
+    padding-top: 0;
+    margin-bottom: 10px;
+  }
+}
+
 .mui-appbar {
   background-color: #a040a0;
 }
@@ -194,3 +206,81 @@ button {
   background-position-x: right;
 }
 
+/* monster list */
+
+#monsters-list {
+  text-align: center;
+}
+
+.monster-item {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  overflow: hidden;
+  display: inline-flex;
+  list-style-type: none;
+}
+
+.monster-item-sprite {
+  top: 5px;
+  left: 10px;
+  width: 120px;
+  height: 120px;
+  z-index: 10;
+  position: absolute;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: center;
+}
+
+.monster-item-title {
+  color: white;
+  font-size: 14px;
+  background-color: rgba(0, 0, 0, 0.5);
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  z-index: 20;
+  position: absolute;
+  text-align: center;
+}
+
+.monster-item-bg1 {
+  width: 50%;
+  top: 10px;
+  left: 10px;
+  bottom: 10px;
+  height: 120px;
+  display: inline-block;
+  z-index: 1;
+  position: absolute;
+}
+
+.monster-item-bg2 {
+  width: 50%;
+  right: 10px;
+  bottom: 10px;
+  top: 10px;
+  height: 120px;
+  display: inline-block;
+  z-index: 1;
+  position: absolute;
+}
+
+/* pokemon types */
+
+.type-normal { background-color: #A8A878; }
+.type-fire { background-color: #F08030; }
+.type-fighting { background-color: #C03028; }
+.type-water { background-color: #6890F0; }
+.type-grass { background-color: #78C850; }
+.type-poison { background-color: #A040A0; }
+.type-electric { background-color: #F8D030; }
+.type-ground { background-color: #E0C068; }
+.type-rock { background-color: #B8A038; }
+.type-bug { background-color: #A8B820; }
+.type-dragon { background-color: #7038F8; }
+.type-ghost { background-color: #705898; }
+.type-dark { background-color: #705848; }
+.type-fairy { background-color: #EE99AC; }
+.type-steel { background-color: #B8B8D0; }
