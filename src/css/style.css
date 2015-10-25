@@ -169,11 +169,15 @@ button {
  */
 
 #footer {
-  background-color: #0288D1;
+  background-color: #a040a0;
   color: #fff;
 }
 
 #footer a {
   color: #fff;
   text-decoration: underline;
+}
+
+.mui-appbar {
+  background-color: #a040a0;
 }

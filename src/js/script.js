@@ -1,7 +1,6 @@
-jQuery(function($) {
-  var $bodyEl = $('body'),
-    $sidedrawerEl = $('#sidedrawer');
-
+document.addEventListener('DOMContentLoaded', function () {
+  var $ = document.querySelector.bind(document);
+  var sideDrawer = $('#sidedrawer');
 
   // ==========================================================================
   // Toggle Sidedrawer
@@ -10,44 +9,25 @@ jQuery(function($) {
     // show overlay
     var options = {
       onclose: function() {
-        $sidedrawerEl
-          .removeClass('active')
-          .appendTo(document.body);
+        sideDrawer.classList.remove('active');
+        document.body.appendChild(sideDrawer);
       }
     };
 
-    var $overlayEl = $(mui.overlay('on', options));
+    var overlay = mui.overlay('on', options);
 
     // show element
-    $sidedrawerEl.appendTo($overlayEl);
+    overlay.appendChild(sideDrawer);
     setTimeout(function() {
-      $sidedrawerEl.addClass('active');
+      sideDrawer.classList.add('active');
     }, 20);
   }
 
 
   function hideSidedrawer() {
-    $bodyEl.toggleClass('hide-sidedrawer');
+    document.body.classList.toggle('hide-sidedrawer');
   }
 
-
-  $('.js-show-sidedrawer').on('click', showSidedrawer);
-  $('.js-hide-sidedrawer').on('click', hideSidedrawer);
-
-
-  // ==========================================================================
-  // Animate menu
-  // ==========================================================================
-  (function() {
-    // hide L2
-    var $titleEls = $('strong', $sidedrawerEl);
-
-    $titleEls
-      .next()
-      .hide();
-
-    $titleEls.on('click', function() {
-      $(this).next().slideToggle(200);
-    });
-  })();
+  $('.js-show-sidedrawer').addEventListener('click', showSidedrawer);
+  $('.js-hide-sidedrawer').addEventListener('click', hideSidedrawer);
 });
