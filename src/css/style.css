@@ -186,11 +186,11 @@ button {
 
 .mui-textfield>input:focus, .mui-textfield>textarea:focus {
   border-color: #a040a0;
+  background-image: url(../svg/search-active.svg);
 }
-
-.mui-textfield {
-  background-image: url('../img/ic_search_black_18dp.png');
+.mui-textfield>input {
+  background-image: url(../svg/search.svg);
   background-repeat: no-repeat;
   background-position-x: right;
-  background-size: contain;
 }
+

@@ -84,6 +84,7 @@ async function doIt() {
   async function copyStatic() {
     console.log('copyStatic()');
     await ncp('./src/img', './www/img');
+    await ncp('./src/svg', './www/svg');
   }
 
   async function copy() {
