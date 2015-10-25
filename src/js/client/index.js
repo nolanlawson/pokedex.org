@@ -7,18 +7,26 @@ var $ = document.querySelector.bind(document);
 
 var worker = require('./worker');
 
-function applyPatch(patch) {
+function applyPatch(patchString) {
   var monstersList = $('#monsters-list');
+  console.time('JSON.parse()');
+  var patch = JSON.parse(patchString);
+  console.timeEnd('JSON.parse()');
+  console.time('fromJson');
   var patch = fromJson(patch);
+  console.timeEnd('fromJson');
+  console.time('patchElement');
   patchElement(monstersList, patch);
+  console.timeEnd('patchElement');
 }
 
 worker.addEventListener('message', e => {
   var message = e.data;
 
+  console.timeEnd('worker-filter');
   console.log('worker sent message');
 
   if (message.type === 'monstersListPatch') {
-    applyPatch(JSON.parse(message.content));
+    applyPatch(message.content);
   }
 });

@@ -12,9 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
     var filter = e.target.value;
 
     console.log('posting message to filter', filter);
+    console.time('worker-filter');
     worker.postMessage({
       filter: filter
     });
-  }, 700));
+  }, 700, false));
 
 });

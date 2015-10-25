@@ -78,9 +78,14 @@ async function onMessage(message) {
   monstersList = newMonstersList;
 
   var patchJson = toJson(patch);
+
+  stopwatch.time('toJson');
+
   var patchJsonAsString = JSON.stringify(patchJson);
 
-  stopwatch.time('stringifying');
+  stopwatch.time('JSON.stringify()');
+
+  console.log('patchJsonAsString.length', patchJsonAsString.length);
 
   self.postMessage({
     type: 'monstersListPatch',

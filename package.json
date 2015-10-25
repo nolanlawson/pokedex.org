@@ -41,7 +41,7 @@
     "regenerator": "^0.8.41",
     "rimraf": "^2.4.3",
     "stream-to-promise": "^1.0.4",
-    "vdom-as-json": "^1.0.2",
+    "vdom-as-json": "^1.0.3",
     "vdom-to-html": "^2.1.1",
     "virtual-dom": "^2.1.1",
     "watchify": "^3.4.0"
