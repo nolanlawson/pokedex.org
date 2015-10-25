@@ -1,0 +1,30 @@
+{
+  "name": "pokedex",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "serve": "babel-node bin/dev-server.js",
+    "lint": "eslint bin/*js",
+    "build-pokeapi": "bash ./bin/build-pokeapi.sh",
+    "build-monsters-database": "babel-node ./bin/build-monsters-database.js"
+  },
+  "keywords": [],
+  "author": "Nolan Lawson <nolan@nolanlawson.com>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "babel": "^5.8.29",
+    "babel-eslint": "^4.1.3",
+    "eslint": "^1.7.3",
+    "http-server": "^0.8.5",
+    "memdown": "^1.1.0",
+    "mkdirp": "^0.5.1",
+    "ncp": "^2.0.0",
+    "node-fetch": "^1.3.3",
+    "node-watch": "^0.3.4",
+    "pouchdb": "^5.0.0",
+    "pouchdb-replication-stream": "^1.2.5",
+    "regenerator": "^0.8.41",
+    "rimraf": "^2.4.3"
+  }
+}

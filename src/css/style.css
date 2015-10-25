@@ -1,0 +1,179 @@
+/**
+ * Body CSS
+ */
+
+html,
+body {
+  height: 100%;
+  background-color: #eee;
+}
+
+html,
+body,
+input,
+textarea,
+button {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+}
+
+
+/**
+ * Layout CSS
+ */
+
+#header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 2;
+  transition: transform 0.2s;
+}
+
+#sidedrawer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 200px;
+  left: 0;
+  transform: translate(-200px, 0);
+  overflow: auto;
+  z-index: 2;
+  background-color: #fff;
+  transition: transform 0.2s;
+}
+
+#content-wrapper {
+  min-height: 100%;
+  overflow-x: hidden;
+  transform: translate(0, 0);
+  transition: transform 0.2s;
+
+  /* sticky bottom */
+  margin-bottom: -160px;
+  padding-bottom: 160px;
+}
+
+#footer {
+  height: 160px;
+  transform: translate(0, 0);
+  transition: transform 0.2s;
+}
+
+@media (min-width: 768px) {
+  #header {
+    transform: translate(200px, 0);
+    transition: transform 0.2s;
+  }
+
+  #sidedrawer {
+    transform: translate(0, 0);
+    transition: transform 0.2s;
+  }
+
+  #content-wrapper {
+    transform: translate(200px, 0);
+    transition: translate 0.2s;
+  }
+
+  #footer {
+    transform: translate(200px, 0);
+    transition: translate 0.2s;
+  }
+
+  body.hide-sidedrawer #header {
+    transform: translate(0, 0);
+  }
+
+  body.hide-sidedrawer #sidedrawer {
+    transform: translate(-200px, 0);
+  }
+
+  body.hide-sidedrawer #content-wrapper {
+    transform: translate(0, 0);
+  }
+
+  body.hide-sidedrawer #footer {
+    transform: translate(0, 0);
+  }
+}
+
+
+/**
+ * Toggle Sidedrawer
+ */
+
+#sidedrawer.active {
+  transform: translate(0, 0);
+  transition: transform 0.2s;
+}
+
+
+/**
+ * Header CSS
+ */
+
+.sidedrawer-toggle {
+  color: #fff;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 20px;
+  margin-right: 10px;
+}
+
+.sidedrawer-toggle:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+
+/**
+ * Sidedrawer CSS
+ */
+
+#sidedrawer-brand {
+  padding-left: 20px;
+}
+
+#sidedrawer ul {
+  list-style: none;
+}
+
+#sidedrawer > ul {
+  padding-left: 0px;
+}
+
+#sidedrawer > ul > li:first-child {
+  padding-top: 15px;
+}
+
+#sidedrawer strong {
+  display: block;
+  padding: 15px 22px;
+  cursor: pointer;
+}
+
+#sidedrawer strong:hover {
+  background-color: #E0E0E0;
+}
+
+#sidedrawer strong + ul > li {
+  padding: 6px 0px;
+}
+
+
+/**
+ * Footer CSS
+ */
+
+#footer {
+  background-color: #0288D1;
+  color: #fff;
+}
+
+#footer a {
+  color: #fff;
+  text-decoration: underline;
+}
