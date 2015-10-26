@@ -3,7 +3,10 @@ var hs = require('http-server');
 var childProcess = require('child_process');
 var bluebird = require('bluebird');
 var mkdirp = bluebird.promisify(require('mkdirp'));
+var fs = bluebird.promisifyAll(require('fs'));
 var build = require('./build');
+var PouchDB = require('pouchdb');
+PouchDB.plugin(require('pouchdb-load'));
 
 async function startPouchServer() {
   await mkdirp('db');

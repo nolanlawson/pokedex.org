@@ -1,9 +1,6 @@
 var watch = require('node-watch');
 var hs = require('http-server');
 var childProcess = require('child_process');
-var PouchDB = require('pouchdb');
-PouchDB.plugin(require('pouchdb-load'));
-PouchDB.plugin(require('pouchdb-upsert'));
 var browserify = require('browserify');
 var bluebird = require('bluebird');
 var fs = bluebird.promisifyAll(require('fs'));
@@ -97,6 +94,7 @@ module.exports = async function build(debug) {
     console.log('copyStatic()');
     await ncp('./src/img', './www/img');
     await ncp('./src/svg', './www/svg');
+    await ncp('./src/vendor', './www/vendor');
     await ncp('./pokeapi/data/Pokemon_XY_Sprites/', './www/img');
   }
 
