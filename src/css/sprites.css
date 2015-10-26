@@ -1,718 +1,649 @@
-.sprite-1 { background-position: -30px -70298px; }
-.sprite-2 { background-position: -30px -116698px; }
-.sprite-3 { background-position: -30px -41498px; }
-.sprite-4 { background-position: -30px -63698px; }
-.sprite-5 { background-position: -30px -85898px; }
-.sprite-6 { background-position: -38px -108098px; }
-.sprite-7 { background-position: -30px -130298px; }
-.sprite-8 { background-position: -30px -136298px; }
-.sprite-9 { background-position: -30px -138498px; }
-.sprite-10 { background-position: -30px -68898px; }
-.sprite-11 { background-position: -30px -70898px; }
-.sprite-12 { background-position: -30px -30298px; }
-.sprite-13 { background-position: -30px -39098px; }
-.sprite-14 { background-position: -30px -59898px; }
-.sprite-15 { background-position: -30px -62298px; }
-.sprite-16 { background-position: -30px -71098px; }
-.sprite-17 { background-position: -30px -83098px; }
-.sprite-18 { background-position: -30px -85498px; }
-.sprite-19 { background-position: -18px -2316px; }
-.sprite-20 { background-position: -18px -2492px; }
-.sprite-21 { background-position: -30px -119898px; }
-.sprite-22 { background-position: -41px -23898px; }
-.sprite-23 { background-position: -30px -26098px; }
-.sprite-24 { background-position: -30px -28298px; }
-.sprite-25 { background-position: -30px -30498px; }
-.sprite-26 { background-position: -30px -32698px; }
-.sprite-27 { background-position: -30px -34898px; }
-.sprite-28 { background-position: -30px -37098px; }
-.sprite-29 { background-position: -30px -39298px; }
-.sprite-30 { background-position: -30px -41698px; }
-.sprite-31 { background-position: -30px -43898px; }
-.sprite-32 { background-position: -30px -46098px; }
-.sprite-33 { background-position: -30px -48298px; }
-.sprite-34 { background-position: -30px -50498px; }
-.sprite-35 { background-position: -30px -52698px; }
-.sprite-36 { background-position: -30px -54898px; }
-.sprite-37 { background-position: -30px -57098px; }
-.sprite-38 { background-position: -30px -59298px; }
-.sprite-39 { background-position: -30px -61498px; }
-.sprite-40 { background-position: -30px -63898px; }
-.sprite-41 { background-position: -30px -66098px; }
-.sprite-42 { background-position: -36px -68298px; }
-.sprite-43 { background-position: -30px -70498px; }
-.sprite-44 { background-position: -30px -72698px; }
-.sprite-45 { background-position: -30px -74898px; }
-.sprite-46 { background-position: -30px -77098px; }
-.sprite-47 { background-position: -30px -79298px; }
-.sprite-48 { background-position: -30px -81498px; }
-.sprite-49 { background-position: -34px -83698px; }
-.sprite-50 { background-position: -30px -86098px; }
-.sprite-51 { background-position: -30px -88298px; }
-.sprite-52 { background-position: -18px -16572px; }
-.sprite-53 { background-position: -18px -16748px; }
-.sprite-54 { background-position: -30px -94898px; }
-.sprite-55 { background-position: -30px -97098px; }
-.sprite-56 { background-position: -30px -99298px; }
-.sprite-57 { background-position: -30px -101498px; }
-.sprite-58 { background-position: -30px -103698px; }
-.sprite-59 { background-position: -30px -105898px; }
-.sprite-60 { background-position: -30px -108298px; }
-.sprite-61 { background-position: -30px -110498px; }
-.sprite-62 { background-position: -30px -112698px; }
-.sprite-63 { background-position: -30px -114898px; }
-.sprite-64 { background-position: -30px -117098px; }
-.sprite-65 { background-position: -30px -119298px; }
-.sprite-66 { background-position: -30px -121498px; }
-.sprite-67 { background-position: -30px -123698px; }
-.sprite-68 { background-position: -30px -125898px; }
-.sprite-69 { background-position: -30px -128098px; }
-.sprite-70 { background-position: -30px -130498px; }
-.sprite-71 { background-position: -30px -132698px; }
-.sprite-72 { background-position: -30px -134698px; }
-.sprite-73 { background-position: -30px -134898px; }
-.sprite-74 { background-position: -30px -135098px; }
-.sprite-75 { background-position: -30px -135298px; }
-.sprite-76 { background-position: -30px -135498px; }
-.sprite-77 { background-position: -30px -135698px; }
-.sprite-78 { background-position: -30px -135898px; }
-.sprite-79 { background-position: -30px -136098px; }
-.sprite-80 { background-position: -30px -136498px; }
-.sprite-81 { background-position: -30px -136698px; }
-.sprite-82 { background-position: -30px -136898px; }
-.sprite-83 { background-position: -30px -137098px; }
-.sprite-84 { background-position: -30px -137298px; }
-.sprite-85 { background-position: -30px -137498px; }
-.sprite-86 { background-position: -30px -137698px; }
-.sprite-87 { background-position: -30px -137898px; }
-.sprite-88 { background-position: -30px -138098px; }
-.sprite-89 { background-position: -32px -138298px; }
-.sprite-90 { background-position: -30px -138698px; }
-.sprite-91 { background-position: -30px -138898px; }
-.sprite-92 { background-position: -30px -139098px; }
-.sprite-93 { background-position: -30px -139298px; }
-.sprite-94 { background-position: -30px -134498px; }
-.sprite-95 { background-position: -30px -134098px; }
-.sprite-96 { background-position: -30px -130098px; }
-.sprite-97 { background-position: -30px -128498px; }
-.sprite-98 { background-position: -30px -104098px; }
-.sprite-99 { background-position: -30px -139498px; }
-.sprite-100 { background-position: -30px -76298px; }
-.sprite-101 { background-position: -30px -59098px; }
-.sprite-102 { background-position: -30px -62698px; }
-.sprite-103 { background-position: -38px -64298px; }
-.sprite-104 { background-position: -30px -64498px; }
-.sprite-105 { background-position: -30px -68498px; }
-.sprite-106 { background-position: -30px -68698px; }
-.sprite-107 { background-position: -30px -69898px; }
-.sprite-108 { background-position: -30px -70098px; }
-.sprite-109 { background-position: -18px -28px; }
-.sprite-110 { background-position: -18px -10764px; }
-.sprite-111 { background-position: -30px -98298px; }
-.sprite-112 { background-position: -30px -116898px; }
-.sprite-113 { background-position: -30px -117298px; }
-.sprite-114 { background-position: -30px -117498px; }
-.sprite-115 { background-position: -30px -26898px; }
-.sprite-116 { background-position: -30px -27098px; }
-.sprite-117 { background-position: -30px -29098px; }
-.sprite-118 { background-position: -30px -29298px; }
-.sprite-119 { background-position: -30px -29498px; }
-.sprite-120 { background-position: -30px -30698px; }
-.sprite-121 { background-position: -30px -30898px; }
-.sprite-122 { background-position: -30px -31098px; }
-.sprite-123 { background-position: -30px -31298px; }
-.sprite-124 { background-position: -30px -31498px; }
-.sprite-125 { background-position: -30px -32298px; }
-.sprite-126 { background-position: -30px -32498px; }
-.sprite-127 { background-position: -30px -32898px; }
-.sprite-128 { background-position: -30px -38698px; }
-.sprite-129 { background-position: -30px -38898px; }
-.sprite-130 { background-position: -30px -51298px; }
-.sprite-131 { background-position: -30px -51498px; }
-.sprite-132 { background-position: -30px -52498px; }
-.sprite-133 { background-position: -30px -52898px; }
-.sprite-134 { background-position: -30px -53098px; }
-.sprite-135 { background-position: -30px -58698px; }
-.sprite-136 { background-position: -30px -58898px; }
-.sprite-137 { background-position: -18px -380px; }
-.sprite-138 { background-position: -30px -59498px; }
-.sprite-139 { background-position: -30px -59698px; }
-.sprite-140 { background-position: -30px -60098px; }
-.sprite-141 { background-position: -30px -60298px; }
-.sprite-142 { background-position: -55px -60498px; }
-.sprite-143 { background-position: -30px -60698px; }
-.sprite-144 { background-position: -44px -60898px; }
-.sprite-145 { background-position: -42px -61098px; }
-.sprite-146 { background-position: -57px -61298px; }
-.sprite-147 { background-position: -30px -61698px; }
-.sprite-148 { background-position: -30px -61898px; }
-.sprite-149 { background-position: -30px -62098px; }
-.sprite-150 { background-position: -30px -62498px; }
-.sprite-151 { background-position: -18px -556px; }
-.sprite-152 { background-position: -18px -732px; }
-.sprite-153 { background-position: -18px -908px; }
-.sprite-154 { background-position: -18px -1084px; }
-.sprite-155 { background-position: -18px -1260px; }
-.sprite-156 { background-position: -18px -1436px; }
-.sprite-157 { background-position: -18px -1612px; }
-.sprite-158 { background-position: -18px -1788px; }
-.sprite-159 { background-position: -18px -1964px; }
-.sprite-160 { background-position: -18px -2140px; }
-.sprite-161 { background-position: -30px -76498px; }
-.sprite-162 { background-position: -30px -80298px; }
-.sprite-163 { background-position: -30px -81698px; }
-.sprite-164 { background-position: -30px -81898px; }
-.sprite-165 { background-position: -30px -82098px; }
-.sprite-166 { background-position: -30px -82298px; }
-.sprite-167 { background-position: -30px -82498px; }
-.sprite-168 { background-position: -30px -82698px; }
-.sprite-169 { background-position: -31px -82898px; }
-.sprite-170 { background-position: -30px -83298px; }
-.sprite-171 { background-position: -30px -83498px; }
-.sprite-172 { background-position: -30px -83898px; }
-.sprite-173 { background-position: -30px -84098px; }
-.sprite-174 { background-position: -30px -84298px; }
-.sprite-175 { background-position: -30px -84498px; }
-.sprite-176 { background-position: -30px -84698px; }
-.sprite-177 { background-position: -30px -84898px; }
-.sprite-178 { background-position: -30px -85098px; }
-.sprite-179 { background-position: -30px -85298px; }
-.sprite-180 { background-position: -30px -85698px; }
-.sprite-181 { background-position: -30px -86298px; }
-.sprite-182 { background-position: -30px -86498px; }
-.sprite-183 { background-position: -30px -86698px; }
-.sprite-184 { background-position: -30px -86898px; }
-.sprite-185 { background-position: -30px -90498px; }
-.sprite-186 { background-position: -30px -92698px; }
-.sprite-187 { background-position: -30px -96298px; }
-.sprite-188 { background-position: -30px -96498px; }
-.sprite-189 { background-position: -30px -98098px; }
-.sprite-190 { background-position: -30px -99898px; }
-.sprite-191 { background-position: -30px -100098px; }
-.sprite-192 { background-position: -30px -106498px; }
-.sprite-193 { background-position: -30px -106698px; }
-.sprite-194 { background-position: -30px -108898px; }
-.sprite-195 { background-position: -30px -109098px; }
-.sprite-196 { background-position: -30px -109298px; }
-.sprite-197 { background-position: -30px -109498px; }
-.sprite-198 { background-position: -30px -109698px; }
-.sprite-199 { background-position: -30px -114098px; }
-.sprite-200 { background-position: -18px -2668px; }
-.sprite-201 { background-position: -18px -2844px; }
-.sprite-202 { background-position: -30px -117698px; }
-.sprite-203 { background-position: -30px -117898px; }
-.sprite-204 { background-position: -30px -118098px; }
-.sprite-205 { background-position: -30px -118298px; }
-.sprite-206 { background-position: -30px -118498px; }
-.sprite-207 { background-position: -30px -118698px; }
-.sprite-208 { background-position: -30px -118898px; }
-.sprite-209 { background-position: -30px -119098px; }
-.sprite-210 { background-position: -30px -21898px; }
-.sprite-211 { background-position: -30px -22098px; }
-.sprite-212 { background-position: -30px -22298px; }
-.sprite-213 { background-position: -30px -22498px; }
-.sprite-214 { background-position: -30px -22698px; }
-.sprite-215 { background-position: -30px -22898px; }
-.sprite-216 { background-position: -30px -23098px; }
-.sprite-217 { background-position: -30px -23298px; }
-.sprite-218 { background-position: -30px -23498px; }
-.sprite-219 { background-position: -30px -23698px; }
-.sprite-220 { background-position: -30px -24098px; }
-.sprite-221 { background-position: -30px -24298px; }
-.sprite-222 { background-position: -30px -24498px; }
-.sprite-223 { background-position: -30px -24698px; }
-.sprite-224 { background-position: -30px -24898px; }
-.sprite-225 { background-position: -30px -25098px; }
-.sprite-226 { background-position: -34px -25298px; }
-.sprite-227 { background-position: -30px -25498px; }
-.sprite-228 { background-position: -30px -25698px; }
-.sprite-229 { background-position: -30px -25898px; }
-.sprite-230 { background-position: -30px -26298px; }
-.sprite-231 { background-position: -30px -26498px; }
-.sprite-232 { background-position: -30px -26698px; }
-.sprite-233 { background-position: -18px -3020px; }
-.sprite-234 { background-position: -18px -3196px; }
-.sprite-235 { background-position: -30px -27298px; }
-.sprite-236 { background-position: -30px -27498px; }
-.sprite-237 { background-position: -30px -27698px; }
-.sprite-238 { background-position: -30px -27898px; }
-.sprite-239 { background-position: -30px -28098px; }
-.sprite-240 { background-position: -30px -28498px; }
-.sprite-241 { background-position: -30px -28698px; }
-.sprite-242 { background-position: -30px -28898px; }
-.sprite-243 { background-position: -18px -3372px; }
-.sprite-244 { background-position: -18px -3548px; }
-.sprite-245 { background-position: -18px -3724px; }
-.sprite-246 { background-position: -30px -29698px; }
-.sprite-247 { background-position: -30px -29898px; }
-.sprite-248 { background-position: -30px -30098px; }
-.sprite-249 { background-position: -18px -3900px; }
-.sprite-250 { background-position: -18px -4076px; }
-.sprite-251 { background-position: -18px -4252px; }
-.sprite-252 { background-position: -18px -4428px; }
-.sprite-253 { background-position: -18px -4604px; }
-.sprite-254 { background-position: -18px -4780px; }
-.sprite-255 { background-position: -30px -31698px; }
-.sprite-256 { background-position: -30px -31898px; }
-.sprite-257 { background-position: -30px -32098px; }
-.sprite-258 { background-position: -18px -4956px; }
-.sprite-259 { background-position: -18px -5132px; }
-.sprite-260 { background-position: -18px -5308px; }
-.sprite-261 { background-position: -30px -33098px; }
-.sprite-262 { background-position: -30px -33298px; }
-.sprite-263 { background-position: -30px -33498px; }
-.sprite-264 { background-position: -30px -33698px; }
-.sprite-265 { background-position: -30px -33898px; }
-.sprite-266 { background-position: -30px -34098px; }
-.sprite-267 { background-position: -30px -34298px; }
-.sprite-268 { background-position: -30px -34498px; }
-.sprite-269 { background-position: -30px -34698px; }
-.sprite-270 { background-position: -30px -35098px; }
-.sprite-271 { background-position: -30px -35298px; }
-.sprite-272 { background-position: -30px -35498px; }
-.sprite-273 { background-position: -30px -35698px; }
-.sprite-274 { background-position: -30px -35898px; }
-.sprite-275 { background-position: -47px -36098px; }
-.sprite-276 { background-position: -30px -36298px; }
-.sprite-277 { background-position: -57px -36498px; }
-.sprite-278 { background-position: -38px -36698px; }
-.sprite-279 { background-position: -30px -36898px; }
-.sprite-280 { background-position: -30px -37298px; }
-.sprite-281 { background-position: -30px -37498px; }
-.sprite-282 { background-position: -30px -37698px; }
-.sprite-283 { background-position: -30px -37898px; }
-.sprite-284 { background-position: -30px -38098px; }
-.sprite-285 { background-position: -30px -38298px; }
-.sprite-286 { background-position: -30px -38498px; }
-.sprite-287 { background-position: -18px -5484px; }
-.sprite-288 { background-position: -18px -5660px; }
-.sprite-289 { background-position: -18px -5836px; }
-.sprite-290 { background-position: -30px -39498px; }
-.sprite-291 { background-position: -30px -39698px; }
-.sprite-292 { background-position: -30px -39898px; }
-.sprite-293 { background-position: -30px -40098px; }
-.sprite-294 { background-position: -30px -40298px; }
-.sprite-295 { background-position: -30px -40498px; }
-.sprite-296 { background-position: -30px -40698px; }
-.sprite-297 { background-position: -30px -40898px; }
-.sprite-298 { background-position: -30px -41098px; }
-.sprite-299 { background-position: -30px -41298px; }
-.sprite-300 { background-position: -30px -41898px; }
-.sprite-301 { background-position: -30px -42098px; }
-.sprite-302 { background-position: -30px -42298px; }
-.sprite-303 { background-position: -30px -42498px; }
-.sprite-304 { background-position: -30px -42698px; }
-.sprite-305 { background-position: -30px -42898px; }
-.sprite-306 { background-position: -30px -43098px; }
-.sprite-307 { background-position: -30px -43298px; }
-.sprite-308 { background-position: -30px -43498px; }
-.sprite-309 { background-position: -30px -43698px; }
-.sprite-310 { background-position: -30px -44098px; }
-.sprite-311 { background-position: -30px -44298px; }
-.sprite-312 { background-position: -30px -44498px; }
-.sprite-313 { background-position: -30px -44698px; }
-.sprite-314 { background-position: -30px -44898px; }
-.sprite-315 { background-position: -30px -45098px; }
-.sprite-316 { background-position: -30px -45298px; }
-.sprite-317 { background-position: -30px -45498px; }
-.sprite-318 { background-position: -30px -45698px; }
-.sprite-319 { background-position: -30px -45898px; }
-.sprite-320 { background-position: -30px -46298px; }
-.sprite-321 { background-position: -48px -46498px; }
-.sprite-322 { background-position: -30px -46698px; }
-.sprite-323 { background-position: -30px -46898px; }
-.sprite-324 { background-position: -30px -47098px; }
-.sprite-325 { background-position: -30px -47298px; }
-.sprite-326 { background-position: -30px -47498px; }
-.sprite-327 { background-position: -30px -47698px; }
-.sprite-328 { background-position: -30px -47898px; }
-.sprite-329 { background-position: -32px -48098px; }
-.sprite-330 { background-position: -34px -48498px; }
-.sprite-331 { background-position: -30px -48698px; }
-.sprite-332 { background-position: -30px -48898px; }
-.sprite-333 { background-position: -30px -49098px; }
-.sprite-334 { background-position: -45px -49298px; }
-.sprite-335 { background-position: -30px -49498px; }
-.sprite-336 { background-position: -30px -49698px; }
-.sprite-337 { background-position: -30px -49898px; }
-.sprite-338 { background-position: -30px -50098px; }
-.sprite-339 { background-position: -30px -50298px; }
-.sprite-340 { background-position: -30px -50698px; }
-.sprite-341 { background-position: -30px -50898px; }
-.sprite-342 { background-position: -30px -51098px; }
-.sprite-343 { background-position: -18px -6012px; }
-.sprite-344 { background-position: -18px -6188px; }
-.sprite-345 { background-position: -30px -51698px; }
-.sprite-346 { background-position: -30px -51898px; }
-.sprite-347 { background-position: -30px -52098px; }
-.sprite-348 { background-position: -30px -52298px; }
-.sprite-349 { background-position: -18px -6364px; }
-.sprite-350 { background-position: -18px -6540px; }
-.sprite-351 { background-position: -18px -6716px; }
-.sprite-352 { background-position: -30px -53298px; }
-.sprite-353 { background-position: -30px -53498px; }
-.sprite-354 { background-position: -30px -53698px; }
-.sprite-355 { background-position: -30px -53898px; }
-.sprite-356 { background-position: -30px -54098px; }
-.sprite-357 { background-position: -69px -54298px; }
-.sprite-358 { background-position: -30px -54498px; }
-.sprite-359 { background-position: -30px -54698px; }
-.sprite-360 { background-position: -30px -55098px; }
-.sprite-361 { background-position: -30px -55298px; }
-.sprite-362 { background-position: -30px -55498px; }
-.sprite-363 { background-position: -30px -55698px; }
-.sprite-364 { background-position: -30px -55898px; }
-.sprite-365 { background-position: -30px -56098px; }
-.sprite-366 { background-position: -30px -56298px; }
-.sprite-367 { background-position: -30px -56498px; }
-.sprite-368 { background-position: -30px -56698px; }
-.sprite-369 { background-position: -30px -56898px; }
-.sprite-370 { background-position: -30px -57298px; }
-.sprite-371 { background-position: -30px -57498px; }
-.sprite-372 { background-position: -30px -57698px; }
-.sprite-373 { background-position: -41px -57898px; }
-.sprite-374 { background-position: -30px -58098px; }
-.sprite-375 { background-position: -30px -58298px; }
-.sprite-376 { background-position: -47px -58498px; }
-.sprite-377 { background-position: -18px -6892px; }
-.sprite-378 { background-position: -18px -7068px; }
-.sprite-379 { background-position: -18px -7244px; }
-.sprite-380 { background-position: -18px -7420px; }
-.sprite-381 { background-position: -18px -7596px; }
-.sprite-382 { background-position: -18px -7772px; }
-.sprite-383 { background-position: -18px -7948px; }
-.sprite-384 { background-position: -18px -8124px; }
-.sprite-385 { background-position: -18px -8300px; }
-.sprite-386 { background-position: -18px -8476px; }
-.sprite-387 { background-position: -18px -8652px; }
-.sprite-388 { background-position: -18px -8828px; }
-.sprite-389 { background-position: -18px -9004px; }
-.sprite-390 { background-position: -18px -9180px; }
-.sprite-391 { background-position: -18px -9356px; }
-.sprite-392 { background-position: -18px -9532px; }
-.sprite-393 { background-position: -18px -9708px; }
-.sprite-394 { background-position: -18px -9884px; }
-.sprite-395 { background-position: -18px -10060px; }
-.sprite-396 { background-position: -30px -62898px; }
-.sprite-397 { background-position: -34px -63098px; }
-.sprite-398 { background-position: -66px -63298px; }
-.sprite-399 { background-position: -30px -63498px; }
-.sprite-400 { background-position: -30px -64098px; }
-.sprite-401 { background-position: -18px -10236px; }
-.sprite-402 { background-position: -18px -10412px; }
-.sprite-403 { background-position: -30px -64698px; }
-.sprite-404 { background-position: -30px -64898px; }
-.sprite-405 { background-position: -30px -65098px; }
-.sprite-406 { background-position: -30px -65298px; }
-.sprite-407 { background-position: -30px -65498px; }
-.sprite-408 { background-position: -30px -65698px; }
-.sprite-409 { background-position: -30px -65898px; }
-.sprite-410 { background-position: -30px -66298px; }
-.sprite-411 { background-position: -30px -66498px; }
-.sprite-412 { background-position: -30px -66698px; }
-.sprite-413 { background-position: -30px -66898px; }
-.sprite-414 { background-position: -41px -67098px; }
-.sprite-415 { background-position: -30px -67298px; }
-.sprite-416 { background-position: -30px -67498px; }
-.sprite-417 { background-position: -30px -67698px; }
-.sprite-418 { background-position: -30px -67898px; }
-.sprite-419 { background-position: -30px -68098px; }
-.sprite-420 { background-position: -18px -10588px; }
-.sprite-421 { background-position: -18px -204px; }
-.sprite-422 { background-position: -30px -21698px; }
-.sprite-423 { background-position: -30px -69098px; }
-.sprite-424 { background-position: -30px -69298px; }
-.sprite-425 { background-position: -30px -69498px; }
-.sprite-426 { background-position: -30px -69698px; }
-.sprite-427 { background-position: -18px -10940px; }
-.sprite-428 { background-position: -18px -11116px; }
-.sprite-429 { background-position: -18px -11292px; }
-.sprite-430 { background-position: -49px -70698px; }
-.sprite-431 { background-position: -18px -11468px; }
-.sprite-432 { background-position: -18px -11644px; }
-.sprite-433 { background-position: -30px -71298px; }
-.sprite-434 { background-position: -30px -71498px; }
-.sprite-435 { background-position: -30px -71698px; }
-.sprite-436 { background-position: -30px -71898px; }
-.sprite-437 { background-position: -30px -72098px; }
-.sprite-438 { background-position: -30px -72298px; }
-.sprite-439 { background-position: -30px -72498px; }
-.sprite-440 { background-position: -30px -72898px; }
-.sprite-441 { background-position: -30px -73098px; }
-.sprite-442 { background-position: -30px -73298px; }
-.sprite-443 { background-position: -30px -73498px; }
-.sprite-444 { background-position: -30px -73698px; }
-.sprite-445 { background-position: -30px -73898px; }
-.sprite-446 { background-position: -30px -74098px; }
-.sprite-447 { background-position: -30px -74298px; }
-.sprite-448 { background-position: -30px -74498px; }
-.sprite-449 { background-position: -30px -74698px; }
-.sprite-450 { background-position: -30px -75098px; }
-.sprite-451 { background-position: -30px -75298px; }
-.sprite-452 { background-position: -38px -75498px; }
-.sprite-453 { background-position: -30px -75698px; }
-.sprite-454 { background-position: -30px -75898px; }
-.sprite-455 { background-position: -30px -76098px; }
-.sprite-456 { background-position: -18px -11820px; }
-.sprite-457 { background-position: -18px -11996px; }
-.sprite-458 { background-position: -30px -76698px; }
-.sprite-459 { background-position: -30px -76898px; }
-.sprite-460 { background-position: -38px -77298px; }
-.sprite-461 { background-position: -30px -77498px; }
-.sprite-462 { background-position: -30px -77698px; }
-.sprite-463 { background-position: -30px -77898px; }
-.sprite-464 { background-position: -30px -78098px; }
-.sprite-465 { background-position: -43px -78298px; }
-.sprite-466 { background-position: -30px -78498px; }
-.sprite-467 { background-position: -30px -78698px; }
-.sprite-468 { background-position: -30px -78898px; }
-.sprite-469 { background-position: -43px -79098px; }
-.sprite-470 { background-position: -30px -79498px; }
-.sprite-471 { background-position: -30px -79698px; }
-.sprite-472 { background-position: -30px -79898px; }
-.sprite-473 { background-position: -30px -80098px; }
-.sprite-474 { background-position: -18px -12172px; }
-.sprite-475 { background-position: -30px -80498px; }
-.sprite-476 { background-position: -30px -80698px; }
-.sprite-477 { background-position: -30px -80898px; }
-.sprite-478 { background-position: -30px -81098px; }
-.sprite-479 { background-position: -30px -81298px; }
-.sprite-480 { background-position: -18px -12348px; }
-.sprite-481 { background-position: -18px -12524px; }
-.sprite-482 { background-position: -18px -12700px; }
-.sprite-483 { background-position: -18px -12876px; }
-.sprite-484 { background-position: -18px -13052px; }
-.sprite-485 { background-position: -18px -13228px; }
-.sprite-486 { background-position: -18px -13404px; }
-.sprite-487 { background-position: -18px -13580px; }
-.sprite-488 { background-position: -18px -13756px; }
-.sprite-489 { background-position: -18px -13932px; }
-.sprite-490 { background-position: -18px -14108px; }
-.sprite-491 { background-position: -18px -14284px; }
-.sprite-492 { background-position: -18px -14460px; }
-.sprite-493 { background-position: -18px -14636px; }
-.sprite-494 { background-position: -18px -14812px; }
-.sprite-495 { background-position: -18px -14988px; }
-.sprite-496 { background-position: -18px -15164px; }
-.sprite-497 { background-position: -18px -15340px; }
-.sprite-498 { background-position: -18px -15516px; }
-.sprite-499 { background-position: -18px -15692px; }
-.sprite-500 { background-position: -18px -15868px; }
-.sprite-501 { background-position: -18px -16044px; }
-.sprite-502 { background-position: -18px -16220px; }
-.sprite-503 { background-position: -18px -16396px; }
-.sprite-504 { background-position: -30px -87098px; }
-.sprite-505 { background-position: -30px -87298px; }
-.sprite-506 { background-position: -30px -87498px; }
-.sprite-507 { background-position: -30px -87698px; }
-.sprite-508 { background-position: -30px -87898px; }
-.sprite-509 { background-position: -30px -88098px; }
-.sprite-510 { background-position: -30px -88498px; }
-.sprite-511 { background-position: -30px -88698px; }
-.sprite-512 { background-position: -30px -88898px; }
-.sprite-513 { background-position: -30px -89098px; }
-.sprite-514 { background-position: -30px -89298px; }
-.sprite-515 { background-position: -30px -89498px; }
-.sprite-516 { background-position: -30px -89698px; }
-.sprite-517 { background-position: -30px -89898px; }
-.sprite-518 { background-position: -30px -90098px; }
-.sprite-519 { background-position: -30px -90298px; }
-.sprite-520 { background-position: -34px -90698px; }
-.sprite-521 { background-position: -42px -90898px; }
-.sprite-522 { background-position: -30px -91098px; }
-.sprite-523 { background-position: -30px -91298px; }
-.sprite-524 { background-position: -30px -91498px; }
-.sprite-525 { background-position: -30px -91698px; }
-.sprite-526 { background-position: -30px -91898px; }
-.sprite-527 { background-position: -30px -92098px; }
-.sprite-528 { background-position: -30px -92298px; }
-.sprite-529 { background-position: -30px -92498px; }
-.sprite-530 { background-position: -30px -92898px; }
-.sprite-531 { background-position: -30px -93098px; }
-.sprite-532 { background-position: -30px -93298px; }
-.sprite-533 { background-position: -30px -93498px; }
-.sprite-534 { background-position: -36px -93698px; }
-.sprite-535 { background-position: -30px -93898px; }
-.sprite-536 { background-position: -30px -94098px; }
-.sprite-537 { background-position: -30px -94298px; }
-.sprite-538 { background-position: -30px -94498px; }
-.sprite-539 { background-position: -30px -94698px; }
-.sprite-540 { background-position: -30px -95098px; }
-.sprite-541 { background-position: -30px -95298px; }
-.sprite-542 { background-position: -30px -95498px; }
-.sprite-543 { background-position: -30px -95698px; }
-.sprite-544 { background-position: -30px -95898px; }
-.sprite-545 { background-position: -30px -96098px; }
-.sprite-546 { background-position: -18px -16924px; }
-.sprite-547 { background-position: -18px -17100px; }
-.sprite-548 { background-position: -30px -96698px; }
-.sprite-549 { background-position: -30px -96898px; }
-.sprite-550 { background-position: -30px -97298px; }
-.sprite-551 { background-position: -30px -97498px; }
-.sprite-552 { background-position: -30px -97698px; }
-.sprite-553 { background-position: -30px -97898px; }
-.sprite-554 { background-position: -18px -17276px; }
-.sprite-555 { background-position: -18px -17452px; }
-.sprite-556 { background-position: -30px -98498px; }
-.sprite-557 { background-position: -30px -98698px; }
-.sprite-558 { background-position: -30px -98898px; }
-.sprite-559 { background-position: -30px -99098px; }
-.sprite-560 { background-position: -30px -99498px; }
-.sprite-561 { background-position: -30px -99698px; }
-.sprite-562 { background-position: -18px -17628px; }
-.sprite-563 { background-position: -18px -17804px; }
-.sprite-564 { background-position: -30px -100298px; }
-.sprite-565 { background-position: -30px -100498px; }
-.sprite-566 { background-position: -30px -100698px; }
-.sprite-567 { background-position: -30px -100898px; }
-.sprite-568 { background-position: -30px -101098px; }
-.sprite-569 { background-position: -33px -101298px; }
-.sprite-570 { background-position: -30px -101698px; }
-.sprite-571 { background-position: -30px -101898px; }
-.sprite-572 { background-position: -30px -102098px; }
-.sprite-573 { background-position: -30px -102298px; }
-.sprite-574 { background-position: -30px -102498px; }
-.sprite-575 { background-position: -30px -102698px; }
-.sprite-576 { background-position: -30px -102898px; }
-.sprite-577 { background-position: -30px -103098px; }
-.sprite-578 { background-position: -30px -103298px; }
-.sprite-579 { background-position: -48px -103498px; }
-.sprite-580 { background-position: -30px -103898px; }
-.sprite-581 { background-position: -30px -140116px; }
-.sprite-582 { background-position: -30px -104298px; }
-.sprite-583 { background-position: -30px -104498px; }
-.sprite-584 { background-position: -30px -104698px; }
-.sprite-585 { background-position: -30px -104898px; }
-.sprite-586 { background-position: -30px -105098px; }
-.sprite-587 { background-position: -30px -105298px; }
-.sprite-588 { background-position: -30px -105498px; }
-.sprite-589 { background-position: -30px -105698px; }
-.sprite-590 { background-position: -30px -106098px; }
-.sprite-591 { background-position: -30px -106298px; }
-.sprite-592 { background-position: -18px -17980px; }
-.sprite-593 { background-position: -18px -18156px; }
-.sprite-594 { background-position: -30px -106898px; }
-.sprite-595 { background-position: -30px -107098px; }
-.sprite-596 { background-position: -30px -107298px; }
-.sprite-597 { background-position: -30px -107498px; }
-.sprite-598 { background-position: -40px -107698px; }
-.sprite-599 { background-position: -30px -107898px; }
-.sprite-600 { background-position: -30px -108498px; }
-.sprite-601 { background-position: -30px -108698px; }
-.sprite-602 { background-position: -18px -18332px; }
-.sprite-603 { background-position: -18px -18508px; }
-.sprite-604 { background-position: -18px -18684px; }
-.sprite-605 { background-position: -18px -18860px; }
-.sprite-606 { background-position: -18px -19036px; }
-.sprite-607 { background-position: -30px -109898px; }
-.sprite-608 { background-position: -30px -110098px; }
-.sprite-609 { background-position: -30px -110298px; }
-.sprite-610 { background-position: -30px -110698px; }
-.sprite-611 { background-position: -30px -110898px; }
-.sprite-612 { background-position: -30px -111098px; }
-.sprite-613 { background-position: -30px -111298px; }
-.sprite-614 { background-position: -30px -111498px; }
-.sprite-615 { background-position: -30px -111698px; }
-.sprite-616 { background-position: -30px -111898px; }
-.sprite-617 { background-position: -30px -112098px; }
-.sprite-618 { background-position: -30px -112298px; }
-.sprite-619 { background-position: -30px -112498px; }
-.sprite-620 { background-position: -30px -112898px; }
-.sprite-621 { background-position: -33px -113098px; }
-.sprite-622 { background-position: -30px -113298px; }
-.sprite-623 { background-position: -30px -113498px; }
-.sprite-624 { background-position: -30px -113698px; }
-.sprite-625 { background-position: -30px -113898px; }
-.sprite-626 { background-position: -18px -19212px; }
-.sprite-627 { background-position: -30px -114298px; }
-.sprite-628 { background-position: -57px -114498px; }
-.sprite-629 { background-position: -30px -114698px; }
-.sprite-630 { background-position: -30px -115098px; }
-.sprite-631 { background-position: -30px -115298px; }
-.sprite-632 { background-position: -30px -115498px; }
-.sprite-633 { background-position: -30px -115698px; }
-.sprite-634 { background-position: -30px -115898px; }
-.sprite-635 { background-position: -38px -116098px; }
-.sprite-636 { background-position: -30px -116298px; }
-.sprite-637 { background-position: -37px -116498px; }
-.sprite-638 { background-position: -18px -19388px; }
-.sprite-639 { background-position: -18px -19564px; }
-.sprite-640 { background-position: -18px -19740px; }
-.sprite-641 { background-position: -18px -19916px; }
-.sprite-642 { background-position: -18px -20092px; }
-.sprite-643 { background-position: -18px -20268px; }
-.sprite-644 { background-position: -18px -20444px; }
-.sprite-645 { background-position: -18px -20620px; }
-.sprite-646 { background-position: -18px -20796px; }
-.sprite-647 { background-position: -18px -20972px; }
-.sprite-648 { background-position: -18px -21148px; }
-.sprite-649 { background-position: -18px -21324px; }
-.sprite-650 { background-position: -30px -119498px; }
-.sprite-651 { background-position: -30px -119698px; }
-.sprite-652 { background-position: -33px -21505px; }
-.sprite-653 { background-position: -30px -120098px; }
-.sprite-654 { background-position: -30px -120298px; }
-.sprite-655 { background-position: -30px -120498px; }
-.sprite-656 { background-position: -30px -120698px; }
-.sprite-657 { background-position: -30px -120898px; }
-.sprite-658 { background-position: -41px -121098px; }
-.sprite-659 { background-position: -30px -121298px; }
-.sprite-660 { background-position: -34px -121698px; }
-.sprite-661 { background-position: -30px -121898px; }
-.sprite-662 { background-position: -30px -122098px; }
-.sprite-663 { background-position: -52px -122298px; }
-.sprite-664 { background-position: -30px -122498px; }
-.sprite-665 { background-position: -30px -122698px; }
-.sprite-666 { background-position: -30px -122898px; }
-.sprite-667 { background-position: -30px -123098px; }
-.sprite-668 { background-position: -30px -123298px; }
-.sprite-669 { background-position: -30px -123498px; }
-.sprite-670 { background-position: -30px -123898px; }
-.sprite-671 { background-position: -30px -124098px; }
-.sprite-672 { background-position: -30px -124298px; }
-.sprite-673 { background-position: -30px -124498px; }
-.sprite-674 { background-position: -30px -124698px; }
-.sprite-675 { background-position: -30px -124898px; }
-.sprite-676 { background-position: -30px -125098px; }
-.sprite-677 { background-position: -30px -125298px; }
-.sprite-678 { background-position: -30px -125498px; }
-.sprite-679 { background-position: -30px -125698px; }
-.sprite-680 { background-position: -30px -126098px; }
-.sprite-681 { background-position: -30px -126298px; }
-.sprite-682 { background-position: -30px -126498px; }
-.sprite-683 { background-position: -30px -126698px; }
-.sprite-684 { background-position: -30px -126898px; }
-.sprite-685 { background-position: -30px -127098px; }
-.sprite-686 { background-position: -30px -127298px; }
-.sprite-687 { background-position: -30px -127498px; }
-.sprite-688 { background-position: -30px -127698px; }
-.sprite-689 { background-position: -33px -127898px; }
-.sprite-690 { background-position: -30px -128298px; }
-.sprite-691 { background-position: -32px -139699px; }
-.sprite-692 { background-position: -30px -128698px; }
-.sprite-693 { background-position: -30px -128898px; }
-.sprite-694 { background-position: -30px -129098px; }
-.sprite-695 { background-position: -30px -129298px; }
-.sprite-696 { background-position: -30px -129498px; }
-.sprite-697 { background-position: -30px -129698px; }
-.sprite-698 { background-position: -30px -129898px; }
-.sprite-699 { background-position: -30px -139905px; }
-.sprite-700 { background-position: -30px -130698px; }
-.sprite-701 { background-position: -30px -130898px; }
-.sprite-702 { background-position: -30px -131098px; }
-.sprite-703 { background-position: -30px -131298px; }
-.sprite-704 { background-position: -30px -131498px; }
-.sprite-705 { background-position: -30px -131698px; }
-.sprite-706 { background-position: -30px -131898px; }
-.sprite-707 { background-position: -30px -132098px; }
-.sprite-708 { background-position: -30px -132298px; }
-.sprite-709 { background-position: -30px -132498px; }
-.sprite-710 { background-position: -30px -132898px; }
-.sprite-711 { background-position: -30px -133098px; }
-.sprite-712 { background-position: -30px -133298px; }
-.sprite-713 { background-position: -35px -133498px; }
-.sprite-714 { background-position: -30px -133698px; }
-.sprite-715 { background-position: -31px -133898px; }
-.sprite-716 { background-position: -21px -140331px; }
-.sprite-717 { background-position: -58px -134298px; }
-.sprite-718 { background-position: -34px -140550px; }
+.sprite-1 { background-image: url(../img/1.png); }
+.sprite-2 { background-image: url(../img/2.png); }
+.sprite-3 { background-image: url(../img/3.png); }
+.sprite-4 { background-image: url(../img/4.png); }
+.sprite-5 { background-image: url(../img/5.png); }
+.sprite-6 { background-image: url(../img/6.png); }
+.sprite-7 { background-image: url(../img/7.png); }
+.sprite-8 { background-image: url(../img/8.png); }
+.sprite-9 { background-image: url(../img/9.png); }
+.sprite-10 { background-image: url(../img/10.png); }
+.sprite-11 { background-image: url(../img/11.png); }
+.sprite-12 { background-image: url(../img/12.png); }
+.sprite-13 { background-image: url(../img/13.png); }
+.sprite-14 { background-image: url(../img/14.png); }
+.sprite-15 { background-image: url(../img/15.png); }
+.sprite-16 { background-image: url(../img/16.png); }
+.sprite-17 { background-image: url(../img/17.png); }
+.sprite-18 { background-image: url(../img/18.png); }
+.sprite-19 { background-image: url(../img/19.png); }
+.sprite-20 { background-image: url(../img/20.png); }
+.sprite-21 { background-image: url(../img/21.png); }
+.sprite-22 { background-image: url(../img/22.png); }
+.sprite-23 { background-image: url(../img/23.png); }
+.sprite-24 { background-image: url(../img/24.png); }
+.sprite-25 { background-image: url(../img/25.png); }
+.sprite-26 { background-image: url(../img/26.png); }
+.sprite-27 { background-image: url(../img/27.png); }
+.sprite-28 { background-image: url(../img/28.png); }
+.sprite-29 { background-image: url(../img/29.png); }
+.sprite-30 { background-image: url(../img/30.png); }
+.sprite-31 { background-image: url(../img/31.png); }
+.sprite-32 { background-image: url(../img/32.png); }
+.sprite-33 { background-image: url(../img/33.png); }
+.sprite-34 { background-image: url(../img/34.png); }
+.sprite-35 { background-image: url(../img/35.png); }
+.sprite-36 { background-image: url(../img/36.png); }
+.sprite-37 { background-image: url(../img/37.png); }
+.sprite-38 { background-image: url(../img/38.png); }
+.sprite-39 { background-image: url(../img/39.png); }
+.sprite-40 { background-image: url(../img/40.png); }
+.sprite-41 { background-image: url(../img/41.png); }
+.sprite-42 { background-image: url(../img/42.png); }
+.sprite-43 { background-image: url(../img/43.png); }
+.sprite-44 { background-image: url(../img/44.png); }
+.sprite-45 { background-image: url(../img/45.png); }
+.sprite-46 { background-image: url(../img/46.png); }
+.sprite-47 { background-image: url(../img/47.png); }
+.sprite-48 { background-image: url(../img/48.png); }
+.sprite-49 { background-image: url(../img/49.png); }
+.sprite-50 { background-image: url(../img/50.png); }
+.sprite-51 { background-image: url(../img/51.png); }
+.sprite-52 { background-image: url(../img/52.png); }
+.sprite-53 { background-image: url(../img/53.png); }
+.sprite-54 { background-image: url(../img/54.png); }
+.sprite-55 { background-image: url(../img/55.png); }
+.sprite-56 { background-image: url(../img/56.png); }
+.sprite-57 { background-image: url(../img/57.png); }
+.sprite-58 { background-image: url(../img/58.png); }
+.sprite-59 { background-image: url(../img/59.png); }
+.sprite-60 { background-image: url(../img/60.png); }
+.sprite-61 { background-image: url(../img/61.png); }
+.sprite-62 { background-image: url(../img/62.png); }
+.sprite-63 { background-image: url(../img/63.png); }
+.sprite-64 { background-image: url(../img/64.png); }
+.sprite-65 { background-image: url(../img/65.png); }
+.sprite-66 { background-image: url(../img/66.png); }
+.sprite-67 { background-image: url(../img/67.png); }
+.sprite-68 { background-image: url(../img/68.png); }
+.sprite-69 { background-image: url(../img/69.png); }
+.sprite-70 { background-image: url(../img/70.png); }
+.sprite-71 { background-image: url(../img/71.png); }
+.sprite-72 { background-image: url(../img/72.png); }
+.sprite-73 { background-image: url(../img/73.png); }
+.sprite-74 { background-image: url(../img/74.png); }
+.sprite-75 { background-image: url(../img/75.png); }
+.sprite-76 { background-image: url(../img/76.png); }
+.sprite-77 { background-image: url(../img/77.png); }
+.sprite-78 { background-image: url(../img/78.png); }
+.sprite-79 { background-image: url(../img/79.png); }
+.sprite-80 { background-image: url(../img/80.png); }
+.sprite-81 { background-image: url(../img/81.png); }
+.sprite-82 { background-image: url(../img/82.png); }
+.sprite-83 { background-image: url(../img/83.png); }
+.sprite-84 { background-image: url(../img/84.png); }
+.sprite-85 { background-image: url(../img/85.png); }
+.sprite-86 { background-image: url(../img/86.png); }
+.sprite-87 { background-image: url(../img/87.png); }
+.sprite-88 { background-image: url(../img/88.png); }
+.sprite-89 { background-image: url(../img/89.png); }
+.sprite-90 { background-image: url(../img/90.png); }
+.sprite-91 { background-image: url(../img/91.png); }
+.sprite-92 { background-image: url(../img/92.png); }
+.sprite-93 { background-image: url(../img/93.png); }
+.sprite-94 { background-image: url(../img/94.png); }
+.sprite-95 { background-image: url(../img/95.png); }
+.sprite-96 { background-image: url(../img/96.png); }
+.sprite-97 { background-image: url(../img/97.png); }
+.sprite-98 { background-image: url(../img/98.png); }
+.sprite-99 { background-image: url(../img/99.png); }
+.sprite-100 { background-image: url(../img/100.png); }
+.sprite-101 { background-image: url(../img/101.png); }
+.sprite-102 { background-image: url(../img/102.png); }
+.sprite-103 { background-image: url(../img/103.png); }
+.sprite-104 { background-image: url(../img/104.png); }
+.sprite-105 { background-image: url(../img/105.png); }
+.sprite-106 { background-image: url(../img/106.png); }
+.sprite-107 { background-image: url(../img/107.png); }
+.sprite-108 { background-image: url(../img/108.png); }
+.sprite-109 { background-image: url(../img/109.png); }
+.sprite-110 { background-image: url(../img/110.png); }
+.sprite-111 { background-image: url(../img/111.png); }
+.sprite-112 { background-image: url(../img/112.png); }
+.sprite-113 { background-image: url(../img/113.png); }
+.sprite-114 { background-image: url(../img/114.png); }
+.sprite-115 { background-image: url(../img/115.png); }
+.sprite-116 { background-image: url(../img/116.png); }
+.sprite-117 { background-image: url(../img/117.png); }
+.sprite-118 { background-image: url(../img/118.png); }
+.sprite-119 { background-image: url(../img/119.png); }
+.sprite-120 { background-image: url(../img/120.png); }
+.sprite-121 { background-image: url(../img/121.png); }
+.sprite-122 { background-image: url(../img/122.png); }
+.sprite-123 { background-image: url(../img/123.png); }
+.sprite-124 { background-image: url(../img/124.png); }
+.sprite-125 { background-image: url(../img/125.png); }
+.sprite-126 { background-image: url(../img/126.png); }
+.sprite-127 { background-image: url(../img/127.png); }
+.sprite-128 { background-image: url(../img/128.png); }
+.sprite-129 { background-image: url(../img/129.png); }
+.sprite-130 { background-image: url(../img/130.png); }
+.sprite-131 { background-image: url(../img/131.png); }
+.sprite-132 { background-image: url(../img/132.png); }
+.sprite-133 { background-image: url(../img/133.png); }
+.sprite-134 { background-image: url(../img/134.png); }
+.sprite-135 { background-image: url(../img/135.png); }
+.sprite-136 { background-image: url(../img/136.png); }
+.sprite-137 { background-image: url(../img/137.png); }
+.sprite-138 { background-image: url(../img/138.png); }
+.sprite-139 { background-image: url(../img/139.png); }
+.sprite-140 { background-image: url(../img/140.png); }
+.sprite-141 { background-image: url(../img/141.png); }
+.sprite-142 { background-image: url(../img/142.png); }
+.sprite-143 { background-image: url(../img/143.png); }
+.sprite-144 { background-image: url(../img/144.png); }
+.sprite-145 { background-image: url(../img/145.png); }
+.sprite-146 { background-image: url(../img/146.png); }
+.sprite-147 { background-image: url(../img/147.png); }
+.sprite-148 { background-image: url(../img/148.png); }
+.sprite-149 { background-image: url(../img/149.png); }
+.sprite-150 { background-image: url(../img/150.png); }
+.sprite-151 { background-image: url(../img/151.png); }
+.sprite-152 { background-image: url(../img/152.png); }
+.sprite-153 { background-image: url(../img/153.png); }
+.sprite-154 { background-image: url(../img/154.png); }
+.sprite-155 { background-image: url(../img/155.png); }
+.sprite-156 { background-image: url(../img/156.png); }
+.sprite-157 { background-image: url(../img/157.png); }
+.sprite-158 { background-image: url(../img/158.png); }
+.sprite-159 { background-image: url(../img/159.png); }
+.sprite-160 { background-image: url(../img/160.png); }
+.sprite-161 { background-image: url(../img/161.png); }
+.sprite-162 { background-image: url(../img/162.png); }
+.sprite-163 { background-image: url(../img/163.png); }
+.sprite-164 { background-image: url(../img/164.png); }
+.sprite-165 { background-image: url(../img/165.png); }
+.sprite-166 { background-image: url(../img/166.png); }
+.sprite-167 { background-image: url(../img/167.png); }
+.sprite-168 { background-image: url(../img/168.png); }
+.sprite-169 { background-image: url(../img/169.png); }
+.sprite-170 { background-image: url(../img/170.png); }
+.sprite-171 { background-image: url(../img/171.png); }
+.sprite-172 { background-image: url(../img/172.png); }
+.sprite-173 { background-image: url(../img/173.png); }
+.sprite-174 { background-image: url(../img/174.png); }
+.sprite-175 { background-image: url(../img/175.png); }
+.sprite-176 { background-image: url(../img/176.png); }
+.sprite-177 { background-image: url(../img/177.png); }
+.sprite-178 { background-image: url(../img/178.png); }
+.sprite-179 { background-image: url(../img/179.png); }
+.sprite-180 { background-image: url(../img/180.png); }
+.sprite-181 { background-image: url(../img/181.png); }
+.sprite-182 { background-image: url(../img/182.png); }
+.sprite-183 { background-image: url(../img/183.png); }
+.sprite-184 { background-image: url(../img/184.png); }
+.sprite-185 { background-image: url(../img/185.png); }
+.sprite-186 { background-image: url(../img/186.png); }
+.sprite-187 { background-image: url(../img/187.png); }
+.sprite-188 { background-image: url(../img/188.png); }
+.sprite-189 { background-image: url(../img/189.png); }
+.sprite-190 { background-image: url(../img/190.png); }
+.sprite-191 { background-image: url(../img/191.png); }
+.sprite-192 { background-image: url(../img/192.png); }
+.sprite-193 { background-image: url(../img/193.png); }
+.sprite-194 { background-image: url(../img/194.png); }
+.sprite-195 { background-image: url(../img/195.png); }
+.sprite-196 { background-image: url(../img/196.png); }
+.sprite-197 { background-image: url(../img/197.png); }
+.sprite-198 { background-image: url(../img/198.png); }
+.sprite-199 { background-image: url(../img/199.png); }
+.sprite-200 { background-image: url(../img/200.png); }
+.sprite-201 { background-image: url(../img/201.png); }
+.sprite-202 { background-image: url(../img/202.png); }
+.sprite-203 { background-image: url(../img/203.png); }
+.sprite-204 { background-image: url(../img/204.png); }
+.sprite-205 { background-image: url(../img/205.png); }
+.sprite-206 { background-image: url(../img/206.png); }
+.sprite-207 { background-image: url(../img/207.png); }
+.sprite-208 { background-image: url(../img/208.png); }
+.sprite-209 { background-image: url(../img/209.png); }
+.sprite-210 { background-image: url(../img/210.png); }
+.sprite-211 { background-image: url(../img/211.png); }
+.sprite-212 { background-image: url(../img/212.png); }
+.sprite-213 { background-image: url(../img/213.png); }
+.sprite-214 { background-image: url(../img/214.png); }
+.sprite-215 { background-image: url(../img/215.png); }
+.sprite-216 { background-image: url(../img/216.png); }
+.sprite-217 { background-image: url(../img/217.png); }
+.sprite-218 { background-image: url(../img/218.png); }
+.sprite-219 { background-image: url(../img/219.png); }
+.sprite-220 { background-image: url(../img/220.png); }
+.sprite-221 { background-image: url(../img/221.png); }
+.sprite-222 { background-image: url(../img/222.png); }
+.sprite-223 { background-image: url(../img/223.png); }
+.sprite-224 { background-image: url(../img/224.png); }
+.sprite-225 { background-image: url(../img/225.png); }
+.sprite-226 { background-image: url(../img/226.png); }
+.sprite-227 { background-image: url(../img/227.png); }
+.sprite-228 { background-image: url(../img/228.png); }
+.sprite-229 { background-image: url(../img/229.png); }
+.sprite-230 { background-image: url(../img/230.png); }
+.sprite-231 { background-image: url(../img/231.png); }
+.sprite-232 { background-image: url(../img/232.png); }
+.sprite-233 { background-image: url(../img/233.png); }
+.sprite-234 { background-image: url(../img/234.png); }
+.sprite-235 { background-image: url(../img/235.png); }
+.sprite-236 { background-image: url(../img/236.png); }
+.sprite-237 { background-image: url(../img/237.png); }
+.sprite-238 { background-image: url(../img/238.png); }
+.sprite-239 { background-image: url(../img/239.png); }
+.sprite-240 { background-image: url(../img/240.png); }
+.sprite-241 { background-image: url(../img/241.png); }
+.sprite-242 { background-image: url(../img/242.png); }
+.sprite-243 { background-image: url(../img/243.png); }
+.sprite-244 { background-image: url(../img/244.png); }
+.sprite-245 { background-image: url(../img/245.png); }
+.sprite-246 { background-image: url(../img/246.png); }
+.sprite-247 { background-image: url(../img/247.png); }
+.sprite-248 { background-image: url(../img/248.png); }
+.sprite-249 { background-image: url(../img/249.png); }
+.sprite-250 { background-image: url(../img/250.png); }
+.sprite-251 { background-image: url(../img/251.png); }
+.sprite-252 { background-image: url(../img/252.png); }
+.sprite-253 { background-image: url(../img/253.png); }
+.sprite-254 { background-image: url(../img/254.png); }
+.sprite-255 { background-image: url(../img/255.png); }
+.sprite-256 { background-image: url(../img/256.png); }
+.sprite-257 { background-image: url(../img/257.png); }
+.sprite-258 { background-image: url(../img/258.png); }
+.sprite-259 { background-image: url(../img/259.png); }
+.sprite-260 { background-image: url(../img/260.png); }
+.sprite-261 { background-image: url(../img/261.png); }
+.sprite-262 { background-image: url(../img/262.png); }
+.sprite-263 { background-image: url(../img/263.png); }
+.sprite-264 { background-image: url(../img/264.png); }
+.sprite-265 { background-image: url(../img/265.png); }
+.sprite-266 { background-image: url(../img/266.png); }
+.sprite-267 { background-image: url(../img/267.png); }
+.sprite-268 { background-image: url(../img/268.png); }
+.sprite-269 { background-image: url(../img/269.png); }
+.sprite-270 { background-image: url(../img/270.png); }
+.sprite-271 { background-image: url(../img/271.png); }
+.sprite-272 { background-image: url(../img/272.png); }
+.sprite-273 { background-image: url(../img/273.png); }
+.sprite-274 { background-image: url(../img/274.png); }
+.sprite-275 { background-image: url(../img/275.png); }
+.sprite-276 { background-image: url(../img/276.png); }
+.sprite-277 { background-image: url(../img/277.png); }
+.sprite-278 { background-image: url(../img/278.png); }
+.sprite-279 { background-image: url(../img/279.png); }
+.sprite-280 { background-image: url(../img/280.png); }
+.sprite-281 { background-image: url(../img/281.png); }
+.sprite-282 { background-image: url(../img/282.png); }
+.sprite-283 { background-image: url(../img/283.png); }
+.sprite-284 { background-image: url(../img/284.png); }
+.sprite-285 { background-image: url(../img/285.png); }
+.sprite-286 { background-image: url(../img/286.png); }
+.sprite-287 { background-image: url(../img/287.png); }
+.sprite-288 { background-image: url(../img/288.png); }
+.sprite-289 { background-image: url(../img/289.png); }
+.sprite-290 { background-image: url(../img/290.png); }
+.sprite-291 { background-image: url(../img/291.png); }
+.sprite-292 { background-image: url(../img/292.png); }
+.sprite-293 { background-image: url(../img/293.png); }
+.sprite-294 { background-image: url(../img/294.png); }
+.sprite-295 { background-image: url(../img/295.png); }
+.sprite-296 { background-image: url(../img/296.png); }
+.sprite-297 { background-image: url(../img/297.png); }
+.sprite-298 { background-image: url(../img/298.png); }
+.sprite-299 { background-image: url(../img/299.png); }
+.sprite-300 { background-image: url(../img/300.png); }
+.sprite-301 { background-image: url(../img/301.png); }
+.sprite-302 { background-image: url(../img/302.png); }
+.sprite-303 { background-image: url(../img/303.png); }
+.sprite-304 { background-image: url(../img/304.png); }
+.sprite-305 { background-image: url(../img/305.png); }
+.sprite-306 { background-image: url(../img/306.png); }
+.sprite-307 { background-image: url(../img/307.png); }
+.sprite-308 { background-image: url(../img/308.png); }
+.sprite-309 { background-image: url(../img/309.png); }
+.sprite-310 { background-image: url(../img/310.png); }
+.sprite-311 { background-image: url(../img/311.png); }
+.sprite-312 { background-image: url(../img/312.png); }
+.sprite-313 { background-image: url(../img/313.png); }
+.sprite-314 { background-image: url(../img/314.png); }
+.sprite-315 { background-image: url(../img/315.png); }
+.sprite-316 { background-image: url(../img/316.png); }
+.sprite-317 { background-image: url(../img/317.png); }
+.sprite-318 { background-image: url(../img/318.png); }
+.sprite-319 { background-image: url(../img/319.png); }
+.sprite-320 { background-image: url(../img/320.png); }
+.sprite-321 { background-image: url(../img/321.png); }
+.sprite-322 { background-image: url(../img/322.png); }
+.sprite-323 { background-image: url(../img/323.png); }
+.sprite-324 { background-image: url(../img/324.png); }
+.sprite-325 { background-image: url(../img/325.png); }
+.sprite-326 { background-image: url(../img/326.png); }
+.sprite-327 { background-image: url(../img/327.png); }
+.sprite-328 { background-image: url(../img/328.png); }
+.sprite-329 { background-image: url(../img/329.png); }
+.sprite-330 { background-image: url(../img/330.png); }
+.sprite-331 { background-image: url(../img/331.png); }
+.sprite-332 { background-image: url(../img/332.png); }
+.sprite-333 { background-image: url(../img/333.png); }
+.sprite-334 { background-image: url(../img/334.png); }
+.sprite-335 { background-image: url(../img/335.png); }
+.sprite-336 { background-image: url(../img/336.png); }
+.sprite-337 { background-image: url(../img/337.png); }
+.sprite-338 { background-image: url(../img/338.png); }
+.sprite-339 { background-image: url(../img/339.png); }
+.sprite-340 { background-image: url(../img/340.png); }
+.sprite-341 { background-image: url(../img/341.png); }
+.sprite-342 { background-image: url(../img/342.png); }
+.sprite-343 { background-image: url(../img/343.png); }
+.sprite-344 { background-image: url(../img/344.png); }
+.sprite-345 { background-image: url(../img/345.png); }
+.sprite-346 { background-image: url(../img/346.png); }
+.sprite-347 { background-image: url(../img/347.png); }
+.sprite-348 { background-image: url(../img/348.png); }
+.sprite-349 { background-image: url(../img/349.png); }
+.sprite-350 { background-image: url(../img/350.png); }
+.sprite-351 { background-image: url(../img/351.png); }
+.sprite-352 { background-image: url(../img/352.png); }
+.sprite-353 { background-image: url(../img/353.png); }
+.sprite-354 { background-image: url(../img/354.png); }
+.sprite-355 { background-image: url(../img/355.png); }
+.sprite-356 { background-image: url(../img/356.png); }
+.sprite-357 { background-image: url(../img/357.png); }
+.sprite-358 { background-image: url(../img/358.png); }
+.sprite-359 { background-image: url(../img/359.png); }
+.sprite-360 { background-image: url(../img/360.png); }
+.sprite-361 { background-image: url(../img/361.png); }
+.sprite-362 { background-image: url(../img/362.png); }
+.sprite-363 { background-image: url(../img/363.png); }
+.sprite-364 { background-image: url(../img/364.png); }
+.sprite-365 { background-image: url(../img/365.png); }
+.sprite-366 { background-image: url(../img/366.png); }
+.sprite-367 { background-image: url(../img/367.png); }
+.sprite-368 { background-image: url(../img/368.png); }
+.sprite-369 { background-image: url(../img/369.png); }
+.sprite-370 { background-image: url(../img/370.png); }
+.sprite-371 { background-image: url(../img/371.png); }
+.sprite-372 { background-image: url(../img/372.png); }
+.sprite-373 { background-image: url(../img/373.png); }
+.sprite-374 { background-image: url(../img/374.png); }
+.sprite-375 { background-image: url(../img/375.png); }
+.sprite-376 { background-image: url(../img/376.png); }
+.sprite-377 { background-image: url(../img/377.png); }
+.sprite-378 { background-image: url(../img/378.png); }
+.sprite-379 { background-image: url(../img/379.png); }
+.sprite-380 { background-image: url(../img/380.png); }
+.sprite-381 { background-image: url(../img/381.png); }
+.sprite-382 { background-image: url(../img/382.png); }
+.sprite-383 { background-image: url(../img/383.png); }
+.sprite-384 { background-image: url(../img/384.png); }
+.sprite-385 { background-image: url(../img/385.png); }
+.sprite-386 { background-image: url(../img/386.png); }
+.sprite-387 { background-image: url(../img/387.png); }
+.sprite-388 { background-image: url(../img/388.png); }
+.sprite-389 { background-image: url(../img/389.png); }
+.sprite-390 { background-image: url(../img/390.png); }
+.sprite-391 { background-image: url(../img/391.png); }
+.sprite-392 { background-image: url(../img/392.png); }
+.sprite-393 { background-image: url(../img/393.png); }
+.sprite-394 { background-image: url(../img/394.png); }
+.sprite-395 { background-image: url(../img/395.png); }
+.sprite-396 { background-image: url(../img/396.png); }
+.sprite-397 { background-image: url(../img/397.png); }
+.sprite-398 { background-image: url(../img/398.png); }
+.sprite-399 { background-image: url(../img/399.png); }
+.sprite-400 { background-image: url(../img/400.png); }
+.sprite-401 { background-image: url(../img/401.png); }
+.sprite-402 { background-image: url(../img/402.png); }
+.sprite-403 { background-image: url(../img/403.png); }
+.sprite-404 { background-image: url(../img/404.png); }
+.sprite-405 { background-image: url(../img/405.png); }
+.sprite-406 { background-image: url(../img/406.png); }
+.sprite-407 { background-image: url(../img/407.png); }
+.sprite-408 { background-image: url(../img/408.png); }
+.sprite-409 { background-image: url(../img/409.png); }
+.sprite-410 { background-image: url(../img/410.png); }
+.sprite-411 { background-image: url(../img/411.png); }
+.sprite-412 { background-image: url(../img/412.png); }
+.sprite-413 { background-image: url(../img/413.png); }
+.sprite-414 { background-image: url(../img/414.png); }
+.sprite-415 { background-image: url(../img/415.png); }
+.sprite-416 { background-image: url(../img/416.png); }
+.sprite-417 { background-image: url(../img/417.png); }
+.sprite-418 { background-image: url(../img/418.png); }
+.sprite-419 { background-image: url(../img/419.png); }
+.sprite-420 { background-image: url(../img/420.png); }
+.sprite-421 { background-image: url(../img/421.png); }
+.sprite-422 { background-image: url(../img/422.png); }
+.sprite-423 { background-image: url(../img/423.png); }
+.sprite-424 { background-image: url(../img/424.png); }
+.sprite-425 { background-image: url(../img/425.png); }
+.sprite-426 { background-image: url(../img/426.png); }
+.sprite-427 { background-image: url(../img/427.png); }
+.sprite-428 { background-image: url(../img/428.png); }
+.sprite-429 { background-image: url(../img/429.png); }
+.sprite-430 { background-image: url(../img/430.png); }
+.sprite-431 { background-image: url(../img/431.png); }
+.sprite-432 { background-image: url(../img/432.png); }
+.sprite-433 { background-image: url(../img/433.png); }
+.sprite-434 { background-image: url(../img/434.png); }
+.sprite-435 { background-image: url(../img/435.png); }
+.sprite-436 { background-image: url(../img/436.png); }
+.sprite-437 { background-image: url(../img/437.png); }
+.sprite-438 { background-image: url(../img/438.png); }
+.sprite-439 { background-image: url(../img/439.png); }
+.sprite-440 { background-image: url(../img/440.png); }
+.sprite-441 { background-image: url(../img/441.png); }
+.sprite-442 { background-image: url(../img/442.png); }
+.sprite-443 { background-image: url(../img/443.png); }
+.sprite-444 { background-image: url(../img/444.png); }
+.sprite-445 { background-image: url(../img/445.png); }
+.sprite-446 { background-image: url(../img/446.png); }
+.sprite-447 { background-image: url(../img/447.png); }
+.sprite-448 { background-image: url(../img/448.png); }
+.sprite-449 { background-image: url(../img/449.png); }
+.sprite-450 { background-image: url(../img/450.png); }
+.sprite-451 { background-image: url(../img/451.png); }
+.sprite-452 { background-image: url(../img/452.png); }
+.sprite-453 { background-image: url(../img/453.png); }
+.sprite-454 { background-image: url(../img/454.png); }
+.sprite-455 { background-image: url(../img/455.png); }
+.sprite-456 { background-image: url(../img/456.png); }
+.sprite-457 { background-image: url(../img/457.png); }
+.sprite-458 { background-image: url(../img/458.png); }
+.sprite-459 { background-image: url(../img/459.png); }
+.sprite-460 { background-image: url(../img/460.png); }
+.sprite-461 { background-image: url(../img/461.png); }
+.sprite-462 { background-image: url(../img/462.png); }
+.sprite-463 { background-image: url(../img/463.png); }
+.sprite-464 { background-image: url(../img/464.png); }
+.sprite-465 { background-image: url(../img/465.png); }
+.sprite-466 { background-image: url(../img/466.png); }
+.sprite-467 { background-image: url(../img/467.png); }
+.sprite-468 { background-image: url(../img/468.png); }
+.sprite-469 { background-image: url(../img/469.png); }
+.sprite-470 { background-image: url(../img/470.png); }
+.sprite-471 { background-image: url(../img/471.png); }
+.sprite-472 { background-image: url(../img/472.png); }
+.sprite-473 { background-image: url(../img/473.png); }
+.sprite-474 { background-image: url(../img/474.png); }
+.sprite-475 { background-image: url(../img/475.png); }
+.sprite-476 { background-image: url(../img/476.png); }
+.sprite-477 { background-image: url(../img/477.png); }
+.sprite-478 { background-image: url(../img/478.png); }
+.sprite-479 { background-image: url(../img/479.png); }
+.sprite-480 { background-image: url(../img/480.png); }
+.sprite-481 { background-image: url(../img/481.png); }
+.sprite-482 { background-image: url(../img/482.png); }
+.sprite-483 { background-image: url(../img/483.png); }
+.sprite-484 { background-image: url(../img/484.png); }
+.sprite-485 { background-image: url(../img/485.png); }
+.sprite-486 { background-image: url(../img/486.png); }
+.sprite-487 { background-image: url(../img/487.png); }
+.sprite-488 { background-image: url(../img/488.png); }
+.sprite-489 { background-image: url(../img/489.png); }
+.sprite-490 { background-image: url(../img/490.png); }
+.sprite-491 { background-image: url(../img/491.png); }
+.sprite-492 { background-image: url(../img/492.png); }
+.sprite-493 { background-image: url(../img/493.png); }
+.sprite-494 { background-image: url(../img/494.png); }
+.sprite-495 { background-image: url(../img/495.png); }
+.sprite-496 { background-image: url(../img/496.png); }
+.sprite-497 { background-image: url(../img/497.png); }
+.sprite-498 { background-image: url(../img/498.png); }
+.sprite-499 { background-image: url(../img/499.png); }
+.sprite-500 { background-image: url(../img/500.png); }
+.sprite-501 { background-image: url(../img/501.png); }
+.sprite-502 { background-image: url(../img/502.png); }
+.sprite-503 { background-image: url(../img/503.png); }
+.sprite-504 { background-image: url(../img/504.png); }
+.sprite-505 { background-image: url(../img/505.png); }
+.sprite-506 { background-image: url(../img/506.png); }
+.sprite-507 { background-image: url(../img/507.png); }
+.sprite-508 { background-image: url(../img/508.png); }
+.sprite-509 { background-image: url(../img/509.png); }
+.sprite-510 { background-image: url(../img/510.png); }
+.sprite-511 { background-image: url(../img/511.png); }
+.sprite-512 { background-image: url(../img/512.png); }
+.sprite-513 { background-image: url(../img/513.png); }
+.sprite-514 { background-image: url(../img/514.png); }
+.sprite-515 { background-image: url(../img/515.png); }
+.sprite-516 { background-image: url(../img/516.png); }
+.sprite-517 { background-image: url(../img/517.png); }
+.sprite-518 { background-image: url(../img/518.png); }
+.sprite-519 { background-image: url(../img/519.png); }
+.sprite-520 { background-image: url(../img/520.png); }
+.sprite-521 { background-image: url(../img/521.png); }
+.sprite-522 { background-image: url(../img/522.png); }
+.sprite-523 { background-image: url(../img/523.png); }
+.sprite-524 { background-image: url(../img/524.png); }
+.sprite-525 { background-image: url(../img/525.png); }
+.sprite-526 { background-image: url(../img/526.png); }
+.sprite-527 { background-image: url(../img/527.png); }
+.sprite-528 { background-image: url(../img/528.png); }
+.sprite-529 { background-image: url(../img/529.png); }
+.sprite-530 { background-image: url(../img/530.png); }
+.sprite-531 { background-image: url(../img/531.png); }
+.sprite-532 { background-image: url(../img/532.png); }
+.sprite-533 { background-image: url(../img/533.png); }
+.sprite-534 { background-image: url(../img/534.png); }
+.sprite-535 { background-image: url(../img/535.png); }
+.sprite-536 { background-image: url(../img/536.png); }
+.sprite-537 { background-image: url(../img/537.png); }
+.sprite-538 { background-image: url(../img/538.png); }
+.sprite-539 { background-image: url(../img/539.png); }
+.sprite-540 { background-image: url(../img/540.png); }
+.sprite-541 { background-image: url(../img/541.png); }
+.sprite-542 { background-image: url(../img/542.png); }
+.sprite-543 { background-image: url(../img/543.png); }
+.sprite-544 { background-image: url(../img/544.png); }
+.sprite-545 { background-image: url(../img/545.png); }
+.sprite-546 { background-image: url(../img/546.png); }
+.sprite-547 { background-image: url(../img/547.png); }
+.sprite-548 { background-image: url(../img/548.png); }
+.sprite-549 { background-image: url(../img/549.png); }
+.sprite-550 { background-image: url(../img/550.png); }
+.sprite-551 { background-image: url(../img/551.png); }
+.sprite-552 { background-image: url(../img/552.png); }
+.sprite-553 { background-image: url(../img/553.png); }
+.sprite-554 { background-image: url(../img/554.png); }
+.sprite-555 { background-image: url(../img/555.png); }
+.sprite-556 { background-image: url(../img/556.png); }
+.sprite-557 { background-image: url(../img/557.png); }
+.sprite-558 { background-image: url(../img/558.png); }
+.sprite-559 { background-image: url(../img/559.png); }
+.sprite-560 { background-image: url(../img/560.png); }
+.sprite-561 { background-image: url(../img/561.png); }
+.sprite-562 { background-image: url(../img/562.png); }
+.sprite-563 { background-image: url(../img/563.png); }
+.sprite-564 { background-image: url(../img/564.png); }
+.sprite-565 { background-image: url(../img/565.png); }
+.sprite-566 { background-image: url(../img/566.png); }
+.sprite-567 { background-image: url(../img/567.png); }
+.sprite-568 { background-image: url(../img/568.png); }
+.sprite-569 { background-image: url(../img/569.png); }
+.sprite-570 { background-image: url(../img/570.png); }
+.sprite-571 { background-image: url(../img/571.png); }
+.sprite-572 { background-image: url(../img/572.png); }
+.sprite-573 { background-image: url(../img/573.png); }
+.sprite-574 { background-image: url(../img/574.png); }
+.sprite-575 { background-image: url(../img/575.png); }
+.sprite-576 { background-image: url(../img/576.png); }
+.sprite-577 { background-image: url(../img/577.png); }
+.sprite-578 { background-image: url(../img/578.png); }
+.sprite-579 { background-image: url(../img/579.png); }
+.sprite-580 { background-image: url(../img/580.png); }
+.sprite-581 { background-image: url(../img/581.png); }
+.sprite-582 { background-image: url(../img/582.png); }
+.sprite-583 { background-image: url(../img/583.png); }
+.sprite-584 { background-image: url(../img/584.png); }
+.sprite-585 { background-image: url(../img/585.png); }
+.sprite-586 { background-image: url(../img/586.png); }
+.sprite-587 { background-image: url(../img/587.png); }
+.sprite-588 { background-image: url(../img/588.png); }
+.sprite-589 { background-image: url(../img/589.png); }
+.sprite-590 { background-image: url(../img/590.png); }
+.sprite-591 { background-image: url(../img/591.png); }
+.sprite-592 { background-image: url(../img/592.png); }
+.sprite-593 { background-image: url(../img/593.png); }
+.sprite-594 { background-image: url(../img/594.png); }
+.sprite-595 { background-image: url(../img/595.png); }
+.sprite-596 { background-image: url(../img/596.png); }
+.sprite-597 { background-image: url(../img/597.png); }
+.sprite-598 { background-image: url(../img/598.png); }
+.sprite-599 { background-image: url(../img/599.png); }
+.sprite-600 { background-image: url(../img/600.png); }
+.sprite-601 { background-image: url(../img/601.png); }
+.sprite-602 { background-image: url(../img/602.png); }
+.sprite-603 { background-image: url(../img/603.png); }
+.sprite-604 { background-image: url(../img/604.png); }
+.sprite-605 { background-image: url(../img/605.png); }
+.sprite-606 { background-image: url(../img/606.png); }
+.sprite-607 { background-image: url(../img/607.png); }
+.sprite-608 { background-image: url(../img/608.png); }
+.sprite-609 { background-image: url(../img/609.png); }
+.sprite-610 { background-image: url(../img/610.png); }
+.sprite-611 { background-image: url(../img/611.png); }
+.sprite-612 { background-image: url(../img/612.png); }
+.sprite-613 { background-image: url(../img/613.png); }
+.sprite-614 { background-image: url(../img/614.png); }
+.sprite-615 { background-image: url(../img/615.png); }
+.sprite-616 { background-image: url(../img/616.png); }
+.sprite-617 { background-image: url(../img/617.png); }
+.sprite-618 { background-image: url(../img/618.png); }
+.sprite-619 { background-image: url(../img/619.png); }
+.sprite-620 { background-image: url(../img/620.png); }
+.sprite-621 { background-image: url(../img/621.png); }
+.sprite-622 { background-image: url(../img/622.png); }
+.sprite-623 { background-image: url(../img/623.png); }
+.sprite-624 { background-image: url(../img/624.png); }
+.sprite-625 { background-image: url(../img/625.png); }
+.sprite-626 { background-image: url(../img/626.png); }
+.sprite-627 { background-image: url(../img/627.png); }
+.sprite-628 { background-image: url(../img/628.png); }
+.sprite-629 { background-image: url(../img/629.png); }
+.sprite-630 { background-image: url(../img/630.png); }
+.sprite-631 { background-image: url(../img/631.png); }
+.sprite-632 { background-image: url(../img/632.png); }
+.sprite-633 { background-image: url(../img/633.png); }
+.sprite-634 { background-image: url(../img/634.png); }
+.sprite-635 { background-image: url(../img/635.png); }
+.sprite-636 { background-image: url(../img/636.png); }
+.sprite-637 { background-image: url(../img/637.png); }
+.sprite-638 { background-image: url(../img/638.png); }
+.sprite-639 { background-image: url(../img/639.png); }
+.sprite-640 { background-image: url(../img/640.png); }
+.sprite-641 { background-image: url(../img/641.png); }
+.sprite-642 { background-image: url(../img/642.png); }
+.sprite-643 { background-image: url(../img/643.png); }
+.sprite-644 { background-image: url(../img/644.png); }
+.sprite-645 { background-image: url(../img/645.png); }
+.sprite-646 { background-image: url(../img/646.png); }
+.sprite-647 { background-image: url(../img/647.png); }
+.sprite-648 { background-image: url(../img/648.png); }
+.sprite-649 { background-image: url(../img/649.png); }

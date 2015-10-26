@@ -58,24 +58,24 @@ function renderSprites() {
     var child = children[i];
     if (i < firstVisibleIndex) {
       // before the visible viewport
-      child.classList.remove('shown');
+      child.classList.add('hidden');
       numHidden++;
       continue;
     }
     if (done) {
       // after the visible viewport
-      child.classList.remove('shown');
+      child.classList.add('hidden');
       numHidden++;
       continue;
     }
     // possibly within the visible viewport
     var rect = child.getBoundingClientRect();
     if ((rect.bottom - rect.height) < windowHeight) {
-      child.classList.add('shown');
+      child.classList.remove('hidden');
       numShown++;
       continue;
     }
-    child.classList.remove('shown');
+    child.classList.add('hidden');
     numHidden++;
     done = true;
   }
@@ -90,5 +90,8 @@ worker.addEventListener('message', e => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  window.addEventListener('scroll', debounce(renderSprites, 100));
+  window.addEventListener('scroll', debounce(renderSprites, 10));
 });
+
+// this happens e.g. when the keyboard moves in/out on Android
+window.addEventListener('resize', renderSprites);

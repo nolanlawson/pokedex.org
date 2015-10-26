@@ -86,6 +86,7 @@ async function doIt() {
     console.log('copyStatic()');
     await ncp('./src/img', './www/img');
     await ncp('./src/svg', './www/svg');
+    await ncp('./pokeapi/data/Pokemon_XY_Sprites/', './www/img');
   }
 
   async function copy() {

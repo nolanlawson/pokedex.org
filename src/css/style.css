@@ -260,11 +260,16 @@ button {
   height: 140px;
   z-index: 10;
   position: absolute;
+  opacity: 1;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: center;
+  transition: opacity 0.4s;
 }
 
-.monster-item.shown .monster-item-sprite {
-  background-repeat: no-repeat;
-  background-image: url("../img/sprite.png");
+.monster-item.hidden .monster-item-sprite {
+  background-image: none;
+  opacity: 0;
 }
 
 .monster-item-title {
