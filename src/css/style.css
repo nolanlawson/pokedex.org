@@ -266,11 +266,6 @@ button {
   transition: opacity 0.4s;
 }
 
-.monster-item.hidden .monster-item-sprite {
-  background-image: none;
-  opacity: 0;
-}
-
 .monster-item-title {
   color: white;
   font-size: 14px;
