@@ -203,7 +203,7 @@ button {
 .mui-textfield>input {
   background-image: url(../svg/search.svg);
   background-repeat: no-repeat;
-  background-position-x: right;
+  background-position: right center;
 }
 
 #progress-mask {
@@ -262,8 +262,7 @@ button {
   position: absolute;
   opacity: 1;
   background-repeat: no-repeat;
-  background-position-x: center;
-  background-position-y: center;
+  background-position: center center;
   transition: opacity 0.4s;
 }
 
