@@ -44,10 +44,13 @@ function binarySearchForFirstVisibleChild(children) {
 }
 
 function renderSprites() {
-  console.time('renderSprites');
   monstersList = monstersList || $('#monsters-list');
-  var windowHeight = window.innerHeight;
   var children = monstersList.children;
+  if (!children.length) {
+    return;
+  }
+  console.time('renderSprites');
+  var windowHeight = window.innerHeight;
   var numShown = 0;
   var numHidden = 0;
   var firstVisibleIndex = binarySearchForFirstVisibleChild(children);
@@ -93,5 +96,8 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', debounce(renderSprites, 10));
 });
 
-// this happens e.g. when the keyboard moves in/out on Android
-window.addEventListener('resize', renderSprites);
+// This happens e.g. when the keyboard moves in/out on Android, in which
+// case the window.innerHeight also changes, so we need to recalculate.
+// This is debounced for the benefit of web developers manually resizing
+// their window, so it doesn't end up looking so janky.
+window.addEventListener('resize', debounce(renderSprites, 50));
