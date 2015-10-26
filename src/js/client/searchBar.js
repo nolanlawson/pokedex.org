@@ -18,7 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('posting message to filter', filter);
     console.time('worker-filter');
     worker.postMessage({
-      filter: filter
+      filter: filter,
+      type: 'filter'
     });
   }, 50));
 

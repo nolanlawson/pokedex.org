@@ -9,11 +9,25 @@ var byNameDdoc = require('../shared/byNameDdoc');
 var Stopwatch = require('../shared/stopwatch');
 var inMemoryDB = require('./inMemoryDatabase');
 
-var localDB = new PouchDB('monsters');
-var couchHome = self.location.origin.replace(/:[^:]+$/, ':6984');
-var remoteDB = new PouchDB(couchHome + '/monsters');
-
+var localDB;
+var couchHome;
+var remoteDB;
 var liveReplicationFinished = false;
+var unsupportedIDB = false;
+var myOrigin;
+
+function initDBs() {
+  couchHome = myOrigin.replace(/:[^:]+$/, ':6984');
+  remoteDB = new PouchDB(couchHome + '/monsters');
+  localDB = new PouchDB('monsters');
+  if (localDB.adapter) {
+    replicate();
+  } else {
+    unsupportedIDB = true;
+    console.log(
+      'this browser doesn\'t support worker IDB. cannot work offline.')
+  }
+}
 
 function replicate() {
   console.log('started replication');
@@ -31,8 +45,6 @@ function replicate() {
   });
 }
 
-replicate();
-
 var monstersList;
 
 async function getBestDB() {
@@ -47,7 +59,7 @@ async function getFilteredMonsters(filter) {
   return inMemoryDB.findByNamePrefix(filter);
 }
 
-async function onMessage(message) {
+async function onFilterMessage(message) {
 
   var stopwatch = new Stopwatch();
 
@@ -93,6 +105,19 @@ async function onMessage(message) {
   });
 
   stopwatch.totalTime('worker (total)');
+}
+
+async function onOriginMessage(message) {
+  myOrigin = message.origin;
+  initDBs();
+}
+
+async function onMessage(message) {
+  if (message.type === 'filter') {
+    onFilterMessage(message);
+  } else { // 'origin'
+    onOriginMessage(message);
+  }
 }
 
 self.addEventListener('message', e => {
