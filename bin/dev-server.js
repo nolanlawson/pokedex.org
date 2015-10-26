@@ -17,6 +17,8 @@ var byNameDdoc = require(__dirname + '/../src/js/shared/byNameDdoc');
 var renderMonstersList = require(__dirname + '/../src/js/shared/renderMonstersList');
 var toHtml = require('vdom-to-html');
 
+var CRITICAL_CSS_SPRITES_LINES = 20;
+
 async function startPouchServer() {
   await mkdirp('db');
 
@@ -48,21 +50,28 @@ async function doIt() {
 
   async function copyHtml() {
     console.log('copyHtml()');
-    var rawHtml = await fs.readFileAsync('./src/index.html', 'utf-8');
+    var html = await fs.readFileAsync('./src/index.html', 'utf-8');
     var docs = await db.allDocs({include_docs: true, endkey: '_design'});
     var monsters = docs.rows.map(row => row.doc);
     var monstersList = renderMonstersList(monsters);
     var monstersHtml = toHtml(monstersList);
-    //monstersHtml = await tidy(monstersHtml);
-    var html = rawHtml.replace('<ul id="monsters-list"></ul>', monstersHtml);
+    html = html.replace('<ul id="monsters-list"></ul>', monstersHtml);
+
+    var criticalCss = await fs.readFileAsync('./src/css/style.css', 'utf-8');
+    var spritesCss = await fs.readFileAsync('./src/css/sprites.css', 'utf-8');
+
+    criticalCss += '\n' +
+      spritesCss.split('\n').slice(0, CRITICAL_CSS_SPRITES_LINES).join('\n');
+
+    html = html.replace('<style></style>',
+      '<style>\n' + criticalCss + '\n</style>');
     await fs.writeFileAsync('./www/index.html', html, 'utf-8');
   }
 
   async function copyCss() {
     console.log('copyCss()');
-    var css = '';
-    css += await fs.readFileAsync('./src/css/style.css', 'utf-8');
-    css += await fs.readFileAsync('./src/css/sprites.css', 'utf-8');
+    var css = await fs.readFileAsync('./src/css/sprites.css', 'utf-8');
+    css = css.split('\n').slice(CRITICAL_CSS_SPRITES_LINES).join('\n');
     await mkdirp('./www/css');
     await fs.writeFileAsync('./www/css/style.css', css, 'utf-8');
   }
