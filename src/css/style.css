@@ -206,6 +206,21 @@ button {
   background-position-x: right;
 }
 
+#progress-mask {
+  z-index: 10000;
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  transition: opacity 0.1s;
+  opacity: 0;
+}
+
+#progress-mask.shown {
+  opacity: 0.3;
+}
+
 /* monster list */
 
 .monster-sprite {
@@ -214,21 +229,28 @@ button {
 }
 
 #monsters-list-wrapper {
+  position: relative;
   text-align: center;
 }
 
 #monsters-list {
-  text-align: left;
+  padding: 0;
 }
 
 .monster-item {
+  margin: 10px;
   position: relative;
   width: 140px;
   height: 140px;
   overflow: hidden;
   display: inline-flex;
   list-style-type: none;
-  margin: 10px;
+}
+
+@media (max-width: 767px) {
+  .monster-item {
+    margin: 5px;
+  }
 }
 
 .monster-item-sprite {

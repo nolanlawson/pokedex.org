@@ -1,5 +1,6 @@
 require('./sideMenu');
 require('./searchBar');
+var progress = require('./progress');
 
 var fromJson = require('vdom-as-json/fromJson');
 var patchElement = require('virtual-dom/patch');
@@ -18,6 +19,7 @@ function applyPatch(patchString) {
   console.time('patchElement');
   patchElement(monstersList, patch);
   console.timeEnd('patchElement');
+  progress.end();
 }
 
 worker.addEventListener('message', e => {

@@ -1,6 +1,7 @@
 
 var worker = require('./worker');
 var debounce = require('debounce');
+var progress = require('./progress');
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -8,6 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   var searchBar = $('#monsters-search-bar');
 
+  searchBar.addEventListener('input', () => {
+    progress.start();
+  });
   searchBar.addEventListener('input', debounce(e => {
     var filter = e.target.value;
 
@@ -16,6 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
     worker.postMessage({
       filter: filter
     });
-  }, 700, false));
+  }, 50));
 
 });
