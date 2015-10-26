@@ -260,9 +260,10 @@ button {
   height: 140px;
   z-index: 10;
   position: absolute;
+}
+
+.monster-item.shown .monster-item-sprite {
   background-repeat: no-repeat;
-  background-position-x: center;
-  background-position-y: center;
   background-image: url("../img/sprite.png");
 }
 
