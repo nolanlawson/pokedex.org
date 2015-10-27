@@ -237,7 +237,7 @@ button {
   padding: 0;
 }
 
-.monster-item {
+#monsters-list > li {
   margin: 10px;
   position: relative;
   width: 140px;
@@ -248,12 +248,12 @@ button {
 }
 
 @media (max-width: 767px) {
-  .monster-item {
+  #monsters-list > li {
     margin: 5px;
   }
 }
 
-.monster-item-sprite {
+#monsters-list > li > div {
   top: 0;
   left: 0;
   width: 140px;
@@ -266,7 +266,7 @@ button {
   transition: opacity 0.4s;
 }
 
-.monster-item-title {
+#monsters-list > li > span {
   color: white;
   font-size: 14px;
   background-color: rgba(0, 0, 0, 0.5);

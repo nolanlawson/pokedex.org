@@ -35,9 +35,9 @@ module.exports = monsters => {
   return h('ul', {id: 'monsters-list'}, monsters.map(monster => {
       var bgColor = getBgColor(monster);
 
-      return h('li.monster-item', { style: {background: bgColor}}, [
-        h('div.monster-item-sprite.sprite-' + monster.national_id),
-        h('span.monster-item-title', monster.name)
+      return h('li', { style: {background: bgColor}}, [
+        h('div.sprite-' + monster.national_id),
+        h('span', monster.name)
       ]);
     }
   ));
