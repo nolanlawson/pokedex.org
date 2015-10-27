@@ -1,4 +1,6 @@
 var h = require('virtual-dom/h');
+// this operation seems to be expensive, so use lodash
+var map = require('lodash/collection/map');
 
 var typesToColors = {
   normal: '#A8A878',
@@ -21,24 +23,21 @@ var typesToColors = {
   flying: '#A890F0'
 };
 
-function getBgColor(monster) {
-  if (monster.types.length > 1) {
-    var color1 = typesToColors[monster.types[1].name];
-    var color2 = typesToColors[monster.types[0].name];
-    return `linear-gradient(90deg, ${color1} 50%, ${color2} 50%)`;
-  } else {
-    return typesToColors[monster.types[0].name];
+function getBackground(monster) {
+  var types = monster.types;
+  if (types.length === 1) {
+    return typesToColors[types[0].name];
   }
+  var color1 = typesToColors[types[1].name];
+  var color2 = typesToColors[types[0].name];
+  return `linear-gradient(90deg, ${color1} 50%, ${color2} 50%)`;
 }
 
 module.exports = monsters => {
-  return h('ul', {id: 'monsters-list'}, monsters.map(monster => {
-      var bgColor = getBgColor(monster);
-
-      return h('li', { style: {background: bgColor}}, [
-        h('div.sprite-' + monster.national_id),
-        h('span', monster.name)
-      ]);
-    }
+  return h('ul', {id: 'monsters-list'}, map(monsters, monster =>
+    h('li', {style: {background: getBackground(monster)}}, [
+      h(`div.sprite-${monster.national_id}`),
+      h('span', monster.name)
+    ])
   ));
 };

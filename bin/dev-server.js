@@ -35,12 +35,25 @@ async function doIt() {
   // dump monsters.txt
   var db = new PouchDB('http://localhost:6984/monsters');
   var dumpfile = await fs.readFileAsync('./db/monsters.txt', 'utf-8');
-  await db.load(dumpfile);
+  var loadPromise = db.load(dumpfile);
 
-  // build debug
-  await build(true);
+  // build with debug=true
+  var buildPromise = build(true);
 
-  hs.createServer({root: './www'}).listen(9000);
+  // start up dev server
+  var serverPromise = new Promise(function (resolve, reject) {
+    hs.createServer({root: './www'}).listen(9000, function (err) {
+      if (err) {
+        return reject(err);
+      }
+      resolve();
+    });
+  });
+
+  await* [loadPromise, buildPromise, serverPromise];
+
+  console.log('started dev server at http://127.0.0.1:9000');
+
   watch(__dirname + '/../src', () => build(true));
 }
 
