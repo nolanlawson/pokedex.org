@@ -320,3 +320,29 @@ button {
 .type-psychic { background-color: #F85888; }
 .type-ice { background-color: #98D8D8; }
 .type-flying { background-color: #A890F0; }
+
+/* detail panel */
+
+.monster-detail-panel-wrapper {
+  position: relative;
+}
+
+#monster-detail-panel {
+  position: absolute;
+  top: 66px;
+  left: 10px;
+  right: 10px;
+  z-index: 10000;
+}
+
+@media (max-height: 480px) and (orientation: landscape) {
+  #monster-detail-panel {
+    top: 58px;
+  }
+}
+
+@media (min-width: 480px) {
+  #monster-detail-panel {
+    top: 74px;
+  }
+}
