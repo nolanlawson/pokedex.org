@@ -95,7 +95,6 @@ module.exports = async function build(debug) {
     await ncp('./src/img', './www/img');
     await ncp('./src/svg', './www/svg');
     await ncp('./src/vendor', './www/vendor');
-    await ncp('./pokeapi/data/Pokemon_XY_Sprites/', './www/img');
   }
 
   console.log('copying from src to www');
