@@ -11,10 +11,10 @@ var monstersList;
 function applyPatch(patchString) {
   monstersList = monstersList || $('#monsters-list');
   console.time('JSON.parse()');
-  var patch = JSON.parse(patchString);
+  var patchJson = JSON.parse(patchString);
   console.timeEnd('JSON.parse()');
   console.time('fromJson');
-  var patch = fromJson(patch);
+  var patch = fromJson(patchJson);
   console.timeEnd('fromJson');
   console.time('patchElement');
   patchElement(monstersList, patch);
