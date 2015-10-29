@@ -26,6 +26,7 @@
     "bluebird": "^2.10.2",
     "browserify": "^11.2.0",
     "clean-css": "^3.4.6",
+    "color": "^0.10.1",
     "debounce": "^1.0.0",
     "eslint": "^1.7.3",
     "htmltidy": "0.0.6",

@@ -12,7 +12,8 @@ var uglify = require('uglify-js');
 var CleanCss = require('clean-css');
 var cleanCss = new CleanCss();
 
-var renderMonstersList = require(__dirname + '/../src/js/shared/renderMonstersList');
+var renderMonsterDetailView = require('../src/js/shared/renderMonsterDetailView');
+var renderMonstersList = require('../src/js/shared/renderMonstersList');
 var toHtml = require('vdom-to-html');
 
 var CRITICAL_CSS_SPRITES_LINES = 20;
@@ -24,8 +25,13 @@ module.exports = async function build(debug) {
     var html = await fs.readFileAsync('./src/index.html', 'utf-8');
     var monsters = require('../src/js/shared/monsterSummaries');
     var monstersList = renderMonstersList(monsters);
-    var monstersHtml = toHtml(monstersList);
-    html = html.replace('<ul id="monsters-list"></ul>', monstersHtml);
+    html = html.replace('<ul id="monsters-list"></ul>',
+      toHtml(monstersList));
+
+    var bulbasaur = require('../src/js/shared/bulbasaur');
+    var monsterDetailHtml = renderMonsterDetailView(bulbasaur);
+    html = html.replace('<div id="detail-view"></div>',
+      toHtml(monsterDetailHtml));
 
     var criticalCss = await fs.readFileAsync('./src/css/style.css', 'utf-8');
     var spritesCss = await fs.readFileAsync('./src/css/sprites.css', 'utf-8');

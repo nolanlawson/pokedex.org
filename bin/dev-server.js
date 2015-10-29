@@ -59,4 +59,6 @@ async function doIt() {
 
 doIt().catch(err => console.error(err));
 
-process.on('unhandledRejection', err => console.error(err));
+process.on('unhandledRejection', err => {
+  console.error(err.stack);
+});

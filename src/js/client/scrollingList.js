@@ -9,7 +9,6 @@ var worker = require('./worker');
 var monstersList;
 
 function applyPatch(patchString) {
-  monstersList = monstersList || $('#monsters-list');
   console.time('JSON.parse()');
   var patchJson = JSON.parse(patchString);
   console.timeEnd('JSON.parse()');
@@ -40,3 +39,12 @@ function onMessage(message) {
 worker.addEventListener('message', e => {
   onMessage(e.data);
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  monstersList = $('#monsters-list');
+  monstersList.addEventListener('click', e => {
+    var el = e.target;
+    var nationalId = parseInt(el.classList[0].replace('sprite-', ''));
+    console.log('nationalId: ' + nationalId);
+  });
+}, false);

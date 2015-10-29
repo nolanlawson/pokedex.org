@@ -245,15 +245,17 @@ button {
   overflow: hidden;
   display: inline-flex;
   list-style-type: none;
+  cursor: pointer;
+  z-index: 100000;
 }
 
 @media (max-width: 767px) {
-  #monsters-list > li {
+  #monsters-list li {
     margin: 5px;
   }
 }
 
-#monsters-list > li > div {
+#monsters-list li div {
   top: 0;
   left: 0;
   width: 140px;
@@ -266,7 +268,7 @@ button {
   transition: opacity 0.4s;
 }
 
-#monsters-list > li > span {
+#monsters-list li span {
   color: white;
   font-size: 14px;
   background-color: rgba(0, 0, 0, 0.5);
@@ -276,4 +278,53 @@ button {
   z-index: 20;
   position: absolute;
   text-align: center;
+}
+
+#detail-view {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100000000;
+  padding: 10px;
+}
+
+.back-button {
+  background: url(../svg/ic_arrow_back_36px.svg);
+  width: 36px;
+  height: 36px;
+  border: none;
+}
+
+.back-button:focus {
+  outline: 0;
+}
+
+.mui-panel.detail-panel {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.detail-panel-header {
+  max-width: 600px;
+  margin: 0 auto;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  font-size: 24px;
+}
+
+.detail-panel-content {
+  padding: 15px;
+}
+
+.detail-sprite {
+  width: 140px;
+  height: 140px;
+}
+
+.hidden {
+  display: none;
 }
