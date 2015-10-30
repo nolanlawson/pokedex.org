@@ -4,6 +4,7 @@ var worker = require('./worker');
 var patchElement = require('virtual-dom/patch');
 var fromJson = require('vdom-as-json/fromJson');
 var indexOf = require('lodash/array/indexOf');
+var util = require('./util');
 
 var $ = document.querySelector.bind(document);
 
@@ -30,52 +31,60 @@ function animateIn() {
   var sourceSprite = $(`[data-national-id="${lastNationalId}"]`);
   var sourceTitleSpan = sourceSprite.parentElement.querySelector('span');
   var targetSprite = $('.detail-sprite');
-  var targetPanel = $('.detail-panel');
+  var targetBackground = $('.detail-view-bg');
+  var targetForeground = $('.detail-view-fg');
 
-  detailView.style.top = `${document.body.scrollTop}px`;
-  detailView.style.bottom = `-${document.body.scrollTop}px`;
+  var screenWidth = window.innerWidth;
+  var screenHeight = window.innerHeight;
+
+  detailView.style.transform = `translateY(${window.pageYOffset}px)`;
   detailViewContainer.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
 
   var sourceSpriteRect = sourceSprite.getBoundingClientRect();
   var targetSpriteRect = targetSprite.getBoundingClientRect();
-  var sourceTitleSpanHeight = getComputedStyle(sourceTitleSpan).height;
-  var detailViewRect = detailView.getBoundingClientRect();
+  var sourceTitleSpanHeight = parseInt(getComputedStyle(sourceTitleSpan).height.replace('px', ''));
 
-  var detailViewXOffset = -1 * ((detailViewRect.width / 2) - (sourceSpriteRect.right - (sourceSpriteRect.width / 2)));
+  var detailViewXOffset = -1 * ((screenWidth / 2) - (sourceSpriteRect.right - (sourceSpriteRect.width / 2)));
 
-  var spriteChangeX = sourceSpriteRect.left - targetSpriteRect.left - detailViewXOffset;
+  var spriteChangeX = sourceSpriteRect.left - targetSpriteRect.left;
   var spriteChangeY = (sourceSpriteRect.top - targetSpriteRect.top) - DETAIL_SLIDE_IN_Y;
 
-  var clipTop = sourceSpriteRect.top;
-  var clipLeft = sourceSpriteRect.left;
-  var clipRight = sourceSpriteRect.left + sourceSpriteRect.width;
-  var clipBottom = sourceSpriteRect.top + sourceSpriteRect.height - sourceTitleSpanHeight;
+  var doClipAnimation = util.canRenderClipAnimationsNicely();
+  if (doClipAnimation) {
+    var clipTop = sourceSpriteRect.top;
+    var clipLeft = sourceSpriteRect.left;
+    var clipRight = sourceSpriteRect.left + sourceSpriteRect.width - detailViewXOffset;
+    var clipBottom = sourceSpriteRect.top + sourceSpriteRect.height - sourceTitleSpanHeight;
 
-  //detailView.style.clip =
-  //  `rect(${clipTop}px ${clipRight}px ${clipBottom}px ${clipLeft}px)`;
+    targetBackground.style.clip =
+      `rect(${clipTop}px ${clipRight}px ${clipBottom}px ${clipLeft}px)`;
+  }
 
-  console.log('detailViewXOffset', detailViewXOffset);
-  detailView.style.transform = `translateX(${detailViewXOffset}px)`;
+  console.log('clip', `rect(${clipTop}px ${clipRight}px ${clipBottom}px ${clipLeft}px)`);
+
+  targetBackground.style.transform = `translateX(${detailViewXOffset}px)`;
   targetSprite.style.transform = `translate(${spriteChangeX}px, ${spriteChangeY}px)`;
-  targetPanel.style.transform = `translateY(${DETAIL_SLIDE_IN_Y}px)`;
+  targetForeground.style.transform = `translateY(${DETAIL_SLIDE_IN_Y}px)`;
 
   requestAnimationFrame(() => {
     // go go go!
     targetSprite.classList.add('animating');
     targetSprite.style.transform = '';
-    targetPanel.classList.add('animating');
-    targetPanel.style.transform = '';
-    detailView.classList.add('animating');
-    detailView.style.transform = '';
-    //detailView.style.clip = `rect(0 ${detailViewRect.width}px ${detailViewRect.height}px 0)`;
+    targetForeground.classList.add('animating');
+    targetForeground.style.transform = '';
+    targetBackground.classList.add('animating');
+    targetBackground.style.transform = '';
+    if (doClipAnimation) {
+      targetBackground.style.clip = `rect(0 ${screenWidth}px ${screenHeight}px 0)`;
+    }
   });
 
   function onAnimEnd() {
     console.log('done animating');
     targetSprite.classList.remove('animating');
-    targetPanel.classList.remove('animating');
-    detailView.classList.remove('animating');
+    targetForeground.classList.remove('animating');
+    targetBackground.classList.remove('animating');
     targetSprite.removeEventListener('transitionend', onAnimEnd);
   }
 

@@ -9,7 +9,22 @@ var couchHome;
 var remoteDB;
 var liveReplicationFinished = false;
 
-function replicate() {
+async function checkReplicationDone() {
+  try {
+    await localDB.get('_local/liveReplicationFinished');
+    return true;
+  } catch (ignored) {
+    return false;
+  }
+}
+
+async function replicate() {
+  var alreadyDone = await checkReplicationDone();
+  if (alreadyDone) {
+    console.log('replication already done, exiting');
+    return;
+  }
+
   console.log('started replication');
   var rep = remoteDB.replicate.to(localDB, {
     live: true,
@@ -22,6 +37,9 @@ function replicate() {
   }).on('complete', () => {
     console.log('done replicating');
     liveReplicationFinished = true;
+    localDB.put({
+      _id: '_local/liveReplicationFinished'
+    });
   });
 }
 
@@ -38,6 +56,10 @@ module.exports = {
     }
   },
   getBestDB: async () => {
+    var alreadyDone = await checkReplicationDone();
+    if (alreadyDone) {
+      return localDB;
+    }
     return liveReplicationFinished ? localDB : remoteDB;
   },
   getFilteredMonsters: async (filter) => {

@@ -10,24 +10,27 @@ module.exports = monster => {
   var primaryType = monster.types[1] || monster.types[0];
   var darkColor = color(typesToColors[primaryType.name]).darken(0.35).rgbString();
 
-  return h('div#detail-view', {
-    style: {
-      background: bgColor
-    }
-  }, [
-    h('button.', {
-      type: 'button',
-      className: 'back-button detail-back-button'
+  return h('div#detail-view', [
+    h('div.detail-view-bg', {
+      style: {
+        background: bgColor
+      }
     }),
-    h('div.mui-panel.detail-panel', [
-      h('div.detail-panel-header', {
-        style: {
-          background: darkColor
-        }
-      }, monster.name),
-      h('div.detail-panel-content', [
-        h(`div.detail-sprite.monster-sprite.sprite-${monster.national_id}`),
-        'yo yo yo'
+    h('div.detail-view-fg', [
+      h('button.', {
+        type: 'button',
+        className: 'back-button detail-back-button'
+      }),
+      h('div.mui-panel.detail-panel', [
+        h('div.detail-panel-header', {
+          style: {
+            background: darkColor
+          }
+        }, monster.name),
+        h('div.detail-panel-content', [
+          h(`div.detail-sprite.monster-sprite.sprite-${monster.national_id}`),
+          'yo yo yo'
+        ])
       ])
     ])
   ]);

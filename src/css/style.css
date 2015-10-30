@@ -241,7 +241,7 @@ button {
   display: inline-flex;
   list-style-type: none;
   cursor: pointer;
-  z-index: 100000;
+  z-index: 20000;
 }
 
 @media (max-width: 767px) {
@@ -282,7 +282,25 @@ button {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 100000000;
+  z-index: 1000;
+}
+
+.detail-view-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2000;
+}
+
+.detail-view-fg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3000;
   padding: 10px;
 }
 
@@ -326,11 +344,11 @@ button {
   transition: transform 0.33333s cubic-bezier(0,0,0.21,1);
 }
 
-.mui-panel.detail-panel.animating {
+.detail-view-fg.animating {
   transition: transform 0.33333s cubic-bezier(0,0,0.21,1);
 }
 
-#detail-view.animating {
+.detail-view-bg.animating {
   transition-property: transform, clip;
   transition-duration: 0.33333s;
   transition-timing-function: cubic-bezier(0,0,0.21,1);
