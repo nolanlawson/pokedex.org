@@ -22,7 +22,7 @@ async function onFilterMessage(message) {
 
   self.postMessage({
     type: 'monstersListPatch',
-    content: patchJsonAsString
+    patch: patchJsonAsString
   });
   stopwatch.totalTime('worker-filter (total)');
 }
@@ -39,7 +39,8 @@ async function onDetailMessage(message) {
   console.log('patchJsonAsString.length', patchJsonAsString.length);
   self.postMessage({
     type: 'monsterDetailPatch',
-    content: patchJsonAsString
+    patch: patchJsonAsString,
+    nationalId: nationalId
   });
   stopwatch.totalTime('worker-detail (total)');
 }

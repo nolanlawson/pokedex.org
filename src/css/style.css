@@ -291,6 +291,7 @@ button {
   width: 36px;
   height: 36px;
   border: none;
+  margin-bottom: 12px;
 }
 
 .back-button:focus {
@@ -319,6 +320,18 @@ button {
 .detail-sprite {
   width: 140px;
   height: 140px;
+}
+
+.detail-sprite.animating {
+  transition: transform 0.33333s cubic-bezier(0,0,0.21,1);
+}
+
+.mui-panel.detail-panel.animating {
+  transition: transform 0.33333s cubic-bezier(0,0,0.21,1);
+}
+
+#detail-view.animating {
+  transition: clip,transform 0.33333s cubic-bezier(0,0,0.21,1);
 }
 
 .hidden {

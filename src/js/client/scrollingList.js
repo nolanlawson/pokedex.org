@@ -25,7 +25,7 @@ function onFiltered(message) {
   console.log('worker sent message');
 
   if (message.type === 'monstersListPatch') {
-    applyPatch(message.content);
+    applyPatch(message.patch);
   }
 }
 
