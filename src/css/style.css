@@ -331,7 +331,9 @@ button {
 }
 
 #detail-view.animating {
-  transition: clip,transform 0.33333s cubic-bezier(0,0,0.21,1);
+  transition-property: transform, clip;
+  transition-duration: 0.33333s;
+  transition-timing-function: cubic-bezier(0,0,0.21,1);
 }
 
 .hidden {

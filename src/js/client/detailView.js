@@ -39,45 +39,47 @@ function animateIn() {
 
   var sourceSpriteRect = sourceSprite.getBoundingClientRect();
   var targetSpriteRect = targetSprite.getBoundingClientRect();
-  var sourceTitleSpanRect = sourceTitleSpan.getBoundingClientRect();
+  var sourceTitleSpanHeight = getComputedStyle(sourceTitleSpan).height;
   var detailViewRect = detailView.getBoundingClientRect();
 
-  var changeX = sourceSpriteRect.left - targetSpriteRect.left;
-  var changeY = (sourceSpriteRect.top - targetSpriteRect.top) - DETAIL_SLIDE_IN_Y;
+  var detailViewXOffset = -1 * ((detailViewRect.width / 2) - (sourceSpriteRect.right - (sourceSpriteRect.width / 2)));
+
+  var spriteChangeX = sourceSpriteRect.left - targetSpriteRect.left - detailViewXOffset;
+  var spriteChangeY = (sourceSpriteRect.top - targetSpriteRect.top) - DETAIL_SLIDE_IN_Y;
 
   var clipTop = sourceSpriteRect.top;
   var clipLeft = sourceSpriteRect.left;
   var clipRight = sourceSpriteRect.left + sourceSpriteRect.width;
-  var clipBottom = sourceSpriteRect.top + sourceSpriteRect.height - sourceTitleSpanRect.height;
+  var clipBottom = sourceSpriteRect.top + sourceSpriteRect.height - sourceTitleSpanHeight;
 
-  detailView.style.clip =
-    `rect(${clipTop}px ${clipRight}px ${clipBottom}px ${clipLeft}px)`;
+  //detailView.style.clip =
+  //  `rect(${clipTop}px ${clipRight}px ${clipBottom}px ${clipLeft}px)`;
 
-  //var detailViewXOffset = (detailViewRect.width / 2) - (sourceSpriteRect.right - (sourceSpriteRect.width / 2));
-  //console.log('detailViewXOffset', detailViewXOffset);
-  //detailView.style.transform = `translateX(${detailViewXOffset}px)`;
-  targetSprite.style.transform = `translate(${changeX}px, ${changeY}px)`;
+  console.log('detailViewXOffset', detailViewXOffset);
+  detailView.style.transform = `translateX(${detailViewXOffset}px)`;
+  targetSprite.style.transform = `translate(${spriteChangeX}px, ${spriteChangeY}px)`;
   targetPanel.style.transform = `translateY(${DETAIL_SLIDE_IN_Y}px)`;
 
   requestAnimationFrame(() => {
     // go go go!
-    /*targetSprite.classList.add('animating');
+    targetSprite.classList.add('animating');
     targetSprite.style.transform = '';
     targetPanel.classList.add('animating');
     targetPanel.style.transform = '';
     detailView.classList.add('animating');
-    detailView.style.clip = `rect(0 ${detailViewRect.width}px ${detailViewRect.height}px 0)`;*/
+    detailView.style.transform = '';
+    //detailView.style.clip = `rect(0 ${detailViewRect.width}px ${detailViewRect.height}px 0)`;
   });
 
   function onAnimEnd() {
     console.log('done animating');
     targetSprite.classList.remove('animating');
     targetPanel.classList.remove('animating');
-    detailView.style.clip = '';
+    detailView.classList.remove('animating');
     targetSprite.removeEventListener('transitionend', onAnimEnd);
   }
 
-  //targetSprite.addEventListener('transitionend', onAnimEnd);
+  targetSprite.addEventListener('transitionend', onAnimEnd);
 }
 
 function applyPatch(patchString) {
