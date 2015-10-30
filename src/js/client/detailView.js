@@ -53,7 +53,7 @@ function animateIn() {
   var doClipAnimation = util.canRenderClipAnimationsNicely();
   if (doClipAnimation) {
     var clipTop = sourceSpriteRect.top;
-    var clipLeft = sourceSpriteRect.left;
+    var clipLeft = sourceSpriteRect.left - detailViewXOffset;
     var clipRight = sourceSpriteRect.left + sourceSpriteRect.width - detailViewXOffset;
     var clipBottom = sourceSpriteRect.top + sourceSpriteRect.height - sourceTitleSpanHeight;
 
