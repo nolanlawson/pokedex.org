@@ -45,25 +45,15 @@ function animateIn() {
   var targetSpriteRect = targetSprite.getBoundingClientRect();
   var sourceTitleSpanHeight = parseInt(getComputedStyle(sourceTitleSpan).height.replace('px', ''));
 
-  var detailViewXOffset = -1 * ((screenWidth / 2) - (sourceSpriteRect.right - (sourceSpriteRect.width / 2)));
-
   var spriteChangeX = sourceSpriteRect.left - targetSpriteRect.left;
   var spriteChangeY = (sourceSpriteRect.top - targetSpriteRect.top) - DETAIL_SLIDE_IN_Y;
 
-  var doClipAnimation = util.canRenderClipAnimationsNicely();
-  if (doClipAnimation) {
-    var clipTop = sourceSpriteRect.top;
-    var clipLeft = sourceSpriteRect.left - detailViewXOffset;
-    var clipRight = sourceSpriteRect.left + sourceSpriteRect.width - detailViewXOffset;
-    var clipBottom = sourceSpriteRect.top + sourceSpriteRect.height - sourceTitleSpanHeight;
+  var scaleX = sourceSpriteRect.width / screenWidth;
+  var scaleY = (sourceSpriteRect.height - sourceTitleSpanHeight) / screenHeight;
 
-    targetBackground.style.clip =
-      `rect(${clipTop}px ${clipRight}px ${clipBottom}px ${clipLeft}px)`;
-  }
-
-  console.log('clip', `rect(${clipTop}px ${clipRight}px ${clipBottom}px ${clipLeft}px)`);
-
-  targetBackground.style.transform = `translateX(${detailViewXOffset}px)`;
+  targetBackground.style.transform =
+    `translate(${sourceSpriteRect.left}px, ${sourceSpriteRect.top}px)` +
+    ` scale(${scaleX}, ${scaleY})`;
   targetSprite.style.transform = `translate(${spriteChangeX}px, ${spriteChangeY}px)`;
   targetForeground.style.transform = `translateY(${DETAIL_SLIDE_IN_Y}px)`;
 
@@ -75,9 +65,6 @@ function animateIn() {
     targetForeground.style.transform = '';
     targetBackground.classList.add('animating');
     targetBackground.style.transform = '';
-    if (doClipAnimation) {
-      targetBackground.style.clip = `rect(0 ${screenWidth}px ${screenHeight}px 0)`;
-    }
   });
 
   function onAnimEnd() {

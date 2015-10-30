@@ -348,8 +348,12 @@ button {
   transition: transform 0.33333s cubic-bezier(0,0,0.21,1);
 }
 
+.detail-view-bg {
+  transform-origin: 0 0;
+}
+
 .detail-view-bg.animating {
-  transition-property: transform, clip;
+  transition-property: transform;
   transition-duration: 0.33333s;
   transition-timing-function: cubic-bezier(0,0,0.21,1);
 }
