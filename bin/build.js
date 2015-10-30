@@ -8,6 +8,7 @@ var stream2promise = require('stream-to-promise');
 var uglify = require('uglify-js');
 var CleanCss = require('clean-css');
 var cleanCss = new CleanCss();
+var execall = require('execall');
 
 var renderMonsterDetailView = require('../src/js/shared/renderMonsterDetailView');
 var renderMonstersList = require('../src/js/shared/renderMonstersList');
@@ -37,6 +38,19 @@ module.exports = async function build(debug) {
       spritesCss.split('\n').slice(0, CRITICAL_CSS_SPRITES_LINES).join('\n');
 
     if (!debug) {
+      // inline svgs
+      var svgRegex = /url\((.*?\.svg)\)/g;
+      var svgs = execall(svgRegex, criticalCss);
+      for (var i = svgs.length - 1; i >= 0; i--) {
+        // iterate backwards so we can replace in the string
+        var svg = svgs[i];
+        var svgFilename = __dirname + '/../src/css/' + svg.sub[0];
+        var svgBody = await fs.readFileAsync(svgFilename, 'utf-8');
+        var svgBase64 = new Buffer(svgBody, 'utf-8').toString('base64');
+        criticalCss = criticalCss.substring(0, svg.index) +
+          `url("data:image/svg+xml;base64,${svgBase64}")` +
+          criticalCss.substring(svg.index + svg.match.length);
+      }
       criticalCss = cleanCss.minify(criticalCss).styles;
     }
 
@@ -51,6 +65,7 @@ module.exports = async function build(debug) {
     css = css.split('\n').slice(CRITICAL_CSS_SPRITES_LINES).join('\n');
 
     if (!debug) {
+      // minify
       css = cleanCss.minify(css).styles;
     }
 
@@ -96,7 +111,9 @@ module.exports = async function build(debug) {
   async function copyStatic() {
     console.log('copyStatic()');
     await ncp('./src/img', './www/img');
-    await ncp('./src/svg', './www/svg');
+    if (!debug) {
+      await ncp('./src/svg', './www/svg');
+    }
     await ncp('./src/vendor', './www/vendor');
   }
 

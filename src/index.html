@@ -66,6 +66,17 @@
   <div id="detail-view"></div>
 </div>
 <script src="js/main.js"></script>
-<link href="css/style.css" rel="stylesheet" type="text/css"/>
+<script>
+  // load css asynchronously
+  var ss = document.createElement( "link" );
+  var ref = document.getElementsByTagName( "script" )[ 0 ];
+  ss.rel = "stylesheet";
+  ss.href = "css/style.css";
+  // temporary non-applicable media query to load it async
+  ss.media = "only foo";
+  ref.parentNode.insertBefore( ss, ref );
+  // set media back
+  setTimeout( function(){ ss.media = "all"; } );
+</script>
 </body>
 </html>
