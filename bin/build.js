@@ -111,7 +111,7 @@ module.exports = async function build(debug) {
   async function copyStatic() {
     console.log('copyStatic()');
     await ncp('./src/img', './www/img');
-    if (!debug) {
+    if (debug) {
       await ncp('./src/svg', './www/svg');
     }
     await ncp('./src/vendor', './www/vendor');
