@@ -223,11 +223,6 @@ button {
 
 /* monster list */
 
-.monster-sprite {
-  background-image: url("../img/sprite.png");
-  background-repeat: no-repeat;
-}
-
 #monsters-list-wrapper {
   position: relative;
   text-align: center;
@@ -258,14 +253,15 @@ button {
 #monsters-list li div {
   top: 0;
   left: 0;
-  width: 140px;
-  height: 140px;
   z-index: 10;
   position: absolute;
-  opacity: 1;
+}
+
+.monster-sprite {
   background-repeat: no-repeat;
   background-position: center center;
-  transition: opacity 0.4s;
+  width: 140px;
+  height: 140px;
 }
 
 #monsters-list li span {

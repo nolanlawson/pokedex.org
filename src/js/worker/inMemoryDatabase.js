@@ -17,7 +17,7 @@ function binarySearch(arr, target) {
   var low = 0, high = arr.length, mid;
   while (low < high) {
     mid = (low + high) >>> 1; // faster version of Math.floor((low + high) / 2)
-    arr[mid].key < target ? low = mid + 1 : high = mid
+    arr[mid].key < target ? low = mid + 1 : high = mid;
   }
   return low;
 }

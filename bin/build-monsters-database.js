@@ -7,7 +7,8 @@ var PouchDB = require('pouchdb');
 var repStream = require('pouchdb-replication-stream');
 PouchDB.plugin(repStream.plugin);
 PouchDB.adapter('writableStream', repStream.adapters.writableStream);
-var db = new PouchDB('monsters', {db: require('memdown')});
+var memdown = require('memdown');
+var db = new PouchDB('monsters', {db: memdown});
 var fs = require('fs');
 var zpad = require('zpad');
 

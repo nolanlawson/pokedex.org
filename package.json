@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "serve": "babel-node bin/dev-server.js",
-    "lint": "eslint bin/*js",
+    "lint": "eslint bin/*js src/js",
     "build-pokeapi": "bash ./bin/build-pokeapi.sh",
     "build-monsters-database": "babel-node ./bin/build-monsters-database.js",
     "build": "babel-node bin/build-production.js"
@@ -49,7 +49,7 @@
     "stream-to-promise": "^1.0.4",
     "uglify-js": "^2.5.0",
     "uglify-stream": "^1.1.0",
-    "vdom-as-json": "^1.0.4",
+    "vdom-as-json": "^1.0.5",
     "vdom-to-html": "^2.1.1",
     "virtual-dom": "^2.1.1",
     "watchify": "^3.4.0"

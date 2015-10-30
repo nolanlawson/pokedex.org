@@ -1,5 +1,4 @@
 var progress = require('./progress');
-var debounce = require('debounce');
 var fromJson = require('vdom-as-json/fromJson');
 var patchElement = require('virtual-dom/patch');
 var $ = document.querySelector.bind(document);
@@ -44,7 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
   monstersList = $('#monsters-list');
   monstersList.addEventListener('click', e => {
     var el = e.target;
-    var nationalId = parseInt(el.classList[0].replace('sprite-', ''));
-    console.log('nationalId: ' + nationalId);
+    var nationalId = parseInt(el.dataset.nationalId);
+    worker.postMessage({
+      type: 'detail',
+      nationalId: nationalId
+    });
   });
 }, false);

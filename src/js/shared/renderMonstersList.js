@@ -9,7 +9,11 @@ module.exports = monsters => {
     h('li', {
       style: {background: getMonsterBackground(monster)}
     }, [
-      h(`div.sprite-${monster.national_id}`),
+      h(`div.monster-sprite.sprite-${monster.national_id}`, {
+        attributes: {
+          'data-national-id': monster.national_id
+        }
+      }),
       h('span', monster.name)
     ])
   ));

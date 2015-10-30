@@ -1,6 +1,3 @@
-var watch = require('node-watch');
-var hs = require('http-server');
-var childProcess = require('child_process');
 var browserify = require('browserify');
 var bluebird = require('bluebird');
 var fs = bluebird.promisifyAll(require('fs'));
@@ -14,6 +11,8 @@ var cleanCss = new CleanCss();
 
 var renderMonsterDetailView = require('../src/js/shared/renderMonsterDetailView');
 var renderMonstersList = require('../src/js/shared/renderMonstersList');
+var monsterSummaries = require('../src/js/shared/monsterSummaries');
+var bulbasaur = require('../src/js/shared/bulbasaur');
 var toHtml = require('vdom-to-html');
 
 var CRITICAL_CSS_SPRITES_LINES = 20;
@@ -23,12 +22,10 @@ module.exports = async function build(debug) {
   async function copyHtml() {
     console.log('copyHtml()');
     var html = await fs.readFileAsync('./src/index.html', 'utf-8');
-    var monsters = require('../src/js/shared/monsterSummaries');
-    var monstersList = renderMonstersList(monsters);
+    var monstersList = renderMonstersList(monsterSummaries);
     html = html.replace('<ul id="monsters-list"></ul>',
       toHtml(monstersList));
 
-    var bulbasaur = require('../src/js/shared/bulbasaur');
     var monsterDetailHtml = renderMonsterDetailView(bulbasaur);
     html = html.replace('<div id="detail-view"></div>',
       toHtml(monsterDetailHtml));
@@ -85,7 +82,7 @@ module.exports = async function build(debug) {
     });
 
     if (!debug) {
-      await * files.map(function (file) {
+      await* files.map(function (file) {
         var code = uglify.minify(file.dest, {
           mangle: true,
           compress: true
