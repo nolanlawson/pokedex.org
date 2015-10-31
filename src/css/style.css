@@ -241,6 +241,7 @@ button {
   display: inline-flex;
   list-style-type: none;
   cursor: pointer;
+  touch-action: manipulation;
   z-index: 20000;
 }
 
@@ -250,11 +251,21 @@ button {
   }
 }
 
-#monsters-list li div {
+#monsters-list .monster-sprite {
   top: 0;
   left: 0;
   z-index: 10;
   position: absolute;
+}
+
+.monster-sprite.mui-btn--accent.mui-btn--flat {
+  margin-top: 0;
+}
+
+.monster-sprite.mui-btn--accent.mui-btn--flat:active,
+    .monster-sprite.mui-btn--accent.mui-btn--flat:focus,
+    .monster-sprite.mui-btn--accent.mui-btn--flat:hover {
+  background-color: rgba(255, 255, 255, .6);
 }
 
 .monster-sprite {
@@ -358,6 +369,17 @@ button {
   transition-timing-function: cubic-bezier(0,0,0.21,1);
 }
 
+/* miscellaneous */
+
 .hidden {
   display: none;
+}
+
+.hover-shadow {
+  border-radius: 50%;
+  padding: 4px 5px;
+}
+
+.hover-shadow:active, .hover-shadow:focus, .hover-shadow:hover {
+  background-color: rgba(0,0,0,.27);
 }

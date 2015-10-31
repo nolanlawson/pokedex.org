@@ -9,10 +9,11 @@ module.exports = monsters => {
     h('li', {
       style: {background: getMonsterBackground(monster)}
     }, [
-      h(`div.monster-sprite.sprite-${monster.national_id}`, {
+      h(`button.monster-sprite.mui-btn.mui-btn--flat.mui-btn--accent.sprite-${monster.national_id}`, {
         attributes: {
           'data-national-id': monster.national_id
-        }
+        },
+        type: 'button'
       }),
       h('span', monster.name)
     ])

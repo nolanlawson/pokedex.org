@@ -1,5 +1,3 @@
-var DETAIL_SLIDE_IN_Y = 600;
-
 var worker = require('./worker');
 var patchElement = require('virtual-dom/patch');
 var fromJson = require('vdom-as-json/fromJson');
@@ -10,11 +8,13 @@ var $ = document.querySelector.bind(document);
 
 var detailView;
 var detailViewContainer;
+var monstersList;
 var lastNationalId;
 
 document.addEventListener('DOMContentLoaded', () => {
   detailView = $('#detail-view');
   detailViewContainer = $('#detail-view-container');
+  monstersList = $('#monsters-list');
   detailViewContainer.addEventListener('click', e => {
     if (indexOf(e.target.classList, 'back-button') !== -1) {
       animateOut();
@@ -23,15 +23,16 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function computeTransforms(outAnimation) {
-  var sourceSprite = $(`[data-national-id="${lastNationalId}"]`);
+  console.time('computeTransforms()');
+  var sourceSprite = monstersList.querySelector(`.sprite-${lastNationalId}`);
   var sourceTitleSpan = sourceSprite.parentElement.querySelector('span');
   var targetSprite = $('.detail-sprite');
 
-  // reeeaaally fling it away when animating out. looks better
-  var slideInY = outAnimation ? DETAIL_SLIDE_IN_Y * 1.2 : DETAIL_SLIDE_IN_Y;
-
   var screenWidth = window.innerWidth;
   var screenHeight = window.innerHeight;
+
+  // reeeaaally fling it away when animating out. looks better
+  var slideInY = outAnimation ? screenHeight * 1.1 : screenHeight * 0.6;
 
   var sourceSpriteRect = sourceSprite.getBoundingClientRect();
   var targetSpriteRect = targetSprite.getBoundingClientRect();
@@ -50,6 +51,8 @@ function computeTransforms(outAnimation) {
   var spriteTransform = `translate(${spriteChangeX}px, ${spriteChangeY}px)`;
   var fgTransform = `translateY(${slideInY}px)`;
 
+  console.timeEnd('computeTransforms()');
+
   return {
     bgTransform,
     spriteTransform,
@@ -59,9 +62,9 @@ function computeTransforms(outAnimation) {
 
 function animateIn() {
   // scroll the panel down if necessary
+  document.body.style.overflow = 'hidden';
   detailView.style.transform = `translateY(${window.pageYOffset}px)`;
   detailViewContainer.classList.remove('hidden');
-  document.body.style.overflow = 'hidden';
 
   var {bgTransform, spriteTransform, fgTransform} = computeTransforms(false);
   var targetBackground = $('.detail-view-bg');

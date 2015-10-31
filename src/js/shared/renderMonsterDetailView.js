@@ -17,9 +17,8 @@ module.exports = monster => {
       }
     }),
     h('div.detail-view-fg', [
-      h('button.', {
-        type: 'button',
-        className: 'back-button detail-back-button'
+      h('button.back-button.detail-back-button.hover-shadow', {
+        type: 'button'
       }),
       h('div.mui-panel.detail-panel', [
         h('div.detail-panel-header', {
