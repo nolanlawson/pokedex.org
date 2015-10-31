@@ -65,7 +65,7 @@ module.exports = {
   getFilteredMonsters: async (filter) => {
     return inMemoryDB.findByNamePrefix(filter);
   },
-  getInitialMonsters: async () => {
+  getInitialMonsters: () => {
     return inMemoryDB.findAll();
   }
 };

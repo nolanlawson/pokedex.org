@@ -5,16 +5,10 @@ var diff = require('virtual-dom/diff');
 var Stopwatch = require('../shared/stopwatch');
 var dbService = require('./databaseService');
 
-var lastMonstersListView;
+var lastMonstersListView = renderMonstersList(dbService.getInitialMonsters());
 
 module.exports = async filter => {
-
   var stopwatch = new Stopwatch();
-
-  if (!lastMonstersListView) {
-    var initialMonsters = await dbService.getInitialMonsters();
-    lastMonstersListView = renderMonstersList(initialMonsters);
-  }
 
   var newMonsters;
   if (filter) {

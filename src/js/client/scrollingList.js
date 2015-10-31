@@ -42,7 +42,7 @@ worker.addEventListener('message', e => {
 document.addEventListener('DOMContentLoaded', () => {
   monstersList = $('#monsters-list');
   monstersList.addEventListener('click', e => {
-    var el = e.target;
+    var el = e.target.parentElement.querySelector('.monster-sprite');
     var nationalId = parseInt(el.dataset.nationalId);
     worker.postMessage({
       type: 'detail',

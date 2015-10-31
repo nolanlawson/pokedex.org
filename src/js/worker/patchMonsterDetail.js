@@ -7,17 +7,13 @@ var bulbasaur = require('../shared/bulbasaur');
 var diff = require('virtual-dom/diff');
 var Stopwatch = require('../shared/stopwatch');
 
-var lastDetailView;
+var lastDetailView = renderDetailView(bulbasaur);
 
 module.exports = async nationalId => {
   var db = await dbService.getBestDB();
   var stopwatch = new Stopwatch();
   var monsterData = await db.get(zpad(nationalId, 5));
   stopwatch.time('detail: fetching monsterData');
-
-  if (!lastDetailView) {
-    lastDetailView = renderDetailView(bulbasaur);
-  }
 
   var newDetailView = renderDetailView(monsterData);
 

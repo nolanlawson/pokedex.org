@@ -22,56 +22,107 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-function animateOut() {
-  detailViewContainer.classList.add('hidden');
-  document.body.style.overflow = '';
-}
-
-function animateIn() {
+function computeTransforms(outAnimation) {
   var sourceSprite = $(`[data-national-id="${lastNationalId}"]`);
   var sourceTitleSpan = sourceSprite.parentElement.querySelector('span');
   var targetSprite = $('.detail-sprite');
-  var targetBackground = $('.detail-view-bg');
-  var targetForeground = $('.detail-view-fg');
+
+  // reeeaaally fling it away when animating out. looks better
+  var slideInY = outAnimation ? DETAIL_SLIDE_IN_Y * 1.2 : DETAIL_SLIDE_IN_Y;
 
   var screenWidth = window.innerWidth;
   var screenHeight = window.innerHeight;
 
+  var sourceSpriteRect = sourceSprite.getBoundingClientRect();
+  var targetSpriteRect = targetSprite.getBoundingClientRect();
+  var spanStyle = getComputedStyle(sourceTitleSpan);
+  var sourceTitleSpanHeight = parseInt(spanStyle.height.replace('px', ''));
+
+  var spriteChangeX = sourceSpriteRect.left - targetSpriteRect.left;
+  var spriteChangeY = (sourceSpriteRect.top - targetSpriteRect.top) - slideInY;
+
+  var scaleX = sourceSpriteRect.width / screenWidth;
+  var scaleY = (sourceSpriteRect.height - sourceTitleSpanHeight) / screenHeight;
+  var toX = sourceSpriteRect.left;
+  var toY = sourceSpriteRect.top;
+
+  var bgTransform = `translate(${toX}px,${toY}px) scale(${scaleX},${scaleY})`;
+  var spriteTransform = `translate(${spriteChangeX}px, ${spriteChangeY}px)`;
+  var fgTransform = `translateY(${slideInY}px)`;
+
+  return {
+    bgTransform,
+    spriteTransform,
+    fgTransform
+  };
+}
+
+function animateIn() {
+  // scroll the panel down if necessary
   detailView.style.transform = `translateY(${window.pageYOffset}px)`;
   detailViewContainer.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
 
-  var sourceSpriteRect = sourceSprite.getBoundingClientRect();
-  var targetSpriteRect = targetSprite.getBoundingClientRect();
-  var sourceTitleSpanHeight = parseInt(getComputedStyle(sourceTitleSpan).height.replace('px', ''));
+  var {bgTransform, spriteTransform, fgTransform} = computeTransforms(false);
+  var targetBackground = $('.detail-view-bg');
+  var targetForeground = $('.detail-view-fg');
+  var targetSprite = $('.detail-sprite');
 
-  var spriteChangeX = sourceSpriteRect.left - targetSpriteRect.left;
-  var spriteChangeY = (sourceSpriteRect.top - targetSpriteRect.top) - DETAIL_SLIDE_IN_Y;
-
-  var scaleX = sourceSpriteRect.width / screenWidth;
-  var scaleY = (sourceSpriteRect.height - sourceTitleSpanHeight) / screenHeight;
-
-  targetBackground.style.transform =
-    `translate(${sourceSpriteRect.left}px, ${sourceSpriteRect.top}px)` +
-    ` scale(${scaleX}, ${scaleY})`;
-  targetSprite.style.transform = `translate(${spriteChangeX}px, ${spriteChangeY}px)`;
-  targetForeground.style.transform = `translateY(${DETAIL_SLIDE_IN_Y}px)`;
+  targetSprite.style.transform = spriteTransform;
+  targetBackground.style.transform = bgTransform;
+  targetForeground.style.transform = fgTransform;
 
   requestAnimationFrame(() => {
     // go go go!
-    targetSprite.classList.add('animating');
-    targetSprite.style.transform = '';
     targetForeground.classList.add('animating');
-    targetForeground.style.transform = '';
     targetBackground.classList.add('animating');
+    targetSprite.classList.add('animating');
+    targetForeground.style.transform = '';
     targetBackground.style.transform = '';
+    targetSprite.style.transform = '';
   });
 
   function onAnimEnd() {
     console.log('done animating');
-    targetSprite.classList.remove('animating');
     targetForeground.classList.remove('animating');
     targetBackground.classList.remove('animating');
+    targetSprite.classList.remove('animating');
+    targetSprite.removeEventListener('transitionend', onAnimEnd);
+  }
+
+  targetSprite.addEventListener('transitionend', onAnimEnd);
+}
+
+function animateOut() {
+  document.body.style.overflow = 'visible';
+  var {bgTransform, spriteTransform, fgTransform} = computeTransforms(true);
+
+  var targetBackground = $('.detail-view-bg');
+  var targetForeground = $('.detail-view-fg');
+  var targetSprite = $('.detail-sprite');
+  targetSprite.style.transform = '';
+  targetBackground.style.transform = '';
+  targetForeground.style.transform = '';
+
+  requestAnimationFrame(() => {
+    // go go go!
+    targetForeground.classList.add('animating');
+    targetBackground.classList.add('animating');
+    targetSprite.classList.add('animating');
+    targetSprite.style.transform = spriteTransform;
+    targetBackground.style.transform = bgTransform;
+    targetForeground.style.transform = fgTransform;
+  });
+
+  function onAnimEnd() {
+    console.log('done animating');
+    targetForeground.classList.remove('animating');
+    targetBackground.classList.remove('animating');
+    targetSprite.classList.remove('animating');
+    targetSprite.style.transform = '';
+    targetBackground.style.transform = '';
+    targetForeground.style.transform = '';
+    detailViewContainer.classList.add('hidden');
     targetSprite.removeEventListener('transitionend', onAnimEnd);
   }
 
