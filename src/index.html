@@ -6,8 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
   <meta name="theme-color" content="#a040a0">
-  <link href="vendor/mui.min.css" rel="stylesheet" type="text/css"/>
-  <style></style>
+  <link href="vendor/mui.min.css" rel="stylesheet"/>
+  <link href="css/style.css" rel="stylesheet"/>
   <script src="vendor/mui.min.js"></script>
 </head>
 <body>
@@ -56,7 +56,9 @@
 <footer id="footer">
   <div class="mui-container-fluid">
     <br>
-    Made by <a href="https://nolanlawson.com">Nolan Lawson</a>
+    Made by <a href="https://nolanlawson.com">Nolan Lawson</a>.
+    Data via <a href="http://pokeapi.co/">Pokéapi</a>.
+    All content is &copy; Nintendo, Game Freak, and The Pokémon Company.
   </div>
 </footer>
 <div id="detail-view-container" class="hidden">
@@ -64,16 +66,23 @@
 </div>
 <script src="js/main.js"></script>
 <script>
-  // load css asynchronously
-  var ss = document.createElement( "link" );
-  var ref = document.getElementsByTagName( "script" )[ 0 ];
-  ss.rel = "stylesheet";
-  ss.href = "css/style.css";
-  // temporary non-applicable media query to load it async
-  ss.media = "only foo";
-  ref.parentNode.insertBefore( ss, ref );
-  // set media back
-  setTimeout( function(){ ss.media = "all"; } );
+  // load sprites.css asynchronously
+  (function () {
+    function loadCssAsync(filename) {
+      var ss = document.createElement("link");
+      var ref = document.getElementsByTagName("script")[0];
+      ss.rel = "stylesheet";
+      ss.href = filename;
+      // temporary non-applicable media query to load it async
+      ss.media = "only foo";
+      ref.parentNode.insertBefore(ss, ref);
+      // set media back
+      setTimeout(function () {
+        ss.media = "all";
+      });
+    }
+    loadCssAsync("css/sprites.css");
+  })();
 </script>
 </body>
 </html>

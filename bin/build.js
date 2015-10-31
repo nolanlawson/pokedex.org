@@ -20,6 +20,48 @@ var CRITICAL_CSS_SPRITES_LINES = 20;
 
 module.exports = async function build(debug) {
 
+  async function inlineSvgs(criticalCss) {
+    var svgRegex = /url\((.*?\.svg)\)/g;
+    var svgs = execall(svgRegex, criticalCss);
+    for (var i = svgs.length - 1; i >= 0; i--) {
+      // iterate backwards so we can replace in the string
+      var svg = svgs[i];
+      var svgFilename = __dirname + '/../src/css/' + svg.sub[0];
+      var svgBody = await fs.readFileAsync(svgFilename, 'utf-8');
+      var svgBase64 = new Buffer(svgBody, 'utf-8').toString('base64');
+      criticalCss = criticalCss.substring(0, svg.index) +
+        `url("data:image/svg+xml;base64,${svgBase64}")` +
+        criticalCss.substring(svg.index + svg.match.length);
+    }
+    return cleanCss.minify(criticalCss).styles;
+  }
+
+  async function inlineCriticalCss(html) {
+    var mainCss = await fs.readFileAsync('./src/css/style.css', 'utf-8');
+    var spritesCss = await fs.readFileAsync('./src/css/sprites.css', 'utf-8');
+
+    mainCss += '\n' +
+      spritesCss.split('\n').slice(0, CRITICAL_CSS_SPRITES_LINES).join('\n');
+
+    mainCss = await inlineSvgs(mainCss);
+    var muiCss = await fs.readFileAsync('./src/vendor/mui.min.css', 'utf-8');
+
+    return html
+      .replace(
+        '<link href="vendor/mui.min.css" rel="stylesheet"/>',
+        `<style>${muiCss}</style>`)
+      .replace(
+        '<link href="css/style.css" rel="stylesheet"/>',
+        `<style>${mainCss}</style>`);
+  }
+
+  async function inlineVendorJs(html) {
+    var muiJs = await fs.readFileAsync('./src/vendor/mui.min.js', 'utf-8');
+    return html.replace(
+      '<script src="vendor/mui.min.js"></script>',
+      `<script>${muiJs}</script>`);
+  }
+
   async function copyHtml() {
     console.log('copyHtml()');
     var html = await fs.readFileAsync('./src/index.html', 'utf-8');
@@ -31,46 +73,28 @@ module.exports = async function build(debug) {
     html = html.replace('<div id="detail-view"></div>',
       toHtml(monsterDetailHtml));
 
-    var criticalCss = await fs.readFileAsync('./src/css/style.css', 'utf-8');
-    var spritesCss = await fs.readFileAsync('./src/css/sprites.css', 'utf-8');
-
-    criticalCss += '\n' +
-      spritesCss.split('\n').slice(0, CRITICAL_CSS_SPRITES_LINES).join('\n');
-
     if (!debug) {
-      // inline svgs
-      var svgRegex = /url\((.*?\.svg)\)/g;
-      var svgs = execall(svgRegex, criticalCss);
-      for (var i = svgs.length - 1; i >= 0; i--) {
-        // iterate backwards so we can replace in the string
-        var svg = svgs[i];
-        var svgFilename = __dirname + '/../src/css/' + svg.sub[0];
-        var svgBody = await fs.readFileAsync(svgFilename, 'utf-8');
-        var svgBase64 = new Buffer(svgBody, 'utf-8').toString('base64');
-        criticalCss = criticalCss.substring(0, svg.index) +
-          `url("data:image/svg+xml;base64,${svgBase64}")` +
-          criticalCss.substring(svg.index + svg.match.length);
-      }
-      criticalCss = cleanCss.minify(criticalCss).styles;
+      html = await inlineCriticalCss(html);
+      html = await inlineVendorJs(html);
     }
-
-    html = html.replace('<style></style>',
-      '<style>\n' + criticalCss + '\n</style>');
     await fs.writeFileAsync('./www/index.html', html, 'utf-8');
   }
 
   async function copyCss() {
     console.log('copyCss()');
-    var css = await fs.readFileAsync('./src/css/sprites.css', 'utf-8');
-    css = css.split('\n').slice(CRITICAL_CSS_SPRITES_LINES).join('\n');
+    var spritesCss = await fs.readFileAsync('./src/css/sprites.css', 'utf-8');
 
     if (!debug) {
-      // minify
-      css = cleanCss.minify(css).styles;
+      spritesCss = spritesCss.split('\n').slice(CRITICAL_CSS_SPRITES_LINES).join('\n');
+      spritesCss = cleanCss.minify(spritesCss).styles;
     }
 
     await mkdirp('./www/css');
-    await fs.writeFileAsync('./www/css/style.css', css, 'utf-8');
+    await fs.writeFileAsync('./www/css/sprites.css', spritesCss, 'utf-8');
+    if (debug) {
+      var mainCss = await fs.readFileAsync('./src/css/style.css', 'utf-8');
+      await fs.writeFileAsync('./www/css/style.css', mainCss, 'utf-8');
+    }
   }
 
   async function copyJs() {
@@ -113,8 +137,8 @@ module.exports = async function build(debug) {
     await ncp('./src/img', './www/img');
     if (debug) {
       await ncp('./src/svg', './www/svg');
+      await ncp('./src/vendor', './www/vendor');
     }
-    await ncp('./src/vendor', './www/vendor');
   }
 
   console.log('copying from src to www');

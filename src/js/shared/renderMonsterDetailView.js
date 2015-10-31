@@ -2,8 +2,6 @@ var h = require('virtual-dom/h');
 
 var getMonsterBackground = require('./getMonsterBackground');
 var getMonsterDarkTheme = require('./getMonsterDarkTheme');
-var typesToColors = require('./typesToColors');
-var color = require('color');
 
 module.exports = monster => {
 

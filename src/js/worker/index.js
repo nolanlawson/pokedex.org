@@ -2,7 +2,6 @@ require('regenerator/runtime');
 
 var toJson = require('vdom-as-json/toJson');
 var Stopwatch = require('../shared/stopwatch');
-var zpad = require('zpad');
 var dbService = require('./databaseService');
 var patchMonstersList = require('./patchMonstersList');
 var patchMonsterDetail = require('./patchMonsterDetail');
