@@ -22,7 +22,7 @@ async function doIt() {
     await db.put(json);
   }
 
-  var out = fs.createWriteStream('src/db/monsters.txt');
+  var out = fs.createWriteStream('src/assets/monsters.txt');
   await db.dump(out);
 }
 

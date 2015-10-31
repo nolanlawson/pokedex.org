@@ -33,7 +33,7 @@ async function doIt() {
 
   await* promises;
 
-  var out = fs.createWriteStream('src/db/descriptions.txt');
+  var out = fs.createWriteStream('src/assets/descriptions.txt');
   await db.dump(out);
 }
 

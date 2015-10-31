@@ -37,8 +37,8 @@ async function doIt() {
   var descriptionsDB = new PouchDB('http://localhost:6984/descriptions');
 
   var loadPromises = [
-    monstersDB.load(await fs.readFileAsync('src/db/monsters.txt', 'utf-8')),
-    descriptionsDB.load(await fs.readFileAsync('src/db/descriptions.txt', 'utf-8'))
+    monstersDB.load(await fs.readFileAsync('src/assets/monsters.txt', 'utf-8')),
+    descriptionsDB.load(await fs.readFileAsync('src/assets/descriptions.txt', 'utf-8'))
   ];
 
   // build with debug=true

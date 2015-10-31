@@ -148,7 +148,7 @@ module.exports = async function build(debug) {
 
     var promises = [
       ncp('./src/img', './www/img'),
-      ncp('./src/db', './www/db')
+      ncp('./src/assets', './www/assets')
     ];
     if (debug) {
       promises.push(ncp('./src/svg', './www/svg'));
