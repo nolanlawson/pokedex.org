@@ -2,65 +2,79 @@ require('regenerator/runtime');
 
 var PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-upsert'));
+PouchDB.plugin(require('pouchdb-load'));
 var inMemoryDB = require('./inMemoryDatabase');
 
-var localDB;
-var couchHome;
-var remoteDB;
-var liveReplicationFinished = false;
+var localMonstersDB;
+var remoteMonstersDB;
+var localDescriptionsDB;
+var remoteDescriptionsDB;
 
-async function checkReplicationDone() {
+async function checkReplicated(db) {
+  if (db.__initialLoadComplete) {
+    return true;
+  }
   try {
-    await localDB.get('_local/liveReplicationFinished');
+    await db.get('_local/initialLoadComplete');
+    db.__initialLoadComplete = true;
     return true;
   } catch (ignored) {
     return false;
   }
 }
 
-async function replicate() {
-  var alreadyDone = await checkReplicationDone();
+async function markReplicated(db) {
+  db.__initialLoadComplete = true;
+  return await db.putIfNotExists({
+    _id: '_local/initialLoadComplete'
+  });
+}
+
+async function replicateDB(db, filename) {
+  var alreadyDone = await checkReplicated(db);
   if (alreadyDone) {
-    console.log('replication already done, exiting');
+    console.log(`${filename}: replication already done`);
     return;
   }
 
-  console.log('started replication');
-  var rep = remoteDB.replicate.to(localDB, {
-    live: true,
-    retry: true
-  }).on('paused', err => {
-    if (!err) {
-      // up to date
-      rep.cancel();
-    }
-  }).on('complete', () => {
-    console.log('done replicating');
-    liveReplicationFinished = true;
-    localDB.put({
-      _id: '_local/liveReplicationFinished'
-    });
-  });
+  console.log(`${filename}: started replication`);
+  await db.load(filename);
+  console.log(`${filename}: done replicating`);
+  await markReplicated(db);
+}
+
+async function replicateMonsters() {
+  return await replicateDB(localMonstersDB, '../assets/monsters.txt');
+}
+
+async function replicateDescriptions() {
+  return await replicateDB(localDescriptionsDB, '../assets/descriptions.txt');
+}
+
+async function initDBs(couchHome) {
+  remoteMonstersDB = new PouchDB(couchHome + '/monsters');
+  localMonstersDB = new PouchDB('monsters');
+  remoteDescriptionsDB = new PouchDB(couchHome + '/descriptions');
+  localDescriptionsDB = new PouchDB('descriptions');
+  if (localMonstersDB.adapter) {
+    replicateMonsters();
+    replicateDescriptions();
+  } else {
+    console.log(
+      'this browser doesn\'t support worker IDB. cannot work offline.');
+  }
 }
 
 module.exports = {
   init: (origin) => {
-    couchHome = origin.replace(/:[^:]+$/, ':6984');
-    remoteDB = new PouchDB(couchHome + '/monsters');
-    localDB = new PouchDB('monsters');
-    if (localDB.adapter) {
-      replicate();
-    } else {
-      console.log(
-        'this browser doesn\'t support worker IDB. cannot work offline.');
-    }
+    var couchHome = origin.replace(/:[^:]+$/, ':6984');
+    initDBs(couchHome);
   },
   getBestDB: async () => {
-    var alreadyDone = await checkReplicationDone();
-    if (alreadyDone) {
-      return localDB;
+    if (await checkReplicated(localMonstersDB)) {
+      return localMonstersDB;
     }
-    return liveReplicationFinished ? localDB : remoteDB;
+    return remoteMonstersDB;
   },
   getFilteredMonsters: async (filter) => {
     return inMemoryDB.findByNamePrefix(filter);
