@@ -9,6 +9,7 @@ var uglify = require('uglify-js');
 var CleanCss = require('clean-css');
 var cleanCss = new CleanCss();
 var execall = require('execall');
+var minifyHtml = require('html-minifier').minify;
 
 var renderMonsterDetailView = require('../src/js/shared/renderMonsterDetailView');
 var renderMonstersList = require('../src/js/shared/renderMonstersList');
@@ -76,6 +77,7 @@ module.exports = async function build(debug) {
     if (!debug) {
       html = await inlineCriticalCss(html);
       html = await inlineVendorJs(html);
+      html = minifyHtml(html, {removeAttributeQuotes: true});
     }
     await fs.writeFileAsync('./www/index.html', html, 'utf-8');
   }

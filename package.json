@@ -30,6 +30,7 @@
     "debounce": "^1.0.0",
     "eslint": "^1.7.3",
     "execall": "^1.0.0",
+    "html-minifier": "^1.0.0",
     "htmltidy": "0.0.6",
     "http-server": "^0.8.5",
     "lodash": "^3.10.1",
