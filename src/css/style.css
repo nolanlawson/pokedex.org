@@ -58,6 +58,7 @@ button {
 
 #footer {
   height: 160px;
+  font-size: 13px;
   transform: translate(0, 0);
   transition: transform 0.2s;
 }
