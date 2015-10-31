@@ -42,6 +42,7 @@ worker.addEventListener('message', e => {
 document.addEventListener('DOMContentLoaded', () => {
   monstersList = $('#monsters-list');
   monstersList.addEventListener('click', e => {
+    e.stopPropagation();
     var el = e.target.parentElement.querySelector('.monster-sprite');
     var nationalId = parseInt(el.dataset.nationalId);
     worker.postMessage({
