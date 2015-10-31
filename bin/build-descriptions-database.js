@@ -7,19 +7,39 @@ var PouchDB = require('pouchdb');
 var repStream = require('pouchdb-replication-stream');
 PouchDB.plugin(repStream.plugin);
 PouchDB.adapter('writableStream', repStream.adapters.writableStream);
+var pouchdbLoad = require('pouchdb-load');
+PouchDB.plugin({loadIt: pouchdbLoad.load});
 var memdown = require('memdown');
 var db = new PouchDB('inmem', {db: memdown});
-var fs = require('fs');
+var bluebird = require('bluebird');
+var fs = bluebird.promisifyAll(require('fs'));
 var zpad = require('zpad');
+var lodash = require('lodash');
+var shortRevs = require('short-revs');
 
-var NUM_DESCRIPTIONS = 6610;
+var monstersDB = new PouchDB('monsters', {db: memdown});
 
 async function doIt() {
-  for (var i = 1; i <= NUM_DESCRIPTIONS; i++) {
-    console.log(`fetching ${i}...`);
+
+  await monstersDB.loadIt(await fs.readFileAsync('./src/assets/monsters.txt', 'utf-8'));
+
+  var allMonsters = await monstersDB.allDocs({include_docs: true});
+  var descriptionIds = allMonsters.rows.map(row => {
+    var monster = row.doc;
+    // get just generation-5 descriptions
+    var desc = lodash.find(monster.descriptions, x => /_gen_5$/.test(x.name));
+    var descId = parseInt(desc.resource_uri.match(/\/(\d+)\/$/)[1], 10);
+    return descId;
+  });
+
+  descriptionIds = lodash.uniq(descriptionIds);
+
+  for (var i = 0; i < descriptionIds.length; i++) {
+    var descId = descriptionIds[i];
+    console.log(`fetching ${descId}...`);
     var json;
     try {
-      var result = await fetch(`http://pokeapi.co/api/v1/description/${i}`);
+      var result = await fetch(`http://pokeapi.co/api/v1/description/${descId}`);
       json = await result.json();
     } catch (err) {
       continue; // ignore; the API has some holes
@@ -32,7 +52,7 @@ async function doIt() {
   }
 
   var out = fs.createWriteStream('src/assets/descriptions.txt');
-  await db.dump(out);
+  await db.pipe(shortRevs()).dump(out);
 }
 
 doIt().catch(console.log.bind(console));
