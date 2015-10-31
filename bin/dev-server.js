@@ -33,9 +33,13 @@ async function doIt() {
   await new Promise(function (resolve) { setTimeout(resolve, 1000); });
 
   // dump monsters.txt
-  var db = new PouchDB('http://localhost:6984/monsters');
-  var dumpfile = await fs.readFileAsync('./db/monsters.txt', 'utf-8');
-  var loadPromise = db.load(dumpfile);
+  var monstersDB = new PouchDB('http://localhost:6984/monsters');
+  var descriptionsDB = new PouchDB('http://localhost:6984/descriptions');
+
+  var loadPromises = [
+    monstersDB.load(await fs.readFileAsync('src/db/monsters.txt', 'utf-8')),
+    descriptionsDB.load(await fs.readFileAsync('src/db/descriptions.txt', 'utf-8'))
+  ];
 
   // build with debug=true
   var buildPromise = build(true);
@@ -50,7 +54,7 @@ async function doIt() {
     });
   });
 
-  await* [loadPromise, buildPromise, serverPromise];
+  await* [...loadPromises, buildPromise, serverPromise];
 
   console.log('started dev server at http://127.0.0.1:9000');
 

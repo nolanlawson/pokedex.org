@@ -8,7 +8,7 @@ var repStream = require('pouchdb-replication-stream');
 PouchDB.plugin(repStream.plugin);
 PouchDB.adapter('writableStream', repStream.adapters.writableStream);
 var memdown = require('memdown');
-var db = new PouchDB('monsters', {db: memdown});
+var db = new PouchDB('inmem', {db: memdown});
 var fs = require('fs');
 var zpad = require('zpad');
 
@@ -22,7 +22,7 @@ async function doIt() {
     await db.put(json);
   }
 
-  var out = fs.createWriteStream('db/monsters.txt');
+  var out = fs.createWriteStream('src/db/monsters.txt');
   await db.dump(out);
 }
 

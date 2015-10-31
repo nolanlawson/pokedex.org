@@ -6,6 +6,7 @@ var getMonsterLightTheme = require('./getMonsterLightTheme');
 var getMonsterPrimaryType = require('./getMonsterPrimaryType');
 var typesToColors = require('./typesToColors');
 var color = require('color');
+var capitalize = require('lodash/string/capitalize');
 
 function renderTypeLabels(monster) {
   return monster.types.map(type => {
@@ -34,7 +35,8 @@ function renderDetailPanel(monster) {
     }, monster.name),
     h('div.detail-panel-content', [
       h(`div.detail-sprite.monster-sprite.sprite-${monster.national_id}`),
-      ...typeLabels
+      ...typeLabels,
+      h('span.monster-description', capitalize(monster.species.replace('pokemon', 'pok&eacute;mon')))
     ])
   ]);
 }

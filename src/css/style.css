@@ -388,6 +388,11 @@ button {
   margin-right: 5px;
 }
 
+.monster-description {
+  font-size: 14px;
+  color: #333;
+}
+
 /* miscellaneous */
 
 .hidden {
