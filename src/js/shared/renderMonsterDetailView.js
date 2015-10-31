@@ -23,9 +23,14 @@ function renderTypeLabels(monster) {
   }).reverse();
 }
 
-function renderDetailPanel(monster) {
+function renderStats(monster) {
+  return h('div');
+}
+
+function renderDetailPanel(monster, description) {
   var darkColor = getMonsterDarkTheme(monster);
   var typeLabels = renderTypeLabels(monster);
+  var stats = renderStats(monster);
 
   return h('div.mui-panel.detail-panel', [
     h('div.detail-panel-header', {
@@ -34,14 +39,28 @@ function renderDetailPanel(monster) {
       }
     }, monster.name),
     h('div.detail-panel-content', [
-      h(`div.detail-sprite.monster-sprite.sprite-${monster.national_id}`),
-      ...typeLabels,
-      h('span.monster-description', capitalize(monster.species.replace('pokemon', 'pok&eacute;mon')))
+      h(`div.detail-header`, [
+        h(`div.detail-sprite.monster-sprite.sprite-${monster.national_id}`),
+        h(`div.detail-infobox`, [
+          h('div', [
+            h('div', typeLabels),
+            h('div.detail-stats', stats)
+          ]),
+          h('div.detail-national-id', [
+            h('span', '#' + monster.national_id)
+          ])
+        ])
+      ]),
+      h(`div.detail-below-header`, [
+        h('div.monster-description', description.description)
+      ])
     ])
   ]);
 }
 
-module.exports = monster => {
+module.exports = monsterData => {
+
+  var {monster, description} = monsterData;
 
   var bgColor = getMonsterBackground(monster);
 
@@ -55,7 +74,7 @@ module.exports = monster => {
       h('button.back-button.detail-back-button.hover-shadow', {
         type: 'button'
       }),
-      renderDetailPanel(monster)
+      renderDetailPanel(monster, description)
     ])
   ]);
 };

@@ -11,27 +11,25 @@ var memdown = require('memdown');
 var db = new PouchDB('inmem', {db: memdown});
 var fs = require('fs');
 var zpad = require('zpad');
-var lodash = require('lodash');
 
 var NUM_DESCRIPTIONS = 6610;
 
 async function doIt() {
-  var promises = lodash.range(NUM_DESCRIPTIONS).map(async i => {
+  for (var i = 1; i <= NUM_DESCRIPTIONS; i++) {
+    console.log(`fetching ${i}...`);
     var json;
     try {
       var result = await fetch(`http://pokeapi.co/api/v1/description/${i}`);
       json = await result.json();
     } catch (err) {
-      return; // ignore; the API has some holes
+      continue; // ignore; the API has some holes
     }
     var doc = {
       _id: zpad(json.id, 7),
       description: json.description
     };
     await db.put(doc);
-  });
-
-  await* promises;
+  }
 
   var out = fs.createWriteStream('src/assets/descriptions.txt');
   await db.dump(out);

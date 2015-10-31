@@ -302,6 +302,7 @@ button {
   right: 0;
   bottom: 0;
   z-index: 1000;
+  color: #333;
 }
 
 .detail-view-bg {
@@ -357,7 +358,24 @@ button {
 .detail-sprite {
   width: 140px;
   height: 140px;
-  float: left;
+}
+
+.detail-header {
+  display: flex;
+}
+
+.detail-below-header {
+}
+
+.detail-national-id {
+  flex-grow: 1;
+  text-align: right;
+  font-size: 30px;
+}
+
+.detail-infobox {
+  flex-grow: 1;
+  display: flex;
 }
 
 .detail-sprite.animating {
@@ -390,7 +408,6 @@ button {
 
 .monster-description {
   font-size: 14px;
-  color: #333;
 }
 
 /* miscellaneous */

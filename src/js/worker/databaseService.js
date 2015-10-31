@@ -1,5 +1,8 @@
 require('regenerator/runtime');
 
+var zpad = require('zpad');
+var find = require('lodash/collection/find');
+
 var PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-upsert'));
 PouchDB.plugin(require('pouchdb-load'));
@@ -57,12 +60,26 @@ async function initDBs(couchHome) {
   remoteDescriptionsDB = new PouchDB(couchHome + '/descriptions');
   localDescriptionsDB = new PouchDB('descriptions');
   if (localMonstersDB.adapter) {
-    replicateMonsters();
-    replicateDescriptions();
+    await replicateMonsters();
+    await replicateDescriptions();
   } else {
     console.log(
       'this browser doesn\'t support worker IDB. cannot work offline.');
   }
+}
+
+async function getMonstersDB() {
+  if (await checkReplicated(localMonstersDB)) {
+    return localMonstersDB;
+  }
+  return remoteMonstersDB;
+}
+
+async function getDescriptionsDB() {
+  if (await checkReplicated(localDescriptionsDB)) {
+    return localDescriptionsDB;
+  }
+  return remoteDescriptionsDB;
 }
 
 module.exports = {
@@ -70,11 +87,20 @@ module.exports = {
     var couchHome = origin.replace(/:[^:]+$/, ':6984');
     initDBs(couchHome);
   },
-  getBestDB: async () => {
-    if (await checkReplicated(localMonstersDB)) {
-      return localMonstersDB;
-    }
-    return remoteMonstersDB;
+  getFullMonsterDataById: async nationalId => {
+    var nationalDocId = zpad(nationalId, 5);
+    var monster = await (await getMonstersDB()).get(nationalDocId);
+    // get a generation-5 description
+    var desc = find(monster.descriptions, x => /_gen_5$/.test(x.name));
+    // TODO
+    var description = {"description": "This is a stub description! " +
+    "This pokemon is really cool and you will like it a lot."};
+    /*
+    var descId = desc.resource_uri.match(/\/(\d+)\/$/)[1];
+    var descDocId = zpad(parseInt(descId, 10), 7);
+    var description = await (await getDescriptionsDB()).get(descDocId);
+    */
+    return {monster, description};
   },
   getFilteredMonsters: async (filter) => {
     return inMemoryDB.findByNamePrefix(filter);
