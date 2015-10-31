@@ -10,11 +10,13 @@ var detailView;
 var detailViewContainer;
 var monstersList;
 var lastNationalId;
+var themeMeta;
 
 document.addEventListener('DOMContentLoaded', () => {
   detailView = $('#detail-view');
   detailViewContainer = $('#detail-view-container');
   monstersList = $('#monsters-list');
+  themeMeta = document.head.querySelector('meta[name="theme-color"]');
   detailViewContainer.addEventListener('click', e => {
     if (indexOf(e.target.classList, 'back-button') !== -1) {
       animateOut();
@@ -60,7 +62,7 @@ function computeTransforms(outAnimation) {
   };
 }
 
-function animateIn() {
+function animateIn(themeColor) {
   // scroll the panel down if necessary
   document.body.style.overflow = 'hidden';
   detailView.style.transform = `translateY(${window.pageYOffset}px)`;
@@ -90,6 +92,7 @@ function animateIn() {
     targetForeground.classList.remove('animating');
     targetBackground.classList.remove('animating');
     targetSprite.classList.remove('animating');
+    themeMeta.content = themeColor;
     targetSprite.removeEventListener('transitionend', onAnimEnd);
   }
 
@@ -126,6 +129,7 @@ function animateOut() {
     targetBackground.style.transform = '';
     targetForeground.style.transform = '';
     detailViewContainer.classList.add('hidden');
+    themeMeta.content = util.appTheme;
     targetSprite.removeEventListener('transitionend', onAnimEnd);
   }
 
@@ -145,7 +149,7 @@ function applyPatch(patchString) {
 function onMessage(message) {
   lastNationalId = message.nationalId;
   applyPatch(message.patch);
-  requestAnimationFrame(animateIn);
+  requestAnimationFrame(() => animateIn(message.themeColor));
 }
 
 worker.addEventListener('message', e => {

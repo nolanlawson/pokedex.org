@@ -1,6 +1,7 @@
 require('regenerator/runtime');
 
 var renderDetailView = require('../shared/renderMonsterDetailView');
+var getMonsterDarkTheme = require('../shared/getMonsterDarkTheme');
 var dbService = require('./databaseService');
 var zpad = require('zpad');
 var bulbasaur = require('../shared/bulbasaur');
@@ -25,5 +26,7 @@ module.exports = async nationalId => {
 
   stopwatch.time('detail: diffing');
 
-  return patch;
+  var themeColor = getMonsterDarkTheme(monsterData);
+
+  return {patch, themeColor};
 };

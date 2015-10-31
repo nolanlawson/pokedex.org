@@ -1,14 +1,14 @@
 var h = require('virtual-dom/h');
 
 var getMonsterBackground = require('./getMonsterBackground');
+var getMonsterDarkTheme = require('./getMonsterDarkTheme');
 var typesToColors = require('./typesToColors');
 var color = require('color');
 
 module.exports = monster => {
 
   var bgColor = getMonsterBackground(monster);
-  var primaryType = monster.types[1] || monster.types[0];
-  var darkColor = color(typesToColors[primaryType.name]).darken(0.35).rgbString();
+  var darkColor = getMonsterDarkTheme(monster);
 
   return h('div#detail-view', [
     h('div.detail-view-bg', {
