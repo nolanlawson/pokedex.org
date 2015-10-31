@@ -512,6 +512,11 @@ button {
   padding: 4px 5px;
 }
 
+/* hamburger needs more padding */
+.sidedrawer-toggle.hover-shadow {
+  padding: 4px 7px 5px 8px;
+}
+
 .hover-shadow:active, .hover-shadow:focus, .hover-shadow:hover {
   background-color: rgba(0,0,0,.27);
 }
