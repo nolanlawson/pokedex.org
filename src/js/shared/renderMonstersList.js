@@ -3,6 +3,7 @@ var h = require('virtual-dom/h');
 var map = require('lodash/collection/map');
 
 var getMonsterBackground = require('./getMonsterBackground');
+var getMonsterDisplayName = require('./getMonsterDisplayName');
 
 module.exports = monsters => {
   return h('ul', {id: 'monsters-list'}, map(monsters, monster =>
@@ -15,7 +16,7 @@ module.exports = monsters => {
         },
         type: 'button'
       }),
-      h('span', monster.name)
+      h('span', getMonsterDisplayName(monster))
     ])
   ));
 };

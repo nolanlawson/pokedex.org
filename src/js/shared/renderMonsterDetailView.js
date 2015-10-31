@@ -4,6 +4,7 @@ var getMonsterBackground = require('./getMonsterBackground');
 var getMonsterDarkTheme = require('./getMonsterDarkTheme');
 var getMonsterLightTheme = require('./getMonsterLightTheme');
 var getMonsterPrimaryType = require('./getMonsterPrimaryType');
+var getMonsterDisplayName = require('./getMonsterDisplayName');
 var typesToColors = require('./typesToColors');
 var color = require('color');
 
@@ -55,7 +56,7 @@ function renderStats(monster) {
     var statValue = monster[statLookupName];
     var ratio = getStatDisplayRatio(statValue);
     // avoid the font being white on a white background
-    var fontColor = statValue < 30 ? '#333' : '#fff';
+    var fontColor = statValue < 20 ? '#333' : '#fff';
     return h('div.detail-stats-row', [
       h('span', statName),
       h('span.stat-bar', [
@@ -85,7 +86,7 @@ function renderDetailPanel(monster, description) {
       style: {
         background: darkColor
       }
-    }, monster.name),
+    }, getMonsterDisplayName(monster)),
     h('div.detail-panel-content', [
       h(`div.detail-header`, [
         h(`div.detail-sprite.monster-sprite.sprite-${monster.national_id}`),

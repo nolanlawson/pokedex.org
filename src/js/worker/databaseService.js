@@ -92,14 +92,9 @@ module.exports = {
     var monster = await (await getMonstersDB()).get(nationalDocId);
     // get a generation-5 description
     var desc = find(monster.descriptions, x => /_gen_5$/.test(x.name));
-    // TODO
-    var description = {"description": "This is a stub description! " +
-    "This pokemon is really cool and you will like it a lot."};
-    /*
     var descId = desc.resource_uri.match(/\/(\d+)\/$/)[1];
     var descDocId = zpad(parseInt(descId, 10), 7);
     var description = await (await getDescriptionsDB()).get(descDocId);
-    */
     return {monster, description};
   },
   getFilteredMonsters: async (filter) => {

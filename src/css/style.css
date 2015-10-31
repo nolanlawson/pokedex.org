@@ -390,6 +390,7 @@ button {
 
 .detail-infobox {
   flex-grow: 1;
+  margin-right: 10px;
 }
 
 .detail-stats {
