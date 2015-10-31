@@ -10,6 +10,7 @@ var CleanCss = require('clean-css');
 var cleanCss = new CleanCss();
 var execall = require('execall');
 var minifyHtml = require('html-minifier').minify;
+var bundleCollapser = require("bundle-collapser/plugin");
 
 var renderMonsterDetailView = require('../src/js/shared/renderMonsterDetailView');
 var renderMonstersList = require('../src/js/shared/renderMonstersList');
@@ -115,10 +116,18 @@ module.exports = async function build(debug) {
     ];
 
     await* files.map(function (file) {
-      var stream = browserify({
+      var opts = {
         fullPaths: debug,
         debug: debug
-      }).add(file.source).bundle();
+      }
+      if (!debug) {
+        opts.plugin = [bundleCollapser]
+      }
+      var b = browserify(opts).add(file.source).transform('babelify');
+      if (!debug) {
+        b = b.transform('stripify');
+      }
+      var stream = b.bundle();
       return stream2promise(stream.pipe(fs.createWriteStream(file.dest)));
     });
 

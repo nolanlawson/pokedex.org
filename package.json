@@ -14,17 +14,13 @@
   "keywords": [],
   "author": "Nolan Lawson <nolan@nolanlawson.com>",
   "license": "Apache-2.0",
-  "browserify": {
-    "transform": [
-      "babelify"
-    ]
-  },
   "devDependencies": {
     "babel": "^5.8.29",
     "babel-eslint": "^4.1.3",
     "babelify": "^6.4.0",
     "bluebird": "^2.10.2",
     "browserify": "^11.2.0",
+    "bundle-collapser": "^1.2.1",
     "clean-css": "^3.4.6",
     "color": "^0.10.1",
     "debounce": "^1.0.0",
@@ -49,6 +45,7 @@
     "regenerator": "^0.8.41",
     "rimraf": "^2.4.3",
     "stream-to-promise": "^1.0.4",
+    "stripify": "^3.0.0",
     "uglify-js": "^2.5.0",
     "uglify-stream": "^1.1.0",
     "vdom-as-json": "^1.0.5",
