@@ -119,9 +119,9 @@ module.exports = async function build(debug) {
       var opts = {
         fullPaths: debug,
         debug: debug
-      }
+      };
       if (!debug) {
-        opts.plugin = [bundleCollapser]
+        opts.plugin = [bundleCollapser];
       }
       var b = browserify(opts).add(file.source).transform('babelify');
       if (!debug) {
@@ -145,11 +145,12 @@ module.exports = async function build(debug) {
 
   async function copyStatic() {
     console.log('copyStatic()');
-    await ncp('./src/img', './www/img');
+    var promises = [ncp('./src/img', './www/img')];
     if (debug) {
-      await ncp('./src/svg', './www/svg');
-      await ncp('./src/vendor', './www/vendor');
+      promises.push(ncp('./src/svg', './www/svg'));
+      promises.push(ncp('./src/vendor', './www/vendor'));
     }
+    await* promises;
   }
 
   console.log('copying from src to www');

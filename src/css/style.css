@@ -357,6 +357,7 @@ button {
 .detail-sprite {
   width: 140px;
   height: 140px;
+  float: left;
 }
 
 .detail-sprite.animating {
@@ -375,6 +376,16 @@ button {
   transition-property: transform;
   transition-duration: 0.33333s;
   transition-timing-function: cubic-bezier(0,0,0.21,1);
+}
+
+.monster-type {
+  color: white;
+  padding: 1px 4px 4px;
+  border-radius: 2px;
+  font-size: 16px;
+  font-variant: small-caps;
+  font-weight: 600;
+  margin-right: 5px;
 }
 
 /* miscellaneous */

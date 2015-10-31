@@ -4,5 +4,5 @@ var typesToColors = require('./typesToColors');
 
 module.exports = monster => {
   var primaryType = getMonsterPrimaryType(monster);
-  return color(typesToColors[primaryType]).darken(0.35).rgbString();
+  return color(typesToColors[primaryType]).darken(0.15).rgbString();
 };
