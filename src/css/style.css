@@ -181,6 +181,16 @@ button {
 
 /* custom theming for pokedex app */
 
+#sidedrawer a {
+  color: rgba(0,0,0,.87);
+  text-decoration: none;
+}
+
+#sidedrawer a:hover {
+  color: rgba(0,0,0,.87);
+  text-decoration: none;
+}
+
 @media (max-width: 767px) {
   #main-title {
     display: none;
