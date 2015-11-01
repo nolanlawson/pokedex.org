@@ -8,7 +8,7 @@ module.exports = monster => {
     case 'Mr-mime':
       return 'Mr. Mime';
     case 'Farfetchd':
-      return "Farfetch'd"
+      return "Farfetch'd";
   }
   return name;
 };

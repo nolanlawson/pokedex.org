@@ -2,7 +2,6 @@ var h = require('virtual-dom/h');
 
 var getMonsterBackground = require('./getMonsterBackground');
 var getMonsterDarkTheme = require('./getMonsterDarkTheme');
-var getMonsterLightTheme = require('./getMonsterLightTheme');
 var getMonsterPrimaryType = require('./getMonsterPrimaryType');
 var getMonsterDisplayName = require('./getMonsterDisplayName');
 var typesToColors = require('./typesToColors');
@@ -19,7 +18,7 @@ function renderTypeLabels(monster) {
         border: `1px solid ${lightColor}`,
         background: darkColor
       }
-    }, type.name)
+    }, type.name);
   }).reverse();
 }
 
