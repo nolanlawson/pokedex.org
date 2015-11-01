@@ -27,7 +27,7 @@ async function onFilterMessage(message) {
 }
 
 async function onDetailMessage(message) {
-  var nationalId = message.nationalId;
+  var {nationalId, startTime} = message;
   var stopwatch = new Stopwatch();
   var {patch, themeColor} = await patchMonsterDetail(nationalId);
   stopwatch.time('patchMonsterDetail()');
@@ -40,7 +40,8 @@ async function onDetailMessage(message) {
     type: 'monsterDetailPatch',
     patch: patchJsonAsString,
     nationalId: nationalId,
-    themeColor: themeColor
+    themeColor: themeColor,
+    startTime: startTime
   });
   stopwatch.totalTime('worker-detail (total)');
 }

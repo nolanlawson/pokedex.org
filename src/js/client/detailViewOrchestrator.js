@@ -9,14 +9,14 @@ var monstersList;
 var themeMeta;
 var appTheme;
 
+var screenWidth = window.innerWidth;
+var screenHeight = window.innerHeight;
+
 function computeTransforms(nationalId, outAnimation) {
   console.time('computeTransforms()');
   var sourceSprite = monstersList.querySelector(`.sprite-${nationalId}`);
   var sourceTitleSpan = sourceSprite.parentElement.querySelector('span');
-  var targetSprite = $('.detail-sprite');
-
-  var screenWidth = window.innerWidth;
-  var screenHeight = window.innerHeight;
+  var targetSprite = detailView.querySelector('.detail-sprite');
 
   // reeeaaally fling it away when animating out. looks better
   var slideInY = outAnimation ? screenHeight * 1.1 : screenHeight * 0.6;
@@ -48,15 +48,15 @@ function computeTransforms(nationalId, outAnimation) {
 }
 
 function animateIn(nationalId, themeColor) {
+  document.body.style.overflow = 'hidden'; // disable scrolling
   // scroll the panel down if necessary
-  document.body.style.overflow = 'hidden';
   detailView.style.transform = `translateY(${window.pageYOffset}px)`;
   detailViewContainer.classList.remove('hidden');
 
   var {bgTransform, spriteTransform, fgTransform} = computeTransforms(nationalId, false);
-  var targetBackground = $('.detail-view-bg');
-  var targetForeground = $('.detail-view-fg');
-  var targetSprite = $('.detail-sprite');
+  var targetBackground = detailView.querySelector('.detail-view-bg');
+  var targetForeground = detailView.querySelector('.detail-view-fg');
+  var targetSprite = detailView.querySelector('.detail-sprite');
 
   targetSprite.style.transform = spriteTransform;
   targetBackground.style.transform = bgTransform;
@@ -85,12 +85,12 @@ function animateIn(nationalId, themeColor) {
 }
 
 function animateOut(nationalId) {
-  document.body.style.overflow = 'visible';
+  document.body.style.overflow = 'visible'; // re-enable scrolling
   var {bgTransform, spriteTransform, fgTransform} = computeTransforms(nationalId, true);
 
-  var targetBackground = $('.detail-view-bg');
-  var targetForeground = $('.detail-view-fg');
-  var targetSprite = $('.detail-sprite');
+  var targetBackground = detailView.querySelector('.detail-view-bg');
+  var targetForeground = detailView.querySelector('.detail-view-fg');
+  var targetSprite = detailView.querySelector('.detail-sprite');
   targetSprite.style.transform = '';
   targetBackground.style.transform = '';
   targetForeground.style.transform = '';
@@ -129,7 +129,15 @@ function init() {
   appTheme = themeMeta.content;
 }
 
+function onResize() {
+  // these are expensive to compute, so only compute when the window is resized
+  screenWidth = window.innerWidth;
+  screenHeight = window.innerHeight;
+}
+
 document.addEventListener('DOMContentLoaded', init);
+
+window.addEventListener('resize', onResize);
 
 module.exports = {
   animateIn,

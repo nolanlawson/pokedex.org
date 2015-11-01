@@ -48,7 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
     console.time('worker-detail');
     worker.postMessage({
       type: 'detail',
-      nationalId: nationalId
+      nationalId: nationalId,
+      startTime: Date.now()
     });
   });
 }, false);
