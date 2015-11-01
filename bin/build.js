@@ -35,7 +35,7 @@ module.exports = async function build(debug) {
         `url("data:image/svg+xml;base64,${svgBase64}")` +
         criticalCss.substring(svg.index + svg.match.length);
     }
-    return cleanCss.minify(criticalCss).styles;
+    return criticalCss;
   }
 
   async function inlineCriticalCss(html) {
@@ -46,11 +46,12 @@ module.exports = async function build(debug) {
       spritesCss.split('\n').slice(0, CRITICAL_CSS_SPRITES_LINES).join('\n');
 
     mainCss = await inlineSvgs(mainCss);
-    var muiCss = await fs.readFileAsync('./src/vendor/mui.min.css', 'utf-8');
-
+    mainCss = cleanCss.minify(mainCss).styles;
+    var muiCss = await fs.readFileAsync('./src/vendor/mui.css', 'utf-8');
+    muiCss = cleanCss.minify(muiCss).styles;
     return html
       .replace(
-        '<link href="vendor/mui.min.css" rel="stylesheet"/>',
+        '<link href="vendor/mui.css" rel="stylesheet"/>',
         `<style>${muiCss}</style>`)
       .replace(
         '<link href="css/style.css" rel="stylesheet"/>',
@@ -58,10 +59,13 @@ module.exports = async function build(debug) {
   }
 
   async function inlineVendorJs(html) {
-    var muiJs = await fs.readFileAsync('./src/vendor/mui.min.js', 'utf-8');
+    var muiMin = uglify.minify('./src/vendor/mui.js', {
+      mangle: true,
+      compress: true
+    }).code;
     return html.replace(
-      '<script src="vendor/mui.min.js"></script>',
-      `<script>${muiJs}</script>`);
+      '<script src="vendor/mui.js"></script>',
+      `<script>${muiMin}</script>`);
   }
 
   async function copyHtml() {

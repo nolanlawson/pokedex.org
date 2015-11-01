@@ -275,15 +275,23 @@ button {
   /* mui sets transition: all 0.2s ease-in-out, avoid that so
      we don't get unnecessary janky animations */
   transition: initial;
-  transition-property: background-color,box-shadow;
+  /*transition-property: background-color,box-shadow;
   transition-duration: 0.2s;
-  transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in-out;*/
 }
 
 .monster-sprite.mui-btn--accent.mui-btn--flat:active,
-    .monster-sprite.mui-btn--accent.mui-btn--flat:focus,
-    .monster-sprite.mui-btn--accent.mui-btn--flat:hover {
-  background-color: rgba(255, 255, 255, .6);
+    .monster-sprite.mui-btn--accent.mui-btn--flat:focus {
+  /*background-color: rgba(255, 255, 255, .6);*/
+  background-color: initial;
+}
+
+.monster-sprite.mui-btn--accent.mui-btn--flat:hover {
+  background-color: rgba(255, 255, 255, .3);
+}
+
+.mui-btn--flat>.mui-ripple-effect {
+  background-color: rgba(255, 255, 255, .7);
 }
 
 .monster-sprite {
