@@ -6,7 +6,7 @@ var $ = document.querySelector.bind(document);
 var detailView;
 var detailViewContainer;
 var detailPanel;
-var header;
+var headerAppBar;
 var monstersList;
 var themeMeta;
 var appTheme;
@@ -79,6 +79,8 @@ function animateIn(nationalId, themeColor) {
     targetBackground.classList.remove('animating');
     targetSprite.classList.remove('animating');
     themeMeta.content = themeColor;
+    // this peeks out on android, looks less weird with the right color
+    headerAppBar.style.backgroundColor = themeColor;
 
     targetSprite.removeEventListener('transitionend', onAnimEnd);
   }
@@ -90,6 +92,7 @@ function animateOut(nationalId) {
   document.body.style.overflowY = 'initial'; // re-enable scrolling
   detailPanel.scrollTop = 0; // scroll panel to top, disable scrolling during animation
   detailPanel.style.overflowY = 'initial';
+  headerAppBar.style.backgroundColor = appTheme;
   var {bgTransform, spriteTransform, fgTransform} = computeTransforms(nationalId, true);
 
   var targetBackground = detailView.querySelector('.detail-view-bg');
@@ -130,7 +133,7 @@ function init() {
   detailViewContainer = $('#detail-view-container');
   monstersList = $('#monsters-list');
   detailPanel = $('.detail-panel');
-  header = $('#header');
+  headerAppBar = $('.mui-appbar');
   themeMeta = document.head.querySelector('meta[name="theme-color"]');
   appTheme = themeMeta.content;
 }
