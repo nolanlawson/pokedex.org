@@ -5,6 +5,7 @@ var getMonsterDarkTheme = require('../monster/getMonsterDarkTheme');
 var getMonsterDisplayName = require('../monster/getMonsterDisplayName');
 var renderStats = require('./renderStats');
 var renderTypeLabels = require('./renderTypeLabels');
+var renderEvolutions = require('./renderEvolutions');
 
 function renderDetailPanel(monster, description) {
   var darkColor = getMonsterDarkTheme(monster);
@@ -12,7 +13,7 @@ function renderDetailPanel(monster, description) {
   var stats = renderStats(monster);
 
   return h('div.mui-panel.detail-panel', [
-    h('div.detail-panel-header', {
+    h('h1.detail-panel-header', {
       style: {
         background: darkColor
       }
@@ -31,7 +32,8 @@ function renderDetailPanel(monster, description) {
         ])
       ]),
       h(`div.detail-below-header`, [
-        h('div.monster-description', description.description)
+        h('div.monster-description', description.description),
+        renderEvolutions(monster)
       ])
     ])
   ]);
