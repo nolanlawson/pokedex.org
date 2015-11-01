@@ -5,6 +5,7 @@ var $ = document.querySelector.bind(document);
 
 var detailView;
 var detailViewContainer;
+var detailPanel;
 var monstersList;
 var themeMeta;
 var appTheme;
@@ -49,6 +50,7 @@ function computeTransforms(nationalId, outAnimation) {
 
 function animateIn(nationalId, themeColor) {
   document.body.style.overflow = 'hidden'; // disable scrolling
+  detailPanel.style.overflowY = 'auto';
   // scroll the panel down if necessary
   detailView.style.transform = `translateY(${window.pageYOffset}px)`;
   detailViewContainer.classList.remove('hidden');
@@ -86,6 +88,7 @@ function animateIn(nationalId, themeColor) {
 
 function animateOut(nationalId) {
   document.body.style.overflow = 'visible'; // re-enable scrolling
+  detailPanel.style.overflowY = 'initial';
   var {bgTransform, spriteTransform, fgTransform} = computeTransforms(nationalId, true);
 
   var targetBackground = detailView.querySelector('.detail-view-bg');
@@ -125,6 +128,7 @@ function init() {
   detailView = $('#detail-view');
   detailViewContainer = $('#detail-view-container');
   monstersList = $('#monsters-list');
+  detailPanel = $('.detail-panel');
   themeMeta = document.head.querySelector('meta[name="theme-color"]');
   appTheme = themeMeta.content;
 }

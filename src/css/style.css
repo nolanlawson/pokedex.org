@@ -356,8 +356,14 @@ button {
 
 .mui-panel.detail-panel {
   max-width: 600px;
-  margin: 0 auto;
+  margin: 58px auto;
   padding: 0;
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  overflow-y: auto;
 }
 
 .detail-panel-header {
