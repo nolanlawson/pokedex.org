@@ -76,8 +76,7 @@ async function initDBs(couchHome) {
     await replicateMonsters();
     await replicateDescriptions();
   } else {
-    console.log(
-      'this browser doesn\'t support worker IDB. cannot work offline.');
+    console.log('this browser doesn\'t support PouchDB. cannot work offline.');
   }
 }
 
