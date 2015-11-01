@@ -6,6 +6,7 @@ var $ = document.querySelector.bind(document);
 var detailView;
 var detailViewContainer;
 var detailPanel;
+var header;
 var monstersList;
 var themeMeta;
 var appTheme;
@@ -49,10 +50,8 @@ function computeTransforms(nationalId, outAnimation) {
 }
 
 function animateIn(nationalId, themeColor) {
-  document.body.style.overflow = 'hidden'; // disable scrolling
+  document.body.style.overflowY = 'hidden'; // disable scrolling
   detailPanel.style.overflowY = 'auto'; // re-enable overflow on the panel
-  // move the panel down if necessary
-  detailView.style.transform = `translateY(${window.pageYOffset}px)`;
   detailViewContainer.classList.remove('hidden');
 
   var {bgTransform, spriteTransform, fgTransform} = computeTransforms(nationalId, false);
@@ -80,6 +79,7 @@ function animateIn(nationalId, themeColor) {
     targetBackground.classList.remove('animating');
     targetSprite.classList.remove('animating');
     themeMeta.content = themeColor;
+
     targetSprite.removeEventListener('transitionend', onAnimEnd);
   }
 
@@ -87,7 +87,7 @@ function animateIn(nationalId, themeColor) {
 }
 
 function animateOut(nationalId) {
-  document.body.style.overflow = 'visible'; // re-enable scrolling
+  document.body.style.overflowY = 'initial'; // re-enable scrolling
   detailPanel.scrollTop = 0; // scroll panel to top, disable scrolling during animation
   detailPanel.style.overflowY = 'initial';
   var {bgTransform, spriteTransform, fgTransform} = computeTransforms(nationalId, true);
@@ -130,6 +130,7 @@ function init() {
   detailViewContainer = $('#detail-view-container');
   monstersList = $('#monsters-list');
   detailPanel = $('.detail-panel');
+  header = $('#header');
   themeMeta = document.head.querySelector('meta[name="theme-color"]');
   appTheme = themeMeta.content;
 }
