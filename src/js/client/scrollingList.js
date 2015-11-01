@@ -21,7 +21,7 @@ function applyPatch(patchString) {
 }
 
 function onFiltered(message) {
-  console.timeEnd('worker-filter');
+  console.timeEnd('worker-detail');
   console.log('worker sent message');
 
   if (message.type === 'monstersListPatch') {
@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     e.stopPropagation();
     var el = e.target.parentElement.querySelector('.monster-sprite');
     var nationalId = parseInt(el.dataset.nationalId);
+    console.time('worker-detail');
     worker.postMessage({
       type: 'detail',
       nationalId: nationalId

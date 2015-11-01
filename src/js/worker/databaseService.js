@@ -2,11 +2,14 @@ require('regenerator/runtime');
 
 var zpad = require('zpad');
 var find = require('lodash/collection/find');
+var pick = require('lodash/object/pick');
 
 var PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-upsert'));
 PouchDB.plugin(require('pouchdb-load'));
+PouchDB.plugin(require('transform-pouch'));
 var inMemoryDB = require('./inMemoryDatabase');
+var Stopwatch = require('../shared/stopwatch');
 
 var localMonstersDB;
 var remoteMonstersDB;
@@ -56,9 +59,19 @@ async function replicateDescriptions() {
 
 async function initDBs(couchHome) {
   remoteMonstersDB = new PouchDB(couchHome + '/monsters');
-  localMonstersDB = new PouchDB('monsters');
   remoteDescriptionsDB = new PouchDB(couchHome + '/descriptions');
   localDescriptionsDB = new PouchDB('descriptions');
+  localMonstersDB = new PouchDB('monsters');
+  // make the local monster doc smaller
+  localMonstersDB.transform({
+    incoming: doc => {
+      doc = pick(doc, '_id', '_rev', '_revisions', 'descriptions',
+        'types', 'attack', 'defense', 'speed', 'sp_atk', 'sp_def', 'hp',
+        'weight', 'height', 'national_id', 'name', 'male_female_ratio');
+      doc.descriptions = doc.descriptions.filter(x => /_gen_5$/.test(x.name));
+      return doc;
+    }
+  });
   if (localMonstersDB.adapter) {
     await replicateMonsters();
     await replicateDescriptions();
@@ -88,13 +101,16 @@ module.exports = {
     initDBs(couchHome);
   },
   getFullMonsterDataById: async nationalId => {
+    var stopwatch = new Stopwatch();
     var nationalDocId = zpad(nationalId, 5);
     var monster = await (await getMonstersDB()).get(nationalDocId);
+    stopwatch.time('get() monster');
     // get a generation-5 description
     var desc = find(monster.descriptions, x => /_gen_5$/.test(x.name));
     var descId = desc.resource_uri.match(/\/(\d+)\/$/)[1];
     var descDocId = zpad(parseInt(descId, 10), 7);
     var description = await (await getDescriptionsDB()).get(descDocId);
+    stopwatch.time('get() descriptions');
     return {monster, description};
   },
   getFilteredMonsters: async (filter) => {

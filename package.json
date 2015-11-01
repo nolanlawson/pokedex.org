@@ -47,6 +47,7 @@
     "short-revs": "^1.0.0",
     "stream-to-promise": "^1.0.4",
     "stripify": "^3.0.0",
+    "transform-pouch": "^1.0.2",
     "uglify-js": "^2.5.0",
     "uglify-stream": "^1.1.0",
     "vdom-as-json": "^1.0.5",
