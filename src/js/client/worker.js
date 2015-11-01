@@ -1,6 +1,6 @@
-var PseudoWorker = require('./pseudoworker');
-
-var worker = new PseudoWorker('js/worker.js');
+//var PseudoWorker = require('./pseudoworker');
+//var worker = new PseudoWorker('js/worker.js');
+var worker = new Worker('js/worker.js');
 
 worker.addEventListener('error', (e) => {
   console.warn('worker threw an error', e.error);
