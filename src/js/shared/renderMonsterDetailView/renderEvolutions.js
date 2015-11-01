@@ -7,7 +7,7 @@ function renderEvolutionRows(monster) {
   }
   return monster.evolutions.map(evolution => {
     var nationalId = evolution.resource_uri.match(/(\d+)\/$/)[1];
-    return h(`div.evolution-sprite.monster-sprite.sprite-${nationalId}`)
+    return h(`div.evolution-sprite.monster-sprite.sprite-${nationalId}`);
   });
 }
 
@@ -20,5 +20,5 @@ module.exports = function renderEvolutions(monster) {
       }
     }, 'Evolutions'),
     renderEvolutionRows(monster)
-  ])
+  ]);
 };

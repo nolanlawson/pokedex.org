@@ -11,6 +11,7 @@ var cleanCss = new CleanCss();
 var execall = require('execall');
 var minifyHtml = require('html-minifier').minify;
 var bundleCollapser = require("bundle-collapser/plugin");
+var envify = require('envify/custom');
 
 var renderMonsterDetailView = require('../src/js/shared/renderMonsterDetailView');
 var renderMonstersList = require('../src/js/shared/renderMonstersList');
@@ -68,8 +69,8 @@ module.exports = async function build(debug) {
       `<script>${muiMin}</script>`);
   }
 
-  async function copyHtml() {
-    console.log('copyHtml()');
+  async function buildHtml() {
+    console.log('buildHtml()');
     var html = await fs.readFileAsync('./src/index.html', 'utf-8');
     var monstersList = renderMonstersList(monsterSummaries);
     html = html.replace('<ul id="monsters-list"></ul>',
@@ -87,8 +88,8 @@ module.exports = async function build(debug) {
     await fs.writeFileAsync('./www/index.html', html, 'utf-8');
   }
 
-  async function copyCss() {
-    console.log('copyCss()');
+  async function buildCss() {
+    console.log('buildCss()');
     var spritesCss = await fs.readFileAsync('./src/css/sprites.css', 'utf-8');
 
     if (!debug) {
@@ -104,8 +105,8 @@ module.exports = async function build(debug) {
     }
   }
 
-  async function copyJs() {
-    console.log('copyJs()');
+  async function buildJS() {
+    console.log('buildJS()');
     await mkdirp('./www/js');
 
     var files = [
@@ -116,6 +117,10 @@ module.exports = async function build(debug) {
       {
         source: __dirname + '/../src/js/worker/index.js',
         dest: __dirname + '/../www/js/worker.js'
+      },
+      {
+        source: __dirname + '/../src/js/serviceWorker/index.js',
+        dest: __dirname + '/../www/sw.js' // ServiceWorker must live at the root
       }
     ];
 
@@ -127,10 +132,14 @@ module.exports = async function build(debug) {
       if (!debug) {
         opts.plugin = [bundleCollapser];
       }
-      var b = browserify(opts).add(file.source).transform('babelify');
+      var b = browserify(opts).add(file.source)
+        .transform('babelify');
       if (!debug) {
         b = b.transform('stripify');
       }
+      b = b.transform(envify({
+        NODE_ENV: debug ? 'development' : 'production'
+      }));
       var stream = b.bundle();
       return stream2promise(stream.pipe(fs.createWriteStream(file.dest)));
     });
@@ -147,8 +156,8 @@ module.exports = async function build(debug) {
     }
   }
 
-  async function copyStatic() {
-    console.log('copyStatic()');
+  async function buildStatic() {
+    console.log('buildStatic()');
 
     var promises = [
       ncp('./src/img', './www/img'),
@@ -164,6 +173,6 @@ module.exports = async function build(debug) {
   console.log('copying from src to www');
   await rimraf('./www');
   await mkdirp('./www');
-  await* [copyHtml(), copyCss(), copyJs(), copyStatic()];
+  await* [buildHtml(), buildCss(), buildJS(), buildStatic()];
   console.log('wrote files to www/');
 };
