@@ -89,9 +89,9 @@ function animateIn(nationalId, themeColor) {
 }
 
 function animateOut(nationalId) {
-  document.body.style.overflowY = 'initial'; // re-enable scrolling
+  document.body.style.overflowY = 'visible'; // re-enable scrolling
   detailPanel.scrollTop = 0; // scroll panel to top, disable scrolling during animation
-  detailPanel.style.overflowY = 'initial';
+  detailPanel.style.overflowY = 'visible';
   headerAppBar.style.backgroundColor = appTheme;
   var {bgTransform, spriteTransform, fgTransform} = computeTransforms(nationalId, true);
 
