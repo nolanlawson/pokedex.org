@@ -4,7 +4,7 @@ var utils = require('./utils');
 var worker;
 
 if (utils.hasWebWorkerIDB()) {
-  worker = new Worker('js/worker.js')
+  worker = new Worker('js/worker.js');
 } else {
   // for Safari, just use PouchDB+WebSQL without a web worker
   worker = new PseudoWorker('js/worker.js');

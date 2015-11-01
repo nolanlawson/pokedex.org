@@ -2,8 +2,8 @@ var h = require('virtual-dom/h');
 // this operation seems to be expensive, so use lodash
 var map = require('lodash/collection/map');
 
-var getMonsterBackground = require('./getMonsterBackground');
-var getMonsterDisplayName = require('./getMonsterDisplayName');
+var getMonsterBackground = require('../monster/getMonsterBackground');
+var getMonsterDisplayName = require('../monster/getMonsterDisplayName');
 
 module.exports = monsters => {
   return h('ul', {id: 'monsters-list'}, map(monsters, monster =>

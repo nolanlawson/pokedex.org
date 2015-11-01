@@ -1,11 +1,11 @@
 require('regenerator/runtime');
 
 var renderDetailView = require('../shared/renderMonsterDetailView');
-var getMonsterDarkTheme = require('../shared/getMonsterDarkTheme');
+var getMonsterDarkTheme = require('../shared/monster/getMonsterDarkTheme');
 var dbService = require('./databaseService');
-var bulbasaur = require('../shared/bulbasaur');
+var bulbasaur = require('../shared/data/bulbasaur');
 var diff = require('virtual-dom/diff');
-var Stopwatch = require('../shared/stopwatch');
+var Stopwatch = require('../shared/util/stopwatch');
 
 var lastDetailView = renderDetailView(bulbasaur);
 

@@ -9,7 +9,7 @@ PouchDB.plugin(require('pouchdb-upsert'));
 PouchDB.plugin(require('pouchdb-load'));
 PouchDB.plugin(require('transform-pouch'));
 var inMemoryDB = require('./inMemoryDatabase');
-var Stopwatch = require('../shared/stopwatch');
+var Stopwatch = require('../shared/util/stopwatch');
 
 var localMonstersDB;
 var remoteMonstersDB;

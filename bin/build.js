@@ -14,8 +14,8 @@ var bundleCollapser = require("bundle-collapser/plugin");
 
 var renderMonsterDetailView = require('../src/js/shared/renderMonsterDetailView');
 var renderMonstersList = require('../src/js/shared/renderMonstersList');
-var monsterSummaries = require('../src/js/shared/monsterSummaries');
-var bulbasaur = require('../src/js/shared/bulbasaur');
+var monsterSummaries = require('../src/js/shared/data/monsterSummaries');
+var bulbasaur = require('../src/js/shared/data/bulbasaur');
 var toHtml = require('vdom-to-html');
 
 var CRITICAL_CSS_SPRITES_LINES = 20;

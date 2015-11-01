@@ -2,7 +2,7 @@
 // main summary list is not slowed down by PouchDB.
 // Also keep a binary search index of names for prefix search.
 
-var monsterSummaries = require('../shared/monsterSummaries');
+var monsterSummaries = require('../shared/data/monsterSummaries');
 
 var byName = monsterSummaries.map(function (monster) {
   return {

@@ -2,7 +2,7 @@ require('regenerator/runtime');
 
 var renderMonstersList = require('../shared/renderMonstersList');
 var diff = require('virtual-dom/diff');
-var Stopwatch = require('../shared/stopwatch');
+var Stopwatch = require('../shared/util/stopwatch');
 var dbService = require('./databaseService');
 
 var lastMonstersListView = renderMonstersList(dbService.getInitialMonsters());
