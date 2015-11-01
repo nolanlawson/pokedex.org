@@ -50,8 +50,8 @@ function computeTransforms(nationalId, outAnimation) {
 
 function animateIn(nationalId, themeColor) {
   document.body.style.overflow = 'hidden'; // disable scrolling
-  detailPanel.style.overflowY = 'auto';
-  // scroll the panel down if necessary
+  detailPanel.style.overflowY = 'auto'; // re-enable overflow on the panel
+  // move the panel down if necessary
   detailView.style.transform = `translateY(${window.pageYOffset}px)`;
   detailViewContainer.classList.remove('hidden');
 
@@ -88,6 +88,7 @@ function animateIn(nationalId, themeColor) {
 
 function animateOut(nationalId) {
   document.body.style.overflow = 'visible'; // re-enable scrolling
+  detailPanel.scrollTop = 0; // scroll panel to top, disable scrolling during animation
   detailPanel.style.overflowY = 'initial';
   var {bgTransform, spriteTransform, fgTransform} = computeTransforms(nationalId, true);
 

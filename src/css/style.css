@@ -339,7 +339,6 @@ button {
   right: 0;
   bottom: 0;
   z-index: 3000;
-  padding: 10px;
 }
 
 .back-button {
@@ -356,7 +355,7 @@ button {
 
 .mui-panel.detail-panel {
   max-width: 600px;
-  margin: 58px auto;
+  margin: 58px 10px;
   padding: 0;
   position: absolute;
   bottom: 0;
