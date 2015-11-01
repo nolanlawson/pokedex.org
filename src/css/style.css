@@ -520,6 +520,15 @@ button {
   padding: 4px 5px;
 }
 
+/* evolutions */
+
+.detail-subheader {
+  font-size: 20px;
+  color: #fff;
+  padding-left: 10px;
+  margin: 20px 5px 5px;
+}
+
 /* hamburger needs more padding */
 .sidedrawer-toggle.hover-shadow {
   padding: 4px 7px 5px 8px;
