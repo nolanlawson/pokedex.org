@@ -3,6 +3,7 @@ var fromJson = require('vdom-as-json/fromJson');
 var patchElement = require('virtual-dom/patch');
 var $ = document.querySelector.bind(document);
 
+var detailViewOrchestrator = require('./detailViewOrchestrator');
 var worker = require('./worker');
 
 var monstersList;
@@ -45,11 +46,12 @@ document.addEventListener('DOMContentLoaded', () => {
     e.stopPropagation();
     var el = e.target.parentElement.querySelector('.monster-sprite');
     var nationalId = parseInt(el.dataset.nationalId);
+    // precompute the animation while the worker is working
+    detailViewOrchestrator.precompute();
     console.time('worker-detail');
     worker.postMessage({
       type: 'detail',
-      nationalId: nationalId,
-      startTime: Date.now()
+      nationalId: nationalId
     });
   });
 }, false);
