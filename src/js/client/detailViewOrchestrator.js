@@ -14,6 +14,10 @@ var appTheme;
 var screenWidth = window.innerWidth;
 var screenHeight = window.innerHeight;
 
+// the location of the target sprite is fixed given the window size,
+// so we can just cache it and avoid the expensive getBoundingClientRect()
+var dimensToSpriteRect = {};
+
 function computeTransforms(nationalId, outAnimation) {
   console.time('computeTransforms()');
   var sourceSprite = monstersList.querySelector(`.sprite-${nationalId}`);
@@ -24,7 +28,11 @@ function computeTransforms(nationalId, outAnimation) {
   var slideInY = outAnimation ? screenHeight * 1.1 : screenHeight * 0.6;
 
   var sourceSpriteRect = sourceSprite.getBoundingClientRect();
-  var targetSpriteRect = targetSprite.getBoundingClientRect();
+  var targetSpriteRect = dimensToSpriteRect[screenWidth + '_' + screenHeight];
+  if (!targetSpriteRect) {
+    targetSpriteRect = dimensToSpriteRect[screenWidth + '_' + screenHeight] =
+      targetSprite.getBoundingClientRect();
+  }
   var spanStyle = getComputedStyle(sourceTitleSpan);
   var sourceTitleSpanHeight = parseInt(spanStyle.height.replace('px', ''));
 
