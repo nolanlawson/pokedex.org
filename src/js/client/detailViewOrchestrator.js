@@ -15,15 +15,14 @@ var screenWidth = window.innerWidth;
 var screenHeight = window.innerHeight;
 
 var dimensToSpriteRect = {};
+var precomputedInTransforms;
 
 function showDetail() {
-  document.body.style.overflowY = 'hidden'; // disable scrolling
   detailPanel.style.overflowY = 'auto'; // re-enable overflow on the panel
   detailViewContainer.classList.remove('hidden');
 }
 
 function hideDetail() {
-  document.body.style.overflowY = 'visible'; // re-enable scrolling
   detailPanel.scrollTop = 0; // scroll panel to top, disable scrolling during animation
   detailPanel.style.overflowY = 'visible';
 }
@@ -64,7 +63,8 @@ function computeTransforms(nationalId, outAnimation) {
 
 function animateIn(nationalId, themeColor) {
   showDetail();
-  var {bgTransform, spriteTransform, fgTransform} = computeTransforms(nationalId, false);
+  document.body.style.overflowY = 'hidden'; // disable scrolling
+  var {bgTransform, spriteTransform, fgTransform} = precomputedInTransforms;
   var targetBackground = detailView.querySelector('.detail-view-bg');
   var targetForeground = detailView.querySelector('.detail-view-fg');
   var detailSprite = detailView.querySelector('.detail-sprite');
@@ -99,7 +99,9 @@ function animateIn(nationalId, themeColor) {
 }
 
 function animateOut(nationalId) {
+  precomputedInTransforms = null;
   hideDetail();
+  document.body.style.overflowY = 'visible'; // re-enable scrolling
   headerAppBar.style.backgroundColor = appTheme;
   var {bgTransform, spriteTransform, fgTransform} = computeTransforms(nationalId, true);
 
@@ -152,7 +154,7 @@ function onResize() {
   screenHeight = window.innerHeight;
 }
 
-function getPrecomputedDetailSpriteRect() {
+function getCachedDetailSpriteRect() {
   var dimens = screenWidth + '_' + screenHeight;
   return dimensToSpriteRect[dimens];
 }
@@ -160,7 +162,7 @@ function getPrecomputedDetailSpriteRect() {
 function getDetailSpriteRect() {
   // the size/location of the target sprite is fixed given the window size,
   // so we can just cache it and avoid the expensive getBoundingClientRect()
-  var result = getPrecomputedDetailSpriteRect();
+  var result = getCachedDetailSpriteRect();
   if (result) {
     return result;
   }
@@ -172,13 +174,10 @@ function getDetailSpriteRect() {
 
 // while the worker is running, precompute as much as possible.
 // in this case that just means the detail sprite
-function precompute() {
-  if (getPrecomputedDetailSpriteRect()) {
-    return;
-  }
+function precomputeInAnimation(nationalId) {
   requestAnimationFrame(() => {
     showDetail();
-    getDetailSpriteRect();
+    precomputedInTransforms = computeTransforms(nationalId, false);
     hideDetail();
     detailViewContainer.classList.add('hidden');
   });
@@ -191,5 +190,5 @@ window.addEventListener('resize', onResize);
 module.exports = {
   animateIn,
   animateOut,
-  precompute
+  precomputeInAnimation
 };

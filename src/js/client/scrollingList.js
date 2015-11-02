@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var el = e.target.parentElement.querySelector('.monster-sprite');
     var nationalId = parseInt(el.dataset.nationalId);
     // precompute the animation while the worker is working
-    detailViewOrchestrator.precompute();
+    detailViewOrchestrator.precomputeInAnimation(nationalId);
     console.time('worker-detail');
     worker.postMessage({
       type: 'detail',
