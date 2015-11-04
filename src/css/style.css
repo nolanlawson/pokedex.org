@@ -482,6 +482,10 @@ button {
   justify-content: center;
 }
 
+.monster-sprite-facade.animating {
+  transition: transform 0.33333s cubic-bezier(0,0,0.21,1);
+}
+
 .detail-sprite.animating {
   transition: transform 0.33333s cubic-bezier(0,0,0.21,1);
 }
@@ -534,7 +538,7 @@ button {
   padding: 4px 5px;
 }
 
-.facade {
+.monster-sprite-facade {
   position:absolute;
   z-index: 9999999999;
 }
