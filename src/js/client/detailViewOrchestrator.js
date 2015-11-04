@@ -15,30 +15,20 @@ var screenWidth = window.innerWidth;
 var screenHeight = window.innerHeight;
 
 var dimensToSpriteRect = {};
-var precomputedInTransforms;
 
-function showDetail() {
-  detailPanel.style.overflowY = 'auto'; // re-enable overflow on the panel
-  detailViewContainer.classList.remove('hidden');
-}
+function computeBackgroundTransforms(nationalId, outAnimation) {
+  console.time('computeBackgroundTransforms()');
 
-function hideDetail() {
-  detailPanel.scrollTop = 0; // scroll panel to top, disable scrolling during animation
-  detailPanel.style.overflowY = 'visible';
-}
-
-function computeTransforms(nationalId, outAnimation) {
-  console.time('computeTransforms()');
   var sourceSprite = monstersList.querySelector(`.sprite-${nationalId}`);
   var sourceTitleSpan = sourceSprite.parentElement.querySelector('span');
-
-  // reeeaaally fling it away when animating out. looks better
-  var slideInY = outAnimation ? screenHeight * 1.1 : screenHeight * 0.6;
 
   var sourceSpriteRect = sourceSprite.getBoundingClientRect();
   var detailSpriteRect = getDetailSpriteRect();
   var spanStyle = getComputedStyle(sourceTitleSpan);
   var sourceTitleSpanHeight = parseInt(spanStyle.height.replace('px', ''));
+
+  // reeeaaally fling it away when animating out. looks better
+  var slideInY = outAnimation ? screenHeight * 1.1 : screenHeight * 0.6;
 
   var spriteChangeX = sourceSpriteRect.left - detailSpriteRect.left;
   var spriteChangeY = (sourceSpriteRect.top - detailSpriteRect.top) - slideInY;
@@ -50,60 +40,97 @@ function computeTransforms(nationalId, outAnimation) {
 
   var bgTransform = `translate(${toX}px,${toY}px) scale(${scaleX},${scaleY})`;
   var spriteTransform = `translate(${spriteChangeX}px, ${spriteChangeY}px)`;
-  var fgTransform = `translateY(${slideInY}px)`;
 
-  console.timeEnd('computeTransforms()');
+  console.timeEnd('computeBackgroundTransforms()');
 
   return {
     bgTransform,
-    spriteTransform,
+    spriteTransform
+  };
+}
+
+function computePanelTransforms(nationalId, outAnimation) {
+  console.time('computePanelTransforms()');
+
+  // reeeaaally fling it away when animating out. looks better
+  var slideInY = outAnimation ? screenHeight * 1.1 : screenHeight * 0.6;
+
+  var fgTransform = `translateY(${slideInY}px)`;
+
+  console.timeEnd('computePanelTransforms()');
+
+  return {
     fgTransform
   };
 }
 
-function animateIn(nationalId, themeColor) {
-  showDetail();
+function _animateBackgroundIn(nationalId) {
   document.body.style.overflowY = 'hidden'; // disable scrolling
-  var {bgTransform, spriteTransform, fgTransform} = precomputedInTransforms;
+  detailViewContainer.classList.remove('hidden');
+  var targetPanel = detailView.querySelector('.detail-panel');
+  targetPanel.classList.add('hidden');
+  var transforms = computeBackgroundTransforms(nationalId, false);
+  var {bgTransform, spriteTransform} = transforms;
   var targetBackground = detailView.querySelector('.detail-view-bg');
-  var targetForeground = detailView.querySelector('.detail-view-fg');
   var detailSprite = detailView.querySelector('.detail-sprite');
 
   detailSprite.style.transform = spriteTransform;
   targetBackground.style.transform = bgTransform;
-  targetForeground.style.transform = fgTransform;
 
   requestAnimationFrame(() => {
     // go go go!
-    targetForeground.classList.add('animating');
     targetBackground.classList.add('animating');
     detailSprite.classList.add('animating');
-    targetForeground.style.transform = '';
     targetBackground.style.transform = '';
     detailSprite.style.transform = '';
   });
 
   function onAnimEnd() {
     console.log('done animating');
-    targetForeground.classList.remove('animating');
     targetBackground.classList.remove('animating');
     detailSprite.classList.remove('animating');
-    themeMeta.content = themeColor;
-    // this peeks out on android, looks less weird with the right color
-    headerAppBar.style.backgroundColor = themeColor;
-
     detailSprite.removeEventListener('transitionend', onAnimEnd);
   }
 
   detailSprite.addEventListener('transitionend', onAnimEnd);
+
+}
+function _animatePanelIn(nationalId, themeColor) {
+  detailPanel.style.overflowY = 'auto'; // re-enable overflow on the panel
+  document.body.style.overflowY = 'hidden'; // disable scrolling
+  var targetPanel = detailView.querySelector('.detail-panel');
+  targetPanel.classList.remove('hidden');
+  var {fgTransform} = computePanelTransforms(nationalId, false);
+
+
+  targetForeground.style.transform = fgTransform;
+
+  requestAnimationFrame(() => {
+    // go go go!
+    targetForeground.classList.add('animating');
+    targetForeground.style.transform = '';
+  });
+
+  function onAnimEnd() {
+    console.log('done animating');
+    targetForeground.classList.remove('animating');
+    themeMeta.content = themeColor;
+    // this peeks out on android, looks less weird with the right color
+    headerAppBar.style.backgroundColor = themeColor;
+
+    targetForeground.removeEventListener('transitionend', onAnimEnd);
+  }
+
+  targetForeground.addEventListener('transitionend', onAnimEnd);
 }
 
-function animateOut(nationalId) {
-  precomputedInTransforms = null;
-  hideDetail();
+function _animateOut(nationalId) {
+  detailPanel.scrollTop = 0; // scroll panel to top, disable scrolling during animation
+  detailPanel.style.overflowY = 'visible';
   document.body.style.overflowY = 'visible'; // re-enable scrolling
   headerAppBar.style.backgroundColor = appTheme;
-  var {bgTransform, spriteTransform, fgTransform} = computeTransforms(nationalId, true);
+  var {bgTransform, spriteTransform} = computeBackgroundTransforms(nationalId, true);
+  var {fgTransform} = computePanelTransforms(nationalId, true);
 
   var targetBackground = detailView.querySelector('.detail-view-bg');
   var targetForeground = detailView.querySelector('.detail-view-fg');
@@ -172,23 +199,28 @@ function getDetailSpriteRect() {
   return result;
 }
 
-// while the worker is running, precompute as much as possible.
-// in this case that just means the detail sprite
-function precomputeInAnimation(nationalId) {
-  requestAnimationFrame(() => {
-    showDetail();
-    precomputedInTransforms = computeTransforms(nationalId, false);
-    hideDetail();
-    detailViewContainer.classList.add('hidden');
-  });
-}
-
 document.addEventListener('DOMContentLoaded', init);
 
 window.addEventListener('resize', onResize);
 
+function animateBackgroundIn(nationalId) {
+  requestAnimationFrame(() => _animateBackgroundIn(nationalId));
+}
+
+function animatePanelIn(nationalId, themeColor) {
+  /*
+  requestAnimationFrame(() => _animatePanelIn(nationalId, themeColor));
+  */
+}
+
+function animateOut(nationalId, themeColor) {
+  /*
+  requestAnimationFrame(() => _animateOut(nationalId, themeColor));
+  */
+}
+
 module.exports = {
-  animateIn,
-  animateOut,
-  precomputeInAnimation
+  animateBackgroundIn,
+  animatePanelIn,
+  animateOut
 };

@@ -46,12 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
     e.stopPropagation();
     var el = e.target.parentElement.querySelector('.monster-sprite');
     var nationalId = parseInt(el.dataset.nationalId);
-    // precompute the animation while the worker is working
-    detailViewOrchestrator.precomputeInAnimation(nationalId);
     console.time('worker-detail');
     worker.postMessage({
       type: 'detail',
       nationalId: nationalId
     });
+    detailViewOrchestrator.animateBackgroundIn(nationalId);
   });
 }, false);
