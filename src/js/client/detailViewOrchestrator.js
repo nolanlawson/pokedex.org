@@ -39,13 +39,15 @@ function computeBackgroundTransforms(nationalId, outAnimation) {
   var toY = sourceSpriteRect.top;
 
   var bgTransform = `translate(${toX}px,${toY}px) scale(${scaleX},${scaleY})`;
-  var spriteTransform = `translate(${spriteChangeX}px, ${spriteChangeY}px)`;
+  var spriteTransform = `translate(-${spriteChangeX}px, -${spriteChangeY}px)`;
 
   console.timeEnd('computeBackgroundTransforms()');
 
   return {
     bgTransform,
-    spriteTransform
+    spriteTransform,
+    spriteTop: sourceSpriteRect.top,
+    spriteLeft: sourceSpriteRect.left
   };
 }
 
@@ -70,29 +72,36 @@ function _animateBackgroundIn(nationalId) {
   var targetPanel = detailView.querySelector('.detail-panel');
   targetPanel.classList.add('hidden');
   var transforms = computeBackgroundTransforms(nationalId, false);
-  var {bgTransform, spriteTransform} = transforms;
+  var {bgTransform, spriteTransform, spriteTop, spriteLeft} = transforms;
   var targetBackground = detailView.querySelector('.detail-view-bg');
-  var detailSprite = detailView.querySelector('.detail-sprite');
+  var spriteFacade = document.createElement('div');
+  spriteFacade.classList.add('monster-sprite');
+  spriteFacade.classList.add(`sprite-${nationalId}`);
+  spriteFacade.classList.add('facade');
+  spriteFacade.style.top = `${spriteTop}px`;
+  spriteFacade.style.left = `${spriteLeft}px`;
+  document.body.appendChild(spriteFacade);
 
-  detailSprite.style.transform = spriteTransform;
+  /*
+  spriteFacade.style.transform = spriteTransform;
   targetBackground.style.transform = bgTransform;
 
   requestAnimationFrame(() => {
     // go go go!
     targetBackground.classList.add('animating');
-    detailSprite.classList.add('animating');
+    spriteFacade.classList.add('animating');
     targetBackground.style.transform = '';
-    detailSprite.style.transform = '';
+    spriteFacade.style.transform = '';
   });
 
   function onAnimEnd() {
     console.log('done animating');
     targetBackground.classList.remove('animating');
-    detailSprite.classList.remove('animating');
-    detailSprite.removeEventListener('transitionend', onAnimEnd);
+    document.body.removeChild(spriteFacade);
+    targetBackground.removeEventListener('transitionend', onAnimEnd);
   }
 
-  detailSprite.addEventListener('transitionend', onAnimEnd);
+  targetBackground.addEventListener('transitionend', onAnimEnd);*/
 
 }
 function _animatePanelIn(nationalId, themeColor) {
@@ -101,7 +110,6 @@ function _animatePanelIn(nationalId, themeColor) {
   var targetPanel = detailView.querySelector('.detail-panel');
   targetPanel.classList.remove('hidden');
   var {fgTransform} = computePanelTransforms(nationalId, false);
-
 
   targetForeground.style.transform = fgTransform;
 
