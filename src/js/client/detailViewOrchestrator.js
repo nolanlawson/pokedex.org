@@ -110,8 +110,7 @@ function doInAnimationPartOne(nationalId) {
   targetBackground.style.background = sourceSprite.parentElement.style.background;
   var spriteFacade = styleSpriteFacade(nationalId, spriteTop, spriteLeft, spriteTransform);
   spriteFacade.classList.remove('hidden');
-  detailBackButton.classList.remove('animating');
-  detailBackButton.style.opacity = 0;
+  detailBackButton.style.transform = 'translateX(-40px)';
   targetBackground.style.transform = bgTransform;
 
   requestAnimationFrame(() => {
@@ -153,18 +152,19 @@ function doInAnimationPartTwo(nationalId, themeColor) {
   requestAnimationFrame(() => {
     // go go go!
     detailPanel.classList.add('animating');
+    detailBackButton.classList.add('animating');
     detailPanel.style.transform = '';
+    detailBackButton.style.transform = '';
   });
 
   function onAnimEnd() {
     console.log('done animating part two');
+    detailBackButton.classList.remove('animating');
     detailPanel.classList.remove('animating');
     themeMeta.content = themeColor;
 
     spriteFacade.classList.add('hidden');
 
-    detailBackButton.classList.add('animating');
-    detailBackButton.style.opacity = 1;
     detailSprite.style.opacity = 1;
     // this peeks out on android, looks less weird with the right color
     headerAppBar.style.backgroundColor = themeColor;
@@ -191,18 +191,18 @@ function doOutAnimation(nationalId) {
   detailSprite.style.opacity = 0;
   targetBackground.style.transform = '';
   detailPanel.style.transform = '';
-  detailBackButton.classList.add('animating');
-  detailBackButton.style.opacity = 0;
 
 
   requestAnimationFrame(() => {
     // go go go!
+    detailBackButton.classList.add('animating');
     detailPanel.classList.add('animating');
     targetBackground.classList.add('animating');
     spriteFacade.classList.add('animating');
     spriteFacade.style.transform = spriteTransform;
     targetBackground.style.transform = bgTransform;
     detailPanel.style.transform = fgTransform;
+    detailBackButton.style.transform = 'translateX(-60px)';
   });
 
   function onAnimEnd() {
@@ -210,6 +210,7 @@ function doOutAnimation(nationalId) {
     detailPanel.classList.remove('animating');
     targetBackground.classList.remove('animating');
     spriteFacade.classList.remove('animating');
+    detailBackButton.classList.remove('animating');
     targetBackground.style.transform = '';
     detailPanel.style.transform = '';
     detailViewContainer.classList.add('hidden');
