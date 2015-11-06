@@ -36,7 +36,7 @@ function onMessage(message) {
   applyPatch(patch);
 
   requestAnimationFrame(() => {
-    orchestrator.animatePanelIn(nationalId, themeColor);
+    orchestrator.animateInPartTwo(nationalId, themeColor);
   });
 }
 

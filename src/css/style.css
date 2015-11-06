@@ -341,6 +341,10 @@ button {
   z-index: 3000;
 }
 
+.detail-back-button.animating {
+  transition: opacity 0.1s ease-in-out;
+}
+
 .back-button {
   background: url(../svg/ic_arrow_back_36px.svg);
   width: 36px;
@@ -499,7 +503,7 @@ button {
   z-index: 3;
 }
 
-.detail-view-fg.animating {
+.detail-panel.animating {
   transition: transform 0.33333s cubic-bezier(0,0,0.21,1);
 }
 

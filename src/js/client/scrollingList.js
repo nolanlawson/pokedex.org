@@ -51,6 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
       type: 'detail',
       nationalId: nationalId
     });
-    detailViewOrchestrator.animateBackgroundIn(nationalId);
+    detailViewOrchestrator.animateInPartOne(nationalId);
   });
 }, false);

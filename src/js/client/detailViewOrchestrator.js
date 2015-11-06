@@ -10,6 +10,7 @@ var detailPanel;
 var headerAppBar;
 var monstersList;
 var detailSprite;
+var detailBackButton;
 var spriteFacade;
 var themeMeta;
 var appTheme;
@@ -18,8 +19,13 @@ var screenWidth = window.innerWidth;
 var screenHeight = window.innerHeight;
 
 var dimensToSpriteRect = {};
-var animatingBackground = false;
-var runOnBackgroundAnimComplete = false;
+var runningAnimationPartOne = false;
+var queuedAnimation = false;
+
+function getScrollTop() {
+  // browsers seem to disagree on this
+  return document.body.scrollTop || document.documentElement.scrollTop;
+}
 
 function computeBackgroundTransforms(nationalId, outAnimation) {
   console.time('computeBackgroundTransforms()');
@@ -48,7 +54,7 @@ function computeBackgroundTransforms(nationalId, outAnimation) {
   return {
     bgTransform,
     spriteTransform,
-    spriteTop: detailSpriteRect.top + document.body.scrollTop,
+    spriteTop: detailSpriteRect.top + getScrollTop(),
     spriteLeft: detailSpriteRect.left
   };
 }
@@ -94,17 +100,18 @@ function styleSpriteFacade(nationalId, top, left, transform) {
   return spriteFacade;
 }
 
-function _animateBackgroundIn(nationalId) {
+function doInAnimationPartOne(nationalId) {
   document.body.style.overflowY = 'hidden'; // disable scrolling
   detailViewContainer.classList.remove('hidden');
   var transforms = computeBackgroundTransforms(nationalId, false);
-  var targetPanel = detailView.querySelector('.detail-panel');
   var {bgTransform, spriteTransform, spriteTop, spriteLeft} = transforms;
   var targetBackground = detailView.querySelector('.detail-view-bg');
   var sourceSprite = monstersList.querySelector(`.sprite-${nationalId}`);
-  targetBackground.style.backgroundColor = sourceSprite.parentElement.style.backgroundColor;
+  targetBackground.style.background = sourceSprite.parentElement.style.background;
   var spriteFacade = styleSpriteFacade(nationalId, spriteTop, spriteLeft, spriteTransform);
   spriteFacade.classList.remove('hidden');
+  detailBackButton.classList.remove('animating');
+  detailBackButton.style.opacity = 0;
   targetBackground.style.transform = bgTransform;
 
   requestAnimationFrame(() => {
@@ -120,55 +127,55 @@ function _animateBackgroundIn(nationalId) {
     targetBackground.classList.remove('animating');
     spriteFacade.classList.remove('animating');
     targetBackground.removeEventListener('transitionend', onAnimEnd);
+
+    if (queuedAnimation) {
+      queuedAnimation();
+      queuedAnimation = null;
+    }
+    runningAnimationPartOne = false;
   }
 
   targetBackground.addEventListener('transitionend', onAnimEnd);
 
-  targetPanel.classList.add('hidden');
-
-  animatingBackground = false;
-  if (runOnBackgroundAnimComplete) {
-    runOnBackgroundAnimComplete();
-    runOnBackgroundAnimComplete = null;
-  }
+  detailPanel.classList.add('hidden');
 }
 
-function _animatePanelIn(nationalId, themeColor) {
+function doInAnimationPartTwo(nationalId, themeColor) {
   detailPanel.style.overflowY = 'auto'; // re-enable overflow on the panel
   document.body.style.overflowY = 'hidden'; // disable scrolling
-  var targetPanel = detailView.querySelector('.detail-panel');
-  var targetForeground = detailView.querySelector('.detail-view-fg');
-  var detailSprite = detailView.querySelector('.detail-sprite');
-  targetPanel.classList.remove('hidden');
+
+  detailPanel.classList.remove('hidden');
   detailSprite.style.opacity = 0;
   var {fgTransform} = computePanelTransforms(nationalId, false);
 
-  targetForeground.style.transform = fgTransform;
+  detailPanel.style.transform = fgTransform;
 
   requestAnimationFrame(() => {
     // go go go!
-    targetForeground.classList.add('animating');
-    targetForeground.style.transform = '';
+    detailPanel.classList.add('animating');
+    detailPanel.style.transform = '';
   });
 
   function onAnimEnd() {
-    console.log('done animating');
-    targetForeground.classList.remove('animating');
+    console.log('done animating part two');
+    detailPanel.classList.remove('animating');
     themeMeta.content = themeColor;
 
     spriteFacade.classList.add('hidden');
 
+    detailBackButton.classList.add('animating');
+    detailBackButton.style.opacity = 1;
     detailSprite.style.opacity = 1;
     // this peeks out on android, looks less weird with the right color
     headerAppBar.style.backgroundColor = themeColor;
 
-    targetForeground.removeEventListener('transitionend', onAnimEnd);
+    detailPanel.removeEventListener('transitionend', onAnimEnd);
   }
 
-  targetForeground.addEventListener('transitionend', onAnimEnd);
+  detailPanel.addEventListener('transitionend', onAnimEnd);
 }
 
-function _animateOut(nationalId) {
+function doOutAnimation(nationalId) {
   detailPanel.scrollTop = 0; // scroll panel to top, disable scrolling during animation
   detailPanel.style.overflowY = 'visible';
   document.body.style.overflowY = 'visible'; // re-enable scrolling
@@ -178,32 +185,33 @@ function _animateOut(nationalId) {
   var {fgTransform} = computePanelTransforms(nationalId, true);
 
   var targetBackground = detailView.querySelector('.detail-view-bg');
-  var targetForeground = detailView.querySelector('.detail-view-fg');
   var detailSprite = detailView.querySelector('.detail-sprite');
   var spriteFacade = styleSpriteFacade(nationalId, spriteTop, spriteLeft, '');
   spriteFacade.classList.remove('hidden');
   detailSprite.style.opacity = 0;
   targetBackground.style.transform = '';
-  targetForeground.style.transform = '';
+  detailPanel.style.transform = '';
+  detailBackButton.classList.add('animating');
+  detailBackButton.style.opacity = 0;
 
 
   requestAnimationFrame(() => {
     // go go go!
-    targetForeground.classList.add('animating');
+    detailPanel.classList.add('animating');
     targetBackground.classList.add('animating');
     spriteFacade.classList.add('animating');
     spriteFacade.style.transform = spriteTransform;
     targetBackground.style.transform = bgTransform;
-    targetForeground.style.transform = fgTransform;
+    detailPanel.style.transform = fgTransform;
   });
 
   function onAnimEnd() {
-    console.log('done animating');
-    targetForeground.classList.remove('animating');
+    console.log('done animating part one');
+    detailPanel.classList.remove('animating');
     targetBackground.classList.remove('animating');
     spriteFacade.classList.remove('animating');
     targetBackground.style.transform = '';
-    targetForeground.style.transform = '';
+    detailPanel.style.transform = '';
     detailViewContainer.classList.add('hidden');
     spriteFacade.classList.add('hidden');
     detailSprite.style.opacity = 1;
@@ -221,6 +229,7 @@ function init() {
   detailPanel = $('.detail-panel');
   headerAppBar = $('.mui-appbar');
   detailSprite = detailView.querySelector('.detail-sprite');
+  detailBackButton = detailView.querySelector('.detail-back-button');
   themeMeta = document.head.querySelector('meta[name="theme-color"]');
   spriteFacade = createSpriteFacade();
   appTheme = themeMeta.content;
@@ -253,29 +262,33 @@ document.addEventListener('DOMContentLoaded', init);
 
 window.addEventListener('resize', onResize);
 
-function animateBackgroundIn(nationalId) {
-  animatingBackground = true;
+function animateInPartOne(nationalId) {
+  runningAnimationPartOne = true;
+  // artificial delay to let the material animation play
   setTimeout(() => {
-    requestAnimationFrame(() => _animateBackgroundIn(nationalId));
-  }, 200);
+    requestAnimationFrame(() => doInAnimationPartOne(nationalId));
+  }, 20);
 }
 
-function animatePanelIn(nationalId, themeColor) {
-  if (!animatingBackground) {
-    runOnBackgroundAnimComplete = null;
-    return requestAnimationFrame(() => _animatePanelIn(nationalId, themeColor));
-  }
-  runOnBackgroundAnimComplete = () => {
-    requestAnimationFrame(() => _animatePanelIn(nationalId, themeColor));
+function animateInPartTwo(nationalId, themeColor) {
+  var runPartTwoAnimation = () => {
+    requestAnimationFrame(() => doInAnimationPartTwo(nationalId, themeColor));
   };
+  if (runningAnimationPartOne) {
+    console.log('waiting for part one animation to finish');
+    queuedAnimation = runPartTwoAnimation;
+  } else {
+    console.log('running part two animation immediately');
+    runPartTwoAnimation();
+  }
 }
 
 function animateOut(nationalId, themeColor) {
-  requestAnimationFrame(() => _animateOut(nationalId, themeColor));
+  requestAnimationFrame(() => doOutAnimation(nationalId, themeColor));
 }
 
 module.exports = {
-  animateBackgroundIn,
-  animatePanelIn,
+  animateInPartOne,
+  animateInPartTwo,
   animateOut
 };
