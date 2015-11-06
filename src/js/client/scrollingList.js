@@ -15,7 +15,7 @@ var isSafari = typeof openDatabase !== 'undefined' &&
   /(Safari|iPhone|iPad|iPod)/.test(navigator.userAgent) &&
   !/Chrome/.test(navigator.userAgent) &&
   !/BlackBerry/.test(navigator.platform);
-var delay = isSafari ? 200 : 20;
+var delay = isSafari ? 200 : 100;
 
 function binarySearchForFirstVisibleChild(children) {
   var low = 0, high = children.length, mid, rect, val;
