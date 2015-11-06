@@ -180,8 +180,8 @@ function doOutAnimation(nationalId) {
   detailPanel.style.overflowY = 'visible';
   document.body.style.overflowY = 'visible'; // re-enable scrolling
   headerAppBar.style.backgroundColor = appTheme;
-  var {bgTransform, spriteTransform, spriteTop, spriteLeft} =
-    computeTransformsPartOne(nationalId, true);
+  var transforms = computeTransformsPartOne(nationalId, true);
+  var {bgTransform, spriteTransform, spriteTop, spriteLeft} = transforms;
   var {fgTransform} = computeTransformsPartTwo(nationalId, true);
 
   var targetBackground = detailView.querySelector('.detail-view-bg');
