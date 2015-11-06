@@ -1,4 +1,5 @@
 // load sprites.css asynchronously
+
 function canUseWebP() {
   var elem = document.createElement('canvas');
 
@@ -12,12 +13,11 @@ function canUseWebP() {
 
 function loadCssAsync(filename) {
   var ss = document.createElement('link');
-  var ref = document.getElementsByTagName('script')[0];
   ss.rel = 'stylesheet';
   ss.href = filename;
   // temporary non-applicable media query to load it async
   ss.media = 'only foo';
-  ref.parentNode.insertBefore(ss, ref);
+  document.body.appendChild(ss);
   // set media back
   setTimeout(function () {
     ss.media = 'all';

@@ -39,6 +39,17 @@ module.exports = async function build(debug) {
     return criticalCss;
   }
 
+  async function inlineCriticalJs(html) {
+    await browserifyFile({
+      source: __dirname + '/../src/js/critical/index.js',
+      dest: __dirname + '/../www/js/critical.js'
+    });
+    var critJs = await fs.readFileAsync(__dirname + '/../www/js/critical.js');
+    return html.replace(
+      '<script src="js/critical.js"></script>',
+      `<script>${critJs}</script>`);
+  }
+
   async function inlineCriticalCss(html) {
     var mainCss = await fs.readFileAsync('./src/css/style.css', 'utf-8');
     var spritesCss = await fs.readFileAsync('./src/css/sprites.css', 'utf-8');
@@ -82,6 +93,7 @@ module.exports = async function build(debug) {
 
     if (!debug) {
       html = await inlineCriticalCss(html);
+      html = await inlineCriticalJs(html);
       html = await inlineVendorJs(html);
       html = minifyHtml(html, {removeAttributeQuotes: true});
     }
@@ -110,6 +122,26 @@ module.exports = async function build(debug) {
     }
   }
 
+  function browserifyFile(file) {
+    var opts = {
+      fullPaths: debug,
+      debug: debug
+    };
+    if (!debug) {
+      opts.plugin = [bundleCollapser];
+    }
+    var b = browserify(opts).add(file.source)
+      .transform('babelify');
+    if (!debug) {
+      b = b.transform('stripify');
+    }
+    b = b.transform(envify({
+      NODE_ENV: debug ? 'development' : 'production'
+    }));
+    var stream = b.bundle();
+    return stream2promise(stream.pipe(fs.createWriteStream(file.dest)));
+  }
+
   async function buildJS() {
     console.log('buildJS()');
     await mkdirp('./www/js');
@@ -129,25 +161,14 @@ module.exports = async function build(debug) {
       }
     ];
 
-    await* files.map(function (file) {
-      var opts = {
-        fullPaths: debug,
-        debug: debug
-      };
-      if (!debug) {
-        opts.plugin = [bundleCollapser];
-      }
-      var b = browserify(opts).add(file.source)
-        .transform('babelify');
-      if (!debug) {
-        b = b.transform('stripify');
-      }
-      b = b.transform(envify({
-        NODE_ENV: debug ? 'development' : 'production'
-      }));
-      var stream = b.bundle();
-      return stream2promise(stream.pipe(fs.createWriteStream(file.dest)));
-    });
+    if (debug) {
+      files.push({
+        source: __dirname + '/../src/js/critical/index.js',
+        dest: __dirname + '/../www/js/critical.js'
+      })
+    }
+
+    await* files.map(browserifyFile);
 
     if (!debug) {
       await* files.map(function (file) {
