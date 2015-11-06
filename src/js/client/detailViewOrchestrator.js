@@ -127,16 +127,18 @@ function doInAnimationPartOne(nationalId) {
     spriteFacade.classList.remove('animating');
     targetBackground.removeEventListener('transitionend', onAnimEnd);
 
-    if (queuedAnimation) {
-      queuedAnimation();
-      queuedAnimation = null;
-    }
-    runningAnimationPartOne = false;
   }
 
   targetBackground.addEventListener('transitionend', onAnimEnd);
-
   detailPanel.classList.add('hidden');
+
+  runningAnimationPartOne = false;
+  if (queuedAnimation) {
+    requestAnimationFrame(() => {
+      queuedAnimation();
+      queuedAnimation = null;
+    });
+  }
 }
 
 function doInAnimationPartTwo(nationalId, themeColor) {

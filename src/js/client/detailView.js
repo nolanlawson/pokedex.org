@@ -3,6 +3,7 @@ var patchElement = require('virtual-dom/patch');
 var fromJson = require('vdom-as-json/fromJson');
 var indexOf = require('lodash/array/indexOf');
 var orchestrator = require('./detailViewOrchestrator');
+var Promise = require('../shared/util/promise');
 
 var $ = document.querySelector.bind(document);
 
@@ -20,24 +21,15 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-function applyPatch(patchString) {
-  console.time('applyPatch');
-  var patchJson = JSON.parse(patchString);
-  var patch = fromJson(patchJson);
-  setTimeout(() => {
-    patchElement(detailView, patch);
-    console.timeEnd('applyPatch');
-  }, 0);
-}
-
 function onMessage(message) {
   var {nationalId, themeColor, patch} = message;
   lastNationalId = nationalId;
-  applyPatch(patch);
-
-  requestAnimationFrame(() => {
-    orchestrator.animateInPartTwo(nationalId, themeColor);
-  });
+  // break up into two functions to avoid jank
+  Promise.resolve()
+    .then(() => fromJson(JSON.parse(patch)))
+    .then(patch => patchElement(detailView, patch))
+    .then(() => orchestrator.animateInPartTwo(nationalId, themeColor))
+    .catch(err => console.log(err));
 }
 
 worker.addEventListener('message', e => {
