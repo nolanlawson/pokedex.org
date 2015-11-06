@@ -95,6 +95,27 @@ async function getDescriptionsDB() {
   return remoteDescriptionsDB;
 }
 
+function getGeneration5DescriptionDocId(monster) {
+  // get a generation-5 description
+  var desc = find(monster.descriptions, x => /_gen_5$/.test(x.name));
+  var descId = desc.resource_uri.match(/\/(\d+)\/$/)[1];
+  return zpad(parseInt(descId, 10), 7);
+}
+
+function getDocId(monster) {
+  return zpad(monster.national_id, 5);
+}
+
+async function getMonsterDocById(docId) {
+  var db = await getMonstersDB();
+  return await db.get(docId);
+}
+
+async function getDescriptionById(docId) {
+  var db = await getDescriptionsDB();
+  return await db.get(docId);
+}
+
 module.exports = {
   init: (origin) => {
     var couchHome = origin.replace(/:[^:]+$/, ':6984');
@@ -102,15 +123,15 @@ module.exports = {
   },
   getFullMonsterDataById: async nationalId => {
     var stopwatch = new Stopwatch();
-    var nationalDocId = zpad(nationalId, 5);
-    var monster = await (await getMonstersDB()).get(nationalDocId);
-    stopwatch.time('get() monster');
-    // get a generation-5 description
-    var desc = find(monster.descriptions, x => /_gen_5$/.test(x.name));
-    var descId = desc.resource_uri.match(/\/(\d+)\/$/)[1];
-    var descDocId = zpad(parseInt(descId, 10), 7);
-    var description = await (await getDescriptionsDB()).get(descDocId);
-    stopwatch.time('get() descriptions');
+    var monsterSummary = inMemoryDB.findByNationalId(nationalId);
+    var docId = getDocId(monsterSummary);
+    var descDocId = getGeneration5DescriptionDocId(monsterSummary);
+    var promises = [
+      getMonsterDocById(docId),
+      getDescriptionById(descDocId)
+    ];
+    var [monster, description] = await* promises;
+    stopwatch.time('get() monster and descriptions');
     return {monster, description};
   },
   getFilteredMonsters: async (filter) => {

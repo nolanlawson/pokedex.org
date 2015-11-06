@@ -26,6 +26,7 @@ module.exports = {
   findAll: () => {
     return monsterSummaries;
   },
+  findByNationalId: nationalId => monsterSummaries[nationalId - 1],
   findByNamePrefix: prefix => {
     prefix = prefix.toLowerCase();
     var idx = binarySearch(byName, prefix);
