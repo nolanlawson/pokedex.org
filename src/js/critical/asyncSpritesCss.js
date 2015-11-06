@@ -25,7 +25,11 @@ function loadCssAsync(filename) {
 }
 
 if (canUseWebP()) {
-  loadCssAsync('css/sprites-webp.css');
+  loadCssAsync('css/sprites-webp1.css');
+  loadCssAsync('css/sprites-webp2.css');
+  loadCssAsync('css/sprites-webp3.css');
 } else {
-  loadCssAsync('css/sprites.css');
+  loadCssAsync('css/sprites1.css');
+  loadCssAsync('css/sprites2.css');
+  loadCssAsync('css/sprites3.css');
 }
