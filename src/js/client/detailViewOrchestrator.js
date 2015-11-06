@@ -27,8 +27,8 @@ function getScrollTop() {
   return document.body.scrollTop || document.documentElement.scrollTop;
 }
 
-function computeBackgroundTransforms(nationalId, outAnimation) {
-  console.time('computeBackgroundTransforms()');
+function computeTransformsPartOne(nationalId, outAnimation) {
+  console.time('computeTransformsPartOne()');
 
   var sourceSprite = monstersList.querySelector(`.sprite-${nationalId}`);
   var sourceTitleSpan = sourceSprite.parentElement.querySelector('span');
@@ -49,7 +49,7 @@ function computeBackgroundTransforms(nationalId, outAnimation) {
   var bgTransform = `translate(${toX}px,${toY}px) scale(${scaleX},${scaleY})`;
   var spriteTransform = `translate(${spriteChangeX}px, ${spriteChangeY}px)`;
 
-  console.timeEnd('computeBackgroundTransforms()');
+  console.timeEnd('computeTransformsPartOne()');
 
   return {
     bgTransform,
@@ -59,15 +59,15 @@ function computeBackgroundTransforms(nationalId, outAnimation) {
   };
 }
 
-function computePanelTransforms(nationalId, outAnimation) {
-  console.time('computePanelTransforms()');
+function computeTransformsPartTwo(nationalId, outAnimation) {
+  console.time('computeTransformsPartTwo()');
 
   // reeeaaally fling it away when animating out. looks better
   var slideInY = outAnimation ? screenHeight * 1.1 : screenHeight * 0.6;
 
   var fgTransform = `translateY(${slideInY}px)`;
 
-  console.timeEnd('computePanelTransforms()');
+  console.timeEnd('computeTransformsPartTwo()');
 
   return {
     fgTransform
@@ -103,7 +103,7 @@ function styleSpriteFacade(nationalId, top, left, transform) {
 function doInAnimationPartOne(nationalId) {
   document.body.style.overflowY = 'hidden'; // disable scrolling
   detailViewContainer.classList.remove('hidden');
-  var transforms = computeBackgroundTransforms(nationalId, false);
+  var transforms = computeTransformsPartOne(nationalId, false);
   var {bgTransform, spriteTransform, spriteTop, spriteLeft} = transforms;
   var targetBackground = detailView.querySelector('.detail-view-bg');
   var sourceSprite = monstersList.querySelector(`.sprite-${nationalId}`);
@@ -145,7 +145,7 @@ function doInAnimationPartTwo(nationalId, themeColor) {
 
   detailPanel.classList.remove('hidden');
   detailSprite.style.opacity = 0;
-  var {fgTransform} = computePanelTransforms(nationalId, false);
+  var {fgTransform} = computeTransformsPartTwo(nationalId, false);
 
   detailPanel.style.transform = fgTransform;
 
@@ -181,8 +181,8 @@ function doOutAnimation(nationalId) {
   document.body.style.overflowY = 'visible'; // re-enable scrolling
   headerAppBar.style.backgroundColor = appTheme;
   var {bgTransform, spriteTransform, spriteTop, spriteLeft} =
-    computeBackgroundTransforms(nationalId, true);
-  var {fgTransform} = computePanelTransforms(nationalId, true);
+    computeTransformsPartOne(nationalId, true);
+  var {fgTransform} = computeTransformsPartTwo(nationalId, true);
 
   var targetBackground = detailView.querySelector('.detail-view-bg');
   var detailSprite = detailView.querySelector('.detail-sprite');
