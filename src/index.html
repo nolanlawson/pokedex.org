@@ -69,24 +69,5 @@
 </div>
 <script src="vendor/mui.js"></script>
 <script src="js/main.js"></script>
-<script>
-  // load sprites.css asynchronously
-  (function () {
-    function loadCssAsync(filename) {
-      var ss = document.createElement("link");
-      var ref = document.getElementsByTagName("script")[0];
-      ss.rel = "stylesheet";
-      ss.href = filename;
-      // temporary non-applicable media query to load it async
-      ss.media = "only foo";
-      ref.parentNode.insertBefore(ss, ref);
-      // set media back
-      setTimeout(function () {
-        ss.media = "all";
-      });
-    }
-    loadCssAsync("css/sprites.css");
-  })();
-</script>
 </body>
 </html>

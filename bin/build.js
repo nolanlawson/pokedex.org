@@ -91,14 +91,19 @@ module.exports = async function build(debug) {
   async function buildCss() {
     console.log('buildCss()');
     var spritesCss = await fs.readFileAsync('./src/css/sprites.css', 'utf-8');
+    var spritesWebpCss = await fs.readFileAsync('./src/css/sprites-webp.css', 'utf-8');
 
     if (!debug) {
       spritesCss = spritesCss.split('\n').slice(CRITICAL_CSS_SPRITES_LINES).join('\n');
       spritesCss = cleanCss.minify(spritesCss).styles;
+
+      spritesWebpCss = spritesWebpCss.split('\n').slice(CRITICAL_CSS_SPRITES_LINES).join('\n');
+      spritesWebpCss = cleanCss.minify(spritesWebpCss).styles;
     }
 
     await mkdirp('./www/css');
     await fs.writeFileAsync('./www/css/sprites.css', spritesCss, 'utf-8');
+    await fs.writeFileAsync('./www/css/sprites-webp.css', spritesWebpCss, 'utf-8');
     if (debug) {
       var mainCss = await fs.readFileAsync('./src/css/style.css', 'utf-8');
       await fs.writeFileAsync('./www/css/style.css', mainCss, 'utf-8');
