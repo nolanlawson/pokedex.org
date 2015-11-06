@@ -68,14 +68,14 @@ async function initDBs(couchHome) {
       doc = pick(doc, '_id', '_rev', '_revisions', 'descriptions',
         'types', 'attack', 'defense', 'speed', 'sp_atk', 'sp_def', 'hp',
         'weight', 'height', 'national_id', 'name', 'male_female_ratio',
-        'evolutions');
+        'abilities', 'evolutions');
       doc.descriptions = doc.descriptions.filter(x => /_gen_5$/.test(x.name));
       return doc;
     }
   });
   if (localMonstersDB.adapter) {
-    await replicateMonsters();
-    await replicateDescriptions();
+    replicateMonsters();
+    replicateDescriptions();
   } else {
     console.log('this browser doesn\'t support PouchDB. cannot work offline.');
   }
