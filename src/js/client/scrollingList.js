@@ -23,7 +23,7 @@ function binarySearchForFirstVisibleChild(children) {
     mid = (low + high) >>> 1; // faster version of Math.floor((low + high) / 2)
     rect = children[mid].getBoundingClientRect();
     val = rect.top + rect.height;
-    val < 0 ? low = mid + 1 : high = mid
+    val < 0 ? low = mid + 1 : high = mid;
   }
   return low;
 }

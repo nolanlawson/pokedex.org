@@ -27,7 +27,7 @@ function getScrollTop() {
   return document.body.scrollTop || document.documentElement.scrollTop;
 }
 
-function computeTransformsPartOne(nationalId, outAnimation) {
+function computeTransformsPartOne(nationalId) {
   console.time('computeTransformsPartOne()');
 
   var sourceSprite = monstersList.querySelector(`.sprite-${nationalId}`);
