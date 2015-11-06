@@ -24,8 +24,10 @@ function applyPatch(patchString) {
   console.time('applyPatch');
   var patchJson = JSON.parse(patchString);
   var patch = fromJson(patchJson);
-  patchElement(detailView, patch);
-  console.timeEnd('applyPatch');
+  setTimeout(() => {
+    patchElement(detailView, patch);
+    console.timeEnd('applyPatch');
+  }, 0);
 }
 
 function onMessage(message) {

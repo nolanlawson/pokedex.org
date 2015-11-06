@@ -6,6 +6,7 @@ var getMonsterBackground = require('../monster/getMonsterBackground');
 var getMonsterDisplayName = require('../monster/getMonsterDisplayName');
 
 module.exports = monsters => {
+  monsters = monsters.slice(0, 10);
   return h('ul', {id: 'monsters-list'}, map(monsters, monster =>
     h('li', {
       style: {background: getMonsterBackground(monster)}

@@ -3,11 +3,14 @@
 
 var $ = document.querySelector.bind(document);
 
+// elements
 var detailView;
 var detailViewContainer;
 var detailPanel;
 var headerAppBar;
 var monstersList;
+var detailSprite;
+var spriteFacade;
 var themeMeta;
 var appTheme;
 
@@ -65,6 +68,32 @@ function computePanelTransforms(nationalId, outAnimation) {
   };
 }
 
+function createSpriteFacade() {
+  spriteFacade = document.createElement('div');
+  spriteFacade.classList.add('monster-sprite');
+  spriteFacade.classList.add('monster-sprite-facade');
+  spriteFacade.classList.add('hidden');
+  spriteFacade.style.top = `0px`;
+  spriteFacade.style.left = `0px`;
+  document.body.appendChild(spriteFacade);
+  return spriteFacade;
+}
+
+function styleSpriteFacade(nationalId, top, left, transform) {
+  for (var i = 0; i < spriteFacade.classList.length; i++) {
+    var className = spriteFacade.classList[i];
+    if (/^sprite-/.test(className)) {
+      spriteFacade.classList.remove(className);
+      break;
+    }
+  }
+  spriteFacade.classList.add(`sprite-${nationalId}`);
+  spriteFacade.style.top = `${top}px`;
+  spriteFacade.style.left = `${left}px`;
+  spriteFacade.style.transform = transform;
+  return spriteFacade;
+}
+
 function _animateBackgroundIn(nationalId) {
   document.body.style.overflowY = 'hidden'; // disable scrolling
   detailViewContainer.classList.remove('hidden');
@@ -74,15 +103,8 @@ function _animateBackgroundIn(nationalId) {
   var targetBackground = detailView.querySelector('.detail-view-bg');
   var sourceSprite = monstersList.querySelector(`.sprite-${nationalId}`);
   targetBackground.style.backgroundColor = sourceSprite.parentElement.style.backgroundColor;
-  var spriteFacade = document.createElement('div');
-  spriteFacade.classList.add('monster-sprite');
-  spriteFacade.classList.add(`sprite-${nationalId}`);
-  spriteFacade.classList.add('monster-sprite-facade');
-  spriteFacade.style.top = `${spriteTop}px`;
-  spriteFacade.style.left = `${spriteLeft}px`;
-  document.body.appendChild(spriteFacade);
-
-  spriteFacade.style.transform = spriteTransform;
+  var spriteFacade = styleSpriteFacade(nationalId, spriteTop, spriteLeft, spriteTransform);
+  spriteFacade.classList.remove('hidden');
   targetBackground.style.transform = bgTransform;
 
   requestAnimationFrame(() => {
@@ -96,6 +118,7 @@ function _animateBackgroundIn(nationalId) {
   function onAnimEnd() {
     console.log('done animating');
     targetBackground.classList.remove('animating');
+    spriteFacade.classList.remove('animating');
     targetBackground.removeEventListener('transitionend', onAnimEnd);
   }
 
@@ -133,9 +156,8 @@ function _animatePanelIn(nationalId, themeColor) {
     targetForeground.classList.remove('animating');
     themeMeta.content = themeColor;
 
-    var spriteFacade = $('.monster-sprite-facade');
+    spriteFacade.classList.add('hidden');
 
-    document.body.removeChild(spriteFacade);
     detailSprite.style.opacity = 1;
     // this peeks out on android, looks less weird with the right color
     headerAppBar.style.backgroundColor = themeColor;
@@ -158,19 +180,12 @@ function _animateOut(nationalId) {
   var targetBackground = detailView.querySelector('.detail-view-bg');
   var targetForeground = detailView.querySelector('.detail-view-fg');
   var detailSprite = detailView.querySelector('.detail-sprite');
-  var spriteFacade = document.createElement('div');
-  spriteFacade.classList.add('monster-sprite');
-  spriteFacade.classList.add(`sprite-${nationalId}`);
-  spriteFacade.classList.add('monster-sprite-facade');
-  spriteFacade.style.top = `${spriteTop}px`;
-  spriteFacade.style.left = `${spriteLeft}px`;
-  spriteFacade.style.transform = '';
-  document.body.appendChild(spriteFacade);
-  detailSprite.style.transform = '';
+  var spriteFacade = styleSpriteFacade(nationalId, spriteTop, spriteLeft, '');
+  spriteFacade.classList.remove('hidden');
+  detailSprite.style.opacity = 0;
   targetBackground.style.transform = '';
   targetForeground.style.transform = '';
 
-  console.log('spriteTransform', spriteTransform);
 
   requestAnimationFrame(() => {
     // go go go!
@@ -186,11 +201,13 @@ function _animateOut(nationalId) {
     console.log('done animating');
     targetForeground.classList.remove('animating');
     targetBackground.classList.remove('animating');
+    spriteFacade.classList.remove('animating');
     targetBackground.style.transform = '';
     targetForeground.style.transform = '';
     detailViewContainer.classList.add('hidden');
+    spriteFacade.classList.add('hidden');
+    detailSprite.style.opacity = 1;
     themeMeta.content = appTheme;
-    document.body.removeChild(spriteFacade);
     targetBackground.removeEventListener('transitionend', onAnimEnd);
   }
 
@@ -203,7 +220,9 @@ function init() {
   monstersList = $('#monsters-list');
   detailPanel = $('.detail-panel');
   headerAppBar = $('.mui-appbar');
+  detailSprite = detailView.querySelector('.detail-sprite');
   themeMeta = document.head.querySelector('meta[name="theme-color"]');
+  spriteFacade = createSpriteFacade();
   appTheme = themeMeta.content;
 }
 
@@ -225,7 +244,6 @@ function getDetailSpriteRect() {
   if (result) {
     return result;
   }
-  var detailSprite = detailView.querySelector('.detail-sprite');
   var dimens = screenWidth + '_' + screenHeight;
   result = dimensToSpriteRect[dimens] = detailSprite.getBoundingClientRect();
   return result;
