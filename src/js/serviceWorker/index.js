@@ -14,6 +14,7 @@ var version = '1.0.0';
 var staticContent = [
   '/',
   '/css/sprites.css',
+  '/css/sprites-webp.css', // TODO: don't cache both webp and non-webp
   '/js/worker.js',
   '/js/main.js'
 ];
