@@ -117,8 +117,14 @@ async function getDescriptionById(docId) {
 }
 
 module.exports = {
-  init: (origin) => {
-    var couchHome = origin.replace(/:[^:]+$/, ':6984');
+  init: origin => {
+    var couchHome;
+    if (origin.indexOf('pokedex.org') !== -1) {
+      // production
+      couchHome = 'https://nolan.cloudant.com';
+    } else {
+      couchHome = origin.replace(/:[^:]+$/, ':6984');
+    }
     initDBs(couchHome);
   },
   getFullMonsterDataById: async nationalId => {
