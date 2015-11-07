@@ -1,15 +1,6 @@
 // load sprites.css asynchronously
 
-function canUseWebP() {
-  var elem = document.createElement('canvas');
-
-  if (elem.getContext && elem.getContext('2d')) {
-    // was able or not to get WebP representation
-    return /^data:image\/webp/.test(elem.toDataURL('image/webp'));
-  }
-  // very old browser like IE 8, canvas not supported
-  return false;
-}
+var supportsWebp = require('../shared/util/supportsWebp');
 
 function loadCssAsync(filename) {
   var ss = document.createElement('link');
@@ -24,7 +15,7 @@ function loadCssAsync(filename) {
   });
 }
 
-if (canUseWebP()) {
+if (supportsWebp()) {
   loadCssAsync('css/sprites-webp1.css');
   loadCssAsync('css/sprites-webp2.css');
   loadCssAsync('css/sprites-webp3.css');

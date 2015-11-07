@@ -13,16 +13,27 @@ var version = '1.0.0';
 
 var staticContent = [
   '/',
-  '/css/sprites.css',
-  '/css/sprites-webp.css', // TODO: don't cache both webp and non-webp
   '/js/worker.js',
   '/js/main.js'
+];
+
+var webpContent = [
+  '/css/sprites-webp1.css',
+  '/css/sprites-webp2.css',
+  '/css/sprites-webp3.css'
+];
+
+var nonWebpContent = [
+  '/css/sprites1.css',
+  '/css/sprites2.css',
+  '/css/sprites3.css'
 ];
 
 self.addEventListener('install', function install (event) {
   event.waitUntil((async () => {
     var activeVersionPromise = keyValueStore.get('active-version');
     var cache = await caches.open('pokedex-static-' + version);
+
     await cache.addAll(staticContent);
 
     var activeVersion = await activeVersionPromise;
@@ -37,12 +48,23 @@ self.addEventListener('install', function install (event) {
   })());
 });
 
+self.onmessage = async function onmessage (event) {
+  console.log('got message', event.data);
+  if (event.data.type === 'supportsWebp') {
+    var supportsWebp = event.data.value;
+    var cache = await caches.open('pokedex-static-' + version);
+    await cache.addAll(supportsWebp ? webpContent : nonWebpContent);
+  }
+};
+
 var expectedCaches = [
   'pokedex-static-' + version
 ];
 
 self.addEventListener('activate', function(event) {
   event.waitUntil((async () => {
+    // activate right now
+    await self.clients.claim();
     // remove caches beginning "svgomg-" that aren't in
     // expectedCaches
     var cacheNames = await caches.keys();
