@@ -17,6 +17,18 @@ var staticContent = [
   '/js/main.js'
 ];
 
+if (process.env.NODE_ENV === 'development') {
+  staticContent = staticContent.concat([
+    '/vendor/mui.js',
+    '/vendor/mui.css',
+    '/css/style.css',
+    '/js/critical.js',
+    '/svg/search.svg',
+    '/svg/search-active.svg',
+    '/svg/ic_arrow_back_36px.svg'
+  ]);
+}
+
 var webpContent = [
   '/css/sprites-webp1.css',
   '/css/sprites-webp2.css',

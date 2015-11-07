@@ -556,6 +556,26 @@ button {
   margin: 20px 5px 5px;
 }
 
+/* toast */
+
+.toast {
+  position: fixed;
+  z-index: 3;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  text-align: center;
+  color: #fff;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 10px;
+  transition: opacity 2s ease-in-out;
+  opacity: 0;
+}
+
 /* hamburger needs more padding */
 .sidedrawer-toggle.hover-shadow {
   padding: 4px 7px 5px 8px;
