@@ -564,16 +564,69 @@ button {
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.8);
   text-align: center;
   color: #fff;
   align-items: center;
   justify-content: center;
-  font-size: 15px;
-  font-weight: 600;
-  padding: 10px;
-  transition: opacity 2s ease-in-out;
+  font-size: 16px;
+  transition: opacity 0.5s ease-in-out;
   opacity: 0;
+  display: flex;
+}
+
+.toast button.mui-btn {
+  margin: 6px 12px;
+}
+
+.toast button.mui-btn:active {
+  background-color: #ededed;
+}
+
+.toast span {
+  flex-grow: 1;
+}
+.toast div {
+  flex-grow: 1;
+}
+
+.pokedex-modal {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.pokedex-modal-inner {
+  max-width: 400px;
+  margin: 0 20px;
+}
+
+.pokedex-modal-inner.mui-panel {
+  margin: 0;
+  padding: 0;
+}
+
+.pokedex-modal-inner h2 {
+  font-size: 18px;
+  margin: 0;
+  background: #a040a0;
+  color: white;
+  padding: 10px 16px;
+}
+
+.pokedex-modal-content {
+  font-size: 14px;
+  margin: 20px 16px;
+}
+
+.pokedex-modal-inner button {
+  float: right;
 }
 
 /* hamburger needs more padding */

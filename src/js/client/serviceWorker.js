@@ -1,5 +1,6 @@
 var keyValueStore = require('../shared/db/keyValueStore');
 var supportsWebp = require('../shared/util/supportsWebp');
+var worker = require('./worker');
 var semver = require('semver');
 
 function onFirstLoad() {
@@ -10,20 +11,21 @@ function onFirstLoad() {
     if (informed) {
       return;
     }
-    var toast = document.createElement('div');
-    toast.classList.add('toast');
-    toast.innerText = 'Ready to work offline.';
-    document.body.appendChild(toast);
-    requestAnimationFrame(() => {
-      toast.style.opacity = 1;
-      setTimeout(() => {
-        requestAnimationFrame(() => {
-          toast.style.opacity = 0;
-          toast.addEventListener('transitionend', function () {
-            document.body.removeChild(toast);
-          });
-        });
-      }, 10000);
+
+    worker.postMessage({
+      type: 'toast',
+      toast: {
+        text: 'Ready to work offline.',
+        buttonText: 'MORE INFO'
+      },
+      modal: {
+        title: '\uD83D\uDCF6 \u00A0 Pokedex.org works offline.',
+        text: "" +
+        "Yes, that's right, a website that works offline! If you tap \u2630 then " +
+        "\"Add to Home Screen,\" you can browse all your favorite " +
+        "Pokémon even without an Internet connection.",
+        buttonText: 'OK, COOL'
+      }
     });
     return keyValueStore.set('informedOffline', true);
   }).catch(err => console.log(err));
