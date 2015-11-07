@@ -4,6 +4,7 @@ var fs = bluebird.promisifyAll(require('fs'));
 var mkdirp = bluebird.promisify(require('mkdirp'));
 var rimraf = bluebird.promisify(require('rimraf'));
 var ncp = bluebird.promisify(require('ncp').ncp);
+var cp = bluebird.promisify(require('cp'));
 var stream2promise = require('stream-to-promise');
 var uglify = require('uglify-js');
 var CleanCss = require('clean-css');
@@ -202,12 +203,13 @@ module.exports = async function build(debug) {
 
     var promises = [
       ncp('./src/img', './www/img'),
-      ncp('./src/assets', './www/assets')
+      ncp('./src/assets', './www/assets'),
+      cp('./src/robots.txt', './www/robots.txt'),
+      cp('./src/favicon.ico', './www/favicon.ico'),
+      cp('./src/manifest.json', './www/manifest.json'),
+      ncp('./src/svg', './www/svg'),
+      ncp('./src/vendor', './www/vendor')
     ];
-    if (debug) {
-      promises.push(ncp('./src/svg', './www/svg'));
-      promises.push(ncp('./src/vendor', './www/vendor'));
-    }
     await* promises;
   }
 

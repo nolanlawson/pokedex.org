@@ -23,6 +23,7 @@
     "bundle-collapser": "^1.2.1",
     "clean-css": "^3.4.6",
     "color": "^0.10.1",
+    "cp": "^0.2.0",
     "debounce": "^1.0.0",
     "envify": "^3.4.0",
     "eslint": "^1.7.3",

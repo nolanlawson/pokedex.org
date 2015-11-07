@@ -1,0 +1,20 @@
+{
+  "short_name": "Pokedex.org",
+  "name": "Pokedex.org",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "img/icon-48.png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "img/icon-96.png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "img/icon-192.png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "index.html?launcher=true"
+}

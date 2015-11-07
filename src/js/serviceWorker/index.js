@@ -14,7 +14,12 @@ var version = '1.0.0';
 var staticContent = [
   '/',
   '/js/worker.js',
-  '/js/main.js'
+  '/js/main.js',
+  '/manifest.json',
+  '/favicon.ico',
+  '/img/icon-48.png',
+  '/img/icon-96.png',
+  '/img/icon-192.png',
 ];
 
 if (process.env.NODE_ENV === 'development') {
