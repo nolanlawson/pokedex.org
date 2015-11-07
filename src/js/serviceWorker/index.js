@@ -9,7 +9,7 @@ var keyValueStore = require('../shared/db/keyValueStore');
 // a: version-isolated change, don't let both versions run together
 // b: new feature
 // c: bug fix
-var version = '1.0.0';
+var version = '1.0.1';
 
 var staticContent = [
   '/',
