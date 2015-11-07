@@ -8,14 +8,8 @@ var detailViewOrchestrator = require('./detailViewOrchestrator');
 var worker = require('./worker');
 
 var monstersList;
-
-// use a higher debounce for safari, which seems to ignore it if you set it
-// too low
-var isSafari = typeof openDatabase !== 'undefined' &&
-  /(Safari|iPhone|iPad|iPod)/.test(navigator.userAgent) &&
-  !/Chrome/.test(navigator.userAgent) &&
-  !/BlackBerry/.test(navigator.platform);
-var delay = isSafari ? 200 : 100;
+/*
+var DEBOUNCE_DELAY = 100;
 
 function binarySearchForFirstVisibleChild(children) {
   var low = 0, high = children.length, mid, rect, val;
@@ -79,6 +73,8 @@ function renderSprites() {
 
 renderSprites();
 
+ */
+
 function applyPatch(patchString) {
   console.time('JSON.parse()');
   var patchJson = JSON.parse(patchString);
@@ -124,11 +120,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     detailViewOrchestrator.animateInPartOne(nationalId);
   });
-  window.addEventListener('scroll', debounce(renderSprites, delay));
+  //window.addEventListener('scroll', debounce(renderSprites, DEBOUNCE_DELAY));
 }, false);
 
 // This happens e.g. when the keyboard moves in/out on Android, in which
 // case the window.innerHeight also changes, so we need to recalculate.
 // This is debounced for the benefit of web developers manually resizing
 // their window, so it doesn't end up looking so janky.
-window.addEventListener('resize', debounce(renderSprites, 50));
+//window.addEventListener('resize', debounce(renderSprites, 50));
