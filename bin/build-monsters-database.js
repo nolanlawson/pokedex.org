@@ -11,7 +11,6 @@ var memdown = require('memdown');
 var db = new PouchDB('inmem', {db: memdown});
 var fs = require('fs');
 var zpad = require('zpad');
-var shortRevs = require('short-revs');
 
 var NUM_MONSTERS = 649;
 
@@ -24,7 +23,7 @@ async function doIt() {
   }
 
   var out = fs.createWriteStream('src/assets/monsters.txt');
-  await db.pipe(shortRevs()).dump(out);
+  await db.dump(out);
 }
 
 doIt().catch(console.log.bind(console));

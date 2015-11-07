@@ -7,7 +7,6 @@ var pick = require('lodash/object/pick');
 var PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-upsert'));
 PouchDB.plugin(require('pouchdb-load'));
-PouchDB.plugin(require('transform-pouch'));
 var inMemoryDB = require('./inMemoryDatabase');
 var Stopwatch = require('../shared/util/stopwatch');
 
@@ -50,7 +49,7 @@ async function replicateDB(db, filename) {
 }
 
 async function replicateMonsters() {
-  return await replicateDB(localMonstersDB, '../assets/monsters.txt');
+  return await replicateDB(localMonstersDB, '../assets/skim-monsters.txt');
 }
 
 async function replicateDescriptions() {
@@ -62,17 +61,6 @@ async function initDBs(couchHome) {
   remoteDescriptionsDB = new PouchDB(couchHome + '/descriptions');
   localDescriptionsDB = new PouchDB('descriptions');
   localMonstersDB = new PouchDB('monsters');
-  // make the local monster doc smaller
-  localMonstersDB.transform({
-    incoming: doc => {
-      doc = pick(doc, '_id', '_rev', '_revisions', 'descriptions',
-        'types', 'attack', 'defense', 'speed', 'sp_atk', 'sp_def', 'hp',
-        'weight', 'height', 'national_id', 'name', 'male_female_ratio',
-        'abilities', 'evolutions');
-      doc.descriptions = doc.descriptions.filter(x => /_gen_5$/.test(x.name));
-      return doc;
-    }
-  });
   if (localMonstersDB.adapter) {
     replicateMonsters();
     replicateDescriptions();

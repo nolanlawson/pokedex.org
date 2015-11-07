@@ -15,7 +15,6 @@ var bluebird = require('bluebird');
 var fs = bluebird.promisifyAll(require('fs'));
 var zpad = require('zpad');
 var lodash = require('lodash');
-var shortRevs = require('short-revs');
 
 var monstersDB = new PouchDB('monsters', {db: memdown});
 
@@ -52,7 +51,7 @@ async function doIt() {
   }
 
   var out = fs.createWriteStream('src/assets/descriptions.txt');
-  await db.pipe(shortRevs()).dump(out);
+  await db.dump(out);
 }
 
 doIt().catch(console.log.bind(console));
