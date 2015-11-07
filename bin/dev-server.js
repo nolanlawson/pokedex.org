@@ -8,6 +8,8 @@ var build = require('./build');
 var PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-load'));
 
+var promiseChain = Promise.resolve();
+
 async function startPouchServer() {
   await mkdirp('db');
 
@@ -58,7 +60,9 @@ async function doIt() {
 
   console.log('started dev server at http://127.0.0.1:9000');
 
-  watch(__dirname + '/../src', () => build(true));
+  watch(__dirname + '/../src', () => {
+    promiseChain = promiseChain.then(() => build(true));
+  });
 }
 
 doIt().catch(err => console.error(err));
