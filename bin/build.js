@@ -152,7 +152,7 @@ module.exports = async function build(debug) {
       b = b.transform('stripify');
     }
     b = b.transform(envify({
-      NODE_ENV: debug ? 'development' : 'production'
+      NODE_ENV: process.env.NODE_ENV || (debug ? 'development' : 'production')
     }));
     var stream = b.bundle();
     return stream2promise(stream.pipe(fs.createWriteStream(file.dest)));

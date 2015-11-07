@@ -74,7 +74,7 @@ function onUpdateFound(registration) {
 
 // disable service worker while debugging
 console.log('mode:', process.env.NODE_ENV);
-if ('serviceWorker' in navigator) {
+if (process.env.NODE_ENV !== 'testing' && 'serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js', {
     scope: './'
   }).then(registration => {
