@@ -91,6 +91,7 @@ async function onMessage(message) {
 self.addEventListener('message', e => {
   var message = e.data;
   console.log('worker got message', message);
+  // TODO: handle errors here
   onMessage(message).catch(console.log.bind(console));
 
 });
