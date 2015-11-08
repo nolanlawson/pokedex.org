@@ -30,6 +30,7 @@ button {
   left: 0;
   z-index: 2;
   transition: transform 0.2s;
+  will-change: transform;
 }
 
 #sidedrawer {
@@ -42,6 +43,7 @@ button {
   overflow: auto;
   z-index: 2;
   background-color: #fff;
+  will-change: transform;
   transition: transform 0.2s;
 }
 
@@ -49,6 +51,7 @@ button {
   min-height: 100%;
   overflow-x: hidden;
   transform: translate(0, 0);
+  will-change: transform;
   transition: transform 0.2s;
 
   /* sticky bottom */
@@ -60,6 +63,7 @@ button {
   height: 160px;
   font-size: 13px;
   transform: translate(0, 0);
+  will-change: transform;
   transition: transform 0.2s;
 }
 
@@ -341,6 +345,10 @@ button {
   z-index: 3000;
 }
 
+.detail-back-button {
+  will-change: transform;
+}
+
 .detail-back-button.animating {
   transition: transform 0.2s ease-in-out;
 }
@@ -367,6 +375,11 @@ button {
   left: 10px;
   right: 10px;
   overflow-y: auto;
+  will-change: transform;
+}
+
+.detail-panel.animating {
+  transition: transform 0.33333s cubic-bezier(0,0,0.21,1);
 }
 
 .detail-panel-header {
@@ -486,11 +499,12 @@ button {
   justify-content: center;
 }
 
-.monster-sprite-facade.animating {
-  transition: transform 0.33333s cubic-bezier(0,0,0.21,1);
+.monster-sprite-facade {
+  will-change: transform;
 }
 
-.detail-sprite.animating {
+
+.monster-sprite-facade.animating {
   transition: transform 0.33333s cubic-bezier(0,0,0.21,1);
 }
 
@@ -501,10 +515,6 @@ button {
   left: 0;
   right: 0;
   z-index: 3;
-}
-
-.detail-panel.animating {
-  transition: transform 0.33333s cubic-bezier(0,0,0.21,1);
 }
 
 .detail-view-bg {
@@ -570,6 +580,7 @@ button {
   align-items: center;
   justify-content: center;
   font-size: 16px;
+  will-change: opacity;
   transition: opacity 0.5s ease-in-out;
   opacity: 0;
   display: flex;
