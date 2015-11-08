@@ -267,6 +267,15 @@ button {
   }
 }
 
+@media (max-width: 320px) {
+  #monsters-list > li {
+    width: 110px;
+    height: 110px;
+  }
+}
+
+
+
 #monsters-list .monster-sprite {
   top: 0;
   left: 0;
@@ -301,6 +310,13 @@ button {
   background-position: center center;
   width: 140px;
   height: 140px;
+}
+
+@media (max-width: 320px) {
+  .monster-sprite {
+    width: 110px;
+    height: 110px;
+  }
 }
 
 #monsters-list li span {
@@ -397,6 +413,14 @@ button {
   width: 140px;
   height: 140px;
   min-width: 140px;
+}
+
+@media (max-width: 320px) {
+  .detail-sprite {
+    width: 110px;
+    height: 110px;
+    min-width: 110px;
+  }
 }
 
 .detail-header {
