@@ -20,8 +20,6 @@ var monsterSummaries = require('../src/js/shared/data/monsterSummaries');
 var bulbasaur = require('../src/js/shared/data/bulbasaur');
 var toHtml = require('vdom-to-html');
 
-var CRITICAL_CSS_SPRITES_LINES = 20;
-
 module.exports = async function build(debug) {
 
   async function inlineSvgs(criticalCss) {
@@ -53,11 +51,9 @@ module.exports = async function build(debug) {
 
   async function inlineCriticalCss(html) {
     var mainCss = await fs.readFileAsync('./src/css/style.css', 'utf-8');
-    var spritesCss = await fs.readFileAsync('./src/css/sprites1.css', 'utf-8');
+    var spritesCss = await fs.readFileAsync('./src/css/sprites-small.css', 'utf-8');
 
-    mainCss += '\n' +
-      spritesCss.split('\n').slice(0, CRITICAL_CSS_SPRITES_LINES).join('\n');
-
+    mainCss += '\n' + spritesCss;
     mainCss = await inlineSvgs(mainCss);
     mainCss = cleanCss.minify(mainCss).styles;
     var muiCss = await fs.readFileAsync('./src/vendor/mui.css', 'utf-8');
@@ -111,29 +107,21 @@ module.exports = async function build(debug) {
 
   async function buildCss() {
     console.log('buildCss()');
-    var spritesCss = await fs.readFileAsync('./src/css/sprites1.css', 'utf-8');
-    var spritesWebpCss = await fs.readFileAsync('./src/css/sprites-webp1.css', 'utf-8');
+    var spritesCss = await fs.readFileAsync('./src/css/sprites.css', 'utf-8');
 
     if (!debug) {
-      spritesCss = spritesCss.split('\n').slice(CRITICAL_CSS_SPRITES_LINES).join('\n');
       spritesCss = cleanCss.minify(spritesCss).styles;
-
-      spritesWebpCss = spritesWebpCss.split('\n').slice(CRITICAL_CSS_SPRITES_LINES).join('\n');
-      spritesWebpCss = cleanCss.minify(spritesWebpCss).styles;
     }
 
     await mkdirp('./www/css');
     var promises = [
-      fs.writeFileAsync('./www/css/sprites1.css', spritesCss, 'utf-8'),
-      fs.writeFileAsync('./www/css/sprites-webp1.css', spritesWebpCss, 'utf-8'),
-      fs.writeFileAsync('./www/css/sprites2.css', await getCss('./src/css/sprites2.css', 'utf-8')),
-      fs.writeFileAsync('./www/css/sprites3.css', await getCss('./src/css/sprites3.css', 'utf-8')),
-      fs.writeFileAsync('./www/css/sprites-webp2.css', await getCss('./src/css/sprites-webp2.css', 'utf-8')),
-      fs.writeFileAsync('./www/css/sprites-webp3.css', await getCss('./src/css/sprites-webp3.css', 'utf-8'))
+      fs.writeFileAsync('./www/css/sprites.css', spritesCss, 'utf-8')
     ];
     if (debug) {
       var mainCss = await fs.readFileAsync('./src/css/style.css', 'utf-8');
       promises.push(fs.writeFileAsync('./www/css/style.css', mainCss, 'utf-8'));
+      var spritesSmallCss = await fs.readFileAsync('./src/css/sprites-small.css', 'utf-8');
+      promises.push(fs.writeFileAsync('./www/css/sprites-small.css', spritesSmallCss, 'utf-8'));
     }
     await* promises;
   }
