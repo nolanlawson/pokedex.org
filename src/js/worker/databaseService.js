@@ -14,6 +14,8 @@ var localMonstersDB;
 var remoteMonstersDB;
 var localDescriptionsDB;
 var remoteDescriptionsDB;
+var localEvolutionsDB;
+var remoteEvolutionsDB;
 
 async function checkReplicated(db) {
   if (db.__initialLoadComplete) {
@@ -48,22 +50,19 @@ async function replicateDB(db, filename) {
   await markReplicated(db);
 }
 
-async function replicateMonsters() {
-  return await replicateDB(localMonstersDB, '../assets/skim-monsters.txt');
-}
-
-async function replicateDescriptions() {
-  return await replicateDB(localDescriptionsDB, '../assets/descriptions.txt');
-}
-
 async function initDBs(couchHome) {
   remoteMonstersDB = new PouchDB(couchHome + '/monsters');
   remoteDescriptionsDB = new PouchDB(couchHome + '/descriptions');
+  remoteEvolutionsDB = new PouchDB(couchHome + '/evolutions');
   localDescriptionsDB = new PouchDB('descriptions');
   localMonstersDB = new PouchDB('monsters');
+  localEvolutionsDB = new PouchDB('evolutions');
   if (localMonstersDB.adapter) {
-    replicateMonsters();
-    replicateDescriptions();
+    await* [
+      replicateDB(localMonstersDB, '../assets/skim-monsters.txt'),
+      replicateDB(localDescriptionsDB, '../assets/descriptions.txt'),
+      replicateDB(localEvolutionsDB, '../assets/evolutions.txt'),
+    ];
   } else {
     console.log('this browser doesn\'t support PouchDB. cannot work offline.');
   }
