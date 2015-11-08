@@ -181,7 +181,7 @@ module.exports = async function build(debug) {
       files.push({
         source: __dirname + '/../src/js/critical/index.js',
         dest: __dirname + '/../www/js/critical.js'
-      })
+      });
     }
 
     await* files.map(browserifyFile);

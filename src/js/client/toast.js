@@ -1,7 +1,6 @@
 var worker = require('./worker');
 var createElement = require('virtual-dom/create-element');
 var fromJson = require('vdom-as-json/fromJson');
-var showModal = require('./modal');
 
 var TOAST_SHOW_TIME = 10000;
 

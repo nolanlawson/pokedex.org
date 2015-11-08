@@ -36,13 +36,21 @@ async function doIt() {
 
   // dump monsters.txt
   var monstersDB = new PouchDB('http://localhost:6984/monsters');
+  var monstersFullFatDB = new PouchDB('http://localhost:6984/monsters-fullfat');
   var descriptionsDB = new PouchDB('http://localhost:6984/descriptions');
   var evolutionsDB = new PouchDB('http://localhost:6984/evolutions');
+  var typesDB = new PouchDB('http://localhost:6984/types');
+  var movesDB = new PouchDB('http://localhost:6984/moves');
+  var monsterMovesDB = new PouchDB('http://localhost:6984/monster-moves');
 
   var loadPromises = [
     monstersDB.load(await fs.readFileAsync('src/assets/skim-monsters.txt', 'utf-8')),
     descriptionsDB.load(await fs.readFileAsync('src/assets/descriptions.txt', 'utf-8')),
-    evolutionsDB.load(await fs.readFileAsync('src/assets/evolutions.txt', 'utf-8'))
+    evolutionsDB.load(await fs.readFileAsync('src/assets/evolutions.txt', 'utf-8')),
+    typesDB.load(await fs.readFileAsync('src/assets/types.txt', 'utf-8')),
+    movesDB.load(await fs.readFileAsync('src/assets/moves.txt', 'utf-8')),
+    monstersFullFatDB.load(await fs.readFileAsync('src/assets/monsters.txt', 'utf-8')),
+    monsterMovesDB.load(await fs.readFileAsync('src/assets/monster-moves.txt', 'utf-8'))
   ];
 
   // build with debug=true
