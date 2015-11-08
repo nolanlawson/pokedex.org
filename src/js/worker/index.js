@@ -13,7 +13,7 @@ var startingPageSize = require('../shared/util/constants').pageSize;
 async function renderList() {
   var {filter, pageSize} = pageStateStore;
   var stopwatch = new Stopwatch();
-  var patch = await patchMonstersList(filter, pageSize);
+  var {patch, endOfList} = await patchMonstersList(filter, pageSize);
   stopwatch.time('patchMonstersList');
   var patchJson = toJson(patch);
   stopwatch.time('toJson');
@@ -23,7 +23,8 @@ async function renderList() {
 
   self.postMessage({
     type: 'monstersListPatch',
-    patch: patchJsonAsString
+    patch: patchJsonAsString,
+    endOfList: endOfList
   });
   stopwatch.totalTime('worker-filter (total)');
 }

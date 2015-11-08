@@ -10,5 +10,5 @@ module.exports = monster => {
     case 'Farfetchd':
       return "Farfetch'd";
   }
-  return name;
+  return name.replace(/-ordinary$/, '').replace(/-incarnate$/, '');
 };

@@ -5,11 +5,12 @@ var detailViewOrchestrator = require('./detailViewOrchestrator');
 var worker = require('./worker');
 var debounce = require('debounce');
 var DEBOUNCE_DELAY = 50;
-var SCROLL_PREFETCH_OFFSET = 300;
+var SCROLL_PREFETCH_OFFSET = 20;
 var $ = document.querySelector.bind(document);
 
 var monstersList;
 var footerHeight;
+var endOfList;
 
 function applyPatch(patchString) {
   console.time('JSON.parse()');
@@ -30,6 +31,7 @@ function onFiltered(message) {
 
   if (message.type === 'monstersListPatch') {
     applyPatch(message.patch);
+    endOfList = message.endOfList;
   }
 }
 
@@ -52,6 +54,10 @@ function scrolledToBottom() {
 function onScroll() {
   if (scrolledToBottom()) {
     console.log('scrolledToBottom');
+    if (endOfList) {
+      console.log('no more items to show');
+      return;
+    }
     console.time('worker-filter');
     progress.start(true);
     worker.postMessage({

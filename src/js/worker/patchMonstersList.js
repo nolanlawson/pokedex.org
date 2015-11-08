@@ -23,8 +23,10 @@ module.exports = async (filter, pageSize) => {
   stopwatch.time('rendering monsters');
 
   var patch = diff(lastMonstersListView, newMonstersList);
+  var endOfList = newMonsters.length <= pageSize;
+  console.log('newMonsters.length', newMonsters.length, 'pageSize', pageSize);
   stopwatch.time('diffing monsters');
   lastMonstersListView = newMonstersList;
 
-  return patch;
+  return {patch, endOfList};
 };
