@@ -20,7 +20,7 @@ var monsterSummaries = require('../src/js/shared/data/monsterSummaries');
 var bulbasaur = require('../src/js/shared/data/bulbasaur');
 var toHtml = require('vdom-to-html');
 
-var CRITICAL_CSS_SPRITES_LINES = 20;
+var CRITICAL_CSS_SPRITES_LINES = 8;
 
 module.exports = async function build(debug) {
 
