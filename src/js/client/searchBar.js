@@ -1,4 +1,3 @@
-
 var worker = require('./worker');
 var debounce = require('debounce');
 var progress = require('./progress');

@@ -222,7 +222,7 @@ button {
 }
 
 #progress-mask {
-  z-index: 10000;
+  z-index: 20000;
   position: absolute;
   background-color: white;
   width: 100%;
@@ -230,6 +230,7 @@ button {
   top: 0;
   transition: opacity 0.1s;
   opacity: 0;
+  pointer-events: none;
 }
 
 #progress-mask.shown {
@@ -647,4 +648,39 @@ button {
 
 .hover-shadow:active, .hover-shadow:focus, .hover-shadow:hover {
   background-color: rgba(0,0,0,.27);
+}
+
+/* spinner */
+
+/* modified from http://codepen.io/mrrocks/pen/EiplA */
+.spinner {
+  animation: rotator 2.8s linear infinite;
+  transition: opacity 0.2s ease-in-out;
+  opacity: 0;
+  will-change: opacity;
+  width: 24px;
+  height: 24px;
+  margin: 0 0 5px;
+}
+
+.spinner.shown {
+  opacity: 1;
+}
+
+@keyframes rotator {
+  0% { transform: rotate(0deg); stroke: #A040A0;}
+  12.5% { transform: rotate(90deg); stroke: #A040A0;}
+  25% { transform: rotate(180deg); stroke: #78C850;}
+  37.5% { transform: rotate(270deg); stroke: #78C850;}
+  50% { transform: rotate(360deg); stroke: #78C850;}
+  62.5% { transform: rotate(450deg); stroke: #78C850;}
+  75% { transform: rotate(540deg); stroke: #A040A0;}
+  87.5% { transform: rotate(630deg); stroke: #A040A0;}
+  100% { transform: rotate(720deg); stroke: #A040A0;}
+}
+
+.spinner-path {
+  stroke-dasharray: 187;
+  stroke-dashoffset: 93;
+  transform-origin: center;
 }

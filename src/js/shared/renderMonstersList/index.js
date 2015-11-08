@@ -5,7 +5,8 @@ var map = require('lodash/collection/map');
 var getMonsterBackground = require('../monster/getMonsterBackground');
 var getMonsterDisplayName = require('../monster/getMonsterDisplayName');
 
-module.exports = monsters => {
+module.exports = (monsters, pageSize) => {
+  monsters = monsters.slice(0, pageSize);
   return h('ul', {id: 'monsters-list'}, map(monsters, monster =>
     h('li', {
       style: {background: getMonsterBackground(monster)}

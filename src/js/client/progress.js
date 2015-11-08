@@ -1,14 +1,33 @@
+var $ = document.querySelector.bind(document);
+
+var spinner;
+var mask;
+
+function init() {
+  spinner = spinner || $('#monsters-list-spinner');
+  mask = mask || $('#progress-mask');
+}
+
 function Progress() {
 }
 
-var $ = document.querySelector.bind(document);
-
-Progress.prototype.start = function () {
-  $('#progress-mask').classList.add('shown');
+Progress.prototype.start = function (appendingToListEnd) {
+  requestAnimationFrame(() => {
+    init();
+    if (appendingToListEnd) {
+      spinner.classList.add('shown');
+    } else { // filtering
+      mask.classList.add('shown');
+    }
+  })
 };
 
 Progress.prototype.end = function () {
-  $('#progress-mask').classList.remove('shown');
+  requestAnimationFrame(() => {
+    init();
+    mask.classList.remove('shown');
+    spinner.classList.remove('shown');
+  });
 };
 
 module.exports = new Progress();

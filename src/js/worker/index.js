@@ -7,13 +7,13 @@ var patchMonstersList = require('./patchMonstersList');
 var patchMonsterDetail = require('./patchMonsterDetail');
 var renderToast = require('../shared/renderToast');
 var renderModal = require('../shared/renderModal');
+var pageStateStore = require('./pageStateStore');
+var startingPageSize = require('../shared/util/constants').pageSize;
 
-async function onFilterMessage(message) {
+async function renderList() {
+  var {filter, pageSize} = pageStateStore;
   var stopwatch = new Stopwatch();
-
-  var filter = message.filter || '';
-  var patch = await patchMonstersList(filter);
-
+  var patch = await patchMonstersList(filter, pageSize);
   stopwatch.time('patchMonstersList');
   var patchJson = toJson(patch);
   stopwatch.time('toJson');
@@ -26,6 +26,19 @@ async function onFilterMessage(message) {
     patch: patchJsonAsString
   });
   stopwatch.totalTime('worker-filter (total)');
+}
+
+async function onFilterMessage(message) {
+  var filter = message.filter || '';
+
+  pageStateStore.filter = filter;
+  pageStateStore.pageSize = startingPageSize;
+  await renderList();
+}
+
+async function onScrolledToBottomMessage() {
+  pageStateStore.pageSize += startingPageSize;
+  await renderList();
 }
 
 async function onDetailMessage(message) {
@@ -72,6 +85,9 @@ async function onMessage(message) {
   switch (message.type) {
     case 'filter':
       await onFilterMessage(message);
+      break;
+    case 'scrolledToBottom':
+      await onScrolledToBottomMessage(message);
       break;
     case 'detail':
       await onDetailMessage(message);

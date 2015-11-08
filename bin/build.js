@@ -14,6 +14,7 @@ var minifyHtml = require('html-minifier').minify;
 var bundleCollapser = require("bundle-collapser/plugin");
 var envify = require('envify/custom');
 
+var startingPageSize = require('../src/js/shared/util/constants').pageSize;
 var renderMonsterDetailView = require('../src/js/shared/renderMonsterDetailView');
 var renderMonstersList = require('../src/js/shared/renderMonstersList');
 var monsterSummaries = require('../src/js/shared/data/monsterSummaries');
@@ -84,7 +85,7 @@ module.exports = async function build(debug) {
   async function buildHtml() {
     console.log('buildHtml()');
     var html = await fs.readFileAsync('./src/index.html', 'utf-8');
-    var monstersList = renderMonstersList(monsterSummaries);
+    var monstersList = renderMonstersList(monsterSummaries, startingPageSize);
     html = html.replace('<ul id="monsters-list"></ul>',
       toHtml(monstersList));
 

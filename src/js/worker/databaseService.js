@@ -3,7 +3,6 @@ require('regenerator/runtime');
 var zpad = require('zpad');
 var find = require('lodash/collection/find');
 var assign = require('lodash/object/assign');
-
 var PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-upsert'));
 PouchDB.plugin(require('pouchdb-load'));
@@ -173,7 +172,7 @@ module.exports = {
   getFilteredMonsters: async (filter) => {
     return inMemoryDB.findByNamePrefix(filter);
   },
-  getInitialMonsters: () => {
+  getAllMonsters: () => {
     return inMemoryDB.findAll();
   }
 };
