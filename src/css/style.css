@@ -279,10 +279,7 @@ button {
 
   /* mui sets transition: all 0.2s ease-in-out, avoid that so
      we don't get unnecessary janky animations */
-  transition: initial;
-  /*transition-property: background-color,box-shadow;
-  transition-duration: 0.2s;
-  transition-timing-function: ease-in-out;*/
+  transition: none;
 }
 
 .monster-sprite.mui-btn--accent.mui-btn--flat:active,
