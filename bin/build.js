@@ -9,6 +9,8 @@ var stream2promise = require('stream-to-promise');
 var uglify = require('uglify-js');
 var CleanCss = require('clean-css');
 var cleanCss = new CleanCss();
+var autoprefixer = require('autoprefixer');
+var postcss = require('postcss');
 var execall = require('execall');
 var minifyHtml = require('html-minifier').minify;
 var bundleCollapser = require("bundle-collapser/plugin");
@@ -26,6 +28,12 @@ var toHtml = require('vdom-to-html');
 var CRITICAL_CSS_SPRITES_LINES = 8;
 
 module.exports = async function build(debug) {
+
+  async function minifyCss(css) {
+    var processed = await postcss([ autoprefixer ]).process(css);
+    css = processed.css;
+    return cleanCss.minify(css).styles;
+  }
 
   async function inlineSvgs(criticalCss) {
     var svgRegex = /url\((.*?\.svg)\)/g;
@@ -62,9 +70,9 @@ module.exports = async function build(debug) {
       spritesCss.split('\n').slice(0, CRITICAL_CSS_SPRITES_LINES).join('\n');
 
     mainCss = await inlineSvgs(mainCss);
-    mainCss = cleanCss.minify(mainCss).styles;
+    mainCss = await cleanCss.minify(mainCss).styles;
     var muiCss = await fs.readFileAsync('./src/vendor/mui.css', 'utf-8');
-    muiCss = cleanCss.minify(muiCss).styles;
+    muiCss = await minifyCss(muiCss);
     return html
       .replace(
         '<link href="vendor/mui.css" rel="stylesheet"/>',
@@ -104,14 +112,6 @@ module.exports = async function build(debug) {
     await fs.writeFileAsync('./www/index.html', html, 'utf-8');
   }
 
-  async function getCss(filename) {
-    var css = await fs.readFileAsync(filename, 'utf-8');
-    if (debug) {
-      return cleanCss.minify(css).styles;
-    }
-    return css;
-  }
-
   async function writeSplitCss(css, filename, numParts) {
     css = css.split('\n');
     var batchSize = (css.length / numParts);
@@ -122,7 +122,7 @@ module.exports = async function build(debug) {
       var cssPart = css.slice(i, i + end).join('\n');
       var partFile = filename.replace(/\.css$/, `-${counter}.css`);
       if (!debug) {
-        cssPart = cleanCss.minify(cssPart).styles;
+        cssPart = await minifyCss(cssPart);
       }
       promises.push(fs.writeFileAsync(partFile, cssPart, 'utf-8'));
       counter++;
