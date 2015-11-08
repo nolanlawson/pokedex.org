@@ -44,7 +44,7 @@
     "node-watch": "^0.3.4",
     "pouchdb": "^5.0.0",
     "pouchdb-find": "^0.6.0",
-    "pouchdb-load": "^1.4.1",
+    "pouchdb-load": "^1.4.2",
     "pouchdb-replication-stream": "^1.2.5",
     "pouchdb-server": "^1.0.0",
     "pouchdb-upsert": "^1.1.3",
