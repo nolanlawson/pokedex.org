@@ -66,7 +66,12 @@ async function doIt() {
     });
   });
 
-  await* [...loadPromises, buildPromise, serverPromise];
+  var allPromises = [...loadPromises, buildPromise, serverPromise];
+
+  // do one at a time to avoid hammering pouchdb-server too hard
+  for (var promise of allPromises) {
+    await promise;
+  }
 
   console.log('started dev server at http://127.0.0.1:9000');
 
