@@ -67,15 +67,13 @@ async function initDBs(couchHome) {
   dbs.monsterMoves.remote = new PouchDB(couchHome + '/monster-moves');
 
   if (dbs.monsters.local.adapter) {
-    var promises = [
-      replicateDB(dbs.monsters.local, '../assets/skim-monsters.txt'),
-      replicateDB(dbs.descriptions.local, '../assets/descriptions.txt'),
-      replicateDB(dbs.evolutions.local, '../assets/evolutions.txt'),
-      replicateDB(dbs.types.local, '../assets/types.txt'),
-      replicateDB(dbs.moves.local, '../assets/moves.txt'),
-      replicateDB(dbs.monsterMoves.local, '../assets/monster-moves.txt')
-    ];
-    await* promises;
+    // do one-at-a-time to avoid excessive memory usage
+    await replicateDB(dbs.monsters.local, '../assets/skim-monsters.txt');
+    await replicateDB(dbs.types.local, '../assets/types.txt');
+    await replicateDB(dbs.descriptions.local, '../assets/descriptions.txt');
+    await replicateDB(dbs.evolutions.local, '../assets/evolutions.txt');
+    await replicateDB(dbs.moves.local, '../assets/moves.txt');
+    await replicateDB(dbs.monsterMoves.local, '../assets/monster-moves.txt');
   } else {
     console.log('this browser doesn\'t support PouchDB. cannot work offline.');
   }
@@ -111,28 +109,29 @@ async function getEvolutionsById(docId) {
   return await (await getBestDB(dbs.evolutions)).get(docId);
 }
 
-async function getTypeById(docId) {
-  return await (await getBestDB(dbs.types)).get(docId);
+async function getAllTypesByIds(docIds) {
+  var db = await getBestDB(dbs.types);
+  var res = await db.allDocs({
+    include_docs: true,
+    keys: docIds
+  });
+  return res.rows.map(row => row.doc);
 }
 
-async function getMoveById(docId) {
+async function getAllMovesByIds(docIds) {
   var db = await getBestDB(dbs.moves);
-  try {
-    return await db.get(docId);
-  } catch (err) {
-    if (err.status !== 404) {
-      throw err;
-    }
-    return null; // TODO: why not found?
-  }
+  var res = await db.allDocs({
+    include_docs: true,
+    keys: docIds
+  });
+  return res.rows.map(row => row.doc);
 }
 
 async function getMonsterMovesById(docId) {
   var monsterData = await (await getBestDB(dbs.monsterMoves)).get(docId);
-  var promises = monsterData.moves.map(move => {
-    return getMoveById(zpad(move.id, 5));
-  });
-  var moves = await* promises;
+
+  var moveIds = monsterData.moves.map(move => zpad(move.id, 5));
+  var moves = await getAllMovesByIds(moveIds);
 
   var monsterMoves = moves.map((move, i) => {
     return assign({}, move, monsterData.moves[i]);
@@ -161,20 +160,12 @@ module.exports = {
       getMonsterDocById(monsterDocId),
       getDescriptionById(descDocId),
       getEvolutionsById(monsterDocId),
-      getMonsterMovesById(monsterDocId)
+      getMonsterMovesById(monsterDocId),
+      getAllTypesByIds(monsterSummary.types.map(type => type.name))
     ];
 
-    monsterSummary.types.forEach(type => {
-      promises.push(getTypeById(type.name));
-    });
-
     var results = await* promises;
-
-    var monster = results[0];
-    var description = results[1];
-    var evolutions = results[2];
-    var moves = results[3];
-    var types = results.slice(4);
+    var [monster, description, evolutions, moves, types] = results;
 
     stopwatch.time('get() monster and monster data');
     return {monster, description, evolutions, moves, types};
