@@ -23,7 +23,7 @@ target.transform({
     doc = pick(doc, '_id', '_rev', '_revisions', 'descriptions',
       'types', 'attack', 'defense', 'speed', 'sp_atk', 'sp_def', 'hp',
       'weight', 'height', 'national_id', 'name', 'male_female_ratio',
-      'abilities', 'evolutions');
+      'abilities');
     doc.descriptions = doc.descriptions.filter(x => /_gen_5$/.test(x.name));
     return doc;
   }

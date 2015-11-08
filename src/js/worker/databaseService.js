@@ -130,8 +130,7 @@ async function getMoveById(docId) {
 async function getMonsterMovesById(docId) {
   var monsterData = await (await getBestDB(dbs.monsterMoves)).get(docId);
   var promises = monsterData.moves.map(move => {
-    var moveId = zpad(parseInt(move.resource_uri.match(/(\d+)\/$/)[0], 10), 5);
-    return getMoveById(moveId);
+    return getMoveById(zpad(move.id, 5));
   });
   var moves = await* promises;
 

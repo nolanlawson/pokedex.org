@@ -1,17 +1,20 @@
 var h = require('virtual-dom/h');
 var getMonsterDarkTheme = require('../monster/getMonsterDarkTheme');
 
-function renderEvolutionRows(monster) {
-  if (!monster.evolutions.length) {
+function renderEvolutionRows(evolutions) {
+  var from = evolutions.from || [];
+  var to = evolutions.to || [];
+  if (!to.length && !from.length) {
     return h('span', 'No evolutions');
   }
-  return monster.evolutions.map(evolution => {
-    var nationalId = evolution.resource_uri.match(/(\d+)\/$/)[1];
-    return h(`div.evolution-sprite.monster-sprite.sprite-${nationalId}`);
-  });
+  return from.map(evolution => {
+    return h(`div.evolution-sprite.monster-sprite.sprite-${evolution.nationalId}`);
+  }).concat(to.map(evolution => {
+    return h(`div.evolution-sprite.monster-sprite.sprite-${evolution.nationalId}`);
+  }));
 }
 
-module.exports = function renderEvolutions(monster) {
+module.exports = function renderEvolutions(monster, evolutions) {
   var darkColor = getMonsterDarkTheme(monster);
   return h('div.detail-evolutions', [
     h('h2.detail-subheader', {
@@ -19,6 +22,6 @@ module.exports = function renderEvolutions(monster) {
         background: darkColor
       }
     }, 'Evolutions'),
-    renderEvolutionRows(monster)
+    renderEvolutionRows(evolutions)
   ]);
 };

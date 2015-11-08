@@ -7,7 +7,8 @@ var renderStats = require('./renderStats');
 var renderTypeLabels = require('./renderTypeLabels');
 var renderEvolutions = require('./renderEvolutions');
 
-function renderDetailPanel(monster, description) {
+function renderDetailPanel(fullMonsterData) {
+  var {monster, description, evolutions} = fullMonsterData;
   var darkColor = getMonsterDarkTheme(monster);
   var typeLabels = renderTypeLabels(monster);
   var stats = renderStats(monster);
@@ -33,7 +34,7 @@ function renderDetailPanel(monster, description) {
       ]),
       h(`div.detail-below-header`, [
         h('div.monster-description', description.description),
-        renderEvolutions(monster)
+        renderEvolutions(monster, evolutions)
       ])
     ])
   ]);
@@ -41,7 +42,7 @@ function renderDetailPanel(monster, description) {
 
 module.exports = monsterData => {
 
-  var {monster, description} = monsterData;
+  var {monster} = monsterData;
 
   var bgColor = getMonsterBackground(monster);
 
@@ -55,7 +56,7 @@ module.exports = monsterData => {
       h('button.back-button.detail-back-button.hover-shadow', {
         type: 'button'
       }),
-      renderDetailPanel(monster, description)
+      renderDetailPanel(monsterData)
     ])
   ]);
 };

@@ -2,6 +2,16 @@
   "description": {
     "description": "For some time after its birth, it grows by gaining nourishment from the seed on its back."
   },
+  "evolutions": {
+    "to": [
+      {
+        "nationalId": 2,
+        "name": "Ivysaur",
+        "method": "level_up",
+        "level": 16
+      }
+    ]
+  },
   "monster": {
     "abilities": [
       {
@@ -35,14 +45,6 @@
       }
     ],
     "ev_yield": "1 special attack",
-    "evolutions": [
-      {
-        "level": 16,
-        "method": "level_up",
-        "resource_uri": "/api/v1/pokemon/2/",
-        "to": "Ivysaur"
-      }
-    ],
     "exp": 64,
     "growth_rate": "medium slow",
     "happiness": 0,

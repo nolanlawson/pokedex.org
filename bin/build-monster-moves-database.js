@@ -21,7 +21,13 @@ async function doIt() {
 
   var docs = await source.allDocs({include_docs: true});
   var outputDocs = docs.rows.map(row => {
-    return pick(row.doc, '_id', 'moves');
+    var doc = pick(row.doc, '_id', 'moves');
+    doc.moves = doc.moves.map(move => {
+      var res = pick(move, 'learn_type', 'level');
+      res.id = parseInt(move.resource_uri.match(/(\d+)\/$/)[1]);
+      return res;
+    });
+    return doc;
   });
 
   await target.bulkDocs(outputDocs);

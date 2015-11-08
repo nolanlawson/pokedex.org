@@ -13,6 +13,7 @@ var bluebird = require('bluebird');
 var fs = bluebird.promisifyAll(require('fs'));
 var zpad = require('zpad');
 var fetch = require('node-fetch');
+var pick = require('lodash').pick;
 
 var csvUrl = 'https://raw.githubusercontent.com/phalt/pokeapi/0d666b130363b26621c339e5f8415a02dcd4806b/data/v2/csv/moves.csv';
 
@@ -67,6 +68,9 @@ async function doIt() {
 
     doc._id = zpad(doc.id, 5);
     doc.type_name = typeIdsToNames[doc.type_id.toString()].toLowerCase();
+
+    doc = pick(doc, '_id', 'type_name', 'identifier', 'power', 'pp', 'accuracy');
+
     return doc;
   });
 
