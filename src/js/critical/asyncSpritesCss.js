@@ -1,6 +1,8 @@
 // load sprites.css asynchronously
 
 var supportsWebp = require('../shared/util/supportsWebp');
+var constants = require('../shared/util/constants');
+var numSpriteCssFiles = constants.numSpriteCssFiles;
 
 function loadCssAsync(filename) {
   var ss = document.createElement('link');
@@ -15,12 +17,11 @@ function loadCssAsync(filename) {
   });
 }
 
-if (supportsWebp()) {
-  loadCssAsync('css/sprites-webp1.css');
-  loadCssAsync('css/sprites-webp2.css');
-  loadCssAsync('css/sprites-webp3.css');
-} else {
-  loadCssAsync('css/sprites1.css');
-  loadCssAsync('css/sprites2.css');
-  loadCssAsync('css/sprites3.css');
+var hasWebp = supportsWebp();
+for (var i = 1; i <= numSpriteCssFiles; i++) {
+  if (hasWebp) {
+    loadCssAsync(`css/sprites-webp-${i}.css`);
+  } else {
+    loadCssAsync(`css/sprites-${i}.css`);
+  }
 }

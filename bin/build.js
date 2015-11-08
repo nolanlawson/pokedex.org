@@ -14,7 +14,9 @@ var minifyHtml = require('html-minifier').minify;
 var bundleCollapser = require("bundle-collapser/plugin");
 var envify = require('envify/custom');
 
-var startingPageSize = require('../src/js/shared/util/constants').pageSize;
+var constants = require('../src/js/shared/util/constants');
+var numSpritesCssFiles = constants.numSpriteCssFiles;
+var startingPageSize = constants.pageSize;
 var renderMonsterDetailView = require('../src/js/shared/renderMonsterDetailView');
 var renderMonstersList = require('../src/js/shared/renderMonstersList');
 var monsterSummaries = require('../src/js/shared/data/monsterSummaries');
@@ -54,7 +56,7 @@ module.exports = async function build(debug) {
 
   async function inlineCriticalCss(html) {
     var mainCss = await fs.readFileAsync('./src/css/style.css', 'utf-8');
-    var spritesCss = await fs.readFileAsync('./src/css/sprites1.css', 'utf-8');
+    var spritesCss = await fs.readFileAsync('./src/css/sprites.css', 'utf-8');
 
     mainCss += '\n' +
       spritesCss.split('\n').slice(0, CRITICAL_CSS_SPRITES_LINES).join('\n');
@@ -110,27 +112,39 @@ module.exports = async function build(debug) {
     return css;
   }
 
+  async function writeSplitCss(css, filename, numParts) {
+    css = css.split('\n');
+    var batchSize = (css.length / numParts);
+    var counter = 1;
+    var promises = [];
+    for (var i = 0; i < css.length; i += batchSize) {
+      var end = Math.min(batchSize, css.length);
+      var cssPart = css.slice(i, i + end).join('\n');
+      var partFile = filename.replace(/\.css$/, `-${counter}.css`);
+      if (!debug) {
+        cssPart = cleanCss.minify(cssPart).styles;
+      }
+      promises.push(fs.writeFileAsync(partFile, cssPart, 'utf-8'));
+      counter++;
+    }
+    return await* promises;
+  }
+
   async function buildCss() {
     console.log('buildCss()');
-    var spritesCss = await fs.readFileAsync('./src/css/sprites1.css', 'utf-8');
-    var spritesWebpCss = await fs.readFileAsync('./src/css/sprites-webp1.css', 'utf-8');
+    var spritesCss = await fs.readFileAsync('./src/css/sprites.css', 'utf-8');
+    var spritesWebpCss = await fs.readFileAsync('./src/css/sprites-webp.css', 'utf-8');
 
     if (!debug) {
       spritesCss = spritesCss.split('\n').slice(CRITICAL_CSS_SPRITES_LINES).join('\n');
-      spritesCss = cleanCss.minify(spritesCss).styles;
-
       spritesWebpCss = spritesWebpCss.split('\n').slice(CRITICAL_CSS_SPRITES_LINES).join('\n');
-      spritesWebpCss = cleanCss.minify(spritesWebpCss).styles;
     }
 
     await mkdirp('./www/css');
+
     var promises = [
-      fs.writeFileAsync('./www/css/sprites1.css', spritesCss, 'utf-8'),
-      fs.writeFileAsync('./www/css/sprites-webp1.css', spritesWebpCss, 'utf-8'),
-      fs.writeFileAsync('./www/css/sprites2.css', await getCss('./src/css/sprites2.css', 'utf-8')),
-      fs.writeFileAsync('./www/css/sprites3.css', await getCss('./src/css/sprites3.css', 'utf-8')),
-      fs.writeFileAsync('./www/css/sprites-webp2.css', await getCss('./src/css/sprites-webp2.css', 'utf-8')),
-      fs.writeFileAsync('./www/css/sprites-webp3.css', await getCss('./src/css/sprites-webp3.css', 'utf-8'))
+      writeSplitCss(spritesCss, './www/css/sprites.css', numSpritesCssFiles),
+      writeSplitCss(spritesWebpCss, './www/css/sprites-webp.css', numSpritesCssFiles)
     ];
     if (debug) {
       var mainCss = await fs.readFileAsync('./src/css/style.css', 'utf-8');

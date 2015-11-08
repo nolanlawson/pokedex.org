@@ -3,6 +3,9 @@ require('serviceworker-cache-polyfill');
 
 var semver = require('semver');
 var keyValueStore = require('../shared/db/keyValueStore');
+var constants = require('../shared/util/constants');
+var numSpriteCssFiles = constants.numSpriteCssFiles;
+var range = require('lodash/utility/range');
 
 // Using jake archibald's service worker "semver" style here
 // Pattern here is "a.b.c"
@@ -35,17 +38,8 @@ if (process.env.NODE_ENV === 'development') {
   ]);
 }
 
-var webpContent = [
-  '/css/sprites-webp1.css',
-  '/css/sprites-webp2.css',
-  '/css/sprites-webp3.css'
-];
-
-var nonWebpContent = [
-  '/css/sprites1.css',
-  '/css/sprites2.css',
-  '/css/sprites3.css'
-];
+var webpContent = range(numSpriteCssFiles).map(i => `/css/sprites-webp-${i + 1}.css`);
+var nonWebpContent = range(numSpriteCssFiles).map(i => `/css/sprites-${i + 1}.css`);
 
 self.addEventListener('install', function install (event) {
   event.waitUntil((async () => {
