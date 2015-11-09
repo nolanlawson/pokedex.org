@@ -33,7 +33,7 @@ module.exports = (monster, supplemental) => {
   return [
     h('h2.detail-subheader', {
       style: { background: darkColor}
-    }, 'Details'),
+    }, 'Profile'),
     h('div.monster-minutia', [
       h('strong', 'Height:'),
       h('span', getMonsterHeight(monster)),
