@@ -2,7 +2,13 @@ var color = require('color');
 var getMonsterPrimaryType = require('./getMonsterPrimaryType');
 var typesToColors = require('./typesToColors');
 
+var cached = {};
+
 module.exports = monster => {
   var primaryType = getMonsterPrimaryType(monster);
-  return color(typesToColors[primaryType]).darken(0.15).rgbString();
+
+  if (!cached[primaryType]) {
+    cached[primaryType] = color(typesToColors[primaryType]).darken(0.15).rgbString();
+  }
+  return cached[primaryType];
 };

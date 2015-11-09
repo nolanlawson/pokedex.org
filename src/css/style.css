@@ -472,6 +472,12 @@ button {
   }
 }
 
+@media (max-width: 320px) {
+  .detail-national-id {
+    font-size: 14px;
+  }
+}
+
 .detail-infobox {
   flex-grow: 1;
   margin-right: 10px;
@@ -481,6 +487,13 @@ button {
   min-width: 200px;
   max-width: 300px;
   margin-top: 10px;
+  font-size: 14px;
+}
+
+@media(max-width: 320px) {
+  .detail-stats {
+    font-size: 12px;
+  }
 }
 
 @media (max-width: 767px) {
@@ -515,6 +528,7 @@ button {
 
 .stat-bar {
   position: relative;
+  background: #ededed;
 }
 
 .stat-bar-bg {
@@ -579,11 +593,25 @@ button {
   font-variant: small-caps;
   font-weight: 600;
   margin-right: 5px;
+  padding: 1px 10px 5px;
+}
+
+@media (max-width: 320px) {
+  .monster-type {
+    font-size: 13px;
+    padding: 0 3px 2px;
+  }
 }
 
 .monster-description {
   font-size: 14px;
   margin: 0 20px 20px;
+}
+
+@media (max-width: 320px) {
+  .monster-description {
+    font-size: 12px;
+  }
 }
 
 /* miscellaneous */
@@ -721,6 +749,15 @@ button {
   flex-shrink: 1;
 }
 
+@media (max-width: 320px) {
+  .monster-minutia > strong {
+    font-size: 12px;
+  }
+  .monster-minutia > span {
+    font-size: 12px;
+  }
+}
+
 /* spinner */
 
 /* modified from http://codepen.io/mrrocks/pen/EiplA */
@@ -754,4 +791,48 @@ button {
   stroke-dasharray: 187;
   stroke-dashoffset: 93;
   transform-origin: center;
+}
+
+/* damage when attacked */
+
+.when-attacked {
+  margin: 10px 20px;
+}
+
+.when-attacked-row {
+  display: flex;
+  align-items: center;
+}
+
+.when-attacked-row > span:nth-child(odd) {
+  flex-basis: 35%;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.when-attacked-row > span:nth-child(even) {
+  flex-basis: 15%;
+  flex-grow: 1;
+  flex-shrink: 1;
+  padding-left: 5px;
+}
+
+@media (max-width: 320px) {
+  .when-attacked-row > span:nth-child(odd) {
+    font-size: 12px;
+  }
+
+  .when-attacked-row > span:nth-child(even) {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 992px) {
+  .when-attacked-row > span:nth-child(odd) {
+    flex-basis: 25%;
+  }
+
+  .when-attacked-row > span:nth-child(even) {
+    flex-basis: 25%;
+  }
 }

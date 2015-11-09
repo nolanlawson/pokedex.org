@@ -15,6 +15,152 @@
     "japaneseName": "フシギダネ",
     "hepburnName": "Fushigidane"
   },
+  "types": [
+    {
+      "whenDefending": [
+        {
+          "multiplier": 2,
+          "name": "flying"
+        },
+        {
+          "multiplier": 2,
+          "name": "poison"
+        },
+        {
+          "multiplier": 2,
+          "name": "bug"
+        },
+        {
+          "multiplier": 2,
+          "name": "fire"
+        },
+        {
+          "multiplier": 0.5,
+          "name": "water"
+        },
+        {
+          "multiplier": 0.5,
+          "name": "grass"
+        },
+        {
+          "multiplier": 0.5,
+          "name": "electric"
+        },
+        {
+          "multiplier": 2,
+          "name": "ice"
+        }
+      ],
+      "whenAttacking": [
+        {
+          "multiplier": 0.5,
+          "name": "fighting"
+        },
+        {
+          "multiplier": 0.5,
+          "name": "grass"
+        },
+        {
+          "multiplier": 0.5,
+          "name": "poison"
+        },
+        {
+          "multiplier": 0.5,
+          "name": "flying"
+        },
+        {
+          "multiplier": 0.5,
+          "name": "bug"
+        },
+        {
+          "multiplier": 0.5,
+          "name": "dragon"
+        },
+        {
+          "multiplier": 0.5,
+          "name": "steel"
+        },
+        {
+          "multiplier": 2,
+          "name": "water"
+        },
+        {
+          "multiplier": 2,
+          "name": "ground"
+        },
+        {
+          "multiplier": 2,
+          "name": "rock"
+        }
+      ],
+      "_id": "grass",
+      "_rev": "1-A"
+    },
+    {
+      "whenDefending": [
+        {
+          "multiplier": 0.5,
+          "name": "fighting"
+        },
+        {
+          "multiplier": 0.5,
+          "name": "poison"
+        },
+        {
+          "multiplier": 2,
+          "name": "ground"
+        },
+        {
+          "multiplier": 0.5,
+          "name": "bug"
+        },
+        {
+          "multiplier": 0.5,
+          "name": "grass"
+        },
+        {
+          "multiplier": 2,
+          "name": "psychic"
+        },
+        {
+          "multiplier": 0.5,
+          "name": "fairy"
+        }
+      ],
+      "whenAttacking": [
+        {
+          "multiplier": 0.5,
+          "name": "poison"
+        },
+        {
+          "multiplier": 0.5,
+          "name": "ground"
+        },
+        {
+          "multiplier": 0.5,
+          "name": "rock"
+        },
+        {
+          "multiplier": 0.5,
+          "name": "ghost"
+        },
+        {
+          "multiplier": 0,
+          "name": "steel"
+        },
+        {
+          "multiplier": 2,
+          "name": "grass"
+        },
+        {
+          "multiplier": 2,
+          "name": "fairy"
+        }
+      ],
+      "_id": "poison",
+      "_rev": "1-A"
+    }
+  ],
   "evolutions": {
     "to": [
       {
