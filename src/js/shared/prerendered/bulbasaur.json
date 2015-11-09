@@ -13,9 +13,7 @@
     "genderRatio": 87.5,
     "species": "Seed Pokémon",
     "japaneseName": "フシギダネ",
-    "hepburnName": "Fushigidane",
-    "_id": "00001",
-    "_rev": "1-4b2231a8a00002c300934ffd701c254c"
+    "hepburnName": "Fushigidane"
   },
   "evolutions": {
     "to": [

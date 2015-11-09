@@ -274,11 +274,18 @@ button {
   }
 }
 
-
+@media (min-width: 992px) {
+  #monsters-list > li {
+    width: 160px;
+    height: 160px;
+  }
+}
 
 #monsters-list .monster-sprite {
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 10;
   position: absolute;
 }
@@ -316,6 +323,13 @@ button {
   .monster-sprite {
     width: 110px;
     height: 110px;
+  }
+}
+
+@media (min-width: 992px) {
+  .monster-sprite {
+    width: 160px;
+    height: 160px;
   }
 }
 
@@ -420,6 +434,14 @@ button {
     width: 110px;
     height: 110px;
     min-width: 110px;
+  }
+}
+
+@media (min-width: 992px) {
+  .detail-sprite {
+    width: 160px;
+    height: 160px;
+    min-width: 160px;
   }
 }
 
@@ -672,6 +694,12 @@ button {
   background-color: rgba(0,0,0,.27);
 }
 
+.monster-species {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 10px 20px 10px;
+}
+
 /* minutia */
 
 .monster-minutia {
@@ -684,6 +712,7 @@ button {
   flex-grow: 1;
   flex-shrink: 1;
   margin-right: 3px;
+  font-size: 14px;
 }
 
 .monster-minutia > span {

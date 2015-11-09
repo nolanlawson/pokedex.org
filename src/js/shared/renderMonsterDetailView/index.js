@@ -34,6 +34,7 @@ function renderDetailPanel(fullMonsterData) {
         ])
       ]),
       h(`div.detail-below-header`, [
+        h('div.monster-species', supplemental.species),
         h('div.monster-description', description.description),
         renderMinutia(monster, supplemental),
         renderEvolutions(monster, evolutions)
