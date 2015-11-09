@@ -66,6 +66,18 @@ function onScroll() {
   }
 }
 
+function onClick(e) {
+  e.stopPropagation();
+  var el = e.target.parentElement.querySelector('.monster-sprite');
+  var nationalId = parseInt(el.dataset.nationalId);
+  console.time('worker-detail');
+  worker.postMessage({
+    type: 'detail',
+    nationalId: nationalId
+  });
+  detailViewOrchestrator.animateInPartOne(nationalId);
+}
+
 worker.addEventListener('message', e => {
   onMessage(e.data);
 });
@@ -73,15 +85,9 @@ worker.addEventListener('message', e => {
 document.addEventListener('DOMContentLoaded', () => {
   monstersList = $('#monsters-list');
   monstersList.addEventListener('click', e => {
-    e.stopPropagation();
-    var el = e.target.parentElement.querySelector('.monster-sprite');
-    var nationalId = parseInt(el.dataset.nationalId);
-    console.time('worker-detail');
-    worker.postMessage({
-      type: 'detail',
-      nationalId: nationalId
-    });
-    detailViewOrchestrator.animateInPartOne(nationalId);
+    if (e.target.tagName === 'BUTTON') {
+      onClick(e);
+    }
   });
 }, false);
 
