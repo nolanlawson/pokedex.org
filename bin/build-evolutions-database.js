@@ -12,6 +12,7 @@ var memdown = require('memdown');
 var bluebird = require('bluebird');
 var fs = bluebird.promisifyAll(require('fs'));
 var zpad = require('zpad');
+var shortRevs = require('short-revs');
 
 var source = new PouchDB('inmem', {db: memdown});
 var target = new PouchDB('inmem2', {db: memdown});
@@ -75,7 +76,9 @@ async function doIt() {
   await target.bulkDocs(finalDocs);
 
   var out = fs.createWriteStream('src/assets/evolutions.txt');
-  await target.dump(out);
+  var stream = shortRevs();
+  await target.dump(stream);
+  stream.pipe(out);
 }
 
 doIt().catch(console.log.bind(console));

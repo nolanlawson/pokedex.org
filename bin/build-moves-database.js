@@ -14,6 +14,7 @@ var fs = bluebird.promisifyAll(require('fs'));
 var zpad = require('zpad');
 var fetch = require('node-fetch');
 var pick = require('lodash').pick;
+var shortRevs = require('short-revs');
 
 var csvUrl = 'https://raw.githubusercontent.com/phalt/pokeapi/0d666b130363b26621c339e5f8415a02dcd4806b/data/v2/csv/moves.csv';
 
@@ -78,7 +79,9 @@ async function doIt() {
 
   await db.bulkDocs(docs);
   var out = fs.createWriteStream('src/assets/moves.txt');
-  await db.dump(out);
+  var stream = shortRevs();
+  await db.dump(stream);
+  stream.pipe(out);
 }
 
 doIt().catch(console.log.bind(console));

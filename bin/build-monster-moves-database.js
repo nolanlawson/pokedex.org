@@ -12,6 +12,7 @@ var memdown = require('memdown');
 var bluebird = require('bluebird');
 var fs = bluebird.promisifyAll(require('fs'));
 var pick = require('lodash').pick;
+var shortRevs = require('short-revs');
 
 var source = new PouchDB('inmem', {db: memdown});
 var target = new PouchDB('inmem2', {db: memdown});
@@ -33,7 +34,9 @@ async function doIt() {
   await target.bulkDocs(outputDocs);
 
   var out = fs.createWriteStream('src/assets/monster-moves.txt');
-  await target.dump(out);
+  var stream = shortRevs();
+  await target.dump(stream);
+  stream.pipe(out);
 }
 
 doIt().catch(console.log.bind(console));

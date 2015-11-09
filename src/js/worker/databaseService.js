@@ -15,7 +15,8 @@ var dbs = {
   moves: {},
   evolutions: {},
   types: {},
-  monsterMoves: {}
+  monsterMoves: {},
+  supplemental: {}
 };
 
 async function checkReplicated(db) {
@@ -64,10 +65,13 @@ async function initDBs(couchHome) {
   dbs.moves.remote = new PouchDB(couchHome + '/moves');
   dbs.monsterMoves.local = new PouchDB('monster-moves');
   dbs.monsterMoves.remote = new PouchDB(couchHome + '/monster-moves');
+  dbs.supplemental.local = new PouchDB('monsters-supplemental');
+  dbs.supplemental.remote = new PouchDB(couchHome + '/monsters-supplemental');
 
   if (dbs.monsters.local.adapter) {
     // do one-at-a-time to avoid excessive memory usage
     await replicateDB(dbs.monsters.local, '../assets/skim-monsters.txt');
+    await replicateDB(dbs.supplemental.local, '../assets/monsters-supplemental.txt');
     await replicateDB(dbs.types.local, '../assets/types.txt');
     await replicateDB(dbs.descriptions.local, '../assets/descriptions.txt');
     await replicateDB(dbs.evolutions.local, '../assets/evolutions.txt');
@@ -98,6 +102,10 @@ function getDocId(monster) {
 
 async function getMonsterDocById(docId) {
   return await (await getBestDB(dbs.monsters)).get(docId);
+}
+
+async function getSupplementalInfoById(docId) {
+  return await (await getBestDB(dbs.supplemental)).get(docId);
 }
 
 async function getDescriptionById(docId) {
@@ -169,14 +177,15 @@ module.exports = {
       getDescriptionById(descDocId),
       getEvolutionsById(monsterDocId),
       getMonsterMovesById(monsterDocId),
+      getSupplementalInfoById(monsterDocId),
       getAllTypesByIds(monsterSummary.types.map(type => type.name))
     ];
 
     var results = await* promises;
-    var [monster, description, evolutions, moves, types] = results;
+    var [monster, description, evolutions, moves, supplemental, types] = results;
 
     stopwatch.time('get() monster and monster data');
-    return {monster, description, evolutions, moves, types};
+    return {monster, description, evolutions, moves, supplemental, types};
   },
   getFilteredMonsters: async (filter) => {
     return inMemoryDB.findByNamePrefix(filter);

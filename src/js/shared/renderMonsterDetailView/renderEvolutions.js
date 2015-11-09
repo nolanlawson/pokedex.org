@@ -20,9 +20,7 @@ module.exports = function renderEvolutions(monster, evolutions) {
   var darkColor = getMonsterDarkTheme(monster);
   return h('div.detail-evolutions', [
     h('h2.detail-subheader', {
-      style: {
-        background: darkColor
-      }
+      style: { background: darkColor}
     }, 'Evolutions'),
     renderEvolutionRows(evolutions)
   ]);

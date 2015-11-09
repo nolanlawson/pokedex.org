@@ -14,6 +14,7 @@ var memdown = require('memdown');
 var bluebird = require('bluebird');
 var fs = bluebird.promisifyAll(require('fs'));
 var pick = require('lodash').pick;
+var shortRevs = require('short-revs');
 
 var source = new PouchDB('inmem', {db: memdown});
 var target = new PouchDB('inmem2', {db: memdown});
@@ -23,7 +24,7 @@ target.transform({
     doc = pick(doc, '_id', '_rev', '_revisions', 'descriptions',
       'types', 'attack', 'defense', 'speed', 'sp_atk', 'sp_def', 'hp',
       'weight', 'height', 'national_id', 'name', 'male_female_ratio',
-      'abilities');
+      'abilities', 'catch_rate');
     doc.descriptions = doc.descriptions.filter(x => /_gen_5$/.test(x.name));
     return doc;
   }

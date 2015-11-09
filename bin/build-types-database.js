@@ -12,6 +12,7 @@ var memdown = require('memdown');
 var bluebird = require('bluebird');
 var fs = bluebird.promisifyAll(require('fs'));
 var fetch = require('node-fetch');
+var shortRevs = require('short-revs');
 
 var db = new PouchDB('inmem', {db: memdown});
 
@@ -25,7 +26,9 @@ async function doIt() {
     await db.put(json);
   }
   var out = fs.createWriteStream('src/assets/types.txt');
-  await db.dump(out);
+  var stream = shortRevs();
+  await db.dump(stream);
+  stream.pipe(out);
 }
 
 doIt().catch(console.log.bind(console));

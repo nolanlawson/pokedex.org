@@ -6,9 +6,10 @@ var getMonsterDisplayName = require('../monster/getMonsterDisplayName');
 var renderStats = require('./renderStats');
 var renderTypeLabels = require('./renderTypeLabels');
 var renderEvolutions = require('./renderEvolutions');
+var renderMinutia = require('./renderMinutia');
 
 function renderDetailPanel(fullMonsterData) {
-  var {monster, description, evolutions} = fullMonsterData;
+  var {monster, description, evolutions, supplemental} = fullMonsterData;
   var darkColor = getMonsterDarkTheme(monster);
   var typeLabels = renderTypeLabels(monster);
   var stats = renderStats(monster);
@@ -34,6 +35,7 @@ function renderDetailPanel(fullMonsterData) {
       ]),
       h(`div.detail-below-header`, [
         h('div.monster-description', description.description),
+        renderMinutia(monster, supplemental),
         renderEvolutions(monster, evolutions)
       ])
     ])
@@ -41,15 +43,10 @@ function renderDetailPanel(fullMonsterData) {
 }
 
 module.exports = monsterData => {
-
-  var {monster} = monsterData;
-
-  var bgColor = getMonsterBackground(monster);
-
   return h('div#detail-view', [
     h('div.detail-view-bg', {
       style: {
-        background: bgColor
+        background: getMonsterBackground(monsterData.monster)
       }
     }),
     h('div.detail-view-fg', [

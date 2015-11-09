@@ -561,6 +561,7 @@ button {
 
 .monster-description {
   font-size: 14px;
+  margin: 0 20px 20px;
 }
 
 /* miscellaneous */
@@ -585,7 +586,7 @@ button {
   font-size: 20px;
   color: #fff;
   padding-left: 10px;
-  margin: 20px 5px 5px;
+  margin: 20px 0 20px;
 }
 
 /* toast */
@@ -669,6 +670,26 @@ button {
 
 .hover-shadow:active, .hover-shadow:focus, .hover-shadow:hover {
   background-color: rgba(0,0,0,.27);
+}
+
+/* minutia */
+
+.monster-minutia {
+  display: flex;
+  margin: 0 20px 10px;
+}
+
+.monster-minutia > strong {
+  flex-basis: 20%;
+  flex-grow: 1;
+  flex-shrink: 1;
+  margin-right: 3px;
+}
+
+.monster-minutia > span {
+  flex-basis: 30%;
+  flex-grow: 1;
+  flex-shrink: 1;
 }
 
 /* spinner */
