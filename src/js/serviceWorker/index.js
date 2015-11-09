@@ -16,7 +16,6 @@ var version = '1.0.1';
 
 var staticContent = [
   '/',
-  '/index.html',
   '/js/worker.js',
   '/js/main.js',
   '/manifest.json',
