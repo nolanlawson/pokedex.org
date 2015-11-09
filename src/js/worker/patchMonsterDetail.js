@@ -3,11 +3,11 @@ require('regenerator/runtime');
 var renderDetailView = require('../shared/renderMonsterDetailView');
 var getMonsterDarkTheme = require('../shared/monster/getMonsterDarkTheme');
 var dbService = require('./databaseService');
-var bulbasaur = require('../shared/data/bulbasaur');
 var diff = require('virtual-dom/diff');
 var Stopwatch = require('../shared/util/stopwatch');
+var fromJson = require('vdom-as-json/fromJson');
 
-var lastDetailView = renderDetailView(bulbasaur);
+var lastDetailView = fromJson(require('../shared/prerendered/bulbasaur'));
 
 module.exports = async nationalId => {
   var stopwatch = new Stopwatch();

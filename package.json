@@ -57,6 +57,7 @@
     "short-revs": "^1.0.0",
     "stream-to-promise": "^1.0.4",
     "stripify": "^3.0.0",
+    "through": "^2.3.8",
     "transform-pouch": "^1.0.2",
     "uglify-js": "^2.5.0",
     "uglify-stream": "^1.1.0",

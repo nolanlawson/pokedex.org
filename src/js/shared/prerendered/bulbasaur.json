@@ -1,0 +1,76 @@
+{
+  "description": {
+    "description": "For some time after its birth, it grows by gaining nourishment from the seed on its back."
+  },
+  "evolutions": {
+    "to": [
+      {
+        "nationalId": 2,
+        "name": "Ivysaur",
+        "method": "level_up",
+        "level": 16
+      }
+    ]
+  },
+  "monster": {
+    "abilities": [
+      {
+        "name": "chlorophyll",
+        "resource_uri": "/api/v1/ability/34/"
+      },
+      {
+        "name": "overgrow",
+        "resource_uri": "/api/v1/ability/65/"
+      }
+    ],
+    "attack": 49,
+    "catch_rate": 0,
+    "created": "2013-11-03T15:05:41.260678",
+    "defense": 49,
+    "descriptions": [
+      {
+        "name": "bulbasaur_gen_5",
+        "resource_uri": "/api/v1/description/15/"
+      }
+    ],
+    "egg_cycles": 0,
+    "egg_groups": [
+      {
+        "name": "Plant",
+        "resource_uri": "/api/v1/egg/7/"
+      },
+      {
+        "name": "Monster",
+        "resource_uri": "/api/v1/egg/1/"
+      }
+    ],
+    "ev_yield": "1 special attack",
+    "exp": 64,
+    "growth_rate": "medium slow",
+    "happiness": 0,
+    "height": "7",
+    "hp": 45,
+    "male_female_ratio": "87.5/12.5",
+    "modified": "2013-11-30T13:59:47.261100",
+    "name": "Bulbasaur",
+    "national_id": 1,
+    "pkdx_id": 1,
+    "resource_uri": "/api/v1/pokemon/1/",
+    "sp_atk": 65,
+    "sp_def": 65,
+    "species": "seed pokemon",
+    "speed": 45,
+    "total": 0,
+    "types": [
+      {
+        "name": "poison"
+      },
+      {
+        "name": "grass"
+      }
+    ],
+    "weight": "69",
+    "_id": "00001",
+    "_rev": "1-9ddf9f39b2728a7945117b870d9b0901"
+  }
+}

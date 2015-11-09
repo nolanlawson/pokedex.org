@@ -15,6 +15,7 @@ var execall = require('execall');
 var minifyHtml = require('html-minifier').minify;
 var bundleCollapser = require("bundle-collapser/plugin");
 var envify = require('envify/custom');
+var vdomify = require('./vdomify');
 
 var constants = require('../src/js/shared/util/constants');
 var numSpritesCssFiles = constants.numSpriteCssFiles;
@@ -166,7 +167,7 @@ module.exports = async function build(debug) {
     if (!debug) {
       b = b.transform('stripify');
     }
-    b = b.transform(envify({
+    b = b.transform(vdomify).transform(envify({
       NODE_ENV: process.env.NODE_ENV || (debug ? 'development' : 'production')
     }));
     var stream = b.bundle();

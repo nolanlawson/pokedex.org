@@ -5,8 +5,9 @@ var diff = require('virtual-dom/diff');
 var Stopwatch = require('../shared/util/stopwatch');
 var dbService = require('./databaseService');
 var startingPageSize = require('../shared/util/constants').pageSize;
+var fromJson = require('vdom-as-json/fromJson');
 
-var lastMonstersListView = renderMonstersList(dbService.getAllMonsters(), startingPageSize);
+var lastMonstersListView = fromJson(require('../shared/prerendered/monsterSummaries.json'));
 
 module.exports = async (filter, pageSize) => {
   var stopwatch = new Stopwatch();
