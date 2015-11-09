@@ -4,9 +4,11 @@ var getMonsterDarkTheme = require('../monster/getMonsterDarkTheme');
 function renderEvolutionRows(evolutions) {
   var from = evolutions.from || [];
   var to = evolutions.to || [];
+
   if (!to.length && !from.length) {
     return h('span', 'No evolutions');
   }
+
   return from.map(evolution => {
     return h(`div.evolution-sprite.monster-sprite.sprite-${evolution.nationalId}`);
   }).concat(to.map(evolution => {

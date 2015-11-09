@@ -105,7 +105,16 @@ async function getDescriptionById(docId) {
 }
 
 async function getEvolutionsById(docId) {
-  return await (await getBestDB(dbs.evolutions)).get(docId);
+  var db = await getBestDB(dbs.evolutions);
+  try {
+    return await db.get(docId);
+  } catch (err) {
+    if (err.status === 404) { // not found
+      return {to: [], from: []}; // no evolutions
+    }
+    throw err; // some other error
+  }
+
 }
 
 async function getAllTypesByIds(docIds) {
