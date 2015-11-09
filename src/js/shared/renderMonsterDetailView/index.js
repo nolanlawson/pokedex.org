@@ -7,9 +7,10 @@ var renderStats = require('./renderStats');
 var renderTypeLabels = require('./renderTypeLabels');
 var renderEvolutions = require('./renderEvolutions');
 var renderMinutia = require('./renderMinutia');
+var renderDamageWhenAttacked = require('./renderDamageWhenAttacked');
 
 function renderDetailPanel(fullMonsterData) {
-  var {monster, description, evolutions, supplemental} = fullMonsterData;
+  var {monster, description, types, evolutions, supplemental} = fullMonsterData;
   var darkColor = getMonsterDarkTheme(monster);
   var typeLabels = renderTypeLabels(monster);
   var stats = renderStats(monster);
@@ -37,6 +38,7 @@ function renderDetailPanel(fullMonsterData) {
         h('div.monster-species', supplemental.species),
         h('div.monster-description', description.description),
         renderMinutia(monster, supplemental),
+        renderDamageWhenAttacked(monster, types),
         renderEvolutions(monster, evolutions)
       ])
     ])
