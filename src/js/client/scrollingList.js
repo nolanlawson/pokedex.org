@@ -5,7 +5,7 @@ var detailViewOrchestrator = require('./detailViewOrchestrator');
 var worker = require('./worker');
 var debounce = require('debounce');
 var DEBOUNCE_DELAY = 50;
-var SCROLL_PREFETCH_OFFSET = 20;
+var SCROLL_PREFETCH_OFFSET = 400;
 var $ = document.querySelector.bind(document);
 
 var monstersList;
@@ -25,19 +25,18 @@ function applyPatch(patchString) {
   progress.end();
 }
 
-function onFiltered(message) {
+function onMonstersListPatch(message) {
   console.timeEnd('worker-filter');
   console.log('worker sent message');
 
-  if (message.type === 'monstersListPatch') {
-    applyPatch(message.patch);
-    endOfList = message.endOfList;
-  }
+  applyPatch(message.patch);
+  endOfList = message.endOfList;
+  onScroll(); // sometimes need to check the scroll twice, for large screens
 }
 
 function onMessage(message) {
   if (message.type === 'monstersListPatch') {
-    onFiltered(message);
+    onMonstersListPatch(message);
   }
 }
 
