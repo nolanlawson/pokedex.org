@@ -176,21 +176,23 @@ module.exports = {
       getMonsterDocById(monsterDocId),
       getDescriptionById(descDocId),
       getEvolutionsById(monsterDocId),
-      getMonsterMovesById(monsterDocId),
       getSupplementalInfoById(monsterDocId),
       getAllTypesByIds(monsterSummary.types.map(type => type.name))
     ];
 
     var results = await* promises;
-    var [monster, description, evolutions, moves, supplemental, types] = results;
+    var [monster, description, evolutions, supplemental, types] = results;
 
     stopwatch.time('get() monster and monster data');
-    return {monster, description, evolutions, moves, supplemental, types};
+    return {monster, description, evolutions, supplemental, types};
   },
   getFilteredMonsters: async (filter) => {
     return inMemoryDB.findByNamePrefix(filter);
   },
   getAllMonsters: () => {
     return inMemoryDB.findAll();
+  },
+  getMonsterSummaryById: nationalId => {
+    return inMemoryDB.findByNationalId(nationalId);
   }
 };

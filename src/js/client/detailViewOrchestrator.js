@@ -1,19 +1,19 @@
 // animate between the list view and the detail view, using FLIP animations
 // https://aerotwist.com/blog/flip-your-animations/
 
+var themeManager = require('./themeManager');
+var worker = require('./worker');
+
 var $ = document.querySelector.bind(document);
 
 // elements
 var detailView;
 var detailViewContainer;
 var detailPanel;
-var headerAppBar;
 var monstersList;
 var detailSprite;
 var detailBackButton;
 var spriteFacade;
-var themeMeta;
-var appTheme;
 
 var screenWidth = window.innerWidth;
 var screenHeight = window.innerHeight;
@@ -21,6 +21,7 @@ var screenHeight = window.innerHeight;
 var dimensToSpriteRect = {};
 var runningAnimationPartOne = false;
 var queuedAnimation = false;
+var queuedThemeColor;
 
 function getScrollTop() {
   // browsers seem to disagree on this
@@ -127,21 +128,24 @@ function doInAnimationPartOne(nationalId) {
     spriteFacade.classList.remove('animating');
     targetBackground.removeEventListener('transitionend', onAnimEnd);
 
+    runningAnimationPartOne = false;
+    if (queuedAnimation) {
+      requestAnimationFrame(() => {
+        queuedAnimation();
+        queuedAnimation = null;
+      });
+    }
+    if (queuedThemeColor) {
+      themeManager.setThemeColor(queuedThemeColor);
+      queuedThemeColor = null;
+    }
   }
 
   targetBackground.addEventListener('transitionend', onAnimEnd);
   detailPanel.classList.add('hidden');
-
-  runningAnimationPartOne = false;
-  if (queuedAnimation) {
-    requestAnimationFrame(() => {
-      queuedAnimation();
-      queuedAnimation = null;
-    });
-  }
 }
 
-function doInAnimationPartTwo(nationalId, themeColor) {
+function doInAnimationPartTwo(nationalId) {
   detailPanel.style.overflowY = 'auto'; // re-enable overflow on the panel
   document.body.style.overflowY = 'hidden'; // disable scrolling
 
@@ -163,13 +167,10 @@ function doInAnimationPartTwo(nationalId, themeColor) {
     console.log('done animating part two');
     detailBackButton.classList.remove('animating');
     detailPanel.classList.remove('animating');
-    themeMeta.content = themeColor;
 
     spriteFacade.classList.add('hidden');
 
     detailSprite.style.opacity = 1;
-    // this peeks out on android, looks less weird with the right color
-    headerAppBar.style.backgroundColor = themeColor;
 
     detailPanel.removeEventListener('transitionend', onAnimEnd);
   }
@@ -181,7 +182,6 @@ function doOutAnimation(nationalId) {
   detailPanel.scrollTop = 0; // scroll panel to top, disable scrolling during animation
   detailPanel.style.overflowY = 'visible';
   document.body.style.overflowY = 'visible'; // re-enable scrolling
-  headerAppBar.style.backgroundColor = appTheme;
   var transforms = computeTransformsPartOne(nationalId, true);
   var {bgTransform, spriteTransform, spriteTop, spriteLeft} = transforms;
   var {fgTransform} = computeTransformsPartTwo(nationalId, true);
@@ -218,9 +218,10 @@ function doOutAnimation(nationalId) {
     detailViewContainer.classList.add('hidden');
     spriteFacade.classList.add('hidden');
     detailSprite.style.opacity = 1;
-    themeMeta.content = appTheme;
     targetBackground.removeEventListener('transitionend', onAnimEnd);
   }
+
+  themeManager.resetThemeColor();
 
   targetBackground.addEventListener('transitionend', onAnimEnd);
 }
@@ -230,12 +231,10 @@ function init() {
   detailViewContainer = $('#detail-view-container');
   monstersList = $('#monsters-list');
   detailPanel = $('.detail-panel');
-  headerAppBar = $('.mui-appbar');
   detailSprite = detailView.querySelector('.detail-sprite');
   detailBackButton = detailView.querySelector('.detail-back-button');
-  themeMeta = document.head.querySelector('meta[name="theme-color"]');
   spriteFacade = createSpriteFacade();
-  appTheme = themeMeta.content;
+
 }
 
 function onResize() {
@@ -273,9 +272,9 @@ function animateInPartOne(nationalId) {
   }, 20);
 }
 
-function animateInPartTwo(nationalId, themeColor) {
+function animateInPartTwo(nationalId) {
   var runPartTwoAnimation = () => {
-    requestAnimationFrame(() => doInAnimationPartTwo(nationalId, themeColor));
+    requestAnimationFrame(() => doInAnimationPartTwo(nationalId));
   };
   if (runningAnimationPartOne) {
     console.log('waiting for part one animation to finish');
@@ -286,9 +285,23 @@ function animateInPartTwo(nationalId, themeColor) {
   }
 }
 
-function animateOut(nationalId, themeColor) {
-  requestAnimationFrame(() => doOutAnimation(nationalId, themeColor));
+function animateOut(nationalId) {
+  requestAnimationFrame(() => doOutAnimation(nationalId));
 }
+
+function setThemeColor(color) {
+  if (runningAnimationPartOne) {
+    queuedThemeColor = color;
+  } else {
+    themeManager.setThemeColor(color);
+  }
+}
+
+worker.addEventListener('message', e => {
+  if (e.data.type === 'themeColor') {
+    setThemeColor(e.data.color);
+  }
+});
 
 module.exports = {
   animateInPartOne,

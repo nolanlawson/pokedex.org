@@ -9,6 +9,8 @@ var renderToast = require('../shared/renderToast');
 var renderModal = require('../shared/renderModal');
 var pageStateStore = require('./pageStateStore');
 var startingPageSize = require('../shared/util/constants').pageSize;
+var getMonsterDarkTheme = require('../shared/monster/getMonsterDarkTheme');
+var databaseService = require('./databaseService');
 
 async function renderList() {
   var {filter, pageSize} = pageStateStore;
@@ -42,10 +44,21 @@ async function onScrolledToBottomMessage() {
   await renderList();
 }
 
+function setThemeColor(nationalId) {
+  var monsterSummary = databaseService.getMonsterSummaryById(nationalId);
+  var themeColor = getMonsterDarkTheme(monsterSummary);
+  self.postMessage({
+    type: 'themeColor',
+    color: themeColor
+  });
+}
+
 async function onDetailMessage(message) {
   var {nationalId} = message;
   var stopwatch = new Stopwatch();
-  var {patch, themeColor} = await patchMonsterDetail(nationalId);
+  var patchPromise = patchMonsterDetail(nationalId);
+  setThemeColor(nationalId);
+  var {patch} = await patchPromise;
   stopwatch.time('patchMonsterDetail()');
   var patchJson = toJson(patch);
   stopwatch.time('toJson');
@@ -55,8 +68,7 @@ async function onDetailMessage(message) {
   self.postMessage({
     type: 'monsterDetailPatch',
     patch: patchJsonAsString,
-    nationalId: nationalId,
-    themeColor: themeColor
+    nationalId: nationalId
   });
   stopwatch.totalTime('worker-detail (total)');
 }

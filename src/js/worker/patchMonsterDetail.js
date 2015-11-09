@@ -25,7 +25,5 @@ module.exports = async nationalId => {
 
   stopwatch.time('detail: diffing');
 
-  var themeColor = getMonsterDarkTheme(fullMonsterData.monster);
-
-  return {patch, themeColor};
+  return {patch};
 };
