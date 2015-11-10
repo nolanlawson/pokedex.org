@@ -17,10 +17,15 @@ var shortRevs = require('short-revs');
 var source = new PouchDB('inmem', {db: memdown});
 var target = new PouchDB('inmem2', {db: memdown});
 
+var NUM_MONSTERS = 649;
+
 async function doIt() {
   await source.loadIt(await fs.readFileAsync('src/assets/monsters.txt', 'utf-8'));
 
   var mapping = {};
+  for (var i = 1; i <= NUM_MONSTERS; i++) {
+    mapping[zpad(i, 5)] = {};
+  }
   var docs = await source.allDocs({include_docs: true});
   docs.rows.forEach(row => {
     var doc = row.doc;

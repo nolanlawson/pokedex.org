@@ -20,12 +20,8 @@ var dbs = {
 };
 
 async function checkReplicated(db) {
-  if (db.__initialLoadComplete) {
-    return true;
-  }
   try {
-    await db.get('_local/initialLoadComplete');
-    db.__initialLoadComplete = true;
+    await db.get('_local/v1-load-complete');
     return true;
   } catch (ignored) {
     return false;
@@ -33,15 +29,13 @@ async function checkReplicated(db) {
 }
 
 async function markReplicated(db) {
-  db.__initialLoadComplete = true;
   return await db.putIfNotExists({
-    _id: '_local/initialLoadComplete'
+    _id: '_local/v1-load-complete'
   });
 }
 
 async function replicateDB(db, filename, numFiles) {
-  var alreadyDone = await checkReplicated(db);
-  if (alreadyDone) {
+  if (await checkReplicated(db)) {
     console.log(`${filename}: replication already done`);
     return;
   }
@@ -60,6 +54,7 @@ async function replicateDB(db, filename, numFiles) {
 }
 
 async function initDBs(couchHome) {
+
   dbs.monsters.local = new PouchDB('monsters');
   dbs.monsters.remote = new PouchDB(couchHome + '/monsters');
   dbs.descriptions.local = new PouchDB('descriptions');
@@ -98,13 +93,6 @@ async function initDBs(couchHome) {
   }
 }
 
-async function getBestDB(db) {
-  if (await checkReplicated(db.local)) {
-    return db.local;
-  }
-  return db.remote;
-}
-
 function getGeneration5DescriptionDocId(monster) {
   // get a generation-5 description
   var desc = find(monster.descriptions, x => /_gen_5$/.test(x.name));
@@ -116,51 +104,32 @@ function getDocId(monster) {
   return zpad(monster.national_id, 5);
 }
 
-async function getMonsterDocById(docId) {
-  return await (await getBestDB(dbs.monsters)).get(docId);
+async function getById(db, docId) {
+  return await db.get(docId);
 }
 
-async function getSupplementalInfoById(docId) {
-  return await (await getBestDB(dbs.supplemental)).get(docId);
-}
-
-async function getDescriptionById(docId) {
-  return await (await getBestDB(dbs.descriptions)).get(docId);
-}
-
-async function getEvolutionsById(docId) {
-  var db = await getBestDB(dbs.evolutions);
-  try {
-    return await db.get(docId);
-  } catch (err) {
-    if (err.status === 404) { // not found
-      return {to: [], from: []}; // no evolutions
-    }
-    throw err; // some other error
+async function getManyByIds(db, docIds) {
+  var res = await db.allDocs({
+    include_docs: true,
+    keys: docIds
+  });
+  if (!res.rows.every(row => row.doc)) {
+    throw new Error('doc not found');
   }
-
-}
-
-async function getAllTypesByIds(docIds) {
-  var db = await getBestDB(dbs.types);
-  var res = await db.allDocs({
-    include_docs: true,
-    keys: docIds
-  });
   return res.rows.map(row => row.doc);
 }
 
-async function getAllMovesByIds(docIds) {
-  var db = await getBestDB(dbs.moves);
-  var res = await db.allDocs({
-    include_docs: true,
-    keys: docIds
-  });
-  return res.rows.map(row => row.doc);
+async function doLocalFirst(dbFun, dbHolder) {
+  // hit the local DB first; if it 404s, then hit the remote
+  try {
+    return await dbFun(dbHolder.local);
+  } catch (err) {
+    return await dbFun(dbHolder.remote);
+  }
 }
 
-async function getMonsterMovesById(docId) {
-  var monsterData = await (await getBestDB(dbs.monsterMoves)).get(docId);
+/*async function getMonsterMovesById(docId, db) {
+  var monsterData = db.get(docId);
 
   var moveIds = monsterData.moves.map(move => zpad(move.id, 5));
   var moves = await getAllMovesByIds(moveIds);
@@ -170,7 +139,7 @@ async function getMonsterMovesById(docId) {
   });
 
   return monsterMoves;
-}
+}*/
 
 module.exports = {
   init: origin => {
@@ -189,11 +158,11 @@ module.exports = {
     var monsterDocId = getDocId(monsterSummary);
     var descDocId = getGeneration5DescriptionDocId(monsterSummary);
     var promises = [
-      getMonsterDocById(monsterDocId),
-      getDescriptionById(descDocId),
-      getEvolutionsById(monsterDocId),
-      getSupplementalInfoById(monsterDocId),
-      getAllTypesByIds(monsterSummary.types.map(type => type.name))
+      doLocalFirst(db => getById(db, monsterDocId), dbs.monsters),
+      doLocalFirst(db => getById(db, descDocId), dbs.descriptions),
+      doLocalFirst(db => getById(db, monsterDocId), dbs.evolutions),
+      doLocalFirst(db => getById(db, monsterDocId), dbs.supplemental),
+      doLocalFirst(db => getManyByIds(db, monsterSummary.types.map(type => type.name)), dbs.types)
     ];
 
     var results = await* promises;
