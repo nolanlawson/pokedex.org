@@ -12,6 +12,7 @@ var $ = document.querySelector.bind(document);
 var monstersList;
 var footerHeight;
 var endOfList;
+var appending = false;
 
 function applyPatch(patchString) {
   console.time('JSON.parse()');
@@ -24,6 +25,7 @@ function applyPatch(patchString) {
   patchElement(monstersList, patch);
   console.timeEnd('patchElement');
   progress.end();
+  appending = false;
 }
 
 function onMonstersListPatch(message) {
@@ -52,7 +54,7 @@ function scrolledToBottom() {
 }
 
 function onScroll() {
-  if (scrolledToBottom()) {
+  if (!appending && scrolledToBottom()) {
     console.log('scrolledToBottom');
     if (endOfList) {
       console.log('no more items to show');
@@ -60,6 +62,7 @@ function onScroll() {
     }
     console.time('worker-filter');
     progress.start(true);
+    appending = true;
     worker.postMessage({
       type: 'scrolledToBottom'
     });

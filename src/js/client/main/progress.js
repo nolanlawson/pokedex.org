@@ -12,22 +12,18 @@ function Progress() {
 }
 
 Progress.prototype.start = function (appendingToListEnd) {
-  requestAnimationFrame(() => {
-    init();
-    if (appendingToListEnd) {
-      spinner.classList.add('shown');
-    } else { // filtering
-      mask.classList.add('shown');
-    }
-  })
+  init();
+  if (appendingToListEnd) {
+    spinner.classList.add('shown');
+  } else { // filtering
+    mask.classList.add('shown');
+  }
 };
 
 Progress.prototype.end = function () {
-  requestAnimationFrame(() => {
-    init();
-    mask.classList.remove('shown');
-    spinner.classList.remove('shown');
-  });
+  init();
+  mask.classList.remove('shown');
+  spinner.classList.remove('shown');
 };
 
 module.exports = new Progress();
