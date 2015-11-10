@@ -199,10 +199,10 @@ module.exports = async function build(debug) {
       }
     ];
 
-    await* files.map(browserifyAndWriteFile);
+    var normalBrowserifications = files.map(browserifyAndWriteFile);
 
     // do a factor-bundle to split up the worker and critical stuff
-    await new Promise(function (resolve) {
+    var factorBrowserification = new Promise(function (resolve) {
       var numDone = 0;
       var checkDone = () => {
         if (++numDone == 3) {
@@ -225,6 +225,8 @@ module.exports = async function build(debug) {
         });
       }
     });
+
+    await* [...normalBrowserifications, factorBrowserification];
 
     var allOutputFiles = [
       __dirname + '/../www/js/worker.js',
