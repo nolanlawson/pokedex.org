@@ -1,4 +1,9 @@
-require('regenerator/runtime');
+var regen = require('regenerator/runtime');
+
+if (typeof window !== 'undefined') {
+  // hack for the pseudoworker
+  window.regeneratorRuntime = regen;
+}
 
 var toJson = require('vdom-as-json/toJson');
 var Stopwatch = require('../shared/util/stopwatch');
@@ -122,5 +127,4 @@ self.addEventListener('message', e => {
   console.log('worker got message', message);
   // TODO: handle errors here
   onMessage(message).catch(console.log.bind(console));
-
 });

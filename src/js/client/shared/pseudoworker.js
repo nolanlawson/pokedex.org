@@ -31,7 +31,6 @@ function PseudoWorker(script) {
           }
         }
       };
-      window.regeneratorRuntime = regen;
       (function () {
         eval(that.__scriptData);
       }).call(window);

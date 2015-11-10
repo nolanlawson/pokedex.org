@@ -1,4 +1,4 @@
-var PseudoWorker = require('./../main/pseudoworker');
+var PseudoWorker = require('./pseudoworker');
 var utils = require('./../main/utils');
 
 var worker;
