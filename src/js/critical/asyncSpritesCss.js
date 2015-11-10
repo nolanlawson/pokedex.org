@@ -5,23 +5,33 @@ var constants = require('../shared/util/constants');
 var numSpriteCssFiles = constants.numSpriteCssFiles;
 
 function loadCssAsync(filename) {
-  var ss = document.createElement('link');
-  ss.rel = 'stylesheet';
-  ss.href = filename;
+  var link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = filename;
   // temporary non-applicable media query to load it async
-  ss.media = 'only foo';
-  document.body.appendChild(ss);
+  link.media = 'only foo';
+  document.body.appendChild(link);
   // set media back
   setTimeout(function () {
-    ss.media = 'all';
+    link.media = 'all';
   });
+  return link;
 }
 
+// Load the sprites in a waterfall, because we don't want them to block
+// other HTTP requests; they're not *that* important.
+
 var hasWebp = supportsWebp();
-for (var i = 1; i <= numSpriteCssFiles; i++) {
-  if (hasWebp) {
-    loadCssAsync(`css/sprites-webp-${i}.css`);
-  } else {
-    loadCssAsync(`css/sprites-${i}.css`);
+var i = 1;
+
+function loop() {
+  if (i > numSpriteCssFiles) {
+    return; // done
   }
+  var filename = hasWebp ? `css/sprites-webp-${i}.css` : `css/sprites-${i}.css`;
+  var link = loadCssAsync(filename);
+  i++;
+  link.onload = loop;
 }
+
+loop();
