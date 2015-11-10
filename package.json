@@ -32,6 +32,7 @@
     "execall": "^1.0.0",
     "factor-bundle": "^2.5.0",
     "html-minifier": "^1.0.0",
+    "html2hscript": "^1.2.1",
     "htmltidy": "0.0.6",
     "http-server": "^0.8.5",
     "lie": "^3.0.1",

@@ -639,6 +639,41 @@ button {
   margin: 20px 0 20px;
 }
 
+.evolutions {
+  margin: 0 20px;
+}
+
+.evolution-row-inner {
+  display: flex;
+  flex-diration: horizontal;
+  align-items: center;
+  justify-items: center;
+}
+
+.evolution-row .evolution-sprite {
+  flex-grow: 1;
+}
+
+.evolution-row svg {
+  flex-shrink: 1;
+}
+
+.evolution-label {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+}
+
+.evolution-label span {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.arrow-right {
+  width: 48px;
+  height: 48px;
+}
+
 /* toast */
 
 .toast {
