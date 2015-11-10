@@ -39,7 +39,7 @@ async function markReplicated(db) {
   });
 }
 
-async function replicateDB(db, filename) {
+async function replicateDB(db, filename, numFiles) {
   var alreadyDone = await checkReplicated(db);
   if (alreadyDone) {
     console.log(`${filename}: replication already done`);
@@ -47,7 +47,14 @@ async function replicateDB(db, filename) {
   }
 
   console.log(`${filename}: started replication`);
-  await db.load(filename);
+  if (numFiles) {
+   for (var i = 1; i <= numFiles; i++) {
+     // file was broken up into smaller files
+     await db.load(filename.replace('.txt', `-${i}.txt`));
+   }
+  } else {
+    await db.load(filename);
+  }
   console.log(`${filename}: done replicating`);
   await markReplicated(db);
 }
@@ -69,14 +76,23 @@ async function initDBs(couchHome) {
   dbs.supplemental.remote = new PouchDB(couchHome + '/monsters-supplemental');
 
   if (dbs.monsters.local.adapter) {
-    // do one-at-a-time to avoid excessive memory usage
-    await replicateDB(dbs.monsters.local, '../assets/skim-monsters.txt');
-    await replicateDB(dbs.supplemental.local, '../assets/monsters-supplemental.txt');
-    await replicateDB(dbs.types.local, '../assets/types.txt');
-    await replicateDB(dbs.descriptions.local, '../assets/descriptions.txt');
-    await replicateDB(dbs.evolutions.local, '../assets/evolutions.txt');
-    await replicateDB(dbs.moves.local, '../assets/moves.txt');
-    await replicateDB(dbs.monsterMoves.local, '../assets/monster-moves.txt');
+
+    var importantReplications = [
+      replicateDB(dbs.monsters.local, '../assets/skim-monsters.txt', 3),
+      replicateDB(dbs.supplemental.local, '../assets/monsters-supplemental.txt', 3),
+      replicateDB(dbs.types.local, '../assets/types.txt'),
+      replicateDB(dbs.descriptions.local, '../assets/descriptions.txt', 3),
+      replicateDB(dbs.evolutions.local, '../assets/evolutions.txt')
+    ];
+
+    await* importantReplications;
+
+    var lessImportantReplications = [
+      replicateDB(dbs.moves.local, '../assets/moves.txt', 3),
+      replicateDB(dbs.monsterMoves.local, '../assets/monster-moves.txt', 3)
+    ];
+
+    await* lessImportantReplications;
   } else {
     console.log('this browser doesn\'t support PouchDB. cannot work offline.');
   }

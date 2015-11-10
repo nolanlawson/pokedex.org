@@ -25,6 +25,7 @@ var renderMonstersList = require('../src/js/shared/renderMonstersList');
 var monsterSummaries = require('../src/js/shared/data/monsterSummaries');
 var bulbasaur = require('../src/js/shared/data/bulbasaur');
 var toHtml = require('vdom-to-html');
+var splitFile = require('./split-file');
 
 var CRITICAL_CSS_SPRITES_LINES = 8;
 
@@ -226,7 +227,18 @@ module.exports = async function build(debug) {
       ncp('./src/svg', './www/svg'),
       ncp('./src/vendor', './www/vendor')
     ];
+
     await* promises;
+
+    var newPromises = [
+      splitFile('./src/assets/monster-moves.txt', './www/assets/monster-moves.txt', 100),
+      splitFile('./src/assets/descriptions.txt', './www/assets/descriptions.txt', 100),
+      splitFile('./src/assets/monsters-supplemental.txt', './www/assets/monsters-supplemental.txt', 100),
+      splitFile('./src/assets/skim-monsters.txt', './www/assets/skim-monsters.txt', 100),
+      splitFile('./src/assets/moves.txt', './www/assets/moves.txt', 100)
+    ];
+
+    await* newPromises;
   }
 
   console.log('copying from src to www');
