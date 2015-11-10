@@ -4,15 +4,51 @@ var fromJson = require('vdom-as-json/fromJson');
 
 function onShowModal(message) {
   var modal = createElement(fromJson(JSON.parse(message.modal)));
-  var modalEl = document.createElement('div');
-  modalEl.appendChild(modal);
+  modal.style.opacity = 0;
+  var modalContainer = document.createElement('div');
+  modalContainer.appendChild(modal);
   mui.overlay('on', {
-    static: false
-  }, modalEl);
+    static: true
+  }, modalContainer);
 
-  modalEl.addEventListener('click', () => {
-    mui.overlay('off');
-  });
+  function show() {
+    requestAnimationFrame(() => {
+      modal.style.transform = `translateX(${window.innerWidth}px)`;
+      modal.style.opacity = 1;
+
+      requestAnimationFrame(() => {
+        // go go go
+        modal.classList.add('animating');
+        modal.style.transform = '';
+      });
+
+      modal.addEventListener('transitionend', function listener() {
+        modal.classList.remove('animating');
+        modal.removeEventListener('transitionend', listener);
+      });
+    });
+  }
+
+  function hide() {
+    requestAnimationFrame(() => {
+      modal.style.transform = '';
+
+      requestAnimationFrame(() => {
+        // go go go
+        modal.classList.add('animating');
+        modal.style.transform = `translateX(-${window.innerWidth}px)`;
+      });
+
+      modal.addEventListener('transitionend', function listener() {
+        modal.classList.remove('animating');
+        modal.removeEventListener('transitionend', listener);
+        mui.overlay('off');
+      });
+    });
+  }
+
+  modalContainer.addEventListener('click', hide);
+  setTimeout(show, 200); // delay for the overlay to show first
 }
 
 worker.addEventListener('message', e => {

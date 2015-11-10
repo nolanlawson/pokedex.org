@@ -19,11 +19,11 @@ function onFirstLoad() {
         buttonText: 'MORE INFO'
       },
       modal: {
-        title: '\uD83D\uDCF6 \u00A0 Pokedex.org works offline.',
+        title: 'Pokedex.org works offline.',
         text: "" +
-        "Yes, that's right, a website that works offline! If you tap \u2630 then " +
-        "\"Add to Home Screen,\" you can browse all your favorite " +
-        "Pokémon even without an Internet connection.",
+        "That's right, a website that works offline! If you tap \u22EE " +
+        "and then \"Add to Home Screen,\" you can browse all your favorite " +
+        "Pokémon even without any \uD83D\uDCF6 .",
         buttonText: 'OK, COOL'
       }
     });

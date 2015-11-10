@@ -684,6 +684,11 @@ button {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  will-change: transform;
+}
+
+.pokedex-modal.animating {
+  transition: 0.33333s transform ease-in-out;
 }
 
 .pokedex-modal-inner {
@@ -692,7 +697,7 @@ button {
 }
 
 .pokedex-modal-inner.mui-panel {
-  margin: 0;
+  margin: 0 20px;
   padding: 0;
 }
 
@@ -705,7 +710,7 @@ button {
 }
 
 .pokedex-modal-content {
-  font-size: 14px;
+  font-size: 16px;
   margin: 20px 16px;
 }
 
