@@ -16,6 +16,8 @@ var version = '1.0.1';
 
 var staticContent = [
   '/',
+  // TODO: shouldn't have to download twice, but this works considering manifest.json
+  '/index.html',
   '/js/worker.js',
   '/js/main.js',
   '/manifest.json',
