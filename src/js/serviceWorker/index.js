@@ -43,6 +43,7 @@ var webpContent = range(numSpriteCssFiles).map(i => `/css/sprites-webp-${i + 1}.
 var nonWebpContent = range(numSpriteCssFiles).map(i => `/css/sprites-${i + 1}.css`);
 
 self.addEventListener('install', function install (event) {
+  console.log('install');
   event.waitUntil((async () => {
     var activeVersionPromise = keyValueStore.get('active-version');
     var cache = await caches.open('pokedex-static-' + version);
@@ -75,17 +76,20 @@ var expectedCaches = [
 ];
 
 self.addEventListener('activate', function(event) {
+  console.log('activate');
   event.waitUntil((async () => {
     // activate right now
     await self.clients.claim();
     // remove caches beginning "svgomg-" that aren't in
     // expectedCaches
     var cacheNames = await caches.keys();
+    console.log('cacheNames', cacheNames);
     for (var cacheName of cacheNames) {
-      if (!/^pokedex-/.test(cacheName)) {
+      if (!/^pokedex-static-/.test(cacheName)) {
         continue;
       }
       if (expectedCaches.indexOf(cacheName) == -1) {
+        console.log('deleting', cacheName);
         await caches.delete(cacheName);
       }
     }
