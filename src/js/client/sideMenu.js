@@ -5,23 +5,43 @@ document.addEventListener('DOMContentLoaded', () => {
   function showSidedrawer() {
     // show overlay
     var options = {
-      onclose: () => {
-        sideDrawer.classList.remove('active');
-        document.body.appendChild(sideDrawer);
-      }
+      static: true
     };
 
     var overlay = mui.overlay('on', options);
 
     // show element
     overlay.appendChild(sideDrawer);
-    setTimeout(() => sideDrawer.classList.add('active'), 20);
+    requestAnimationFrame(() => sideDrawer.classList.add('active'));
+
+    overlay.addEventListener('click', hideSidedrawer);
   }
 
   function hideSidedrawer() {
+    document.body.appendChild(sideDrawer);
+    requestAnimationFrame(() => {
+      sideDrawer.classList.remove('active');
+      setTimeout(() => {
+        document.body.classList.toggle('hide-sidedrawer');
+        if ($('#mui-overlay')) {
+          mui.overlay('off');
+        }
+      }, 200);
+    });
+  }
+
+  function shortHideSidedrawer() {
     document.body.classList.toggle('hide-sidedrawer');
   }
 
   $('.js-show-sidedrawer').addEventListener('click', showSidedrawer);
-  $('.js-hide-sidedrawer').addEventListener('click', hideSidedrawer);
+  $('.js-hide-sidedrawer').addEventListener('click', shortHideSidedrawer);
+
+  $('#pokemon-link').addEventListener('click', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    if ($('#mui-overlay')) {
+      hideSidedrawer();
+    }
+  });
 });

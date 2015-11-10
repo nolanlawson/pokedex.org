@@ -3,5 +3,5 @@ module.exports = supplemental => {
   if (genderRatio === 'N/A') {
     return 'N/A';
   }
-  return `${genderRatio} \u2642 / ${100 - genderRatio} \u2640`;
+  return `${genderRatio}% \u2642 ${100 - genderRatio}% \u2640`;
 };
