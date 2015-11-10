@@ -127,7 +127,12 @@ function doInAnimationPartOne(nationalId) {
     targetBackground.classList.remove('animating');
     spriteFacade.classList.remove('animating');
     targetBackground.removeEventListener('transitionend', onAnimEnd);
+  }
 
+  targetBackground.addEventListener('transitionend', onAnimEnd);
+  detailPanel.classList.add('hidden');
+
+  requestAnimationFrame(() => {
     runningAnimationPartOne = false;
     if (queuedAnimation) {
       requestAnimationFrame(() => {
@@ -139,10 +144,7 @@ function doInAnimationPartOne(nationalId) {
       themeManager.setThemeColor(queuedThemeColor);
       queuedThemeColor = null;
     }
-  }
-
-  targetBackground.addEventListener('transitionend', onAnimEnd);
-  detailPanel.classList.add('hidden');
+  })
 }
 
 function doInAnimationPartTwo(nationalId) {
