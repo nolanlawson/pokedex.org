@@ -3,6 +3,7 @@ var fromJson = require('vdom-as-json/fromJson');
 var patchElement = require('virtual-dom/patch');
 var detailViewOrchestrator = require('./detailViewOrchestrator');
 var worker = require('./../shared/worker');
+var rippleEffect = require('./rippleEffect');
 var debounce = require('debounce');
 var DEBOUNCE_DELAY = 50;
 var SCROLL_PREFETCH_OFFSET = 400;
@@ -65,14 +66,24 @@ function onScroll() {
   }
 }
 
-function onClick(nationalId) {
-  var el = $('.sprite-' + nationalId);
+function showMonsterDetail(nationalId) {
   console.time('worker-detail');
   worker.postMessage({
     type: 'detail',
     nationalId: nationalId
   });
   detailViewOrchestrator.animateInPartOne(nationalId);
+}
+
+function getNationalIdFromElement(el) {
+  var classes = el.classList;
+  for (var i = 0; i < classes.length; i++) {
+    var className = classes[i];
+    var res = className.match(/^sprite-(\d+)$/);
+    if (res) {
+      return parseInt(res[1], 10);
+    }
+  }
 }
 
 worker.addEventListener('message', e => {
@@ -82,8 +93,13 @@ worker.addEventListener('message', e => {
 document.addEventListener('DOMContentLoaded', () => {
   monstersList = $('#monsters-list');
   monstersList.addEventListener('click', e => {
-    e.stopPropagation();
-    onClick(3);
+    if (e.target.tagName === 'BUTTON') {
+      e.stopPropagation();
+      e.preventDefault();
+      rippleEffect(e, e.target, e.offsetX, e.offsetY);
+      var nationalId = getNationalIdFromElement(e.target);
+      showMonsterDetail(nationalId);
+    }
   });
 }, false);
 

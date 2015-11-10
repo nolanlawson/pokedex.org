@@ -300,9 +300,11 @@ button {
   background-color: rgb(255, 255, 255);
 }
 
-#monsters-list .monster-sprite:active,
-#monsters-list .monster-sprite:focus {
+#monsters-list button.monster-sprite:active,
+#monsters-list button.monster-sprite:focus {
   background-color: initial;
+  /* remove orange outline in android */
+  outline: none;
 }
 
 .monster-sprite {
