@@ -11,7 +11,7 @@ module.exports = (monsters, pageSize) => {
     h('li', {
       style: {background: getMonsterBackground(monster)}
     }, [
-      h(`button.monster-sprite.mui-btn.mui-btn--flat.mui-btn--accent.sprite-${monster.national_id}`, {
+      h(`div.monster-sprite.sprite-${monster.national_id}`, {
         attributes: {
           'data-national-id': monster.national_id
         },

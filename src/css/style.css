@@ -257,8 +257,8 @@ button {
   display: inline-flex;
   list-style-type: none;
   cursor: pointer;
-  touch-action: manipulation;
   z-index: 20000;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
 @media (max-width: 767px) {
@@ -288,28 +288,21 @@ button {
   bottom: 0;
   z-index: 10;
   position: absolute;
+  background-color: transparent;
+  border: none;
 }
 
-.monster-sprite.mui-btn--accent.mui-btn--flat {
-  margin-top: 0;
-
-  /* mui sets transition: all 0.2s ease-in-out, avoid that so
-     we don't get unnecessary janky animations */
-  transition: none;
-}
-
-.monster-sprite.mui-btn--accent.mui-btn--flat:active,
-    .monster-sprite.mui-btn--accent.mui-btn--flat:focus {
-  /*background-color: rgba(255, 255, 255, .6);*/
-  background-color: initial;
-}
-
-.monster-sprite.mui-btn--accent.mui-btn--flat:hover {
+#monsters-list .monster-sprite:hover {
   background-color: rgba(255, 255, 255, .3);
 }
 
-.mui-btn--flat>.mui-ripple-effect {
+#monsters-list .monster-sprite > .mui-ripple-effect {
   background-color: rgb(255, 255, 255);
+}
+
+#monsters-list .monster-sprite:active,
+#monsters-list .monster-sprite:focus {
+  background-color: initial;
 }
 
 .monster-sprite {

@@ -65,10 +65,8 @@ function onScroll() {
   }
 }
 
-function onClick(e) {
-  e.stopPropagation();
-  var el = e.target.parentElement.querySelector('.monster-sprite');
-  var nationalId = parseInt(el.dataset.nationalId);
+function onClick(nationalId) {
+  var el = $('.sprite-' + nationalId);
   console.time('worker-detail');
   worker.postMessage({
     type: 'detail',
@@ -84,9 +82,8 @@ worker.addEventListener('message', e => {
 document.addEventListener('DOMContentLoaded', () => {
   monstersList = $('#monsters-list');
   monstersList.addEventListener('click', e => {
-    if (e.target.tagName === 'BUTTON') {
-      onClick(e);
-    }
+    e.stopPropagation();
+    onClick(3);
   });
 }, false);
 
