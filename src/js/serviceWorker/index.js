@@ -24,6 +24,7 @@ var staticContent = [
   '/favicon.ico',
   '/img/icon-48.png',
   '/img/icon-96.png',
+  '/img/icon-144.png',
   '/img/icon-192.png'
 ];
 

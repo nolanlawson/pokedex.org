@@ -12,6 +12,10 @@
       "sizes": "96x96"
     },
     {
+      "src": "img/icon-144.png",
+      "sizes": "144x144"
+    },
+    {
       "src": "img/icon-192.png",
       "sizes": "192x192"
     }
