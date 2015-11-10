@@ -46,7 +46,7 @@ async function doIt() {
     }
     var doc = {
       _id: zpad(json.id, 7),
-      description: json.description
+      description: json.description.replace('Pokmon', 'Pokémon') // error in the data
     };
     await db.put(doc);
   }
