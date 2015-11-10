@@ -12,12 +12,12 @@ var range = require('lodash/utility/range');
 // a: version-isolated change, don't let both versions run together
 // b: new feature
 // c: bug fix
-var version = '1.0.1';
+var version = '1.0.3';
 
 var staticContent = [
   '/',
   // TODO: shouldn't have to download twice, but this works considering manifest.json
-  '/index.html',
+  '/index.html?launcher=true',
   '/js/worker.js',
   '/js/main.js',
   '/manifest.json',

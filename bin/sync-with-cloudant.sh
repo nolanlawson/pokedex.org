@@ -8,8 +8,9 @@ fi
 sync=./node_modules/.bin/pouch-replicate
 couch="https://${USER}:${PASSWORD}@nolan.cloudant.com"
 
-for db in descriptions evolutions monster-moves monsters monsters-supplemental moves; do
+for db in types descriptions evolutions monster-moves monsters monsters-supplemental moves; do
   curl -X DELETE "${couch}/${db}"
+  curl -X PUT "${couch}/${db}"
   pouch-replicate "db/${db}" "${couch}/${db}"
 done
 
