@@ -1,4 +1,4 @@
-var worker = require('./worker');
+var worker = require('./../shared/worker');
 var debounce = require('debounce');
 var progress = require('./progress');
 

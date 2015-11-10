@@ -1,7 +1,7 @@
 // load sprites.css asynchronously
 
-var supportsWebp = require('../shared/util/supportsWebp');
-var constants = require('../shared/util/constants');
+var supportsWebp = require('../../shared/util/supportsWebp');
+var constants = require('../../shared/util/constants');
 var numSpriteCssFiles = constants.numSpriteCssFiles;
 
 function loadCssAsync(filename) {

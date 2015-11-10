@@ -2,7 +2,7 @@
 // https://aerotwist.com/blog/flip-your-animations/
 
 var themeManager = require('./themeManager');
-var worker = require('./worker');
+var worker = require('./../shared/worker');
 
 var $ = document.querySelector.bind(document);
 

@@ -1,4 +1,4 @@
-var worker = require('./worker');
+var worker = require('./../shared/worker');
 var createElement = require('virtual-dom/create-element');
 var fromJson = require('vdom-as-json/fromJson');
 

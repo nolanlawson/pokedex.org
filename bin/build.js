@@ -16,6 +16,7 @@ var minifyHtml = require('html-minifier').minify;
 var bundleCollapser = require("bundle-collapser/plugin");
 var envify = require('envify/custom');
 var vdomify = require('./vdomify');
+var concat = require('concat-stream');
 
 var constants = require('../src/js/shared/util/constants');
 var numSpritesCssFiles = constants.numSpriteCssFiles;
@@ -53,15 +54,20 @@ module.exports = async function build(debug) {
     return criticalCss;
   }
 
-  async function inlineCriticalJs(html) {
-    await browserifyFile({
-      source: __dirname + '/../src/js/critical/index.js',
-      dest: __dirname + '/../www/js/critical.js'
-    });
-    var critJs = await fs.readFileAsync(__dirname + '/../www/js/critical.js');
-    return html.replace(
-      '<script src="js/critical.js"></script>',
-      `<script>${critJs}</script>`);
+  async function inlineCriticalJs() {
+    console.log('inlineCriticalJs()');
+    var html = await fs.readFileAsync(__dirname + '/../www/index.html', 'utf-8');
+    var common = await fs.readFileAsync(__dirname + '/../www/js/common.js', 'utf-8');
+    var crit = await fs.readFileAsync(__dirname + '/../www/js/critical.js', 'utf-8');
+
+    html = html.replace(
+      '<script src=js/critical.js></script>',
+      `<script>${crit}</script>`)
+      .replace(
+      '<script src=js/common.js></script>',
+      `<script>${common}</script>`);
+
+    await fs.writeFileAsync(__dirname + '/../www/index.html', html, 'utf-8')
   }
 
   async function inlineCriticalCss(html) {
@@ -107,7 +113,6 @@ module.exports = async function build(debug) {
 
     if (!debug) {
       html = await inlineCriticalCss(html);
-      html = await inlineCriticalJs(html);
       html = await inlineVendorJs(html);
       html = minifyHtml(html, {removeAttributeQuotes: true});
     }
@@ -155,7 +160,7 @@ module.exports = async function build(debug) {
     await* promises;
   }
 
-  function browserifyFile(file) {
+  function startBrowserify(files) {
     var opts = {
       fullPaths: debug,
       debug: debug
@@ -163,15 +168,19 @@ module.exports = async function build(debug) {
     if (!debug) {
       opts.plugin = [bundleCollapser];
     }
-    var b = browserify(opts).add(file.source)
-      .transform('babelify');
+    var b = browserify(files, opts);
+    b = b.transform('babelify');
     if (!debug) {
-      b = b.transform('stripify');
+      b = b.transform('stripify').transform('uglifyify');
     }
     b = b.transform(vdomify).transform(envify({
       NODE_ENV: process.env.NODE_ENV || (debug ? 'development' : 'production')
     }));
-    var stream = b.bundle();
+    return b;
+  }
+
+  function browserifyAndWriteFile(file) {
+    var stream = startBrowserify([file.source]).bundle();
     return stream2promise(stream.pipe(fs.createWriteStream(file.dest)));
   }
 
@@ -180,10 +189,6 @@ module.exports = async function build(debug) {
     await mkdirp('./www/js');
 
     var files = [
-      {
-        source: __dirname + '/../src/js/client/index.js',
-        dest: __dirname + '/../www/js/main.js'
-      },
       {
         source: __dirname + '/../src/js/worker/index.js',
         dest: __dirname + '/../www/js/worker.js'
@@ -194,23 +199,49 @@ module.exports = async function build(debug) {
       }
     ];
 
-    if (debug) {
-      files.push({
-        source: __dirname + '/../src/js/critical/index.js',
-        dest: __dirname + '/../www/js/critical.js'
-      });
-    }
+    await* files.map(browserifyAndWriteFile);
 
-    await* files.map(browserifyFile);
+    // do a factor-bundle to split up the worker and critical stuff
+    await new Promise(function (resolve) {
+      var numDone = 0;
+      var checkDone = () => {
+        if (++numDone == 3) {
+          resolve();
+        }
+      };
+
+      var files = [
+        __dirname + '/../src/js/client/main/index.js',
+        __dirname + '/../src/js/client/critical/index.js'
+      ];
+      var b = startBrowserify(files);
+
+      b.plugin('factor-bundle', {outputs: [write('main.js'), write('critical.js')]});
+      b.bundle().pipe(write('common.js')).on('end', checkDone);
+
+      function write(name) {
+        return concat(function (body) {
+          fs.writeFile(__dirname + '/../www/js/' + name, body, 'utf-8', checkDone);
+        });
+      }
+    });
+
+    var allOutputFiles = [
+      __dirname + '/../www/js/worker.js',
+      __dirname + '/../www/sw.js',
+      __dirname + '/../www/js/main.js',
+      __dirname + '/../www/js/critical.js',
+      __dirname + '/../www/js/common.js'
+    ];
 
     if (!debug) {
-      await* files.map(function (file) {
-        var code = uglify.minify(file.dest, {
+      await* allOutputFiles.map(function (file) {
+        var code = uglify.minify(file, {
           mangle: true,
           compress: true
         }).code;
 
-        return fs.writeFileAsync(file.dest, code, 'utf-8');
+        return fs.writeFileAsync(file, code, 'utf-8');
       });
     }
   }
@@ -245,5 +276,8 @@ module.exports = async function build(debug) {
   await rimraf('./www');
   await mkdirp('./www');
   await* [buildHtml(), buildCss(), buildJS(), buildStatic()];
+  if (!debug) {
+    await inlineCriticalJs();
+  }
   console.log('wrote files to www/');
 };

@@ -1,6 +1,6 @@
-var keyValueStore = require('../shared/db/keyValueStore');
-var supportsWebp = require('../shared/util/supportsWebp');
-var worker = require('./worker');
+var keyValueStore = require('../../shared/db/keyValueStore');
+var supportsWebp = require('../../shared/util/supportsWebp');
+var worker = require('./../shared/worker');
 var semver = require('semver');
 
 function onFirstLoad() {

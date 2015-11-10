@@ -1,9 +1,9 @@
-var worker = require('./worker');
+var worker = require('./../shared/worker');
 var patchElement = require('virtual-dom/patch');
 var fromJson = require('vdom-as-json/fromJson');
 var indexOf = require('lodash/array/indexOf');
 var orchestrator = require('./detailViewOrchestrator');
-var Promise = require('../shared/util/promise');
+var Promise = require('../../shared/util/promise');
 
 var $ = document.querySelector.bind(document);
 

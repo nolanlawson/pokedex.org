@@ -2,8 +2,6 @@
 // The goal is to run a worker *without* a worker, to see the impact
 // on the UI thread.
 
-var regen = require('regenerator/runtime');
-
 function PseudoWorker(script) {
   this.messageListeners = [];
   this.errorListeners = [];
