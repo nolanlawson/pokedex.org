@@ -152,6 +152,8 @@ function doInAnimationPartTwo(nationalId) {
   detailPanel.style.overflowY = 'auto'; // re-enable overflow on the panel
   document.body.style.overflowY = 'hidden'; // disable scrolling
 
+  // hide monster moves until they're shown after the panel
+  detailPanel.querySelector('.monster-moves').classList.add('hidden');
   detailPanel.classList.remove('hidden');
   detailSprite.style.opacity = 0;
   var {fgTransform} = computeTransformsPartTwo(nationalId, false);
@@ -174,6 +176,13 @@ function doInAnimationPartTwo(nationalId) {
     spriteFacade.classList.add('hidden');
 
     detailSprite.style.opacity = 1;
+
+    // don't run this until the panel has animated in, in order to keep the
+    // the animation smooth
+    worker.postMessage({
+      type: 'movesDetail',
+      nationalId: nationalId
+    });
 
     detailPanel.removeEventListener('transitionend', onAnimEnd);
   }

@@ -85,6 +85,7 @@ function onMovesListPatchMessage(pachAsString) {
   Promise.resolve()
     .then(() => fromJson(JSON.parse(pachAsString)))
     .then(patch => patchElement(monsterMovesDiv, patch))
+    .then(monsterMovesDiv.classList.remove('hidden'))
     .catch(err => console.log(err));
 }
 
