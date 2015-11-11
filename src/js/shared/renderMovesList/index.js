@@ -21,7 +21,7 @@ function renderMoves(moves) {
 
     return h('div.moves-row', [
       h('span', move.level ? move.level.toString() : ''),
-      h('span', capitalize(move.identifier)),
+      h('span', capitalize(move.identifier.replace('-', ' '))),
       h('span.monster-type', {
         style: {
           border: lightColor,

@@ -14,6 +14,7 @@ var fs = bluebird.promisifyAll(require('fs'));
 var zpad = require('zpad');
 var fetch = require('node-fetch');
 var pick = require('lodash').pick;
+var fetch = require('node-fetch');
 var shortRevs = require('short-revs');
 
 var csvUrl = 'https://raw.githubusercontent.com/phalt/pokeapi/0d666b130363b26621c339e5f8415a02dcd4806b/data/v2/csv/moves.csv';
@@ -49,7 +50,8 @@ async function doIt() {
   var top = csv[0].split(',');
   csv = csv.slice(1, -1);
 
-  var docs = csv.map(line => {
+  var docs = [];
+  for (var line of csv) {
     line = line.split(',');
     var doc = {};
     for (var i = 0; i < top.length; i++) {
@@ -64,16 +66,24 @@ async function doIt() {
     if (doc.id > 700) {
       // there are some weird "shadow" moves in here
       // that seem to have broken data. ignore them
-      return null;
+      continue;
     }
 
     doc._id = zpad(doc.id, 5);
     doc.type_name = typeIdsToNames[doc.type_id.toString()].toLowerCase();
 
-    doc = pick(doc, '_id', 'type_name', 'identifier', 'power', 'pp', 'accuracy');
+    var fetched = await fetch(`http://pokeapi.co/api/v1/move/${doc.id}/`);
+    var fetchedJson = await fetched.json();
+    console.log(`fetched move #${doc.id}....`);
 
-    return doc;
-  });
+    doc.description = fetchedJson.description;
+    doc.name = fetchedJson.name;
+
+    doc = pick(doc, '_id', 'type_name', 'identifier', 'power', 'pp',
+      'accuracy', 'description', 'name');
+
+    docs.push(doc);
+  }
 
   docs = docs.filter(x => x !== null);
 

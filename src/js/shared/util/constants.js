@@ -1,4 +1,4 @@
 module.exports = {
   pageSize: 30,
-  numSpriteCssFiles: 5
+  numSpriteCssFiles: 10
 };
