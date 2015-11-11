@@ -30,7 +30,6 @@ function onDetailPatchMessage(message) {
     .then(() => fromJson(JSON.parse(patch)))
     .then(patch => patchElement(detailView, patch))
     .then(() => orchestrator.animateInPartTwo(nationalId, themeColor))
-    .then(() => startRenderMoves(nationalId))
     .catch(err => console.log(err));
 }
 

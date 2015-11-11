@@ -12,7 +12,6 @@ var lastDetailView = fromJson(require('../shared/prerendered/bulbasaur'));
 module.exports = async nationalId => {
   var stopwatch = new Stopwatch();
   var fullMonsterData = await dbService.getFullMonsterDataById(nationalId);
-  console.log('fullMonsterData', fullMonsterData);
   stopwatch.time('detail: fetching monsterData');
 
   var newDetailView = renderDetailView(fullMonsterData);

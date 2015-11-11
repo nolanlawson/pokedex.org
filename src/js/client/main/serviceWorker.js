@@ -21,9 +21,8 @@ function onFirstLoad() {
       modal: {
         title: 'Pokedex.org works offline.',
         text: "" +
-        "That's right, a website that works offline! If you tap \u22EE " +
-        "and then \"Add to Home Screen,\" you can browse all your favorite " +
-        "Pokémon even without any \uD83D\uDCF6 .",
+        "That's right, a website that works offline! " +
+        "You can also choose \"Add to Home Screen\" for an app icon.",
         buttonText: 'OK, COOL'
       }
     });

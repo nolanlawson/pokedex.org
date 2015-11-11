@@ -622,7 +622,7 @@ button {
 
 .monster-sprite-facade {
   position:absolute;
-  z-index: 9999999999;
+  z-index: 99999990; /* less than the mui modal, which is 99999999 */
 }
 
 /* evolutions */
@@ -718,7 +718,7 @@ button {
 }
 
 .pokedex-modal.animating {
-  transition: 0.2s transform ease-in;
+  transition: 0.33333s transform cubic-bezier(0,0,0.21,1);
 }
 
 .pokedex-modal-inner {
@@ -782,6 +782,7 @@ button {
   flex-basis: 30%;
   flex-grow: 1;
   flex-shrink: 1;
+  margin: 0 2px;
 }
 
 @media (max-width: 320px) {
@@ -790,6 +791,15 @@ button {
   }
   .monster-minutia > span {
     font-size: 12px;
+  }
+}
+
+@media (max-width: 767px) {
+  .monster-minutia > strong {
+    font-size: 13px;
+  }
+  .monster-minutia > span {
+    font-size: 13px;
   }
 }
 

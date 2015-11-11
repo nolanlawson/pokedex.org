@@ -13,7 +13,7 @@ function onShowModal(message) {
 
   function show() {
     requestAnimationFrame(() => {
-      modal.style.transform = `translateX(${window.innerWidth}px)`;
+      modal.style.transform = `translateY(${window.innerHeight}px)`;
       modal.style.opacity = 1;
 
       requestAnimationFrame(() => {
@@ -36,7 +36,7 @@ function onShowModal(message) {
       requestAnimationFrame(() => {
         // go go go
         modal.classList.add('animating');
-        modal.style.transform = `translateX(-${window.innerWidth}px)`;
+        modal.style.transform = `translateY(${window.innerHeight + 200}px)`;
       });
 
       modal.addEventListener('transitionend', function listener() {
