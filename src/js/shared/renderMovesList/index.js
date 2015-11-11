@@ -1,7 +1,7 @@
 var h = require('virtual-dom/h');
 var typesToColors = require('../../shared/monster/typesToColors');
-var capitalize = require('lodash/string/capitalize');
 var color = require('color');
+var capitalize = require('lodash/string/capitalize');
 
 var LEARN_TYPES = [
   'level up',
@@ -20,14 +20,36 @@ function renderMoves(moves) {
     var darkColor = color(regColor).darken(0.1).rgbString();
 
     return h('div.moves-row', [
-      h('span', move.level ? move.level.toString() : ''),
-      h('span', capitalize(move.identifier.replace('-', ' '))),
-      h('span.monster-type', {
-        style: {
-          border: lightColor,
-          backgroundColor: darkColor
-        }
-      }, move.type_name)
+      h('div.moves-inner-row', [
+        h('span', move.level ? move.level.toString() : ''),
+        h('span', capitalize(move.name.replace('-', ' '))),
+        h('span.monster-type', {
+          style: {
+            border: lightColor,
+            backgroundColor: darkColor
+          }
+        }, move.type_name),
+        h('button.dropdown-button', [
+          h('span.dropdown-button-image')
+        ])
+      ]),
+      h('div.moves-row-detail.hidden', [
+        h('div.moves-row-stats', [
+          h('span', [
+            h('strong', 'Power:'),
+            ` ${move.power || 'N/A'}`
+          ]),
+          h('span', [
+            h('strong', 'Acc:'),
+            ` ${move.accuracy}%`
+          ]),
+          h('span', [
+            h('strong', 'PP:'),
+            ` ${move.pp}`
+          ])
+        ]),
+        h('div.move-description', move.description)
+      ])
     ]);
   });
 }

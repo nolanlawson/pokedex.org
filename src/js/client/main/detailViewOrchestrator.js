@@ -3,6 +3,7 @@
 
 var themeManager = require('./themeManager');
 var worker = require('./../shared/worker');
+var each = require('lodash/collection/each');
 
 var $ = document.querySelector.bind(document);
 
@@ -220,6 +221,9 @@ function doOutAnimation(nationalId) {
     detailViewContainer.classList.add('hidden');
     spriteFacade.classList.add('hidden');
     detailSprite.style.opacity = 1;
+    // clean up any expanded move lists
+    each(detailView.querySelectorAll('.moves-row-detail'), el => el.classList.add('hidden'));
+    each(detailView.querySelectorAll('.dropdown-button-image'), el => el.style.transform = '');
     targetBackground.removeEventListener('transitionend', onAnimEnd);
   }
 
