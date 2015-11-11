@@ -4,6 +4,7 @@ var fromJson = require('vdom-as-json/fromJson');
 var indexOf = require('lodash/array/indexOf');
 var orchestrator = require('./detailViewOrchestrator');
 var Promise = require('../../shared/util/promise');
+var createElement = require('virtual-dom/create-element');
 
 var $ = document.querySelector.bind(document);
 
@@ -21,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-function onMessage(message) {
+function onDetailPatchMessage(message) {
   var {nationalId, themeColor, patch} = message;
   lastNationalId = nationalId;
   // break up into two functions to avoid jank
@@ -29,11 +30,22 @@ function onMessage(message) {
     .then(() => fromJson(JSON.parse(patch)))
     .then(patch => patchElement(detailView, patch))
     .then(() => orchestrator.animateInPartTwo(nationalId, themeColor))
+    .then(() => startRenderMoves(nationalId))
+    .catch(err => console.log(err));
+}
+
+function onMovesListPatchMessage(pachAsString) {
+  var monsterMovesDiv = detailView.querySelector('.monster-moves');
+  Promise.resolve()
+    .then(() => fromJson(JSON.parse(pachAsString)))
+    .then(patch => patchElement(monsterMovesDiv, patch))
     .catch(err => console.log(err));
 }
 
 worker.addEventListener('message', e => {
   if (e.data.type === 'monsterDetailPatch') {
-    onMessage(e.data);
+    onDetailPatchMessage(e.data);
+  } else if (e.data.type === 'movesListPatch') {
+    onMovesListPatchMessage(e.data.patch);
   }
 });

@@ -16,6 +16,7 @@ var pageStateStore = require('./pageStateStore');
 var startingPageSize = require('../shared/util/constants').pageSize;
 var getMonsterDarkTheme = require('../shared/monster/getMonsterDarkTheme');
 var databaseService = require('./databaseService');
+var patchMovesList = require('./patchMovesList');
 
 async function renderList() {
   var {filter, pageSize} = pageStateStore;
@@ -78,6 +79,18 @@ async function onDetailMessage(message) {
   stopwatch.totalTime('worker-detail (total)');
 }
 
+async function onMovesDetailMessage(message) {
+  var {nationalId} = message;
+
+  var {patch} = await patchMovesList(nationalId);
+  var patchAsString = JSON.stringify(toJson(patch));
+  self.postMessage({
+    type: 'movesListPatch',
+    patch: patchAsString,
+    nationalId: nationalId
+  });
+}
+
 async function onOriginMessage(message) {
   dbService.init(message.origin);
 }
@@ -109,6 +122,9 @@ async function onMessage(message) {
       break;
     case 'detail':
       await onDetailMessage(message);
+      break;
+    case 'movesDetail':
+      await onMovesDetailMessage(message);
       break;
     case 'origin':
       await onOriginMessage(message);

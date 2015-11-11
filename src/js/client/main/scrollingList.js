@@ -75,6 +75,10 @@ function showMonsterDetail(nationalId) {
     type: 'detail',
     nationalId: nationalId
   });
+  worker.postMessage({
+    type: 'movesDetail',
+    nationalId: nationalId
+  });
   detailViewOrchestrator.animateInPartOne(nationalId);
 }
 

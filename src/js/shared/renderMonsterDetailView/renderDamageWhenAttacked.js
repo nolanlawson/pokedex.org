@@ -1,7 +1,6 @@
 var h = require('virtual-dom/h');
 var getMonsterDarkTheme = require('../../shared/monster/getMonsterDarkTheme');
 var typesToColors = require('../monster/typesToColors');
-var capitalize = require('lodash/string/capitalize');
 var color = require('color');
 
 function renderEmptyTypeLabel() {
@@ -32,7 +31,7 @@ function renderTypeLabel(type) {
       border: `1px solid ${lightColor}`,
       background: darkColor
     }
-  }, capitalize(type.name));
+  }, type.name);
 }
 
 function renderMultiplier(multiplier) {

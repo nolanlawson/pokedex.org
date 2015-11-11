@@ -128,18 +128,19 @@ async function doLocalFirst(dbFun, dbHolder) {
   }
 }
 
-/*async function getMonsterMovesById(docId, db) {
-  var monsterData = db.get(docId);
+async function getMonsterMovesById(nationalId) {
+  var docId = zpad(nationalId, 5);
+  var monsterData = await doLocalFirst(db => getById(db, docId), dbs.monsterMoves);
 
   var moveIds = monsterData.moves.map(move => zpad(move.id, 5));
-  var moves = await getAllMovesByIds(moveIds);
+  var moves = await doLocalFirst(db => getManyByIds(db, moveIds), dbs.moves);
 
   var monsterMoves = moves.map((move, i) => {
     return assign({}, move, monsterData.moves[i]);
   });
 
   return monsterMoves;
-}*/
+}
 
 module.exports = {
   init: origin => {
@@ -179,5 +180,8 @@ module.exports = {
   },
   getMonsterSummaryById: nationalId => {
     return inMemoryDB.findByNationalId(nationalId);
+  },
+  getMonsterMovesById: async nationalId => {
+    return await getMonsterMovesById(nationalId);
   }
 };

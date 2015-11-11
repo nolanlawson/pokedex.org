@@ -718,7 +718,7 @@ button {
 }
 
 .pokedex-modal.animating {
-  transition: 0.33333s transform ease-in-out;
+  transition: 0.2s transform ease-in;
 }
 
 .pokedex-modal-inner {
@@ -740,8 +740,8 @@ button {
 }
 
 .pokedex-modal-content {
-  font-size: 16px;
-  margin: 20px 16px;
+  font-size: 15px;
+  margin: 25px 20px;
 }
 
 .pokedex-modal-inner button {
@@ -870,4 +870,36 @@ button {
   .when-attacked-row > span:nth-child(even) {
     flex-basis: 25%;
   }
+}
+
+/* moves */
+
+
+.monster-moves {
+  padding: 0 20px;
+}
+
+.moves-row {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  margin: 1px 0;
+}
+
+.moves-row > span:first-child {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 10%;
+}
+
+.moves-row > span:nth-child(2) {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 60%;
+}
+
+.moves-row > span:nth-child(3) {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 30%;
 }

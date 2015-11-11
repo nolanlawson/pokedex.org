@@ -8,6 +8,7 @@ var renderTypeLabels = require('./renderTypeLabels');
 var renderEvolutions = require('./renderEvolutions');
 var renderMinutia = require('./renderMinutia');
 var renderDamageWhenAttacked = require('./renderDamageWhenAttacked');
+var renderMovesStub = require('./renderMovesStub');
 
 function renderDetailPanel(fullMonsterData) {
   var {monster, description, types, evolutions, supplemental} = fullMonsterData;
@@ -39,7 +40,8 @@ function renderDetailPanel(fullMonsterData) {
         h('div.monster-description', description.description),
         renderMinutia(monster, supplemental),
         renderDamageWhenAttacked(monster, types),
-        renderEvolutions(monster, evolutions)
+        renderEvolutions(monster, evolutions),
+        renderMovesStub(monster)
       ])
     ])
   ]);
