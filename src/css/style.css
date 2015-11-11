@@ -891,7 +891,7 @@ button {
 }
 
 .moves-row {
-  margin: 1px 0;
+  margin: 2px 0;
 }
 
 .moves-inner-row {
@@ -934,7 +934,7 @@ button {
 .moves-inner-row > span:nth-child(2) {
   flex-grow: 1;
   flex-shrink: 1;
-  flex-basis: 50%;
+  flex-basis: 40%;
 }
 
 .moves-inner-row > span:nth-child(3) {
@@ -946,15 +946,38 @@ button {
 .moves-inner-row > span:nth-child(4) {
   flex-grow: 1;
   flex-shrink: 1;
-  flex-basis: 10%;
+  flex-basis: 20%;
+}
+
+@media (min-width: 768px) {
+  .moves-inner-row > span:first-child {
+    flex-basis: 15%;
+  }
+
+  .moves-inner-row > span:nth-child(2) {
+    flex-basis: 50%;
+  }
+
+  .moves-inner-row > span:nth-child(3) {
+    flex-basis: 20%;
+  }
+
+  .moves-inner-row > span:nth-child(4) {
+    flex-basis: 15%;
+  }
 }
 
 .dropdown-button {
   position: relative;
-  width: 24px;
-  height: 24px;
+  width: 36px;
+  height: 30px;
   background-color: white;
-  border: 1px solid #ededed;
+  border: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+button.dropdown-button:focus {
+  outline: none; /* remove blue outline on webkit/blink */
 }
 
 .dropdown-button-image {
