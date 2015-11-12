@@ -171,7 +171,7 @@ module.exports = async function build(debug) {
     var b = browserify(files, opts);
     b = b.transform('babelify');
     if (!debug) {
-      b = b.transform('stripify').transform('uglifyify');
+      b = b.transform('stripify');
     }
     b = b.transform(vdomify).transform(envify({
       NODE_ENV: process.env.NODE_ENV || (debug ? 'development' : 'production')
@@ -236,16 +236,6 @@ module.exports = async function build(debug) {
       __dirname + '/../www/js/common.js'
     ];
 
-    if (!debug) {
-      await* allOutputFiles.map(function (file) {
-        var code = uglify.minify(file, {
-          mangle: true,
-          compress: true
-        }).code;
-
-        return fs.writeFileAsync(file, code, 'utf-8');
-      });
-    }
   }
 
   async function buildStatic() {
