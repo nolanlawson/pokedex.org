@@ -5,7 +5,7 @@ var fromJson = require('vdom-as-json/fromJson');
 var TOAST_SHOW_TIME = 10000;
 
 function onToast(message) {
-  var toast = createElement(fromJson(JSON.parse(message.toast)));
+  var toast = message.toast;
   var hideTimeout;
   document.body.appendChild(toast);
 

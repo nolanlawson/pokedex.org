@@ -3,7 +3,7 @@ var createElement = require('virtual-dom/create-element');
 var fromJson = require('vdom-as-json/fromJson');
 
 function onShowModal(message) {
-  var modal = createElement(fromJson(JSON.parse(message.modal)));
+  var modal = createElement(message.modal);
   modal.style.opacity = 0;
   var modalContainer = document.createElement('div');
   modalContainer.appendChild(modal);

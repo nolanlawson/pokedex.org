@@ -1,5 +1,5 @@
 var worker = require('./../shared/worker');
-var applyPatch = require('vdom-serialized-patch/patch');
+var patchElement = require('virtual-dom/patch');
 var indexOf = require('lodash/array/indexOf');
 var orchestrator = require('./detailViewOrchestrator');
 var Promise = require('../../shared/util/promise');
@@ -72,8 +72,7 @@ function onDetailPatchMessage(message) {
   lastNationalId = nationalId;
   // break up into two functions to avoid jank
   Promise.resolve()
-    .then(() => JSON.parse(patch))
-    .then(patch => applyPatch(detailView, patch))
+    .then(() => patchElement(detailView, patch))
     .then(() => orchestrator.animateInPartTwo(nationalId, themeColor))
     .catch(err => console.log(err));
 }
