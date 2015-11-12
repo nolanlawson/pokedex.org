@@ -24,15 +24,10 @@ async function renderList() {
   var stopwatch = new Stopwatch();
   var {patch, endOfList} = await patchMonstersList(filter, start, end);
   stopwatch.time('patchMonstersList');
-  var patchJson = serialize(patch);
-  stopwatch.time('serialize');
-  var patchJsonAsString = JSON.stringify(patchJson);
-  stopwatch.time('JSON.stringify()');
-  console.log('patchJsonAsString.length', patchJsonAsString.length);
 
   self.postMessage({
     type: 'monstersListPatch',
-    patch: patchJsonAsString,
+    patch: patch,
     endOfList: endOfList
   });
   stopwatch.totalTime('worker-filter (total)');
@@ -68,14 +63,9 @@ async function onDetailMessage(message) {
   setThemeColor(nationalId);
   var {patch} = await patchPromise;
   stopwatch.time('patchMonsterDetail()');
-  var patchJson = serialize(patch);
-  stopwatch.time('serialize');
-  var patchJsonAsString = JSON.stringify(patchJson);
-  stopwatch.time('JSON.stringify()');
-  console.log('patchJsonAsString.length', patchJsonAsString.length);
   self.postMessage({
     type: 'monsterDetailPatch',
-    patch: patchJsonAsString,
+    patch: patch,
     nationalId: nationalId
   });
   stopwatch.totalTime('worker-detail (total)');
@@ -85,10 +75,9 @@ async function onMovesDetailMessage(message) {
   var {nationalId} = message;
 
   var {patch} = await patchMovesList(nationalId);
-  var patchAsString = JSON.stringify(serialize(patch));
   self.postMessage({
     type: 'movesListPatch',
-    patch: patchAsString,
+    patch: patch,
     nationalId: nationalId
   });
 }
@@ -101,7 +90,7 @@ async function onToastMessage(message) {
   var toast = renderToast(message.toast);
   self.postMessage({
     type: 'toast',
-    toast: JSON.stringify(toJson(toast)),
+    toast: toast,
     modal: message.modal
   });
 }
@@ -110,7 +99,7 @@ async function onModalMessage(message) {
   var modal = renderModal(message.modal);
   self.postMessage({
     type: 'modal',
-    modal: JSON.stringify(toJson(modal))
+    modal: modal
   });
 }
 

@@ -1,6 +1,5 @@
 var pageSize = require('../../shared/util/constants').pageSize;
 var progress = require('./progress');
-var applyPatch = require('vdom-serialized-patch/patch');
 var patchElement = require('virtual-dom/patch');
 var detailViewOrchestrator = require('./detailViewOrchestrator');
 var worker = require('./../shared/worker');
@@ -16,12 +15,9 @@ var monstersList;
 var footerHeight;
 var endOfList;
 
-function doApplyPatch(patchString) {
-  console.time('JSON.parse()');
-  var patch = JSON.parse(patchString);
-  console.timeEnd('JSON.parse()');
+function doApplyPatch(patch) {
   console.time('patchElement');
-  applyPatch(monstersList, patch);
+  patchElement(monstersList, patch);
   console.timeEnd('patchElement');
   progress.end();
 }
