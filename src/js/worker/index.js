@@ -6,6 +6,7 @@ if (typeof window !== 'undefined') {
 }
 
 var toJson = require('vdom-as-json/toJson');
+var serialize = require('vdom-serialized-patch/serialize');
 var Stopwatch = require('../shared/util/stopwatch');
 var dbService = require('./databaseService');
 var patchMonstersList = require('./patchMonstersList');
@@ -23,8 +24,8 @@ async function renderList() {
   var stopwatch = new Stopwatch();
   var {patch, endOfList} = await patchMonstersList(filter, pageSize);
   stopwatch.time('patchMonstersList');
-  var patchJson = toJson(patch);
-  stopwatch.time('toJson');
+  var patchJson = serialize(patch);
+  stopwatch.time('serialize');
   var patchJsonAsString = JSON.stringify(patchJson);
   stopwatch.time('JSON.stringify()');
   console.log('patchJsonAsString.length', patchJsonAsString.length);
@@ -66,8 +67,8 @@ async function onDetailMessage(message) {
   setThemeColor(nationalId);
   var {patch} = await patchPromise;
   stopwatch.time('patchMonsterDetail()');
-  var patchJson = toJson(patch);
-  stopwatch.time('toJson');
+  var patchJson = serialize(patch);
+  stopwatch.time('serialize');
   var patchJsonAsString = JSON.stringify(patchJson);
   stopwatch.time('JSON.stringify()');
   console.log('patchJsonAsString.length', patchJsonAsString.length);
@@ -83,7 +84,7 @@ async function onMovesDetailMessage(message) {
   var {nationalId} = message;
 
   var {patch} = await patchMovesList(nationalId);
-  var patchAsString = JSON.stringify(toJson(patch));
+  var patchAsString = JSON.stringify(serialize(patch));
   self.postMessage({
     type: 'movesListPatch',
     patch: patchAsString,

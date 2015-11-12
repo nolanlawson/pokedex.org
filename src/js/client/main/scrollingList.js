@@ -1,5 +1,5 @@
 var progress = require('./progress');
-var fromJson = require('vdom-as-json/fromJson');
+var applyPatch = require('vdom-serialized-patch/patch');
 var patchElement = require('virtual-dom/patch');
 var detailViewOrchestrator = require('./detailViewOrchestrator');
 var worker = require('./../shared/worker');
@@ -14,15 +14,12 @@ var footerHeight;
 var endOfList;
 var appending = false;
 
-function applyPatch(patchString) {
+function doApplyPatch(patchString) {
   console.time('JSON.parse()');
-  var patchJson = JSON.parse(patchString);
+  var patch = JSON.parse(patchString);
   console.timeEnd('JSON.parse()');
-  console.time('fromJson');
-  var patch = fromJson(patchJson);
-  console.timeEnd('fromJson');
   console.time('patchElement');
-  patchElement(monstersList, patch);
+  applyPatch(monstersList, patch);
   console.timeEnd('patchElement');
   progress.end();
   appending = false;
@@ -32,7 +29,7 @@ function onMonstersListPatch(message) {
   console.timeEnd('worker-filter');
   console.log('worker sent message');
 
-  applyPatch(message.patch);
+  doApplyPatch(message.patch);
   endOfList = message.endOfList;
   onScroll(); // sometimes need to check the scroll twice, for large screens
 }

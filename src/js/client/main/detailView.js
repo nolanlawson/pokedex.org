@@ -1,6 +1,5 @@
 var worker = require('./../shared/worker');
-var patchElement = require('virtual-dom/patch');
-var fromJson = require('vdom-as-json/fromJson');
+var applyPatch = require('vdom-serialized-patch/patch');
 var indexOf = require('lodash/array/indexOf');
 var orchestrator = require('./detailViewOrchestrator');
 var Promise = require('../../shared/util/promise');
@@ -74,8 +73,8 @@ function onDetailPatchMessage(message) {
   lastNationalId = nationalId;
   // break up into two functions to avoid jank
   Promise.resolve()
-    .then(() => fromJson(JSON.parse(patch)))
-    .then(patch => patchElement(detailView, patch))
+    .then(() => JSON.parse(patch))
+    .then(patch => applyPatch(detailView, patch))
     .then(() => orchestrator.animateInPartTwo(nationalId, themeColor))
     .catch(err => console.log(err));
 }
@@ -83,8 +82,8 @@ function onDetailPatchMessage(message) {
 function onMovesListPatchMessage(pachAsString) {
   var monsterMovesDiv = detailView.querySelector('.monster-moves');
   Promise.resolve()
-    .then(() => fromJson(JSON.parse(pachAsString)))
-    .then(patch => patchElement(monsterMovesDiv, patch))
+    .then(() => JSON.parse(pachAsString))
+    .then(patch => applyPatch(monsterMovesDiv, patch))
     .then(monsterMovesDiv.classList.remove('hidden'))
     .catch(err => console.log(err));
 }

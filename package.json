@@ -66,6 +66,7 @@
     "uglify-stream": "^1.1.0",
     "uglifyify": "^3.0.1",
     "vdom-as-json": "^1.0.7",
+    "vdom-serialized-patch": "^1.0.1",
     "vdom-to-html": "^2.1.1",
     "virtual-dom": "^2.1.1",
     "watchify": "^3.4.0",
