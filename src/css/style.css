@@ -814,10 +814,36 @@ button {
   will-change: opacity;
   width: 24px;
   height: 24px;
-  margin: 0 0 5px;
+  margin: 0 auto 5px;
 }
 
 .spinner.shown {
+  opacity: 1;
+}
+
+.spinner.big-spinner {
+  width: 48px;
+  height: 48px;
+  margin: 0;
+  opacity: 1;
+}
+
+.big-spinner-holder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.2);
+  opacity: 0;
+  will-change: opacity;
+  transition: opacity 0.5s;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+}
+
+.big-spinner-holder.shown {
   opacity: 1;
 }
 

@@ -9,6 +9,7 @@ var renderEvolutions = require('./renderEvolutions');
 var renderMinutia = require('./renderMinutia');
 var renderDamageWhenAttacked = require('./renderDamageWhenAttacked');
 var renderMovesStub = require('./renderMovesStub');
+var renderSpinner = require('./renderSpinner');
 
 function renderDetailPanel(fullMonsterData) {
   var {monster, description, types, evolutions, supplemental} = fullMonsterData;
@@ -53,7 +54,7 @@ module.exports = monsterData => {
       style: {
         background: getMonsterBackground(monsterData.monster)
       }
-    }),
+    }, [renderSpinner()]),
     h('div.detail-view-fg', [
       h('button.back-button.detail-back-button.hover-shadow', {
         type: 'button'

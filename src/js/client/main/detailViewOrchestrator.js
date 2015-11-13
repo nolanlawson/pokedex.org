@@ -15,6 +15,8 @@ var monstersList;
 var detailSprite;
 var detailBackButton;
 var spriteFacade;
+var spinnerHolder;
+var spinnerTimeout;
 
 var screenWidth = window.innerWidth;
 var screenHeight = window.innerHeight;
@@ -140,15 +142,24 @@ function doInAnimationPartOne(nationalId) {
         queuedAnimation();
         queuedAnimation = null;
       });
+    } else {
+      // if the second animation is delayed more than 5 seconds,
+      // show a spinner to reassure the user (only happens with slow
+      // connections on first load)
+      spinnerTimeout = setTimeout(() => {
+        spinnerHolder.classList.add('shown');
+      }, 5000);
     }
     if (queuedThemeColor) {
       themeManager.setThemeColor(queuedThemeColor);
       queuedThemeColor = null;
     }
-  })
+  });
 }
 
 function doInAnimationPartTwo(nationalId) {
+  spinnerHolder.classList.remove('shown');
+  clearTimeout(spinnerTimeout);
   detailPanel.style.overflowY = 'auto'; // re-enable overflow on the panel
   document.body.style.overflowY = 'hidden'; // disable scrolling
 
@@ -246,6 +257,7 @@ function init() {
   detailViewContainer = $('#detail-view-container');
   monstersList = $('#monsters-list');
   detailPanel = $('.detail-panel');
+  spinnerHolder = $('.big-spinner-holder');
   detailSprite = detailView.querySelector('.detail-sprite');
   detailBackButton = detailView.querySelector('.detail-back-button');
   spriteFacade = createSpriteFacade();
