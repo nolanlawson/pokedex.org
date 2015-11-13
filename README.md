@@ -1,7 +1,7 @@
-pokedex
+Pokedex.org
 ====
 
-work in progress
+An index of Pokémon, built as a client-side JavaScript webapp. Powered by ServiceWorker, PouchDB, [virtual-dom](https://github.com/Matt-Esch/virtual-dom), and web workers.
 
 Building up the database via PokéAPI
 -----
