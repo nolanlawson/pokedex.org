@@ -41,7 +41,7 @@ function renderMoves(moves) {
           ]),
           h('span', [
             h('strong', 'Acc:'),
-            ` ${move.accuracy}%`
+            ' ' + (typeof move.accuracy !== 'number' ? 'N/A' : `${move.accuracy}%`)
           ]),
           h('span', [
             h('strong', 'PP:'),
