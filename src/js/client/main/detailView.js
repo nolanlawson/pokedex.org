@@ -57,9 +57,8 @@ function animateDropdownOut(moveDetail, button) {
   });
 }
 
-function onClickDropdown(button) {
-  var greatGrandparent = button.parentElement.parentElement.parentElement;
-  var moveDetail = greatGrandparent.querySelector('.moves-row-detail');
+function onClickDropdown(button, movesRow) {
+  var moveDetail = movesRow.querySelector('.moves-row-detail');
 
   if (moveDetail.classList.contains('hidden')) {
     animateDropdownIn(moveDetail, button);
@@ -105,10 +104,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
   detailView.addEventListener('click', e => {
-    if (e.target.classList.contains('dropdown-button-image')) {
+    // chrome and firefox disagree on whether the button gets
+    // clicked or the span inside it gets clicked
+    if (e.target.classList.contains('dropdown-button')) {
       e.preventDefault();
       e.stopPropagation();
-      onClickDropdown(e.target);
+      onClickDropdown(e.target,
+        e.target.parentElement.parentElement);
+    } else if (e.target.classList.contains('dropdown-button-image')) {
+      e.preventDefault();
+      e.stopPropagation();
+      onClickDropdown(e.target,
+        e.target.parentElement.parentElement.parentElement);
     }
   })
 });
