@@ -20,7 +20,7 @@ var concat = require('concat-stream');
 
 var constants = require('../src/js/shared/util/constants');
 var numSpritesCssFiles = constants.numSpriteCssFiles;
-var startingPageSize = constants.pageSize;
+var initialWindowSize = constants.initialWindowSize;
 var renderMonsterDetailView = require('../src/js/shared/renderMonsterDetailView');
 var renderMonstersList = require('../src/js/shared/renderMonstersList');
 var monsterSummaries = require('../src/js/shared/data/monsterSummaries');
@@ -103,7 +103,8 @@ module.exports = async function build(debug) {
   async function buildHtml() {
     console.log('buildHtml()');
     var html = await fs.readFileAsync('./src/index.html', 'utf-8');
-    var monstersList = renderMonstersList(monsterSummaries, startingPageSize);
+    var monstersList = renderMonstersList(monsterSummaries,
+      0, initialWindowSize);
     html = html.replace('<ul id="monsters-list"></ul>',
       toHtml(monstersList));
 

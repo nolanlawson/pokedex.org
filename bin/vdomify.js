@@ -3,7 +3,7 @@ var through = require('through');
 var renderMonsterDetailView = require('../src/js/shared/renderMonsterDetailView');
 var renderMonstersList = require('../src/js/shared/renderMonstersList');
 var toJson = require('vdom-as-json/toJson');
-var startingPageSize = require('../src/js/shared/util/constants').pageSize;
+var initialWindowSize = require('../src/js/shared/util/constants').initialWindowSize;
 
 //
 // Pre-render some of the static data (bulbasaur, first 30 monsters) as VDOM
@@ -24,7 +24,7 @@ function vdomify(fileName) {
   if (fileName.match(/\/prerendered\/bulbasaur.json$/)) {
     return vdomifyFile(bulbasaur => renderMonsterDetailView(bulbasaur));
   } else if (fileName.match(/\/prerendered\/monsterSummaries.json$/)) {
-    return vdomifyFile(monstersList => renderMonstersList(monstersList, startingPageSize));
+    return vdomifyFile(monstersList => renderMonstersList(monstersList, 0, initialWindowSize));
   }
 
   return through();

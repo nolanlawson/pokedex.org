@@ -1,20 +1,37 @@
 var h = require('virtual-dom/h');
-// this operation seems to be expensive, so use lodash
-var map = require('lodash/collection/map');
 
 var getMonsterBackground = require('../monster/getMonsterBackground');
 var getMonsterDisplayName = require('../monster/getMonsterDisplayName');
 
-module.exports = (monsters, pageSize) => {
-  monsters = monsters.slice(0, pageSize);
-  return h('ul', {id: 'monsters-list'}, map(monsters, monster =>
-    h('li', {
-      style: {background: getMonsterBackground(monster)}
-    }, [
-      h(`button.monster-sprite.sprite-${monster.national_id}`, {
-        type: 'button'
-      }),
-      h('span', getMonsterDisplayName(monster))
-    ])
-  ));
+function renderMonster(monster) {
+  return h('li', {
+    style: {background: getMonsterBackground(monster)}
+  }, [
+    h(`button.monster-sprite.sprite-${monster.national_id}`, {
+      type: 'button'
+    }),
+    h('span', getMonsterDisplayName(monster))
+  ]);
+}
+
+function renderStub(monster) {
+  return h('li', {
+    style: {
+      background: getMonsterBackground(monster)
+    }
+  }, [
+    h('span', getMonsterDisplayName(monster))
+  ]);
+}
+
+module.exports = (monsters, start, end) => {
+  var startingStubs = monsters.slice(0, start);
+  var monstersToRender = monsters.slice(start, end);
+  var endingStubs = monsters.slice(end);
+
+  var listItems = startingStubs.map(renderStub)
+    .concat(monstersToRender.map(renderMonster))
+    .concat(endingStubs.map(renderStub));
+
+  return h('ul', {id: 'monsters-list'}, listItems);
 };

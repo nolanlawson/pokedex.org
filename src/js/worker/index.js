@@ -20,9 +20,9 @@ var databaseService = require('./databaseService');
 var patchMovesList = require('./patchMovesList');
 
 async function renderList() {
-  var {filter, pageSize} = pageStateStore;
+  var {filter, start, end} = pageStateStore;
   var stopwatch = new Stopwatch();
-  var {patch, endOfList} = await patchMonstersList(filter, pageSize);
+  var {patch, endOfList} = await patchMonstersList(filter, start, end);
   stopwatch.time('patchMonstersList');
   var patchJson = serialize(patch);
   stopwatch.time('serialize');
@@ -46,8 +46,9 @@ async function onFilterMessage(message) {
   await renderList();
 }
 
-async function onScrolledToBottomMessage() {
-  pageStateStore.pageSize += startingPageSize;
+async function onScrolled(message) {
+  pageStateStore.start = message.start;
+  pageStateStore.end = message.end;
   await renderList();
 }
 
@@ -118,8 +119,8 @@ async function onMessage(message) {
     case 'filter':
       await onFilterMessage(message);
       break;
-    case 'scrolledToBottom':
-      await onScrolledToBottomMessage(message);
+    case 'scrolled':
+      await onScrolled(message);
       break;
     case 'detail':
       await onDetailMessage(message);

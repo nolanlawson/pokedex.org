@@ -9,7 +9,7 @@ var fromJson = require('vdom-as-json/fromJson');
 
 var lastMonstersListView = fromJson(require('../shared/prerendered/monsterSummaries.json'));
 
-module.exports = async (filter, pageSize) => {
+module.exports = async (filter, pageSize, start, end) => {
   var stopwatch = new Stopwatch();
 
   var newMonsters;
@@ -20,7 +20,7 @@ module.exports = async (filter, pageSize) => {
   }
 
   stopwatch.time('getting monsters');
-  var newMonstersList = renderMonstersList(newMonsters, pageSize);
+  var newMonstersList = renderMonstersList(newMonsters, pageSize, start, end);
   stopwatch.time('rendering monsters');
 
   var patch = diff(lastMonstersListView, newMonstersList);
