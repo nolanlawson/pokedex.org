@@ -20,6 +20,9 @@ function renderStub(monster) {
       background: getMonsterBackground(monster)
     }
   }, [
+    h(`button.monster-sprite.sprite-${monster.national_id}.lores`, {
+      type: 'button'
+    }),
     h('span', getMonsterDisplayName(monster))
   ]);
 }

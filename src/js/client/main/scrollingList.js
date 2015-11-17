@@ -6,6 +6,7 @@ var detailViewOrchestrator = require('./detailViewOrchestrator');
 var worker = require('./../shared/worker');
 var rippleEffect = require('./rippleEffect');
 var debounce = require('debounce');
+var progressiveDebounce = require('./progressiveDebounce');
 var DEBOUNCE_DELAY = 200;
 var SCROLL_PREFETCH_OFFSET = 800;
 var PLACEHOLDER_OFFSET = 30;
@@ -129,5 +130,5 @@ document.addEventListener('DOMContentLoaded', () => {
   onScroll();
 }, false);
 
-window.addEventListener('scroll', debounce(onScroll, DEBOUNCE_DELAY));
+window.addEventListener('scroll', progressiveDebounce(onScroll, DEBOUNCE_DELAY));
 window.addEventListener('resize', debounce(onScroll, 50));

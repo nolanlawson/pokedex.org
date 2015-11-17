@@ -3,6 +3,7 @@
 var supportsWebp = require('../../shared/util/supportsWebp');
 var constants = require('../../shared/util/constants');
 var numSpriteCssFiles = constants.numSpriteCssFiles;
+var numLoresSpriteCssFiles = constants.numLoresSpriteCssFiles;
 
 function loadCssAsync(filename) {
   var link = document.createElement('link');
@@ -18,20 +19,26 @@ function loadCssAsync(filename) {
   return link;
 }
 
-// Load the sprites in a waterfall, because we don't want them to block
-// other HTTP requests; they're not *that* important.
+function loadAllAsync(numToDo, templateFun) {
+  var i = 1;
 
-var hasWebp = supportsWebp();
-var i = 1;
-
-function loop() {
-  if (i > numSpriteCssFiles) {
-    return; // done
+  function loop() {
+    if (i > numToDo) {
+      return; // done
+    }
+    var filename = templateFun(i);
+    var link = loadCssAsync(filename);
+    i++;
+    link.onload = loop;
   }
-  var filename = hasWebp ? `css/sprites-webp-${i}.css` : `css/sprites-${i}.css`;
-  var link = loadCssAsync(filename);
-  i++;
-  link.onload = loop;
+
+  loop();
 }
 
-loop();
+// Load the sprites in a waterfall, because we don't want them to block
+// other HTTP requests; they're not *that* important.
+var hasWebp = supportsWebp();
+loadAllAsync(numSpriteCssFiles,
+    i => `css/sprites${hasWebp ? '-webp' : ''}-${i}.css`);
+loadAllAsync(numLoresSpriteCssFiles,
+    i => `css/sprites-lores-${i}.css`);
