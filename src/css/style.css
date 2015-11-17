@@ -29,7 +29,7 @@ button {
   right: 0;
   left: 0;
   z-index: 2;
-  transition: transform 0.2s;
+  transition: transform 0.2s  ease-in-out;
   will-change: transform;
 }
 
@@ -43,16 +43,16 @@ button {
   overflow: auto;
   z-index: 2;
   background-color: #fff;
+  transition: transform 0.2s ease-in-out;
   will-change: transform;
-  transition: transform 0.2s;
 }
 
 #content-wrapper {
   min-height: 100%;
   overflow-x: hidden;
   transform: translate(0, 0);
+  transition: transform 0.2s ease-in-out;
   will-change: transform;
-  transition: transform 0.2s;
 
   /* sticky bottom */
   margin-bottom: -160px;
@@ -63,29 +63,25 @@ button {
   height: 160px;
   font-size: 13px;
   transform: translate(0, 0);
+  transition: transform 0.2s ease-in-out;
   will-change: transform;
-  transition: transform 0.2s;
 }
 
 @media (min-width: 768px) {
   #header {
     transform: translate(200px, 0);
-    transition: transform 0.2s;
   }
 
   #sidedrawer {
     transform: translate(0, 0);
-    transition: transform 0.2s;
   }
 
   #content-wrapper {
     margin-left: 200px;
-    transition: margin-left 0.2s;
   }
 
   #footer {
     margin-left: 200px;
-    transition: margin-left 0.2s;
   }
 
   body.hide-sidedrawer #header {
@@ -112,7 +108,6 @@ button {
 
 #sidedrawer.active {
   transform: translate(0, 0);
-  transition: transform 0.2s;
 }
 
 

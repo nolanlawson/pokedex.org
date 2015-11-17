@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // show element
     overlay.appendChild(sideDrawer);
-    requestAnimationFrame(() => sideDrawer.classList.add('active'));
+    // wait for side menu to fade out
+    setTimeout(() => sideDrawer.classList.add('active'), 200);
 
     overlay.addEventListener('click', hideSidedrawer);
   }
