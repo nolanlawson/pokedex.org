@@ -19,12 +19,7 @@ function renderStub(monster) {
     style: {
       background: getMonsterBackground(monster)
     }
-  }, [
-    h(`button.monster-sprite.sprite-${monster.national_id}.lores`, {
-      type: 'button'
-    }),
-    h('span', getMonsterDisplayName(monster))
-  ]);
+  });
 }
 
 module.exports = (monsters, start, end) => {

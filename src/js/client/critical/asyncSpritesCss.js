@@ -40,5 +40,3 @@ function loadAllAsync(numToDo, templateFun) {
 var hasWebp = supportsWebp();
 loadAllAsync(numSpriteCssFiles,
     i => `css/sprites${hasWebp ? '-webp' : ''}-${i}.css`);
-loadAllAsync(numLoresSpriteCssFiles,
-    i => `css/sprites-lores-${i}.css`);

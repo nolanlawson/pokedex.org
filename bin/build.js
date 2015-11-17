@@ -20,7 +20,6 @@ var concat = require('concat-stream');
 
 var constants = require('../src/js/shared/util/constants');
 var numSpritesCssFiles = constants.numSpriteCssFiles;
-var numLoresSpriteCssFiles = constants.numLoresSpriteCssFiles;
 var initialWindowSize = constants.initialWindowSize;
 var renderMonsterDetailView = require('../src/js/shared/renderMonsterDetailView');
 var renderMonstersList = require('../src/js/shared/renderMonstersList');
@@ -143,7 +142,6 @@ module.exports = async function build(debug) {
     console.log('buildCss()');
     var spritesCss = await fs.readFileAsync('./src/css/sprites.css', 'utf-8');
     var spritesWebpCss = await fs.readFileAsync('./src/css/sprites-webp.css', 'utf-8');
-    var loresCss = await fs.readFileAsync('./src/css/sprites-lores.css', 'utf-8');
 
     if (!debug) {
       spritesCss = spritesCss.split('\n').slice(CRITICAL_CSS_SPRITES_LINES).join('\n');
@@ -155,7 +153,6 @@ module.exports = async function build(debug) {
     var promises = [
       writeSplitCss(spritesCss, './www/css/sprites.css', numSpritesCssFiles),
       writeSplitCss(spritesWebpCss, './www/css/sprites-webp.css', numSpritesCssFiles),
-      writeSplitCss(loresCss, './www/css/sprites-lores.css', numLoresSpriteCssFiles)
     ];
     if (debug) {
       var mainCss = await fs.readFileAsync('./src/css/style.css', 'utf-8');
