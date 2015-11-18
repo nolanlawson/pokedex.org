@@ -10,5 +10,5 @@ module.exports = monster => {
     case 'Farfetchd':
       return "Farfetch'd";
   }
-  return name.replace(/-(?:ordinary|incarnate|normal|aria|plant|altered)$/, '');
+  return name.replace(/-(?:ordinary|incarnate|normal|aria|plant|altered|red-striped)$/, '');
 };
