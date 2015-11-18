@@ -12,7 +12,7 @@ var range = require('lodash/utility/range');
 // a: version-isolated change, don't let both versions run together
 // b: new feature
 // c: bug fix
-var version = '1.0.3';
+var version = '1.0.4';
 
 var staticContent = [
   '/',
