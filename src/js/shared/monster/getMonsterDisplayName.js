@@ -1,5 +1,4 @@
-module.exports = monster => {
-  var name = monster.name;
+module.exports = name => {
   switch (name) {
     case 'Nidoran-m':
       return "Nidoran \u2642";
@@ -7,6 +6,8 @@ module.exports = monster => {
       return "Nidoran \u2640";
     case 'Mr-mime':
       return 'Mr. Mime';
+    case 'Mime-jr':
+      return 'Mime Jr.';
     case 'Farfetchd':
       return "Farfetch'd";
   }

@@ -22,7 +22,7 @@ function renderDetailPanel(fullMonsterData) {
       style: {
         background: darkColor
       }
-    }, getMonsterDisplayName(monster)),
+    }, getMonsterDisplayName(monster.name)),
     h('div.detail-panel-content', [
       h(`div.detail-header`, [
         h(`div.detail-sprite.monster-sprite.sprite-${monster.national_id}`),

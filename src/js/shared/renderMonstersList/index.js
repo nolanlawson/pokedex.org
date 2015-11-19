@@ -10,7 +10,7 @@ function renderMonster(monster) {
     h(`button.monster-sprite.sprite-${monster.national_id}`, {
       type: 'button'
     }),
-    h('span', getMonsterDisplayName(monster))
+    h('span', getMonsterDisplayName(monster.name))
   ]);
 }
 

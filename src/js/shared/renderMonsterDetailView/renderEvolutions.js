@@ -1,5 +1,6 @@
 var h = require('virtual-dom/h');
 var getMonsterDarkTheme = require('../monster/getMonsterDarkTheme');
+var getMonsterDisplayName = require('../monster/getMonsterDisplayName');
 
 function renderArrow(color) {
   return h("svg", {
@@ -23,9 +24,9 @@ function renderLabel(evolution, sourceMonster, direction) {
   var method = evolution.method;
   var str;
   if (direction === 'from') {
-    str = `${evolution.name} evolves into ${sourceMonster.name} `;
+    str = `${getMonsterDisplayName(evolution.name)} evolves into ${getMonsterDisplayName(sourceMonster.name)} `;
   } else {
-    str = `${sourceMonster.name} evolves into ${evolution.name} `;
+    str = `${getMonsterDisplayName(sourceMonster.name)} evolves into ${getMonsterDisplayName(evolution.name)} `;
   }
 
   var bold;
