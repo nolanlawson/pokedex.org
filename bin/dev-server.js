@@ -60,7 +60,7 @@ async function doIt() {
 
   // start up dev server
   var serverPromise = new Promise(function (resolve, reject) {
-    hs.createServer({root: './www'}).listen(9000, function (err) {
+    hs.createServer({root: './www'}).listen(9001, function (err) {
       if (err) {
         return reject(err);
       }
