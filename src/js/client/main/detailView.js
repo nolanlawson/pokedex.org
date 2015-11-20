@@ -81,7 +81,7 @@ function onMovesListPatchMessage(patch) {
   console.log('okay we are patching');
   var monsterMovesDiv = detailView.querySelector('.monster-moves');
   Promise.resolve()
-    .then(patch => patchElement(monsterMovesDiv, patch))
+    .then(() => patchElement(monsterMovesDiv, patch))
     .then(monsterMovesDiv.classList.remove('hidden'))
     .catch(err => console.log(err));
 }
