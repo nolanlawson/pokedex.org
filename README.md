@@ -14,6 +14,8 @@ This site uses data provided by [PokéAPI](http://pokeapi.co/). To build up the 
 ./node_modules/.bin/babel-node ... # there are several of these
 ```
 
+Some of the build scripts pull from `src/js/shared/data` (which contains some files that I had to build myself by scraping Bulbapedia), whereas the main ones pull from the live PokeAPI. (I never got the local PokeAPI working correctly, so I just pulled from the remote.)
+
 Developing
 ----
 
@@ -31,3 +33,9 @@ Building
     npm run build
     
 This will write files to `www/`.
+
+Credits
+---
+
+
+Thanks to [PokeAPI](http://pokeapi.co/) and [Bulbapedia](http://bulbapedia.bulbagarden.net/) for the Pokémon data, and of course to Nintendo, Game Freak, and The Pokémon Company for making such an awesome series of games.
