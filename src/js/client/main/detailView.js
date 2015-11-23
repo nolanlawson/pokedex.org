@@ -68,6 +68,7 @@ function onClickDropdown(button, movesRow) {
 }
 
 function onDetailPatchMessage(message) {
+  console.timeEnd('worker-detail');
   var {nationalId, themeColor, patch} = message;
   lastNationalId = nationalId;
   // break up into two functions to avoid jank

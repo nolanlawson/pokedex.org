@@ -172,7 +172,6 @@ module.exports = async function build(debug) {
     }
     var b = browserify(files, opts);
     b = b.transform('babelify');
-    b = b.transform('stripify');
     b = b.transform(vdomify).transform(envify({
       NODE_ENV: process.env.NODE_ENV || (debug ? 'development' : 'production')
     }));
