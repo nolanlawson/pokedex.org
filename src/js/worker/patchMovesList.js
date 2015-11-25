@@ -7,14 +7,14 @@ var Stopwatch = require('../shared/util/stopwatch');
 var lastMovesList = h('div.monster-moves');
 
 module.exports = async nationalId => {
-  var stopwatch = new Stopwatch();
+  var stopwatch = new Stopwatch('Fetching monster moves');
   var monsterSummary = databaseService.getMonsterSummaryById(nationalId);
   var moves = await databaseService.getMonsterMovesById(nationalId);
-  stopwatch.time('Fetching monster moves');
+  stopwatch.time('Patching monster moves');
   var newMovesList = renderMovesList(monsterSummary, moves);
 
   var patch = diff(lastMovesList, newMovesList);
-  stopwatch.time('Patching monster moves');
+  stopwatch.time();
   lastMovesList = newMovesList;
 
   return {patch};
