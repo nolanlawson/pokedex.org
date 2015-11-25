@@ -803,7 +803,6 @@ button {
 
 /* modified from http://codepen.io/mrrocks/pen/EiplA */
 .spinner {
-  animation: rotator 2.8s linear infinite;
   transition: opacity 0.2s ease-in-out;
   opacity: 0;
   will-change: opacity;
@@ -812,8 +811,8 @@ button {
   margin: 0 auto 5px;
 }
 
-.spinner.shown {
-  opacity: 1;
+.shown .spinner {
+  animation: rotator 2.8s linear infinite;
 }
 
 .spinner.big-spinner {
