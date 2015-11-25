@@ -21,13 +21,13 @@ var patchMovesList = require('./patchMovesList');
 
 async function renderList() {
   var {filter, start, end} = pageStateStore;
-  var stopwatch = new Stopwatch();
+  var stopwatch = new Stopwatch('patchMonstersList');
   var {patch, endOfList} = await patchMonstersList(filter, start, end);
-  stopwatch.time('patchMonstersList');
-  var patchJson = serialize(patch);
   stopwatch.time('serialize');
-  var patchJsonAsString = JSON.stringify(patchJson);
+  var patchJson = serialize(patch);
   stopwatch.time('JSON.stringify()');
+  var patchJsonAsString = JSON.stringify(patchJson);
+  stopwatch.time('worker-filter (total)');
   console.log('patchJsonAsString.length', patchJsonAsString.length);
 
   self.postMessage({
@@ -35,7 +35,7 @@ async function renderList() {
     patch: patchJsonAsString,
     endOfList: endOfList
   });
-  stopwatch.totalTime('worker-filter (total)');
+  stopwatch.totalTime();
 }
 
 async function onFilterMessage(message) {
@@ -63,22 +63,22 @@ function setThemeColor(nationalId) {
 
 async function onDetailMessage(message) {
   var {nationalId} = message;
-  var stopwatch = new Stopwatch();
+  var stopwatch = new Stopwatch('patchMonsterDetail()');
   var patchPromise = patchMonsterDetail(nationalId);
   setThemeColor(nationalId);
   var {patch} = await patchPromise;
-  stopwatch.time('patchMonsterDetail()');
-  var patchJson = serialize(patch);
   stopwatch.time('serialize');
-  var patchJsonAsString = JSON.stringify(patchJson);
+  var patchJson = serialize(patch);
   stopwatch.time('JSON.stringify()');
+  var patchJsonAsString = JSON.stringify(patchJson);
+  stopwatch.time('worker-detail (total)');
   console.log('patchJsonAsString.length', patchJsonAsString.length);
   self.postMessage({
     type: 'monsterDetailPatch',
     patch: patchJsonAsString,
     nationalId: nationalId
   });
-  stopwatch.totalTime('worker-detail (total)');
+  stopwatch.totalTime();
 }
 
 async function onMovesDetailMessage(message) {
