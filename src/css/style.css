@@ -101,6 +101,12 @@ button {
   }
 }
 
+body {
+  /* iOS hacks to fix momentum scrolling */
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
 
 /**
  * Toggle Sidedrawer
@@ -392,8 +398,10 @@ button {
   top: 0;
   left: 10px;
   right: 10px;
-  overflow-y: auto;
   will-change: transform;
+  /* iOS hacks to fix momentum scrolling */
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 
 .detail-panel.animating {
