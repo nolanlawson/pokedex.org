@@ -154,7 +154,7 @@ module.exports = {
     initDBs(couchHome);
   },
   getFullMonsterDataById: async nationalId => {
-    var stopwatch = new Stopwatch();
+    var stopwatch = new Stopwatch('get() monster and monster data');
     var monsterSummary = inMemoryDB.findByNationalId(nationalId);
     var monsterDocId = getDocId(monsterSummary);
     var descDocId = getGeneration5DescriptionDocId(monsterSummary);
@@ -169,7 +169,7 @@ module.exports = {
     var results = await* promises;
     var [monster, description, evolutions, supplemental, types] = results;
 
-    stopwatch.time('get() monster and monster data');
+    stopwatch.totalTime('get() monster and monster data');
     return {monster, description, evolutions, supplemental, types};
   },
   getFilteredMonsters: async (filter) => {
