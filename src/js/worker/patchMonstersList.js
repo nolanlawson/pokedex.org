@@ -10,24 +10,26 @@ var fromJson = require('vdom-as-json/fromJson');
 var lastMonstersListView = fromJson(require('../shared/prerendered/monsterSummaries.json'));
 
 module.exports = async (filter, pageSize, start, end) => {
-  var stopwatch = new Stopwatch('getting monsters');
+  var stopwatch = new Stopwatch('patchMonstersList()');
 
   var newMonsters;
   if (filter) {
+    stopwatch.start('getFilteredMonsters()');
     newMonsters = await dbService.getFilteredMonsters(filter);
   } else {
+    stopwatch.start('getAllMonsters()');
     newMonsters = await dbService.getAllMonsters();
   }
 
-  stopwatch.time('rendering monsters');
+  stopwatch.time('renderMonstersList()');
   var newMonstersList = renderMonstersList(newMonsters, pageSize, start, end);
-  stopwatch.time('diffing monsters');
+  stopwatch.time('diff()');
 
   var patch = diff(lastMonstersListView, newMonstersList);
   var endOfList = newMonsters.length <= pageSize;
   console.log('newMonsters.length', newMonsters.length, 'pageSize', pageSize);
-  stopwatch.time();
   lastMonstersListView = newMonstersList;
 
+  stopwatch.totalTime();
   return {patch, endOfList};
 };

@@ -10,19 +10,19 @@ var fromJson = require('vdom-as-json/fromJson');
 var lastDetailView = fromJson(require('../shared/prerendered/bulbasaur'));
 
 module.exports = async nationalId => {
-  var stopwatch = new Stopwatch('detail: fetching monsterData');
+  var stopwatch = new Stopwatch('patchMonsterDetail()');
+  stopwatch.start('getFullMonsterDataById()');
   var fullMonsterData = await dbService.getFullMonsterDataById(nationalId);
-  stopwatch.time('detail: rendering');
+  stopwatch.time('renderDetailView()');
 
   var newDetailView = renderDetailView(fullMonsterData);
 
-  stopwatch.time('detail: diffing');
+  stopwatch.time('diff()');
 
   var patch = diff(lastDetailView, newDetailView);
 
   lastDetailView = newDetailView;
 
-  stopwatch.time();
-
+  stopwatch.totalTime();
   return {patch};
 };

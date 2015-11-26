@@ -21,14 +21,14 @@ var patchMovesList = require('./patchMovesList');
 
 async function renderList() {
   var {filter, start, end} = pageStateStore;
-  var stopwatch = new Stopwatch('patchMonstersList');
+  var stopwatch = new Stopwatch('renderList()');
+  stopwatch.start('patchMonstersList()');
   var {patch, endOfList} = await patchMonstersList(filter, start, end);
   stopwatch.time('serialize');
   var patchJson = serialize(patch);
   stopwatch.time('JSON.stringify()');
   var patchJsonAsString = JSON.stringify(patchJson);
-  stopwatch.time('worker-filter (total)');
-  console.log('patchJsonAsString.length', patchJsonAsString.length);
+  stopwatch.time('postMessage()');
 
   self.postMessage({
     type: 'monstersListPatch',
@@ -63,7 +63,8 @@ function setThemeColor(nationalId) {
 
 async function onDetailMessage(message) {
   var {nationalId} = message;
-  var stopwatch = new Stopwatch('patchMonsterDetail()');
+  var stopwatch = new Stopwatch('onDetailMessage()');
+  stopwatch.start('patchMonsterDetail');
   var patchPromise = patchMonsterDetail(nationalId);
   setThemeColor(nationalId);
   var {patch} = await patchPromise;
@@ -71,8 +72,7 @@ async function onDetailMessage(message) {
   var patchJson = serialize(patch);
   stopwatch.time('JSON.stringify()');
   var patchJsonAsString = JSON.stringify(patchJson);
-  stopwatch.time('worker-detail (total)');
-  console.log('patchJsonAsString.length', patchJsonAsString.length);
+  stopwatch.time('postMessage()');
   self.postMessage({
     type: 'monsterDetailPatch',
     patch: patchJsonAsString,
@@ -83,14 +83,18 @@ async function onDetailMessage(message) {
 
 async function onMovesDetailMessage(message) {
   var {nationalId} = message;
-
+  var stopwatch = new Stopwatch('onMovesDetailMessage()');
+  stopwatch.start('patchMovesList()');
   var {patch} = await patchMovesList(nationalId);
+  stopwatch.time('JSON.stringify()');
   var patchAsString = JSON.stringify(serialize(patch));
+  stopwatch.time('postMessage()');
   self.postMessage({
     type: 'movesListPatch',
     patch: patchAsString,
     nationalId: nationalId
   });
+  stopwatch.totalTime();
 }
 
 async function onOriginMessage(message) {

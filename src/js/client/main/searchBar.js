@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var filter = e.target.value;
 
     console.log('posting message to filter', filter);
-    console.time('worker-filter');
+    console.time('worker');
     worker.postMessage({
       filter: filter,
       type: 'filter'

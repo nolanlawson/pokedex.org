@@ -8,14 +8,15 @@ var lastMovesList = h('div.monster-moves');
 
 module.exports = async nationalId => {
   var stopwatch = new Stopwatch('Fetching monster moves');
+  stopwatch.start('getMonsterSummaryById()');
   var monsterSummary = databaseService.getMonsterSummaryById(nationalId);
+  stopwatch.start('getMonsterMovesById()');
   var moves = await databaseService.getMonsterMovesById(nationalId);
-  stopwatch.time('Patching monster moves');
+  stopwatch.time('renderMovesList()');
   var newMovesList = renderMovesList(monsterSummary, moves);
-
+  stopwatch.time('diff()');
   var patch = diff(lastMovesList, newMovesList);
-  stopwatch.time();
   lastMovesList = newMovesList;
-
+  stopwatch.totalTime();
   return {patch};
 };

@@ -89,8 +89,10 @@ function onMovesListPatchMessage(pachAsString) {
 
 worker.addEventListener('message', e => {
   if (e.data.type === 'monsterDetailPatch') {
+    console.timeEnd('worker');
     onDetailPatchMessage(e.data);
   } else if (e.data.type === 'movesListPatch') {
+    console.timeEnd('worker');
     onMovesListPatchMessage(e.data.patch);
   }
 });

@@ -20,22 +20,20 @@ function doApplyPatch(patchString) {
   console.time('JSON.parse()');
   var patch = JSON.parse(patchString);
   console.timeEnd('JSON.parse()');
-  console.time('patchElement');
+  console.time('patchElement()');
   applyPatch(monstersList, patch);
-  console.timeEnd('patchElement');
+  console.timeEnd('patchElement()');
   progress.end();
 }
 
 function onMonstersListPatch(message) {
-  console.timeEnd('worker-filter');
-  console.log('worker sent message');
-
   doApplyPatch(message.patch);
   endOfList = message.endOfList;
 }
 
 function onMessage(message) {
   if (message.type === 'monstersListPatch') {
+    console.timeEnd('worker');
     onMonstersListPatch(message);
   }
 }
@@ -84,7 +82,7 @@ function onScroll() {
   var firstInvisibleIndex = binarySearchForFirstInvisibleChild(firstVisibleIndex, children);
   console.timeEnd('binarySearch');
 
-  console.time('worker-filter');
+  console.time('worker');
   worker.postMessage({
     type: 'scrolled',
     start: Math.max(0, firstVisibleIndex - PLACEHOLDER_OFFSET),
@@ -93,7 +91,7 @@ function onScroll() {
 }
 
 function showMonsterDetail(nationalId) {
-  console.time('worker-detail');
+  console.time('worker');
   worker.postMessage({
     type: 'detail',
     nationalId: nationalId
