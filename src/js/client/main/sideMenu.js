@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   var $ = document.querySelector.bind(document);
   var sideDrawer = $('#sidedrawer');
+  var scrollingList = require('./scrollingList');
 
   function showSidedrawer() {
     // show overlay
@@ -24,6 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
       sideDrawer.classList.remove('active');
       setTimeout(() => {
         document.body.classList.toggle('hide-sidedrawer');
+        scrollingList.onViewportChange();
+        
         if ($('#mui-overlay')) {
           mui.overlay('off');
         }
