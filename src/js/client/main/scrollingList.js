@@ -71,7 +71,7 @@ function binarySearchForFirstInvisibleChild(start, children) {
   return low;
 }
 
-function onScroll() {
+function onViewportChange() {
   if (!monstersList) {
     return;
   }
@@ -125,8 +125,12 @@ document.addEventListener('DOMContentLoaded', () => {
       showMonsterDetail(nationalId);
     }
   });
-  onScroll();
+  onViewportChange();
 }, false);
 
-window.addEventListener('scroll', progressiveDebounce(onScroll, DEBOUNCE_DELAY));
-window.addEventListener('resize', debounce(onScroll, 50));
+window.addEventListener('scroll', progressiveDebounce(onViewportChange, DEBOUNCE_DELAY));
+window.addEventListener('resize', debounce(onViewportChange, 50));
+
+module.exports = {
+  onViewportChange: onViewportChange
+};
