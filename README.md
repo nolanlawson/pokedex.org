@@ -6,7 +6,12 @@ An index of Pokémon, built as a client-side JavaScript webapp. Powered by Servi
 Developing
 ----
 
-Start a dev server on localhost:9000:
+First, be sure to install dependencies:
+
+    npm install
+
+
+Then start a dev server on localhost:9000:
 
     npm run serve
 
