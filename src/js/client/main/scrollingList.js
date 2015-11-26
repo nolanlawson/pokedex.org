@@ -130,3 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 window.addEventListener('scroll', progressiveDebounce(onViewportChange, DEBOUNCE_DELAY));
 window.addEventListener('resize', debounce(onViewportChange, 50));
+
+module.exports = {
+  onViewportChange: onViewportChange
+};
