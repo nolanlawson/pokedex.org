@@ -201,34 +201,51 @@ module.exports = async function build(debug) {
       }
     ];
 
-    var normalBrowserifications = files.map(browserifyAndWriteFile);
+    var browserifyPromises = files.map(browserifyAndWriteFile);
 
-    // do a factor-bundle to split up the worker and critical stuff
-    var factorBrowserification = new Promise(function (resolve) {
-      var numDone = 0;
-      var checkDone = () => {
-        if (++numDone == 3) {
-          resolve();
+    var factorPromise;
+
+    if (debug) {
+      // avoid the  factor-bundle for faster reload times
+      factorPromise = bluebird.all([
+        browserifyAndWriteFile({
+          source: __dirname + '/../src/js/client/main/index.js',
+          dest: __dirname + '/../www/js/main.js'
+        }),
+        browserifyAndWriteFile({
+          source: __dirname + '/../src/js/client/critical/index.js',
+          dest: __dirname + '/../www/js/critical.js'
+        }),
+        fs.writeFileAsync(__dirname + '/../www/js/common.js', '')
+      ]);
+    } else {
+      // do a factor-bundle to split up the worker and critical stuff
+      factorPromise = new Promise(function (resolve) {
+        var numDone = 0;
+        var checkDone = () => {
+          if (++numDone == 3) {
+            resolve();
+          }
+        };
+
+        var files = [
+          __dirname + '/../src/js/client/main/index.js',
+          __dirname + '/../src/js/client/critical/index.js'
+        ];
+        var b = startBrowserify(files);
+
+        b.plugin('factor-bundle', {outputs: [write('main.js'), write('critical.js')]});
+        b.bundle().pipe(write('common.js')).on('end', checkDone);
+
+        function write(name) {
+          return concat(function (body) {
+            fs.writeFile(__dirname + '/../www/js/' + name, body, 'utf-8', checkDone);
+          });
         }
-      };
+      });
+    }
 
-      var files = [
-        __dirname + '/../src/js/client/main/index.js',
-        __dirname + '/../src/js/client/critical/index.js'
-      ];
-      var b = startBrowserify(files);
-
-      b.plugin('factor-bundle', {outputs: [write('main.js'), write('critical.js')]});
-      b.bundle().pipe(write('common.js')).on('end', checkDone);
-
-      function write(name) {
-        return concat(function (body) {
-          fs.writeFile(__dirname + '/../www/js/' + name, body, 'utf-8', checkDone);
-        });
-      }
-    });
-
-    await* [...normalBrowserifications, factorBrowserification];
+    await* [...browserifyPromises, factorPromise];
 
     var allOutputFiles = [
       __dirname + '/../www/js/worker.js',
@@ -253,19 +270,15 @@ module.exports = async function build(debug) {
   async function buildStatic() {
     console.log('buildStatic()');
 
+    await mkdirp('./www/assets');
+
     var promises = [
       ncp('./src/img', './www/img'),
-      ncp('./src/assets', './www/assets'),
       cp('./src/robots.txt', './www/robots.txt'),
       cp('./src/favicon.ico', './www/favicon.ico'),
       cp('./src/manifest.json', './www/manifest.json'),
       ncp('./src/svg', './www/svg'),
-      ncp('./src/vendor', './www/vendor')
-    ];
-
-    await* promises;
-
-    var newPromises = [
+      ncp('./src/vendor', './www/vendor'),
       splitFile('./src/assets/monster-moves.txt', './www/assets/monster-moves.txt', 100),
       splitFile('./src/assets/descriptions.txt', './www/assets/descriptions.txt', 100),
       splitFile('./src/assets/monsters-supplemental.txt', './www/assets/monsters-supplemental.txt', 100),
@@ -273,10 +286,10 @@ module.exports = async function build(debug) {
       splitFile('./src/assets/moves.txt', './www/assets/moves.txt', 100)
     ];
 
-    await* newPromises;
+    await* promises;
   }
 
-  console.log('copying from src to www');
+  console.log('building...');
   await rimraf('./www');
   await mkdirp('./www');
   await* [buildHtml(), buildCss(), buildJS(), buildStatic()];
