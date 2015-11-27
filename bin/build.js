@@ -279,6 +279,8 @@ module.exports = async function build(debug) {
       cp('./src/manifest.json', './www/manifest.json'),
       ncp('./src/svg', './www/svg'),
       ncp('./src/vendor', './www/vendor'),
+      cp('./src/assets/evolutions.txt', './www/assets/evolutions.txt'),
+      cp('./src/assets/types.txt', './www/assets/types.txt'),
       splitFile('./src/assets/monster-moves.txt', './www/assets/monster-moves.txt', 100),
       splitFile('./src/assets/descriptions.txt', './www/assets/descriptions.txt', 100),
       splitFile('./src/assets/monsters-supplemental.txt', './www/assets/monsters-supplemental.txt', 100),
