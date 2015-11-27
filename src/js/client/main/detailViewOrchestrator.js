@@ -1,6 +1,7 @@
 // animate between the list view and the detail view, using FLIP animations
 // https://aerotwist.com/blog/flip-your-animations/
 
+var utils = require('./utils');
 var themeManager = require('./themeManager');
 var worker = require('./../shared/worker');
 var each = require('lodash/collection/each');
@@ -25,6 +26,8 @@ var dimensToSpriteRect = {};
 var runningAnimationPartOne = false;
 var queuedAnimation = false;
 var queuedThemeColor;
+
+var animationDelay = utils.canRunHighPerfAnims() ? 0 : 500;
 
 function getScrollTop() {
   // browsers seem to disagree on this
@@ -299,10 +302,19 @@ function animateInPartOne(nationalId) {
   }, 20);
 }
 
+function createPartTwoAnimation(nationalId) {
+  // it is very likely that old Android phones will not run these two
+  // animations very well if they occur at the same time. so stagger them
+  if (animationDelay === 0) {
+    return () => requestAnimationFrame(() => doInAnimationPartTwo(nationalId));
+  }
+  return () => setTimeout(() =>
+    requestAnimationFrame(() => doInAnimationPartTwo(nationalId)),
+  animationDelay);
+}
+
 function animateInPartTwo(nationalId) {
-  var runPartTwoAnimation = () => {
-    requestAnimationFrame(() => doInAnimationPartTwo(nationalId));
-  };
+  var runPartTwoAnimation = createPartTwoAnimation(nationalId);
   if (runningAnimationPartOne) {
     console.log('waiting for part one animation to finish');
     queuedAnimation = runPartTwoAnimation;

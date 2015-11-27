@@ -7,5 +7,16 @@ module.exports = {
       !/Chrome/.test(navigator.userAgent) &&
       !/BlackBerry/.test(navigator.platform);
     return !isSafari;
+  },
+  canRunHighPerfAnims: () => {
+    // it is a pretty safe assumption that android 4 devices are not
+    // running on great hardware. this is an inexact metric, but it
+    // ought to be pretty safe for the time being
+    var isAndroid4 = navigator.userAgent.match(/Android 4\./);
+
+    // firefox does not run concurrent animations well
+    var isFirefox = navigator.userAgent.match(/Firefox/);
+
+    return !isAndroid4 && !isFirefox;
   }
 };
