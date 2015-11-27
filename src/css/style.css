@@ -353,6 +353,7 @@ button {
   right: 0;
   bottom: 0;
   z-index: 2000;
+  will-change: transform;
 }
 
 .detail-view-fg {
