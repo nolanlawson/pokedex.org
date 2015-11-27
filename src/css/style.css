@@ -206,14 +206,20 @@ button {
 
 /* Search box */
 
-.mui-textfield>input:focus, .mui-textfield>textarea:focus {
+.mui-textfield > input:focus, .mui-textfield > textarea:focus {
   border-color: #a040a0;
   background-image: url(../svg/search-active.svg);
 }
-.mui-textfield>input {
+.mui-textfield > input {
   background-image: url(../svg/search.svg);
   background-repeat: no-repeat;
   background-position: right center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.mui-textfield > input::placeholder,
+.mui-textfield > textarea::placeholder {
+  color: rgba(0, 0, 0, 0.4);
 }
 
 #progress-mask {
