@@ -333,6 +333,7 @@ button {
   z-index: 20;
   position: absolute;
   text-align: center;
+  pointer-events: none;
 }
 
 #detail-view {
