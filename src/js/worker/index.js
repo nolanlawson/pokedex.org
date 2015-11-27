@@ -118,12 +118,18 @@ async function onModalMessage(message) {
   });
 }
 
+async function onViewportChangeMessage() {
+  self.postMessage({
+    type: 'viewportChanged'
+  });
+}
+
 async function onMessage(message) {
   switch (message.type) {
     case 'filter':
       await onFilterMessage(message);
       break;
-    case 'scrolled':
+    case 'listStateChanged':
       await onScrolled(message);
       break;
     case 'detail':
@@ -140,6 +146,9 @@ async function onMessage(message) {
       break;
     case 'modal':
       await onModalMessage(message);
+      break;
+    case 'viewportChanged':
+      await onViewportChangeMessage();
       break;
   }
 }

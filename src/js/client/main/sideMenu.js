@@ -1,7 +1,8 @@
+var worker = require('./../shared/worker');
+
 document.addEventListener('DOMContentLoaded', () => {
   var $ = document.querySelector.bind(document);
   var sideDrawer = $('#sidedrawer');
-  var scrollingList = require('./scrollingList');
 
   function showSidedrawer() {
     // show overlay
@@ -25,8 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
       sideDrawer.classList.remove('active');
       setTimeout(() => {
         document.body.classList.toggle('hide-sidedrawer');
-        scrollingList.onViewportChange();
-        
+
         if ($('#mui-overlay')) {
           mui.overlay('off');
         }
@@ -34,12 +34,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function shortHideSidedrawer() {
+  function toggleSidedrawer() {
     document.body.classList.toggle('hide-sidedrawer');
+    worker.postMessage({
+      type: 'viewportChanged'
+    });
   }
 
   $('.js-show-sidedrawer').addEventListener('click', showSidedrawer);
-  $('.js-hide-sidedrawer').addEventListener('click', shortHideSidedrawer);
+  $('.js-hide-sidedrawer').addEventListener('click', toggleSidedrawer);
 
   $('#pokemon-link').addEventListener('click', e => {
     e.preventDefault();

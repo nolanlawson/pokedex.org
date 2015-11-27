@@ -31,13 +31,6 @@ function onMonstersListPatch(message) {
   endOfList = message.endOfList;
 }
 
-function onMessage(message) {
-  if (message.type === 'monstersListPatch') {
-    console.timeEnd('worker');
-    onMonstersListPatch(message);
-  }
-}
-
 function scrolledToBottom() {
   if (!footerHeight) {
     footerHeight = parseInt(getComputedStyle($('#footer')).height, 10);
@@ -84,7 +77,7 @@ function onViewportChange() {
 
   console.time('worker');
   worker.postMessage({
-    type: 'scrolled',
+    type: 'listStateChanged',
     start: Math.max(0, firstVisibleIndex - PLACEHOLDER_OFFSET),
     end: firstInvisibleIndex + PLACEHOLDER_OFFSET
   });
@@ -110,6 +103,15 @@ function getNationalIdFromElement(el) {
   }
 }
 
+function onMessage(message) {
+  if (message.type === 'monstersListPatch') {
+    console.timeEnd('worker');
+    onMonstersListPatch(message);
+  } else if (message.type === 'viewportChanged') {
+    onViewportChange();
+  }
+}
+
 worker.addEventListener('message', e => {
   onMessage(e.data);
 });
@@ -130,7 +132,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
 window.addEventListener('scroll', progressiveDebounce(onViewportChange, DEBOUNCE_DELAY));
 window.addEventListener('resize', debounce(onViewportChange, 50));
-
-module.exports = {
-  onViewportChange: onViewportChange
-};
