@@ -25,7 +25,7 @@ var staticContent = [
   '/img/icon-48.png',
   '/img/icon-96.png',
   '/img/icon-144.png',
-  '/img/icon-192.png'
+  '/img/icon-196.png'
 ];
 
 if (process.env.NODE_ENV === 'development') {
