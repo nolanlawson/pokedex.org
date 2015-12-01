@@ -14,7 +14,7 @@ async function startPouchServer() {
   await mkdirp('db');
 
   var child = childProcess.spawn(
-    '../node_modules/.bin/pouchdb-server',
+    __dirname + '/../node_modules/.bin/pouchdb-server',
     ['-p', '6984'], {
       cwd: 'db'
     }
