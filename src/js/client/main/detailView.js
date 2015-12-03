@@ -119,5 +119,10 @@ document.addEventListener('DOMContentLoaded', () => {
       onClickDropdown(e.target,
         e.target.parentElement.parentElement.parentElement);
     }
-  })
+  });
+  document.addEventListener('keyup', e => {
+    if (e.keyCode === 27 && !detailViewContainer.classList.contains('hidden')) {
+      orchestrator.animateOut(lastNationalId);
+    }
+  });
 });
