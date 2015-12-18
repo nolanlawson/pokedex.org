@@ -121,6 +121,22 @@ button {
   font-size: 20px;
   line-height: 20px;
   margin-right: 10px;
+  display: inline-block;
+  height: 32px;
+  width: 32px;
+  position: absolute;
+  top: 12px;
+}
+
+.sidedrawer-toggle:after{
+  content: '';
+  background: url('../svg/navicon.svg') no-repeat;
+  background-size: contain;
+  height: 32px;
+  width: 32px;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .sidedrawer-toggle:hover {
@@ -191,6 +207,9 @@ button {
 }
 
 @media (max-width: 767px) {
+  .title{
+    padding-left: 45px;
+  }
   #main-title {
     display: none;
   }
