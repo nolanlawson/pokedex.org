@@ -171,7 +171,7 @@ module.exports = async function build(debug) {
       opts.plugin = [bundleCollapser];
     }
     var b = browserify(files, opts);
-    b = b.transform('babelify');
+    b = b.transform('babelify').transform('browserify-versionify');
     if (!debug) {
       b = b.transform('stripify').transform('uglifyify');
     }

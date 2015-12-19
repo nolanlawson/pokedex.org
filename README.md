@@ -26,6 +26,13 @@ Building
     
 This will write files to `www/`.
 
+Bumping the ServiceWorker version
+----
+
+The ServiceWorker version is tied to the `package.json` version. So you can bump it by simply doing:
+
+    npm version patch
+
 Building up the database via PokéAPI
 -----
 

@@ -1,6 +1,6 @@
 {
   "name": "pokedex",
-  "version": "1.0.0",
+  "version": "1.0.10",
   "repository": "https://github.com/nolanlawson/pokedex.git",
   "description": "",
   "main": "index.js",
@@ -21,6 +21,7 @@
     "babelify": "^6.4.0",
     "bluebird": "^2.10.2",
     "browserify": "^11.2.0",
+    "browserify-versionify": "^1.0.6",
     "bundle-collapser": "^1.2.1",
     "clean-css": "^3.4.6",
     "color": "^0.10.1",
