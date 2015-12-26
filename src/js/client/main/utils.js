@@ -9,6 +9,12 @@ module.exports = {
     return !isSafari;
   },
   canRunHighPerfAnims: () => {
+    // force setting via highPerfAnims query parameter (0/1)
+    var force = window.location.search.match(/highPerfAnims=(\d)/);
+    if (force) {
+      return (force[1] == 1);
+    }
+
     // it is a pretty safe assumption that android 4 devices are not
     // running on great hardware. this is an inexact metric, but it
     // ought to be pretty safe for the time being
