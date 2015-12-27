@@ -48,6 +48,11 @@ This site uses data provided by [PokéAPI](http://pokeapi.co/). To build up the 
 
 Some of the build scripts pull from `src/js/shared/data` (which contains some files that I had to build myself by scraping Bulbapedia), whereas the main ones pull from the live PokeAPI. (I never got the local PokeAPI working correctly, so I just pulled from the remote.)
 
+Debugging
+----
+
+You can add `?highPerfAnims=1` to the URL to force high-performance animations to run. (Normally they are disabled for Firefox and Android <5.)
+
 Credits
 ---
 
