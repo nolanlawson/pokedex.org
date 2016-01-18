@@ -7,12 +7,15 @@ var constants = require('../shared/util/constants');
 var numSpriteCssFiles = constants.numSpriteCssFiles;
 var range = require('lodash/utility/range');
 
+// 'package-json-versionify' strips out most of package.json
+var pkg = require('../../../package.json');
+
 // Using jake archibald's service worker "semver" style here
 // Pattern here is "a.b.c"
 // a: version-isolated change, don't let both versions run together
 // b: new feature
 // c: bug fix
-var version = '__VERSION__'; // inserted from package.json by versionify
+var version = pkg.version;
 
 var staticContent = [
   '/',
