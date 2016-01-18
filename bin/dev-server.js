@@ -6,6 +6,7 @@ var mkdirp = bluebird.promisify(require('mkdirp'));
 var fs = bluebird.promisifyAll(require('fs'));
 var build = require('./build');
 var PouchDB = require('pouchdb');
+var fetch = require('node-fetch');
 PouchDB.plugin(require('pouchdb-load'));
 
 var promiseChain = Promise.resolve();
@@ -14,7 +15,7 @@ async function startPouchServer() {
   await mkdirp('db');
 
   var child = childProcess.spawn(
-    __dirname + '/../node_modules/.bin/pouchdb-server',
+    require.resolve('pouchdb-server/bin/pouchdb-server'),
     ['-p', '6984'], {
       cwd: 'db'
     }
@@ -25,6 +26,24 @@ async function startPouchServer() {
   child.stderr.on('data', function (data) {
     console.error(data.toString('utf-8'));
   });
+
+  // wait for pouchdb-server to start up
+  var count = 0;
+  while (true) {
+    await new Promise(resolve => setTimeout(resolve, 500));
+    try {
+      var json = await (await fetch('http://localhost:6984')).json();
+      if (json.version) {
+        break;
+      }
+    } catch (e) {
+      if (++count === 10) {
+        console.log(e);
+        throw new Error('cannot connect to pouchdb-server');
+      }
+    }
+  }
+
 }
 
 async function doIt() {
