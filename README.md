@@ -3,6 +3,8 @@ Pokedex.org
 
 An index of Pokémon, built as a client-side JavaScript webapp. Powered by ServiceWorker, PouchDB, [virtual-dom](https://github.com/Matt-Esch/virtual-dom), and web workers.
 
+See the [Introducing Pokedex.org](http://www.pocketjavascript.com/blog/2015/11/23/introducing-pokedex-org) blog post for details on the architecture.
+
 Developing
 ----
 
