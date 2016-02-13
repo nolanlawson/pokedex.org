@@ -12,7 +12,7 @@ function renderArrow(color) {
       "xmlns": "http://www.w3.org/2000/svg",
       "width": "48",
       "height": "48",
-      "viewbox": "0 0 48 48"
+      "viewBox": "0 0 48 48"
     }, "namespace": "http://www.w3.org/2000/svg"
   }, [h("path", {
     "attributes": {"d": "M24 16V8l16 16-16 16v-8H8V16z"},
