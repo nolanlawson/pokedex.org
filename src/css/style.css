@@ -30,7 +30,6 @@ button {
   left: 0;
   z-index: 2;
   transition: transform 0.2s  ease-in-out;
-  will-change: transform;
 }
 
 #sidedrawer {
@@ -44,7 +43,6 @@ button {
   z-index: 2;
   background-color: #fff;
   transition: transform 0.2s ease-in-out;
-  will-change: transform;
 }
 
 #content-wrapper {
@@ -52,7 +50,6 @@ button {
   overflow-x: hidden;
   transform: translate(0, 0);
   transition: transform 0.2s ease-in-out;
-  will-change: transform;
 
   /* sticky bottom */
   margin-bottom: -160px;
@@ -64,7 +61,6 @@ button {
   font-size: 13px;
   transform: translate(0, 0);
   transition: transform 0.2s ease-in-out;
-  will-change: transform;
 }
 
 @media (min-width: 768px) {
@@ -366,7 +362,6 @@ button {
   right: 0;
   bottom: 0;
   z-index: 2000;
-  will-change: transform;
 }
 
 .detail-view-fg {
@@ -408,7 +403,6 @@ button {
   left: 10px;
   right: 10px;
   overflow-y: auto;
-  will-change: transform;
 }
 
 .detail-panel.animating {
@@ -561,11 +555,6 @@ button {
   align-items: center;
   justify-content: center;
 }
-
-.monster-sprite-facade {
-  will-change: transform;
-}
-
 
 .monster-sprite-facade.animating {
   transition: transform 0.33333s cubic-bezier(0,0,0.21,1);
@@ -725,7 +714,6 @@ button {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  will-change: transform;
 }
 
 .pokedex-modal.animating {
@@ -820,7 +808,6 @@ button {
 .spinner {
   transition: opacity 0.2s ease-in-out;
   opacity: 0;
-  will-change: opacity;
   width: 24px;
   height: 24px;
   margin: 0 auto 5px;
@@ -843,7 +830,6 @@ button {
   justify-content: center;
   background: rgba(255, 255, 255, 0.2);
   opacity: 0;
-  will-change: opacity;
   transition: opacity 0.5s;
   position: absolute;
   left: 0;
@@ -940,7 +926,6 @@ button {
   margin: 10px 20px;
   background: #fafafa;
   padding: 10px;
-  will-change: transform;
 }
 
 .moves-row-detail.animating {
@@ -1025,7 +1010,6 @@ button.dropdown-button:focus {
   right: 0;
   bottom: 0;
   top: 0;
-  will-change: transform;
 }
 
 .dropdown-button-image.animating {
