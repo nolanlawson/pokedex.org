@@ -81,8 +81,7 @@ self.addEventListener('activate', function(event) {
   event.waitUntil((async () => {
     // activate right now
     await self.clients.claim();
-    // remove caches beginning "svgomg-" that aren't in
-    // expectedCaches
+    // remove caches beginning "pokedex-static-" that aren't in expectedCaches
     var cacheNames = await caches.keys();
     console.log('cacheNames', cacheNames);
     for (var cacheName of cacheNames) {
