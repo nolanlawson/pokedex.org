@@ -32,7 +32,10 @@ function animateDropdownIn(moveDetail, button) {
     moveDetail.addEventListener('transitionend', function listener() {
       moveDetail.classList.remove('animating');
       button.classList.remove('animating');
-      moveDetail.style.willChange = '';
+      // deliberately keep will-change:transform even after the anim
+      // finishes. this way the animation will be primed for the next time;
+      // otherwise it ends up looking weird
+      moveDetail.style.willChange = 'transform';
       button.style.willChange = '';
       moveDetail.removeEventListener('transitionend', listener);
     });
