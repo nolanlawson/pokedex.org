@@ -13,7 +13,6 @@ function onShowModal(message) {
 
   function show() {
     requestAnimationFrame(() => {
-      modal.style.willChange = 'transform';
       modal.style.transform = `translateY(${window.innerHeight}px)`;
       modal.style.opacity = 1;
 
@@ -25,7 +24,6 @@ function onShowModal(message) {
 
       modal.addEventListener('transitionend', function listener() {
         modal.classList.remove('animating');
-        modal.style.willChange = '';
         modal.removeEventListener('transitionend', listener);
       });
     });
@@ -33,7 +31,6 @@ function onShowModal(message) {
 
   function hide() {
     requestAnimationFrame(() => {
-      modal.style.willChange = 'transform';
       modal.style.transform = '';
 
       requestAnimationFrame(() => {
@@ -44,7 +41,6 @@ function onShowModal(message) {
 
       modal.addEventListener('transitionend', function listener() {
         modal.classList.remove('animating');
-        modal.style.willChange = '';
         modal.removeEventListener('transitionend', listener);
         mui.overlay('off');
       });

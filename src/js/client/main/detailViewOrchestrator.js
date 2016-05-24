@@ -117,7 +117,6 @@ function doInAnimationPartOne(nationalId) {
   targetBackground.style.background = sourceSprite.parentElement.style.background;
   var spriteFacade = styleSpriteFacade(nationalId, spriteTop, spriteLeft, spriteTransform);
   spriteFacade.classList.remove('hidden');
-  detailBackButton.style.willChange = 'transform';
   detailBackButton.style.transform = 'translateX(-40px)';
   targetBackground.style.willChange = 'transform';
   targetBackground.style.transform = bgTransform;
@@ -136,7 +135,6 @@ function doInAnimationPartOne(nationalId) {
     spriteFacade.classList.remove('animating');
     targetBackground.removeEventListener('transitionend', onAnimEnd);
     targetBackground.style.willChange = '';
-    detailBackButton.style.willChange = '';
   }
 
   targetBackground.addEventListener('transitionend', onAnimEnd);
@@ -173,11 +171,9 @@ function doInAnimationPartTwo(nationalId) {
   // hide monster moves until they're shown after the panel
   detailPanel.querySelector('.monster-moves').classList.add('hidden');
   detailPanel.classList.remove('hidden');
-  detailSprite.style.willChange = 'opacity';
   detailSprite.style.opacity = 0;
   var {fgTransform} = computeTransformsPartTwo(nationalId, false);
 
-  detailPanel.style.willChange = 'transform';
   detailPanel.style.transform = fgTransform;
 
   requestAnimationFrame(() => {
@@ -205,8 +201,6 @@ function doInAnimationPartTwo(nationalId) {
     });
 
     detailPanel.removeEventListener('transitionend', onAnimEnd);
-    detailSprite.style.willChange = '';
-    detailPanel.style.willChange = '';
   }
 
   detailPanel.addEventListener('transitionend', onAnimEnd);
@@ -224,11 +218,9 @@ function doOutAnimation(nationalId) {
   var detailSprite = detailView.querySelector('.detail-sprite');
   var spriteFacade = styleSpriteFacade(nationalId, spriteTop, spriteLeft, '');
   spriteFacade.classList.remove('hidden');
-  detailSprite.style.willChange = 'opacity';
   detailSprite.style.opacity = 0;
   targetBackground.style.willChange = 'transform';
   targetBackground.style.transform = '';
-  detailPanel.style.willChange = 'transform';
   detailPanel.style.transform = '';
 
 
@@ -260,8 +252,6 @@ function doOutAnimation(nationalId) {
     each(detailView.querySelectorAll('.dropdown-button-image'), el => el.style.transform = '');
     targetBackground.removeEventListener('transitionend', onAnimEnd);
     targetBackground.style.willChange = '';
-    detailPanel.style.willChange = '';
-    detailSprite.style.willChange = '';
   }
 
   themeManager.resetThemeColor();
