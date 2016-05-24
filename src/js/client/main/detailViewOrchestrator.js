@@ -22,6 +22,7 @@ var spinnerTimeout;
 var screenWidth = window.innerWidth;
 var screenHeight = window.innerHeight;
 
+var cachedSpanHeight;
 var dimensToSpriteRect = {};
 var runningAnimationPartOne = false;
 var queuedAnimation = false;
@@ -42,8 +43,7 @@ function computeTransformsPartOne(nationalId) {
 
   var sourceSpriteRect = sourceSprite.getBoundingClientRect();
   var detailSpriteRect = getDetailSpriteRect();
-  var spanStyle = getComputedStyle(sourceTitleSpan);
-  var sourceTitleSpanHeight = parseInt(spanStyle.height.replace('px', ''));
+  var sourceTitleSpanHeight = getSpanHeight(sourceTitleSpan);
 
   var spriteChangeX = sourceSpriteRect.left - detailSpriteRect.left;
   var spriteChangeY = sourceSpriteRect.top - detailSpriteRect.top;
@@ -292,6 +292,17 @@ function getDetailSpriteRect() {
   var dimens = screenWidth + '_' + screenHeight;
   result = dimensToSpriteRect[dimens] = detailSprite.getBoundingClientRect();
   return result;
+}
+
+function getSpanHeight(span) {
+  // this never changes, so we can cache it instead of recomputing style
+  // every time
+  if (typeof cachedSpanHeight === 'number') {
+    return cachedSpanHeight;
+  }
+  var spanStyle = getComputedStyle(span);
+  cachedSpanHeight = parseInt(spanStyle.height.replace('px', ''), 10);
+  return cachedSpanHeight;
 }
 
 document.addEventListener('DOMContentLoaded', init);
