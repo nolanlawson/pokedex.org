@@ -7,6 +7,7 @@ var worker = require('./../shared/worker');
 var rippleEffect = require('./rippleEffect');
 var debounce = require('debounce');
 var progressiveDebounce = require('./progressiveDebounce');
+var passiveEventListeners = require('./supportsPassiveEventListeners');
 var DEBOUNCE_DELAY = 200;
 var SCROLL_PREFETCH_OFFSET = 800;
 var PLACEHOLDER_OFFSET = 30;
@@ -130,5 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
   onViewportChange();
 }, false);
 
-window.addEventListener('scroll', progressiveDebounce(onViewportChange, DEBOUNCE_DELAY));
-window.addEventListener('resize', debounce(onViewportChange, 50));
+window.addEventListener('scroll', progressiveDebounce(onViewportChange, DEBOUNCE_DELAY),
+  passiveEventListeners ? {passive: true} : false);
+window.addEventListener('resize', debounce(onViewportChange, 50),
+  passiveEventListeners ? {passive: true} : false);
