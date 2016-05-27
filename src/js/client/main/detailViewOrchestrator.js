@@ -121,14 +121,6 @@ function doInAnimationPartOne(nationalId) {
   targetBackground.style.willChange = 'transform';
   targetBackground.style.transform = bgTransform;
 
-  requestAnimationFrame(() => {
-    // go go go!
-    targetBackground.classList.add('animating');
-    spriteFacade.classList.add('animating');
-    targetBackground.style.transform = '';
-    spriteFacade.style.transform = '';
-  });
-
   function onAnimEnd() {
     console.log('done animating');
     targetBackground.classList.remove('animating');
@@ -141,24 +133,32 @@ function doInAnimationPartOne(nationalId) {
   detailPanel.classList.add('hidden');
 
   requestAnimationFrame(() => {
-    runningAnimationPartOne = false;
-    if (queuedAnimation) {
-      requestAnimationFrame(() => {
-        queuedAnimation();
-        queuedAnimation = null;
-      });
-    } else {
-      // if the second animation is delayed more than 5 seconds,
-      // show a spinner to reassure the user (only happens with slow
-      // connections on first load)
-      spinnerTimeout = setTimeout(() => {
-        spinnerHolder.classList.add('shown');
-      }, 5000);
-    }
-    if (queuedThemeColor) {
-      themeManager.setThemeColor(queuedThemeColor);
-      queuedThemeColor = null;
-    }
+    // go go go!
+    targetBackground.classList.add('animating');
+    spriteFacade.classList.add('animating');
+    targetBackground.style.transform = '';
+    spriteFacade.style.transform = '';
+
+    requestAnimationFrame(() => {
+      runningAnimationPartOne = false;
+      if (queuedAnimation) {
+        requestAnimationFrame(() => {
+          queuedAnimation();
+          queuedAnimation = null;
+        });
+      } else {
+        // if the second animation is delayed more than 5 seconds,
+        // show a spinner to reassure the user (only happens with slow
+        // connections on first load)
+        spinnerTimeout = setTimeout(() => {
+          spinnerHolder.classList.add('shown');
+        }, 5000);
+      }
+      if (queuedThemeColor) {
+        themeManager.setThemeColor(queuedThemeColor);
+        queuedThemeColor = null;
+      }
+    });
   });
 }
 
@@ -324,8 +324,8 @@ function createPartTwoAnimation(nationalId) {
     return () => requestAnimationFrame(() => doInAnimationPartTwo(nationalId));
   }
   return () => setTimeout(() =>
-    requestAnimationFrame(() => doInAnimationPartTwo(nationalId)),
-  animationDelay);
+      requestAnimationFrame(() => doInAnimationPartTwo(nationalId)),
+    animationDelay);
 }
 
 function animateInPartTwo(nationalId) {
