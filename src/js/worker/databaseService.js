@@ -3,9 +3,7 @@ require('regenerator/runtime');
 var zpad = require('zpad');
 var find = require('lodash/collection/find');
 var assign = require('lodash/object/assign');
-var PouchDB = require('pouchdb');
-PouchDB.plugin(require('pouchdb-upsert'));
-PouchDB.plugin(require('pouchdb-load'));
+var PouchDB = require('./pouchdb');
 var inMemoryDB = require('./inMemoryDatabase');
 var Stopwatch = require('../shared/util/stopwatch');
 

@@ -22,7 +22,7 @@ async function startPouchServer() {
     console.log(data.toString('utf-8'));
   });
   child.stderr.on('data', function (data) {
-    //console.error(data.toString('utf-8'));
+    console.error(data.toString('utf-8'));
   });
 
   // wait for pouchdb-server to start up
@@ -37,7 +37,7 @@ async function startPouchServer() {
     } catch (e) {
       console.log('Waiting for http://localhost:6984 to be up...');
       if (++count === 10) {
-        console.log(e);
+        console.log(e.stack);
         throw new Error('cannot connect to pouchdb-server');
       }
     }
