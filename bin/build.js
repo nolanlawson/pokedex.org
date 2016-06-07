@@ -297,12 +297,14 @@ module.exports = async function build(debug) {
   await mkdirp('./www');
 
   async function buildProd() {
+    console.log('buildProd()');
     await* [buildHtml(), buildCss(), buildJS(), buildStatic()];
     await inlineCriticalJs();
     console.log('wrote files to www/');
   }
 
   async function buildDev() {
+    console.log('buildDev()');
     await* [buildHtml(), buildCss(), buildJS(), buildStatic()];
     console.log('wrote files to www/');
     watch('src/index.html', {recursive: true}, async () => {
@@ -320,8 +322,8 @@ module.exports = async function build(debug) {
   }
 
   if (debug) {
-    buildDev();
+    await buildDev();
   } else {
-    buildProd();
+    await buildProd();
   }
 };
