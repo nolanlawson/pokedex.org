@@ -1,4 +1,3 @@
-var watch = require('node-watch');
 var hs = require('http-server');
 var childProcess = require('child_process');
 var bluebird = require('bluebird');
@@ -8,8 +7,7 @@ var build = require('./build');
 var PouchDB = require('pouchdb');
 var fetch = require('node-fetch');
 PouchDB.plugin(require('pouchdb-load'));
-
-var promiseChain = Promise.resolve();
+var build = require('./build');
 
 async function startPouchServer() {
   await mkdirp('db');
@@ -96,9 +94,7 @@ async function doIt() {
 
   console.log('started dev server at http://127.0.0.1:9000');
 
-  watch(__dirname + '/../src', () => {
-    promiseChain = promiseChain.then(() => build(true));
-  });
+  build(true);
 }
 
 doIt().catch(err => console.error(err));
