@@ -1,3 +1,4 @@
+require('lie/polyfill'); // regenerator requires this
 var regen = require('regenerator/runtime');
 
 if (typeof window !== 'undefined') {

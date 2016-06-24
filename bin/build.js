@@ -79,7 +79,7 @@ module.exports = async function build(debug) {
       spritesCss.split('\n').slice(0, CRITICAL_CSS_SPRITES_LINES).join('\n');
 
     mainCss = await inlineSvgs(mainCss);
-    mainCss = await cleanCss.minify(mainCss).styles;
+    mainCss = await minifyCss(mainCss);
     var muiCss = await fs.readFileAsync('./src/vendor/mui.css', 'utf-8');
     muiCss = await minifyCss(muiCss);
     return html
