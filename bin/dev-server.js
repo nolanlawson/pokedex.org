@@ -6,6 +6,8 @@ var fs = bluebird.promisifyAll(require('fs'));
 var build = require('./build');
 var PouchDB = require('pouchdb-core')
   .plugin(require('pouchdb-adapter-http'))
+  .plugin(require('pouchdb-adapter-leveldb'))
+  .plugin(require('pouchdb-replication'))
   .plugin(require('pouchdb-load'));
 var fetch = require('node-fetch');
 var build = require('./build');
