@@ -4,9 +4,12 @@ var bluebird = require('bluebird');
 var mkdirp = bluebird.promisify(require('mkdirp'));
 var fs = bluebird.promisifyAll(require('fs'));
 var build = require('./build');
-var PouchDB = require('pouchdb');
+var PouchDB = require('pouchdb-core')
+  .plugin(require('pouchdb-adapter-http'))
+  .plugin(require('pouchdb-adapter-leveldb'))
+  .plugin(require('pouchdb-replication'))
+  .plugin(require('pouchdb-load'));
 var fetch = require('node-fetch');
-PouchDB.plugin(require('pouchdb-load'));
 var build = require('./build');
 
 async function startPouchServer() {
