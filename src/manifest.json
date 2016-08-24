@@ -22,6 +22,11 @@
       "src": "img/icon-196.png",
       "sizes": "196x196",
       "type": "image/png"
+    },
+    {
+      "src": "img/icon-384.png",
+      "sizes": "384x384",
+      "type": "image/png"
     }
   ],
   "start_url": "index.html?launcher=true",
