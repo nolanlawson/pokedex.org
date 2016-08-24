@@ -93,7 +93,7 @@ async function initDBs(couchHome) {
 
 function getGeneration5DescriptionDocId(monster) {
   // get a generation-5 description
-  var desc = find(monster.descriptions, x => /_gen_5$/.test(x.name));
+  var desc = find(monster.descriptions, x => x.name === monster.name.toLowerCase() + '_gen_5' );
   var descId = desc.resource_uri.match(/\/(\d+)\/$/)[1];
   return zpad(parseInt(descId, 10), 7);
 }
