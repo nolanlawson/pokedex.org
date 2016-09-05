@@ -109,6 +109,7 @@ function styleSpriteFacade(nationalId, top, left, transform) {
 
 function doInAnimationPartOne(nationalId) {
   document.body.style.overflowY = 'hidden'; // disable scrolling
+  document.documentElement.style.overflowY = 'hidden'; //disable iphone scrolling
   detailViewContainer.classList.remove('hidden');
   var transforms = computeTransformsPartOne(nationalId, false);
   var {bgTransform, spriteTransform, spriteTop, spriteLeft} = transforms;
@@ -167,6 +168,7 @@ function doInAnimationPartTwo(nationalId) {
   clearTimeout(spinnerTimeout);
   detailPanel.style.overflowY = 'auto'; // re-enable overflow on the panel
   document.body.style.overflowY = 'hidden'; // disable scrolling
+  document.documentElement.style.overflowY = 'hidden'; //disable iphone scrolling
 
   // hide monster moves until they're shown after the panel
   detailPanel.querySelector('.monster-moves').classList.add('hidden');
@@ -210,6 +212,7 @@ function doOutAnimation(nationalId) {
   detailPanel.scrollTop = 0; // scroll panel to top, disable scrolling during animation
   detailPanel.style.overflowY = 'visible';
   document.body.style.overflowY = 'visible'; // re-enable scrolling
+  document.documentElement.style.overflowY = 'visible'; //re-enable iphone scrolling
   var transforms = computeTransformsPartOne(nationalId, true);
   var {bgTransform, spriteTransform, spriteTop, spriteLeft} = transforms;
   var {fgTransform} = computeTransformsPartTwo(nationalId, true);
