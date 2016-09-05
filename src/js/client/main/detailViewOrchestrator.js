@@ -165,7 +165,7 @@ function doInAnimationPartOne(nationalId) {
 function doInAnimationPartTwo(nationalId) {
   spinnerHolder.classList.remove('shown');
   clearTimeout(spinnerTimeout);
-  detailPanel.style.overflowY = 'auto'; // re-enable overflow on the panel
+  detailPanel.style.overflowY = 'scroll'; // re-enable overflow on the panel
   document.body.style.overflowY = 'hidden'; // disable scrolling
 
   // hide monster moves until they're shown after the panel

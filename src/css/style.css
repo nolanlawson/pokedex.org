@@ -403,7 +403,8 @@ button {
   top: 0;
   left: 10px;
   right: 10px;
-  overflow-y: auto;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 
 .detail-panel.animating {
