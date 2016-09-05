@@ -25,7 +25,7 @@ target.transform({
       'types', 'attack', 'defense', 'speed', 'sp_atk', 'sp_def', 'hp',
       'weight', 'height', 'national_id', 'name', 'male_female_ratio',
       'abilities', 'catch_rate');
-    doc.descriptions = doc.descriptions.filter(x => /_gen_5$/.test(x.name));
+    doc.descriptions = doc.descriptions.filter(x => x.name === monster.name.toLowerCase() + '_gen_5');
     return doc;
   }
 });

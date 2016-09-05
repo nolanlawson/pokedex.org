@@ -27,7 +27,7 @@ async function doIt() {
   var descriptionIds = allMonsters.rows.map(row => {
     var monster = row.doc;
     // get just generation-5 descriptions
-    var desc = lodash.find(monster.descriptions, x => /_gen_5$/.test(x.name));
+    var desc = lodash.find(monster.descriptions, x => x.name === monster.name.toLowerCase() + '_gen_5' );
     var descId = parseInt(desc.resource_uri.match(/\/(\d+)\/$/)[1], 10);
     return descId;
   });
