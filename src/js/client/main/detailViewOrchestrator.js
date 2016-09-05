@@ -109,7 +109,6 @@ function styleSpriteFacade(nationalId, top, left, transform) {
 
 function doInAnimationPartOne(nationalId) {
   document.body.style.overflowY = 'hidden'; // disable scrolling
-  document.documentElement.style.overflowY = 'hidden'; //disable scrolling
   detailViewContainer.classList.remove('hidden');
   var transforms = computeTransformsPartOne(nationalId, false);
   var {bgTransform, spriteTransform, spriteTop, spriteLeft} = transforms;
