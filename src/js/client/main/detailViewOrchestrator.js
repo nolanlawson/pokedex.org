@@ -211,7 +211,7 @@ function doOutAnimation(nationalId) {
   detailPanel.scrollTop = 0; // scroll panel to top, disable scrolling during animation
   detailPanel.style.overflowY = 'visible';
   document.body.style.overflowY = 'visible'; // re-enable scrolling
-  document.documentElement.style.overflowY = 'visible'; //re-enable scrolling
+  document.documentElement.style.overflowY = ''; //re-enable scrolling
   var transforms = computeTransformsPartOne(nationalId, true);
   var {bgTransform, spriteTransform, spriteTop, spriteLeft} = transforms;
   var {fgTransform} = computeTransformsPartTwo(nationalId, true);
