@@ -383,6 +383,7 @@ button {
 
 .back-button {
   background: url(../svg/ic_arrow_back_36px.svg);
+  background-repeat: no-repeat;
   width: 36px;
   height: 36px;
   border: none;
