@@ -60,7 +60,7 @@
     "pouchdb-server": "^1.0.0",
     "pouchdb-upsert": "^1.1.3",
     "pseudo-worker": "^1.0.0",
-    "regenerator": "^0.8.41",
+    "regenerator": "0.8.41",
     "rimraf": "^2.4.3",
     "semver": "^5.0.3",
     "serviceworker-cache-polyfill": "^3.0.0",
