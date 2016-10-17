@@ -6,7 +6,7 @@ var themeManager = require('./themeManager');
 var worker = require('./../shared/worker');
 var each = require('lodash/collection/each');
 
-var $ = document.querySelector.bind(document);
+var $ = require('./jqueryLite');
 
 // elements
 var detailView;
@@ -39,6 +39,14 @@ function computeTransformsPartOne(nationalId) {
   console.time('computeTransformsPartOne()');
 
   var sourceSprite = monstersList.querySelector(`.sprite-${nationalId}`);
+  if (!sourceSprite) {
+    // Sometimes we can't directly find it because the user has scrolled off the end of the
+    // list. In this case we can just cheat and choose a random monster because it's better than nothing.
+    // This only happens when the user presses the forward button on the browser. It's a bit weird
+    // but kind of an edge case, and better that it "just works" than that it looks pretty.
+    var sourceSprites = monstersList.querySelectorAll('.monster-sprite');
+    sourceSprite = sourceSprites[sourceSprites.length - 1];
+  }
   var sourceTitleSpan = sourceSprite.parentElement.querySelector('span');
 
   var sourceSpriteRect = sourceSprite.getBoundingClientRect();
@@ -114,7 +122,14 @@ function doInAnimationPartOne(nationalId) {
   var {bgTransform, spriteTransform, spriteTop, spriteLeft} = transforms;
   var targetBackground = detailView.querySelector('.detail-view-bg');
   var sourceSprite = monstersList.querySelector(`.sprite-${nationalId}`);
-  targetBackground.style.background = sourceSprite.parentElement.style.background;
+  if (sourceSprite) {
+    targetBackground.style.background = sourceSprite.parentElement.style.background;
+  } else {
+    // happens if the user navigates to e.g. /pokemon/200 immediately,
+    // which is technically offscreen. so we cheat
+    var listItems = monstersList.querySelectorAll('#monsters-list li');
+    targetBackground.style.background = listItems[nationalId - 1].style.background;
+  }
   var spriteFacade = styleSpriteFacade(nationalId, spriteTop, spriteLeft, spriteTransform);
   spriteFacade.classList.remove('hidden');
   detailBackButton.style.transform = 'translateX(-40px)';

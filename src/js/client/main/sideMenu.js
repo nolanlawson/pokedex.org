@@ -1,7 +1,7 @@
 var worker = require('./../shared/worker');
+var $ = require('./jqueryLite');
 
 document.addEventListener('DOMContentLoaded', () => {
-  var $ = document.querySelector.bind(document);
   var sideDrawer = $('#sidedrawer');
 
   function showSidedrawer() {

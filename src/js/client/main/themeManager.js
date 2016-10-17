@@ -1,6 +1,5 @@
 var worker = require('./../shared/worker');
-
-var $ = document.querySelector.bind(document);
+var $ = require('./jqueryLite');
 
 var themeMeta;
 var appTheme;

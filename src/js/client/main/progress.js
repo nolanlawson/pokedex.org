@@ -1,4 +1,4 @@
-var $ = document.querySelector.bind(document);
+var $ = require('./jqueryLite');
 
 var mask;
 

@@ -3,13 +3,12 @@ var applyPatch = require('vdom-serialized-patch/patch');
 var indexOf = require('lodash/array/indexOf');
 var orchestrator = require('./detailViewOrchestrator');
 var Promise = require('../../shared/util/promise');
-var createElement = require('virtual-dom/create-element');
+var toMainView = require('./router').toMainView;
 
-var $ = document.querySelector.bind(document);
+var $ = require('./jqueryLite');
 
 var detailView;
 var detailViewContainer;
-var lastNationalId;
 
 function animateDropdownIn(moveDetail, button) {
   requestAnimationFrame(() => {
@@ -80,7 +79,6 @@ function onClickDropdown(button, movesRow) {
 
 function onDetailPatchMessage(message) {
   var {nationalId, themeColor, patch} = message;
-  lastNationalId = nationalId;
   // break up into two functions to avoid jank
   Promise.resolve()
     .then(() => JSON.parse(patch))
@@ -113,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
   detailViewContainer = $('#detail-view-container');
   detailViewContainer.addEventListener('click', e => {
     if (indexOf(e.target.classList, 'back-button') !== -1) {
-      orchestrator.animateOut(lastNationalId);
+      toMainView();
     }
   });
   detailView.addEventListener('click', e => {
@@ -133,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   document.addEventListener('keyup', e => {
     if (e.keyCode === 27 && !detailViewContainer.classList.contains('hidden')) {
-      orchestrator.animateOut(lastNationalId);
+      toMainView();
     }
   });
 });
