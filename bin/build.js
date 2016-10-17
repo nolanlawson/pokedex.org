@@ -68,7 +68,7 @@ module.exports = async function build(debug) {
       '<script src=js/common.js></script>',
       `<script>${common}</script>`);
 
-    await fs.writeFileAsync(__dirname + '/../www/index.html', html, 'utf-8')
+    await fs.writeFileAsync(__dirname + '/../www/index.html', html, 'utf-8');
   }
 
   async function inlineCriticalCss(html) {
@@ -136,7 +136,7 @@ module.exports = async function build(debug) {
       promises.push(fs.writeFileAsync(partFile, cssPart, 'utf-8'));
       counter++;
     }
-    return await* promises;
+    return await Promise.all(promises);
   }
 
   async function buildCss() {
@@ -160,7 +160,7 @@ module.exports = async function build(debug) {
       promises.push(fs.writeFileAsync('./www/css/style.css', mainCss, 'utf-8'));
     }
 
-    await* promises;
+    await Promise.all(promises);
   }
 
   function startBrowserify(files) {
@@ -172,7 +172,7 @@ module.exports = async function build(debug) {
       opts.plugin = [bundleCollapser];
     }
     var b = browserify(files, opts);
-    b = b.transform('babelify');
+    b = b.transform('async-await-browserify').transform('babelify');
     if (debug) {
       b = b.plugin('errorify');
     } else {
@@ -250,7 +250,7 @@ module.exports = async function build(debug) {
       });
     }
 
-    await* [...browserifyPromises, factorPromise];
+    await Promise.all([...browserifyPromises, factorPromise]);
 
     var allOutputFiles = [
       __dirname + '/../www/js/worker.js',
@@ -261,14 +261,14 @@ module.exports = async function build(debug) {
     ];
 
     if (!debug) {
-      await* allOutputFiles.map(function (file) {
+      await Promise.all(allOutputFiles.map(function (file) {
         var code = uglify.minify(file, {
           mangle: true,
           compress: true
         }).code;
 
         return fs.writeFileAsync(file, code, 'utf-8');
-      });
+      }));
     }
   }
 
@@ -293,7 +293,7 @@ module.exports = async function build(debug) {
       splitFile('./src/assets/moves.txt', './www/assets/moves.txt', 100)
     ];
 
-    await* promises;
+    await Promise.all(promises);
   }
 
   console.log('building...');
@@ -302,25 +302,25 @@ module.exports = async function build(debug) {
 
   async function buildProd() {
     console.log('buildProd()');
-    await* [buildHtml(), buildCss(), buildJS(), buildStatic()];
+    await Promise.all([buildHtml(), buildCss(), buildJS(), buildStatic()]);
     await inlineCriticalJs();
     console.log('wrote files to www/');
   }
 
   async function buildDev() {
     console.log('buildDev()');
-    await* [buildHtml(), buildCss(), buildJS(), buildStatic()];
+    await Promise.all([buildHtml(), buildCss(), buildJS(), buildStatic()]);
     console.log('wrote files to www/');
     watch('src/index.html', {recursive: true}, async () => {
       await buildHtml();
       console.log('rebuild html');
     });
     watch('src/js', {recursive: true}, async () => {
-      await* [buildHtml(), buildJS()];
+      await Promise.all([buildHtml(), buildJS()]);
       console.log('rebuild html+js');
     });
     watch('src/css', {recursive: true}, async () => {
-      await* [buildHtml(), buildCss()];
+      await Promise.all([buildHtml(), buildCss()]);
       console.log('rebuild html+css');
     });
   }

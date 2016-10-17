@@ -22,7 +22,7 @@ function getEVsYield(supplemental) {
     var [label, name] = arr;
     var count = supplemental[name];
     if (count > 0) {
-      res.push(`${count} ${label}`)
+      res.push(`${count} ${label}`);
     }
   });
   return res.join(', ');

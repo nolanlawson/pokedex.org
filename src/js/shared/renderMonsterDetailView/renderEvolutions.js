@@ -17,7 +17,7 @@ function renderArrow(color) {
   }, [h("path", {
     "attributes": {"d": "M24 16V8l16 16-16 16v-8H8V16z"},
     "namespace": "http://www.w3.org/2000/svg"
-  })])
+  })]);
 }
 
 function renderLabel(evolution, sourceMonster, direction) {

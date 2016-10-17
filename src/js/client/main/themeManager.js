@@ -1,4 +1,3 @@
-var worker = require('./../shared/worker');
 var $ = require('./jqueryLite');
 
 var themeMeta;

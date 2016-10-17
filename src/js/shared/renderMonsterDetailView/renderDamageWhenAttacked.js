@@ -73,7 +73,7 @@ function renderResistances(types) {
     return {
       name: typeName,
       multiplier: multipliers[typeName]
-    }
+    };
   }).sort((a, b) => {
     if (a.multiplier !== b.multiplier) {
       return a.multiplier < b.multiplier ? 1 : -1;

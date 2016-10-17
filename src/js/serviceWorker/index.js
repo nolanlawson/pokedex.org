@@ -1,4 +1,4 @@
-require('regenerator/runtime');
+require('regenerator-runtime/runtime');
 require('serviceworker-cache-polyfill');
 
 var semver = require('../shared/util/semverLite');
