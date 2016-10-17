@@ -1,10 +1,9 @@
 var worker = require('./../shared/worker');
 var debounce = require('debounce');
 var progress = require('./progress');
+var $ = require('./jqueryLite');
 
 document.addEventListener('DOMContentLoaded', () => {
-
-  var $ = document.querySelector.bind(document);
 
   var searchBar = $('#monsters-search-bar');
 

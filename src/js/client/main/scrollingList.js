@@ -1,20 +1,15 @@
-var pageSize = require('../../shared/util/constants').pageSize;
+var toMonsterDetail = require('./router').toMonsterDetail;
 var progress = require('./progress');
 var applyPatch = require('vdom-serialized-patch/patch');
-var patchElement = require('virtual-dom/patch');
-var detailViewOrchestrator = require('./detailViewOrchestrator');
 var worker = require('./../shared/worker');
 var rippleEffect = require('./rippleEffect');
 var debounce = require('debounce');
 var progressiveDebounce = require('./progressiveDebounce');
 var DEBOUNCE_DELAY = 200;
-var SCROLL_PREFETCH_OFFSET = 800;
 var PLACEHOLDER_OFFSET = 30;
-var $ = document.querySelector.bind(document);
+var $ = require('./jqueryLite');
 
 var monstersList;
-var footerHeight;
-var endOfList;
 
 function doApplyPatch(patchString) {
   console.time('JSON.parse()');
@@ -28,17 +23,6 @@ function doApplyPatch(patchString) {
 
 function onMonstersListPatch(message) {
   doApplyPatch(message.patch);
-  endOfList = message.endOfList;
-}
-
-function scrolledToBottom() {
-  if (!footerHeight) {
-    footerHeight = parseInt(getComputedStyle($('#footer')).height, 10);
-  }
-  // if the user is within SCROLL_PREFETCH_OFFSET pixels,
-  // start prefetching the list items we need to append
-  return (window.innerHeight + window.scrollY) >=
-    (document.body.scrollHeight - footerHeight - SCROLL_PREFETCH_OFFSET);
 }
 
 function binarySearchForFirstVisibleChild(children) {
@@ -47,7 +31,7 @@ function binarySearchForFirstVisibleChild(children) {
     mid = (low + high) >>> 1; // faster version of Math.floor((low + high) / 2)
     rect = children[mid].getBoundingClientRect();
     val = rect.bottom;
-    val < 0 ? low = mid + 1 : high = mid
+    val < 0 ? low = mid + 1 : high = mid;
   }
   return low;
 }
@@ -59,7 +43,7 @@ function binarySearchForFirstInvisibleChild(start, children) {
     mid = (low + high) >>> 1; // faster version of Math.floor((low + high) / 2)
     rect = children[mid].getBoundingClientRect();
     val = rect.top;
-    val < windowHeight ? low = mid + 1 : high = mid
+    val < windowHeight ? low = mid + 1 : high = mid;
   }
   return low;
 }
@@ -85,11 +69,7 @@ function onViewportChange() {
 
 function showMonsterDetail(nationalId) {
   console.time('worker');
-  worker.postMessage({
-    type: 'detail',
-    nationalId: nationalId
-  });
-  detailViewOrchestrator.animateInPartOne(nationalId);
+  toMonsterDetail(nationalId);
 }
 
 function getNationalIdFromElement(el) {
