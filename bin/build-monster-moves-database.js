@@ -36,6 +36,7 @@ async function doIt() {
   var out = fs.createWriteStream('src/assets/monster-moves.txt');
   var stream = shortRevs();
   await target.dump(stream);
+  stream.pipe(out);
 }
 
 doIt().catch(console.log.bind(console));

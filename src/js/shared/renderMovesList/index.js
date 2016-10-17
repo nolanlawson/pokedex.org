@@ -3,13 +3,6 @@ var typesToColors = require('../../shared/monster/typesToColors');
 var color = require('color');
 var capitalize = require('lodash/string/capitalize');
 
-var LEARN_TYPES = [
-  'level up',
-  'machine',
-  'tutor',
-  'egg move'
-];
-
 var sortByLevel = (a, b) => a.level < b.level ? -1 : 1;
 var sortByName = (a, b) => a.identifier < b.identifier ? -1 : 1;
 

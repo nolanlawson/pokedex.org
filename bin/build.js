@@ -68,7 +68,7 @@ module.exports = async function build(debug) {
       '<script src=js/common.js></script>',
       `<script>${common}</script>`);
 
-    await fs.writeFileAsync(__dirname + '/../www/index.html', html, 'utf-8')
+    await fs.writeFileAsync(__dirname + '/../www/index.html', html, 'utf-8');
   }
 
   async function inlineCriticalCss(html) {

@@ -13,7 +13,6 @@ PouchDB.plugin({loadIt: load.load});
 var memdown = require('memdown');
 var bluebird = require('bluebird');
 var fs = bluebird.promisifyAll(require('fs'));
-var pick = require('lodash').pick;
 var zpad = require('zpad');
 
 var species = require('../src/js/shared/data/species');

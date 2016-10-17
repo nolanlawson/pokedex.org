@@ -50,7 +50,7 @@ async function doIt() {
           multiplier: multiplier,
           name: thisName
         });
-      }
+      };
     }
 
     doc.ineffective.forEach(addMapping(0.5));

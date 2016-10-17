@@ -40,10 +40,10 @@ async function replicateDB(db, filename, numFiles) {
 
   console.log(`${filename}: started replication`);
   if (numFiles) {
-   for (var i = 1; i <= numFiles; i++) {
-     // file was broken up into smaller files
-     await db.load(filename.replace('.txt', `-${i}.txt`));
-   }
+    for (var i = 1; i <= numFiles; i++) {
+      // file was broken up into smaller files
+      await db.load(filename.replace('.txt', `-${i}.txt`));
+    }
   } else {
     await db.load(filename);
   }

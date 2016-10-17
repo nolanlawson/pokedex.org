@@ -3,7 +3,6 @@
 var supportsWebp = require('../../shared/util/supportsWebp');
 var constants = require('../../shared/util/constants');
 var numSpriteCssFiles = constants.numSpriteCssFiles;
-var numLoresSpriteCssFiles = constants.numLoresSpriteCssFiles;
 
 function loadCssAsync(filename) {
   var link = document.createElement('link');

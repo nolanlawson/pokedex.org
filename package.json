@@ -18,7 +18,7 @@
     "async-await-browserify": "^1.0.0",
     "async-to-gen": "^1.1.4",
     "autoprefixer": "^6.1.0",
-    "babel-eslint": "^4.1.3",
+    "babel-eslint": "^4.1.8",
     "babel-plugin-transform-regenerator": "^6.16.1",
     "babel-preset-es2015": "^6.16.0",
     "babelify": "^7.3.0",

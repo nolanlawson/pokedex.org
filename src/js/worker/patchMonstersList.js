@@ -4,7 +4,6 @@ var renderMonstersList = require('../shared/renderMonstersList');
 var diff = require('virtual-dom/diff');
 var Stopwatch = require('../shared/util/stopwatch');
 var dbService = require('./databaseService');
-var startingPageSize = require('../shared/util/constants').pageSize;
 var fromJson = require('vdom-as-json/fromJson');
 
 var lastMonstersListView = fromJson(require('../shared/prerendered/monsterSummaries.json'));

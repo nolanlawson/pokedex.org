@@ -36,7 +36,9 @@ async function doIt() {
   await source.replicate.to(target);
 
   var out = fs.createWriteStream('src/assets/skim-monsters.txt');
-  await target.dump(out);
+  var stream = shortRevs();
+  await target.dump(stream);
+  stream.pipe(out);
 }
 
 doIt().catch(console.log.bind(console));
