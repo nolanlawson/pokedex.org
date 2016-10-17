@@ -1,8 +1,6 @@
 var keyValueStore = require('../../shared/db/keyValueStore');
 var supportsWebp = require('../../shared/util/supportsWebp');
 var worker = require('./../shared/worker');
-var semver = require('../../shared/util/semverLite');
-var currentVersion = require('../../../../package.json').version;
 
 function onFirstLoad() {
   console.log('sw ready to work offline');
@@ -42,16 +40,6 @@ function onClaimed() {
 
 function onInstalled() {
   console.log('sw installed');
-
-  keyValueStore.get('active-version').then(activeVersion => {
-    // activeVersion is undefined for sw-null
-    // if the main version has changed, bail
-    if (activeVersion &&
-      semver.parse(activeVersion).major !== semver.parse(currentVersion).major) {
-      return;
-    }
-    console.log('activeVersion', activeVersion);
-  }).catch(console.log.bind(console));
 }
 
 function onStateChange(newWorker) {
