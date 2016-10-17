@@ -2,7 +2,7 @@ var keyValueStore = require('../../shared/db/keyValueStore');
 var supportsWebp = require('../../shared/util/supportsWebp');
 var worker = require('./../shared/worker');
 var semver = require('../../shared/util/semverLite');
-var version = require('../../../../package.json').version;
+var currentVersion = require('../../../../package.json').version;
 
 function onFirstLoad() {
   console.log('sw ready to work offline');
