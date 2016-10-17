@@ -1,4 +1,4 @@
-require('regenerator/runtime');
+require('regenerator-runtime/runtime');
 
 var zpad = require('zpad');
 var find = require('lodash/collection/find');
@@ -78,14 +78,14 @@ async function initDBs(couchHome) {
       replicateDB(dbs.evolutions.local, '../assets/evolutions.txt')
     ];
 
-    await* importantReplications;
+    await Promise.all(importantReplications);
 
     var lessImportantReplications = [
       replicateDB(dbs.moves.local, '../assets/moves.txt', 3),
       replicateDB(dbs.monsterMoves.local, '../assets/monster-moves.txt', 3)
     ];
 
-    await* lessImportantReplications;
+    await Promise.all(lessImportantReplications);
   } else {
     console.log('this browser doesn\'t support PouchDB. cannot work offline.');
   }
@@ -164,7 +164,7 @@ module.exports = {
       doLocalFirst(db => getManyByIds(db, monsterSummary.types.map(type => type.name)), dbs.types)
     ];
 
-    var results = await* promises;
+    var results = await Promise.all(promises);
     var [monster, description, evolutions, supplemental, types] = results;
 
     stopwatch.totalTime();

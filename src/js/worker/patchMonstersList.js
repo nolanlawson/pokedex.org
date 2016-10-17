@@ -1,4 +1,4 @@
-require('regenerator/runtime');
+require('regenerator-runtime/runtime');
 
 var renderMonstersList = require('../shared/renderMonstersList');
 var diff = require('virtual-dom/diff');

@@ -1,5 +1,5 @@
 require('lie/polyfill'); // regenerator requires this
-var regen = require('regenerator/runtime');
+var regen = require('regenerator-runtime/runtime');
 
 if (typeof window !== 'undefined') {
   // hack for the pseudoworker

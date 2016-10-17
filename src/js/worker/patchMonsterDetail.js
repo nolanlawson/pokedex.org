@@ -1,4 +1,4 @@
-require('regenerator/runtime');
+require('regenerator-runtime/runtime');
 
 var renderDetailView = require('../shared/renderMonsterDetailView');
 var getMonsterDarkTheme = require('../shared/monster/getMonsterDarkTheme');
