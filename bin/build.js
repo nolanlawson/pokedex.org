@@ -172,9 +172,13 @@ module.exports = async function build(debug) {
       opts.plugin = [bundleCollapser];
     }
     var b = browserify(files, opts);
-    b = b.transform('babelify').transform('package-json-versionify');
-    if (!debug) {
-      b = b.transform('stripify').transform('uglifyify');
+    b = b.transform('babelify');
+    if (debug) {
+      b = b.plugin('errorify');
+    } else {
+      b = b.transform('package-json-versionify')
+        .transform({global: true}, 'stripify')
+        .transform({global: true}, 'uglifyify');
     }
     b = b.transform(vdomify).transform(envify({
       NODE_ENV: process.env.NODE_ENV || (debug ? 'development' : 'production')

@@ -1,7 +1,7 @@
 require('regenerator/runtime');
 require('serviceworker-cache-polyfill');
 
-var semver = require('semver');
+var semver = require('../shared/util/semverLite');
 var keyValueStore = require('../shared/db/keyValueStore');
 var constants = require('../shared/util/constants');
 var numSpriteCssFiles = constants.numSpriteCssFiles;

@@ -1,7 +1,7 @@
 var keyValueStore = require('../../shared/db/keyValueStore');
 var supportsWebp = require('../../shared/util/supportsWebp');
 var worker = require('./../shared/worker');
-var semver = require('semver');
+var semver = require('../../shared/util/semverLite');
 var version = require('../../../../package.json').version;
 
 function onFirstLoad() {
