@@ -18,12 +18,14 @@ var envify = require('envify/custom');
 var vdomify = require('./vdomify');
 var concat = require('concat-stream');
 var watch = require('node-watch');
+var rollupPluginJson = require('rollup-plugin-json');
+var asyncPlugin = require('rollup-plugin-async');
 
 var constants = require('../src/js/shared/util/constants');
 var numSpritesCssFiles = constants.numSpriteCssFiles;
 var initialWindowSize = constants.initialWindowSize;
-var renderMonsterDetailView = require('../src/js/shared/renderMonsterDetailView');
-var renderMonstersList = require('../src/js/shared/renderMonstersList');
+var renderMonsterDetailView = require('../src/js/shared/renderMonsterDetailView').default;
+var renderMonstersList = require('../src/js/shared/renderMonstersList').default;
 var monsterSummaries = require('../src/js/shared/data/monsterSummaries');
 var bulbasaur = require('../src/js/shared/data/bulbasaur');
 var toHtml = require('vdom-to-html');
@@ -172,7 +174,11 @@ module.exports = async function build(debug) {
       opts.plugin = [bundleCollapser];
     }
     var b = browserify(files, opts);
-    b = b.transform('async-await-browserify').transform('babelify');
+    b = b.transform('rollupify', {
+      config: {
+        plugins: [ rollupPluginJson(), asyncPlugin() ]
+      }
+    }).transform('babelify');
     if (debug) {
       b = b.plugin('errorify');
     } else {

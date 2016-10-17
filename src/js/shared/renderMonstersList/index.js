@@ -1,7 +1,6 @@
-var h = require('virtual-dom/h');
-
-var getMonsterBackground = require('../monster/getMonsterBackground');
-var getMonsterDisplayName = require('../monster/getMonsterDisplayName');
+import h from 'virtual-dom/h';
+import getMonsterBackground from '../monster/getMonsterBackground';
+import getMonsterDisplayName from '../monster/getMonsterDisplayName';
 
 function renderMonster(monster) {
   return h('li', {
@@ -22,7 +21,7 @@ function renderStub(monster) {
   });
 }
 
-module.exports = (monsters, start, end) => {
+function renderMonstersList (monsters, start, end) {
   var startingStubs = monsters.slice(0, start);
   var monstersToRender = monsters.slice(start, end);
   var endingStubs = monsters.slice(end);
@@ -32,4 +31,6 @@ module.exports = (monsters, start, end) => {
     .concat(endingStubs.map(renderStub));
 
   return h('ul', {id: 'monsters-list'}, listItems);
-};
+}
+
+export default renderMonstersList;

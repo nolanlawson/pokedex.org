@@ -1,6 +1,6 @@
-var h = require('virtual-dom/h');
+import h from 'virtual-dom/h';
 
-module.exports = options => {
+export default options => {
   var {text, buttonText} = options;
   return h('div.toast', [
     h('span', text),

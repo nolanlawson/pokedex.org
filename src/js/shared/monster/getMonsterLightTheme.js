@@ -1,10 +1,10 @@
-var color = require('color');
-var getMonsterPrimaryType = require('./getMonsterPrimaryType');
-var typesToColors = require('./typesToColors');
+import color from 'color';
+import getMonsterPrimaryType from './getMonsterPrimaryType';
+import typesToColors from './typesToColors';
 
 var cached = {};
 
-module.exports = monster => {
+export default monster => {
   var primaryType = getMonsterPrimaryType(monster);
 
   if (!cached[primaryType]) {

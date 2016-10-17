@@ -1,6 +1,6 @@
-var h = require('virtual-dom/h');
+import h from 'virtual-dom/h';
 
-module.exports = () => {
+export default () => {
   return h('div.big-spinner-holder', [
     h("svg.spinner.big-spinner", {
       "attributes": {

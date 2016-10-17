@@ -1,12 +1,12 @@
-var renderMovesList = require('../shared/renderMovesList');
-var databaseService = require('./databaseService');
-var h = require('virtual-dom/h');
-var diff = require('virtual-dom/diff');
-var Stopwatch = require('../shared/util/stopwatch');
+import renderMovesList from '../shared/renderMovesList/index';
+import databaseService from './databaseService';
+import h from 'virtual-dom/h';
+import diff from 'virtual-dom/diff';
+import Stopwatch from '../shared/util/stopwatch';
 
 var lastMovesList = h('div.monster-moves');
 
-module.exports = async nationalId => {
+export default async nationalId => {
   var stopwatch = new Stopwatch('Fetching monster moves');
   stopwatch.start('getMonsterSummaryById()');
   var monsterSummary = databaseService.getMonsterSummaryById(nationalId);

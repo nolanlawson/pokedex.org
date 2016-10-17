@@ -1,6 +1,12 @@
 // same as debounce, but also calls the function during
 // intervals equal to the "wait" in milliseconds
-module.exports = (func, wait) => {
+// same as debounce, but also calls the function during
+// intervals equal to the "wait" in milliseconds
+// same as debounce, but also calls the function during
+// intervals equal to the "wait" in milliseconds
+// same as debounce, but also calls the function during
+// intervals equal to the "wait" in milliseconds
+export default (func, wait) => {
   var timeout;
   var lastTime;
   return () => {

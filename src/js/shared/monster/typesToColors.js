@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   normal: '#A8A878',
   fire: '#F08030',
   fighting: '#C03028',

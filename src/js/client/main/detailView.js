@@ -1,11 +1,10 @@
-var worker = require('./../shared/worker');
-var applyPatch = require('vdom-serialized-patch/patch');
-var indexOf = require('lodash/array/indexOf');
-var orchestrator = require('./detailViewOrchestrator');
-var Promise = require('../../shared/util/promise');
-var toMainView = require('./router').toMainView;
-
-var $ = require('./jqueryLite');
+import worker from './../shared/worker';
+import applyPatch from 'vdom-serialized-patch/patch';
+import indexOf from 'lodash/array/indexOf';
+import orchestrator from './detailViewOrchestrator';
+import Promise from '../../shared/util/promise';
+import {toMainView} from './router';
+import $ from './jqueryLite';
 
 var detailView;
 var detailViewContainer;
@@ -135,3 +134,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+export default {};

@@ -1,12 +1,14 @@
 // animate between the list view and the detail view, using FLIP animations
 // https://aerotwist.com/blog/flip-your-animations/
 
-var utils = require('./utils');
-var themeManager = require('./themeManager');
-var worker = require('./../shared/worker');
-var each = require('lodash/collection/each');
+// animate between the list view and the detail view, using FLIP animations
+// https://aerotwist.com/blog/flip-your-animations/
 
-var $ = require('./jqueryLite');
+import utils from './utils';
+import themeManager from './themeManager';
+import worker from './../shared/worker';
+import each from 'lodash/collection/each';
+import $ from './jqueryLite';
 
 // elements
 var detailView;
@@ -374,7 +376,7 @@ worker.addEventListener('message', e => {
   }
 });
 
-module.exports = {
+export default {
   animateInPartOne,
   animateInPartTwo,
   animateOut

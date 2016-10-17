@@ -1,24 +1,24 @@
-require('lie/polyfill'); // regenerator requires this
-var regen = require('regenerator-runtime/runtime');
+import 'lie/polyfill';
+import regen from 'regenerator-runtime/runtime';
 
 if (typeof window !== 'undefined') {
   // hack for the pseudoworker
   window.regeneratorRuntime = regen;
 }
 
-var toJson = require('vdom-as-json/toJson');
-var serialize = require('vdom-serialized-patch/serialize');
-var Stopwatch = require('../shared/util/stopwatch');
-var dbService = require('./databaseService');
-var patchMonstersList = require('./patchMonstersList');
-var patchMonsterDetail = require('./patchMonsterDetail');
-var renderToast = require('../shared/renderToast');
-var renderModal = require('../shared/renderModal');
-var pageStateStore = require('./pageStateStore');
-var startingPageSize = require('../shared/util/constants').pageSize;
-var getMonsterDarkTheme = require('../shared/monster/getMonsterDarkTheme');
-var databaseService = require('./databaseService');
-var patchMovesList = require('./patchMovesList');
+import toJson from 'vdom-as-json/toJson';
+import serialize from 'vdom-serialized-patch/serialize';
+import Stopwatch from '../shared/util/stopwatch';
+import dbService from './databaseService';
+import patchMonstersList from './patchMonstersList';
+import patchMonsterDetail from './patchMonsterDetail';
+import renderToast from '../shared/renderToast/index';
+import renderModal from '../shared/renderModal/index';
+import pageStateStore from './pageStateStore';
+import {pageSize as startingPageSize} from '../shared/util/constants';
+import getMonsterDarkTheme from '../shared/monster/getMonsterDarkTheme';
+import databaseService from './databaseService';
+import patchMovesList from './patchMovesList';
 
 async function renderList() {
   var {filter, start, end} = pageStateStore;

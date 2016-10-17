@@ -1,6 +1,6 @@
-var keyValueStore = require('../../shared/db/keyValueStore');
-var supportsWebp = require('../../shared/util/supportsWebp');
-var worker = require('./../shared/worker');
+import keyValueStore from '../../shared/db/keyValueStore';
+import supportsWebp from '../../shared/util/supportsWebp';
+import worker from './../shared/worker';
 
 function onFirstLoad() {
   console.log('sw ready to work offline');
@@ -69,3 +69,5 @@ if (process.env.NODE_ENV !== 'testing' && 'serviceWorker' in navigator) {
     registration.addEventListener('updatefound', () => onUpdateFound(registration));
   });
 }
+
+export default {};

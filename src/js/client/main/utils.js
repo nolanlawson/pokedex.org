@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   hasWebWorkerIDB: () => {
     // this test is basically "are we running in Safari", which doesn't
     // support IndexedDB very well, and not at all in a web worker

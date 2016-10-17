@@ -1,18 +1,10 @@
-require('regenerator-runtime/runtime');
-require('serviceworker-cache-polyfill');
-
-var semver = require('../shared/util/semverLite');
-var keyValueStore = require('../shared/db/keyValueStore');
-var constants = require('../shared/util/constants');
-var numSpriteCssFiles = constants.numSpriteCssFiles;
-var range = require('lodash/utility/range');
-
-// Using jake archibald's service worker "semver" style here
-// Pattern here is "a.b.c"
-// a: version-isolated change, don't let both versions run together
-// b: new feature
-// c: bug fix
-var version = require('../../../package.json').version;
+import 'regenerator-runtime/runtime';
+import 'serviceworker-cache-polyfill';
+import semver from '../shared/util/semverLite';
+import keyValueStore from '../shared/db/keyValueStore';
+import { numSpriteCssFiles } from '../shared/util/constants';
+import range from 'lodash/utility/range';
+import { version } from '../../../package.json';
 
 var staticContent = [
   '/',

@@ -1,11 +1,9 @@
-var h = require('virtual-dom/h');
-
-var getMonsterWeight = require('../monster/getMonsterWeight');
-var getMonsterHeight = require('../monster/getMonsterHeight');
-var getMonsterGenderRatio = require('../monster/getMonsterGenderRatio');
-var getMonsterDarkTheme = require('../monster/getMonsterDarkTheme');
-
-var capitalize = require('lodash/string/capitalize');
+import h from 'virtual-dom/h';
+import getMonsterWeight from '../monster/getMonsterWeight';
+import getMonsterHeight from '../monster/getMonsterHeight';
+import getMonsterGenderRatio from '../monster/getMonsterGenderRatio';
+import getMonsterDarkTheme from '../monster/getMonsterDarkTheme';
+import capitalize from 'lodash/string/capitalize';
 
 var EV_LABELS_AND_NAMES = [
   ['HP', 'hpEV'],
@@ -28,7 +26,7 @@ function getEVsYield(supplemental) {
   return res.join(', ');
 }
 
-module.exports = (monster, supplemental) => {
+export default (monster, supplemental) => {
   var darkColor = getMonsterDarkTheme(monster);
   return [
     h('h2.detail-subheader', {

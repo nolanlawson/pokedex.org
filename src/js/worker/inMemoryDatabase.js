@@ -2,7 +2,11 @@
 // main summary list is not slowed down by PouchDB.
 // Also keep a binary search index of names for prefix search.
 
-var monsterSummaries = require('../shared/data/monsterSummaries');
+// Keep an in-memory list of monster summaries, so that the
+// main summary list is not slowed down by PouchDB.
+// Also keep a binary search index of names for prefix search.
+
+import monsterSummaries from '../shared/data/monsterSummaries.json';
 
 var byName = monsterSummaries.map(function (monster) {
   return {
@@ -22,7 +26,7 @@ function binarySearch(arr, target) {
   return low;
 }
 
-module.exports = {
+export default {
   findAll: () => {
     return monsterSummaries;
   },

@@ -1,4 +1,4 @@
-var $ = require('./jqueryLite');
+import $ from './jqueryLite';
 
 var mask;
 
@@ -19,4 +19,4 @@ Progress.prototype.end = function () {
   mask.classList.remove('shown');
 };
 
-module.exports = new Progress();
+export default new Progress();

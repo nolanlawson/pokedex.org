@@ -1,1 +1,1 @@
-module.exports = document.querySelector.bind(document);
+export default document.querySelector.bind(document);

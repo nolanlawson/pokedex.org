@@ -1,7 +1,7 @@
-var Navigo = require('navigo');
+import Navigo from 'navigo';
 var router = new Navigo(null, true);
-var worker = require('../shared/worker');
-var detailViewOrchestrator = require('./detailViewOrchestrator');
+import worker from '../shared/worker';
+import detailViewOrchestrator from './detailViewOrchestrator';
 
 var lastNationalId;
 var landedOnMainView;
@@ -33,7 +33,7 @@ function toMainView() {
   }
 }
 
-module.exports = {
+export {
   toMonsterDetail,
   toMainView
 };

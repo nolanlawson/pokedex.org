@@ -1,7 +1,3 @@
-var lie = require('lie');
-
-if (typeof Promise === 'undefined') {
-  module.exports = lie;
-} else {
-  module.exports = Promise;
-}
+import lie from 'lie';
+var res = typeof Promise === 'undefined' ? lie : Promise;
+export default res;

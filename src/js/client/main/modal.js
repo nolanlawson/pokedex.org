@@ -1,6 +1,6 @@
-var worker = require('./../shared/worker');
-var createElement = require('virtual-dom/create-element');
-var fromJson = require('vdom-as-json/fromJson');
+import worker from './../shared/worker';
+import createElement from 'virtual-dom/create-element';
+import fromJson from 'vdom-as-json/fromJson';
 
 function onShowModal(message) {
   var modal = createElement(fromJson(JSON.parse(message.modal)));
@@ -56,3 +56,5 @@ worker.addEventListener('message', e => {
     onShowModal(e.data);
   }
 });
+
+export default {};

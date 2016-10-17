@@ -1,7 +1,7 @@
-var h = require('virtual-dom/h');
-var typesToColors = require('../../shared/monster/typesToColors');
-var color = require('color');
-var capitalize = require('lodash/string/capitalize');
+import h from 'virtual-dom/h';
+import typesToColors from '../../shared/monster/typesToColors';
+import color from 'color';
+import capitalize from 'lodash/string/capitalize';
 
 var sortByLevel = (a, b) => a.level < b.level ? -1 : 1;
 var sortByName = (a, b) => a.identifier < b.identifier ? -1 : 1;
@@ -47,7 +47,7 @@ function renderMoves(moves) {
   });
 }
 
-module.exports = (monster, moves) => {
+export default (monster, moves) => {
 
   var fontColor = color(typesToColors[monster.type]).darken(0.2).hexString();
 

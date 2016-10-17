@@ -20,4 +20,4 @@ Stopwatch.prototype.totalTime = function () {
   console.timeEnd(this.name + ' (total)');
 };
 
-module.exports = Stopwatch;
+export default Stopwatch;

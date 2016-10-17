@@ -1,7 +1,7 @@
-var worker = require('./../shared/worker');
-var debounce = require('debounce');
-var progress = require('./progress');
-var $ = require('./jqueryLite');
+import worker from './../shared/worker';
+import debounce from 'debounce';
+import progress from './progress';
+import $ from './jqueryLite';
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -22,3 +22,5 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 50));
 
 });
+
+export default {};

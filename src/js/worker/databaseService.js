@@ -1,11 +1,10 @@
-require('regenerator-runtime/runtime');
-
-var zpad = require('zpad');
-var find = require('lodash/collection/find');
-var assign = require('lodash/object/assign');
-var PouchDB = require('./pouchdb');
-var inMemoryDB = require('./inMemoryDatabase');
-var Stopwatch = require('../shared/util/stopwatch');
+import 'regenerator-runtime/runtime';
+import zpad from 'zpad';
+import find from 'lodash/collection/find';
+import assign from 'lodash/object/assign';
+import PouchDB from './pouchdb';
+import inMemoryDB from './inMemoryDatabase';
+import Stopwatch from '../shared/util/stopwatch';
 
 var dbs = {
   monsters: {},
@@ -140,7 +139,7 @@ async function getMonsterMovesById(nationalId) {
   return monsterMoves;
 }
 
-module.exports = {
+export default {
   init: origin => {
     var couchHome;
     if (origin.indexOf('pokedex.org') !== -1) {

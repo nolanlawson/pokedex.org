@@ -1,7 +1,7 @@
-var getMonsterPrimaryType = require('../monster/getMonsterPrimaryType');
-var typesToColors = require('../monster/typesToColors');
-var h = require('virtual-dom/h');
-var color = require('color');
+import getMonsterPrimaryType from '../monster/getMonsterPrimaryType';
+import typesToColors from '../monster/typesToColors';
+import h from 'virtual-dom/h';
+import color from 'color';
 
 // Smooth a value using an exponential graph that opens downward,
 // intersects 0,0 and intersects max,max.
@@ -56,4 +56,4 @@ function renderStats(monster) {
   });
 }
 
-module.exports = renderStats;
+export default renderStats;

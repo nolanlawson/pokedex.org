@@ -1,6 +1,6 @@
-var h = require('virtual-dom/h');
+import h from 'virtual-dom/h';
 
-module.exports = options => {
+export default options => {
   var {title, text, buttonText} = options;
   return h('div.pokedex-modal', [
     h('div.pokedex-modal-inner.mui-panel', [

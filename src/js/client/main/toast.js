@@ -1,6 +1,6 @@
-var worker = require('./../shared/worker');
-var createElement = require('virtual-dom/create-element');
-var fromJson = require('vdom-as-json/fromJson');
+import worker from './../shared/worker';
+import createElement from 'virtual-dom/create-element';
+import fromJson from 'vdom-as-json/fromJson';
 
 var TOAST_SHOW_TIME = 10000;
 
@@ -40,3 +40,5 @@ worker.addEventListener('message', e => {
     onToast(e.data);
   }
 });
+
+export default {};

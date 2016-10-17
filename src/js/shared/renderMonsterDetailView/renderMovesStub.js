@@ -1,7 +1,7 @@
-var getMonsterDarkTheme = require('../monster/getMonsterDarkTheme');
-var h = require('virtual-dom/h');
+import getMonsterDarkTheme from '../monster/getMonsterDarkTheme';
+import h from 'virtual-dom/h';
 
-module.exports = (monster) => {
+export default (monster) => {
   var darkColor = getMonsterDarkTheme(monster);
   return [
     h('h2.detail-subheader', {

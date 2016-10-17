@@ -1,6 +1,6 @@
-var typesToColors = require('./typesToColors');
+import typesToColors from './typesToColors';
 
-module.exports = monster => {
+export default monster => {
   var types = monster.types;
   if (types.length === 1) {
     return typesToColors[types[0].name];

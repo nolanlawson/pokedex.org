@@ -1,6 +1,6 @@
-var h = require('virtual-dom/h');
-var getMonsterDarkTheme = require('../monster/getMonsterDarkTheme');
-var getMonsterDisplayName = require('../monster/getMonsterDisplayName');
+import h from 'virtual-dom/h';
+import getMonsterDarkTheme from '../monster/getMonsterDarkTheme';
+import getMonsterDisplayName from '../monster/getMonsterDisplayName';
 
 function renderArrow(color) {
   return h("svg", {
@@ -74,7 +74,7 @@ function renderEvolutionRows(monster, evolutions) {
   }));
 }
 
-module.exports = function renderEvolutions(monster, evolutions) {
+export default function renderEvolutions(monster, evolutions) {
   var darkColor = getMonsterDarkTheme(monster);
   return [
     h('h2.detail-subheader', {

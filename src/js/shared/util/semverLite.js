@@ -1,6 +1,12 @@
 // semver is apparently pretty large (4.7kB min+gz, so just write our own)
 
-module.exports = {
+// semver is apparently pretty large (4.7kB min+gz, so just write our own)
+
+// semver is apparently pretty large (4.7kB min+gz, so just write our own)
+
+// semver is apparently pretty large (4.7kB min+gz, so just write our own)
+
+export default {
   parse: function (str) {
     var split = str.split('.').map(x => parseInt(x, 10));
     return {

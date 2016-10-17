@@ -1,14 +1,13 @@
-require('regenerator-runtime/runtime');
+import 'regenerator-runtime/runtime';
+import renderDetailView from '../shared/renderMonsterDetailView/index';
+import dbService from './databaseService';
+import diff from 'virtual-dom/diff';
+import Stopwatch from '../shared/util/stopwatch';
+import fromJson from 'vdom-as-json/fromJson';
+import bulbasaur from '../shared/prerendered/bulbasaur.json';
+var lastDetailView = fromJson(bulbasaur);
 
-var renderDetailView = require('../shared/renderMonsterDetailView');
-var dbService = require('./databaseService');
-var diff = require('virtual-dom/diff');
-var Stopwatch = require('../shared/util/stopwatch');
-var fromJson = require('vdom-as-json/fromJson');
-
-var lastDetailView = fromJson(require('../shared/prerendered/bulbasaur'));
-
-module.exports = async nationalId => {
+export default async nationalId => {
   var stopwatch = new Stopwatch('patchMonsterDetail()');
   stopwatch.start('getFullMonsterDataById()');
   var fullMonsterData = await dbService.getFullMonsterDataById(nationalId);

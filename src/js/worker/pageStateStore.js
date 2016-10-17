@@ -1,6 +1,6 @@
-var pageSize = require('../shared/util/constants').pageSize;
+import {pageSize} from '../shared/util/constants';
 
-module.exports = {
+export default {
   filter: '',
   start: 0,
   end: pageSize

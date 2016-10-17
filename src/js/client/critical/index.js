@@ -1,2 +1,2 @@
-require('./asyncSpritesCss');
-require('../shared/worker');
+import './asyncSpritesCss';
+import '../shared/worker';

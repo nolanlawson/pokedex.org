@@ -1,14 +1,13 @@
-require('regenerator-runtime/runtime');
+import 'regenerator-runtime/runtime';
+import renderMonstersList from '../shared/renderMonstersList/index';
+import diff from 'virtual-dom/diff';
+import Stopwatch from '../shared/util/stopwatch';
+import dbService from './databaseService';
+import fromJson from 'vdom-as-json/fromJson';
+import summaries from '../shared/prerendered/monsterSummaries.json';
+var lastMonstersListView = fromJson(summaries);
 
-var renderMonstersList = require('../shared/renderMonstersList');
-var diff = require('virtual-dom/diff');
-var Stopwatch = require('../shared/util/stopwatch');
-var dbService = require('./databaseService');
-var fromJson = require('vdom-as-json/fromJson');
-
-var lastMonstersListView = fromJson(require('../shared/prerendered/monsterSummaries.json'));
-
-module.exports = async (filter, pageSize, start, end) => {
+async function patchMonstersList(filter, pageSize, start, end) {
   var stopwatch = new Stopwatch('patchMonstersList()');
 
   var newMonsters;
@@ -31,4 +30,6 @@ module.exports = async (filter, pageSize, start, end) => {
 
   stopwatch.totalTime();
   return {patch, endOfList};
-};
+}
+
+export default patchMonstersList;

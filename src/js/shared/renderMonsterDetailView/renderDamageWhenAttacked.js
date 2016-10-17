@@ -1,7 +1,7 @@
-var h = require('virtual-dom/h');
-var getMonsterDarkTheme = require('../../shared/monster/getMonsterDarkTheme');
-var typesToColors = require('../monster/typesToColors');
-var color = require('color');
+import h from 'virtual-dom/h';
+import getMonsterDarkTheme from '../../shared/monster/getMonsterDarkTheme';
+import typesToColors from '../monster/typesToColors';
+import color from 'color';
 
 function renderEmptyTypeLabel() {
   return h('span.monster-type', {
@@ -111,7 +111,7 @@ function renderResistances(types) {
   return rows;
 }
 
-module.exports = (monster, types) => {
+export default (monster, types) => {
   var darkColor = getMonsterDarkTheme(monster);
   return [
     h('h2.detail-subheader', {

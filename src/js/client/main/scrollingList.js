@@ -1,13 +1,13 @@
-var toMonsterDetail = require('./router').toMonsterDetail;
-var progress = require('./progress');
-var applyPatch = require('vdom-serialized-patch/patch');
-var worker = require('./../shared/worker');
-var rippleEffect = require('./rippleEffect');
-var debounce = require('debounce');
-var progressiveDebounce = require('./progressiveDebounce');
+import {toMonsterDetail} from './router';
+import progress from './progress';
+import applyPatch from 'vdom-serialized-patch/patch';
+import worker from './../shared/worker';
+import rippleEffect from './rippleEffect';
+import debounce from 'debounce';
+import progressiveDebounce from './progressiveDebounce';
 var DEBOUNCE_DELAY = 200;
 var PLACEHOLDER_OFFSET = 30;
-var $ = require('./jqueryLite');
+import $ from './jqueryLite';
 
 var monstersList;
 
@@ -112,3 +112,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
 window.addEventListener('scroll', progressiveDebounce(onViewportChange, DEBOUNCE_DELAY));
 window.addEventListener('resize', debounce(onViewportChange, 50));
+
+export default {};

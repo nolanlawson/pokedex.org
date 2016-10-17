@@ -1,4 +1,4 @@
-module.exports = name => {
+export default name => {
   switch (name) {
     case 'Nidoran-m':
       return "Nidoran \u2642";

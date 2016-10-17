@@ -1,4 +1,4 @@
-var $ = require('./jqueryLite');
+import $ from './jqueryLite';
 
 var themeMeta;
 var appTheme;
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   headerAppBar = $('.mui-appbar');
 });
 
-module.exports = {
+export default {
   setThemeColor,
   resetThemeColor
 };

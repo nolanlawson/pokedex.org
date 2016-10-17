@@ -7,6 +7,6 @@ if (elem.getContext && elem.getContext('2d')) {
   result = /^data:image\/webp/.test(elem.toDataURL('image/webp'));
 }
 
-module.exports = () => {
+export default () => {
   return result;
 };

@@ -1,15 +1,14 @@
-var h = require('virtual-dom/h');
-
-var getMonsterBackground = require('../monster/getMonsterBackground');
-var getMonsterDarkTheme = require('../monster/getMonsterDarkTheme');
-var getMonsterDisplayName = require('../monster/getMonsterDisplayName');
-var renderStats = require('./renderStats');
-var renderTypeLabels = require('./renderTypeLabels');
-var renderEvolutions = require('./renderEvolutions');
-var renderMinutia = require('./renderMinutia');
-var renderDamageWhenAttacked = require('./renderDamageWhenAttacked');
-var renderMovesStub = require('./renderMovesStub');
-var renderSpinner = require('./renderSpinner');
+import h from 'virtual-dom/h';
+import getMonsterBackground from '../monster/getMonsterBackground';
+import getMonsterDarkTheme from '../monster/getMonsterDarkTheme';
+import getMonsterDisplayName from '../monster/getMonsterDisplayName';
+import renderStats from './renderStats';
+import renderTypeLabels from './renderTypeLabels';
+import renderEvolutions from './renderEvolutions';
+import renderMinutia from './renderMinutia';
+import renderDamageWhenAttacked from './renderDamageWhenAttacked';
+import renderMovesStub from './renderMovesStub';
+import renderSpinner from './renderSpinner';
 
 function renderDetailPanel(fullMonsterData) {
   var {monster, description, types, evolutions, supplemental} = fullMonsterData;
@@ -48,7 +47,7 @@ function renderDetailPanel(fullMonsterData) {
   ]);
 }
 
-module.exports = monsterData => {
+export default monsterData => {
   return h('div#detail-view', [
     h('div.detail-view-bg', {
       style: {

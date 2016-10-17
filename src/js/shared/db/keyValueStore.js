@@ -1,5 +1,7 @@
 // simple key-value store using localforage
 
+// simple key-value store using localforage
+
 var localForage = require('localforage');
 
 var keyValueStore = {
@@ -8,4 +10,4 @@ var keyValueStore = {
   delete: key => localForage.removeItem(key)
 };
 
-module.exports = keyValueStore;
+export default keyValueStore;

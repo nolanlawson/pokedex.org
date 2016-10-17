@@ -1,5 +1,5 @@
-var worker = require('./../shared/worker');
-var $ = require('./jqueryLite');
+import worker from './../shared/worker';
+import $ from './jqueryLite';
 
 document.addEventListener('DOMContentLoaded', () => {
   var sideDrawer = $('#sidedrawer');
@@ -52,3 +52,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+export default {};

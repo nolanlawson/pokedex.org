@@ -2,9 +2,21 @@
 // was adding way too many event listeners, which was dragging scroll
 // performance down to a crawl.
 
+// Mostly ripped from mui.js. the problem with their version was it
+// was adding way too many event listeners, which was dragging scroll
+// performance down to a crawl.
+
+// Mostly ripped from mui.js. the problem with their version was it
+// was adding way too many event listeners, which was dragging scroll
+// performance down to a crawl.
+
+// Mostly ripped from mui.js. the problem with their version was it
+// was adding way too many event listeners, which was dragging scroll
+// performance down to a crawl.
+
 var rippleClass = 'mui-ripple-effect';
 
-module.exports = function eventHandler(ev, buttonEl, xOffset, yOffset) {
+export default function eventHandler(ev, buttonEl, xOffset, yOffset) {
   // only left clicks
   if (ev.button !== 0) {
     return;

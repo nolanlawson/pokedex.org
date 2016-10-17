@@ -1,8 +1,8 @@
-var typesToColors = require('../monster/typesToColors');
-var color = require('color');
-var h = require('virtual-dom/h');
+import typesToColors from '../monster/typesToColors';
+import color from 'color';
+import h from 'virtual-dom/h';
 
-module.exports = function renderTypeLabels(monster) {
+export default function renderTypeLabels(monster) {
   return monster.types.map(type => {
     var regColor = typesToColors[type.name];
     var lightColor = color(regColor).lighten(0.4).rgbString();
