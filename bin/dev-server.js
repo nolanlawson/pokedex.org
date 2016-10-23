@@ -3,7 +3,6 @@ var childProcess = require('child_process');
 var bluebird = require('bluebird');
 var mkdirp = bluebird.promisify(require('mkdirp'));
 var fs = bluebird.promisifyAll(require('fs'));
-var build = require('./build');
 var PouchDB = require('pouchdb-core')
   .plugin(require('pouchdb-adapter-http'))
   .plugin(require('pouchdb-adapter-leveldb'))
