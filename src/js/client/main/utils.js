@@ -23,6 +23,9 @@ module.exports = {
     // firefox does not run concurrent animations well
     var isFirefox = navigator.userAgent.match(/Firefox/);
 
-    return !isAndroid4 && !isFirefox;
+    // nor does IE or Edge sadly
+    var isEdgeOrIE = navigator.userAgent.match(/(?:MSIE|Edge)/)
+
+    return !isAndroid4 && !isFirefox && !isEdgeOrIE;
   }
 };
