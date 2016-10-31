@@ -1,6 +1,6 @@
 {
   "name": "pokedex",
-  "version": "7.0.0",
+  "version": "8.0.0",
   "repository": "https://github.com/nolanlawson/pokedex.git",
   "description": "",
   "main": "index.js",
