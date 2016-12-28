@@ -5,6 +5,7 @@ var utils = require('./utils');
 var themeManager = require('./themeManager');
 var worker = require('./../shared/worker');
 var each = require('lodash/collection/each');
+var marky = require('marky');
 
 var $ = require('./jqueryLite');
 
@@ -36,7 +37,7 @@ function getScrollTop() {
 }
 
 function computeTransformsPartOne(nationalId) {
-  console.time('computeTransformsPartOne()');
+  marky.mark('computeTransformsPartOne()');
 
   var sourceSprite = monstersList.querySelector(`.sprite-${nationalId}`);
   if (!sourceSprite) {
@@ -64,7 +65,7 @@ function computeTransformsPartOne(nationalId) {
   var bgTransform = `translate(${toX}px,${toY}px) scale(${scaleX},${scaleY})`;
   var spriteTransform = `translate(${spriteChangeX}px, ${spriteChangeY}px)`;
 
-  console.timeEnd('computeTransformsPartOne()');
+  marky.stop('computeTransformsPartOne()');
 
   return {
     bgTransform,
@@ -75,14 +76,14 @@ function computeTransformsPartOne(nationalId) {
 }
 
 function computeTransformsPartTwo(nationalId, outAnimation) {
-  console.time('computeTransformsPartTwo()');
+  marky.mark('computeTransformsPartTwo()');
 
   // reeeaaally fling it away when animating out. looks better
   var slideInY = outAnimation ? screenHeight * 1.1 : screenHeight * 0.6;
 
   var fgTransform = `translateY(${slideInY}px)`;
 
-  console.timeEnd('computeTransformsPartTwo()');
+  marky.stop('computeTransformsPartTwo()');
 
   return {
     fgTransform

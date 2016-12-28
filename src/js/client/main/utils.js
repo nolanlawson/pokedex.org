@@ -24,7 +24,7 @@ module.exports = {
     var isFirefox = navigator.userAgent.match(/Firefox/);
 
     // nor does IE or Edge sadly
-    var isEdgeOrIE = navigator.userAgent.match(/(?:MSIE|Edge)/)
+    var isEdgeOrIE = navigator.userAgent.match(/(?:MSIE|Edge)/);
 
     return !isAndroid4 && !isFirefox && !isEdgeOrIE;
   }

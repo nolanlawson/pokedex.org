@@ -4,6 +4,7 @@ var indexOf = require('lodash/array/indexOf');
 var orchestrator = require('./detailViewOrchestrator');
 var Promise = require('../../shared/util/promise');
 var toMainView = require('./router').toMainView;
+var marky = require('marky');
 
 var $ = require('./jqueryLite');
 
@@ -98,10 +99,10 @@ function onMovesListPatchMessage(pachAsString) {
 
 worker.addEventListener('message', e => {
   if (e.data.type === 'monsterDetailPatch') {
-    console.timeEnd('worker');
+    marky.stop('worker');
     onDetailPatchMessage(e.data);
   } else if (e.data.type === 'movesListPatch') {
-    console.timeEnd('worker');
+    marky.stop('worker');
     onMovesListPatchMessage(e.data.patch);
   }
 });

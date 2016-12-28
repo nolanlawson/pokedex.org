@@ -8,16 +8,17 @@ var progressiveDebounce = require('./progressiveDebounce');
 var DEBOUNCE_DELAY = 200;
 var PLACEHOLDER_OFFSET = 30;
 var $ = require('./jqueryLite');
+var marky = require('marky');
 
 var monstersList;
 
 function doApplyPatch(patchString) {
-  console.time('JSON.parse()');
+  marky.mark('JSON.parse()');
   var patch = JSON.parse(patchString);
-  console.timeEnd('JSON.parse()');
-  console.time('patchElement()');
+  marky.stop('JSON.parse()');
+  marky.mark('patchElement()');
   applyPatch(monstersList, patch);
-  console.timeEnd('patchElement()');
+  marky.stop('patchElement()');
   progress.end();
 }
 
@@ -53,13 +54,13 @@ function onViewportChange() {
     return;
   }
 
-  console.time('binarySearch');
+  marky.mark('binarySearch');
   var children = monstersList.children;
   var firstVisibleIndex = binarySearchForFirstVisibleChild(children);
   var firstInvisibleIndex = binarySearchForFirstInvisibleChild(firstVisibleIndex, children);
-  console.timeEnd('binarySearch');
+  marky.stop('binarySearch');
 
-  console.time('worker');
+  marky.mark('worker');
   worker.postMessage({
     type: 'listStateChanged',
     start: Math.max(0, firstVisibleIndex - PLACEHOLDER_OFFSET),
@@ -68,7 +69,7 @@ function onViewportChange() {
 }
 
 function showMonsterDetail(nationalId) {
-  console.time('worker');
+  marky.mark('worker');
   toMonsterDetail(nationalId);
 }
 
@@ -85,7 +86,7 @@ function getNationalIdFromElement(el) {
 
 function onMessage(message) {
   if (message.type === 'monstersListPatch') {
-    console.timeEnd('worker');
+    marky.stop('worker');
     onMonstersListPatch(message);
   } else if (message.type === 'viewportChanged') {
     onViewportChange();

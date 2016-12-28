@@ -1,23 +1,26 @@
+var marky = require('marky');
+
 function Stopwatch(str) {
   this.startTime = Date.now();
   this.name = str;
   this.lastStart = str;
-  console.time(str + ' (total)');
+  marky.mark(str + ' (total)');
 }
 
 Stopwatch.prototype.start = function(str) {
   this.lastStart = str;
-  console.time(str);
+  marky.mark(str);
 };
 
 Stopwatch.prototype.time = function (str) {
-  console.timeEnd(this.lastStart);
+  marky.stop(this.lastStart);
+  marky.mark(str);
   this.lastStart = str;
 };
 
 Stopwatch.prototype.totalTime = function () {
-  console.timeEnd(this.lastStart);
-  console.timeEnd(this.name + ' (total)');
+  marky.stop(this.lastStart);
+  marky.stop(this.name + ' (total)');
 };
 
 module.exports = Stopwatch;
