@@ -12,20 +12,17 @@ module.exports = {
     // force setting via highPerfAnims query parameter (0/1)
     var force = window.location.search.match(/highPerfAnims=(\d)/);
     if (force) {
-      return (force[1] == 1);
+      return (force[1] === "1");
     }
 
     // it is a pretty safe assumption that android 4 devices are not
     // running on great hardware. this is an inexact metric, but it
     // ought to be pretty safe for the time being
-    var isAndroid4 = navigator.userAgent.match(/Android 4\./);
 
     // firefox does not run concurrent animations well
-    var isFirefox = navigator.userAgent.match(/Firefox/);
 
-    // nor does IE or Edge sadly
-    var isEdgeOrIE = navigator.userAgent.match(/(?:MSIE|Edge)/);
-
-    return !isAndroid4 && !isFirefox && !isEdgeOrIE;
+    // nor does IE sadly
+    
+    return !navigator.userAgent.match(/(?:Android 4\.|Firefox|MSIE)/);
   }
 };
