@@ -32,9 +32,11 @@ function onFirstLoad() {
 
 function onClaimed() {
   console.log('sw claimed');
-  navigator.serviceWorker.controller.postMessage({
-    type: 'supportsWebp',
-    value: supportsWebp()
+  supportsWebp.then(supports => {
+    navigator.serviceWorker.controller.postMessage({
+      type: 'supportsWebp',
+      value: supports
+    });
   });
 }
 

@@ -36,6 +36,7 @@ function loadAllAsync(numToDo, templateFun) {
 
 // Load the sprites in a waterfall, because we don't want them to block
 // other HTTP requests; they're not *that* important.
-var hasWebp = supportsWebp();
-loadAllAsync(numSpriteCssFiles,
+supportsWebp.then(hasWebp => {
+  loadAllAsync(numSpriteCssFiles,
     i => `css/sprites${hasWebp ? '-webp' : ''}-${i}.css`);
+});

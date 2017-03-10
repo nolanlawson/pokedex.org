@@ -1,12 +1,12 @@
-var result = false;
+/* global Image */
 
-var elem = document.createElement('canvas');
+var Promise = require('./promise');
 
-if (elem.getContext && elem.getContext('2d')) {
-  // was able or not to get WebP representation
-  result = /^data:image\/webp/.test(elem.toDataURL('image/webp'));
-}
-
-module.exports = () => {
-  return result;
-};
+module.exports = new Promise(resolve => {
+  var img = new Image();
+  img.onerror = () => resolve(false);
+  img.onload = () => resolve(true);
+  // 1x1 black pixel
+  img.src = 'data:image/webp;base64,' +
+    'UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAgA0JaQAA3AA/vv9UAA';
+});
