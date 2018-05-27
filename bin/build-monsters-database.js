@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-require('regenerator/runtime');
+require('regenerator-runtime/runtime');
 
 var fetch = require('node-fetch');
 var PouchDB = require('pouchdb');

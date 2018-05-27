@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-require('regenerator/runtime');
+require('regenerator-runtime/runtime');
 
 var PouchDB = require('pouchdb');
 var repStream = require('pouchdb-replication-stream');

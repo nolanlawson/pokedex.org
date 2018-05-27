@@ -2,7 +2,7 @@
 
 // used to split up the src/assets/*.txt files into smaller chunks
 
-require('regenerator/runtime');
+require('regenerator-runtime/runtime');
 var bluebird = require('bluebird');
 var fs = bluebird.promisifyAll(require('fs'));
 
