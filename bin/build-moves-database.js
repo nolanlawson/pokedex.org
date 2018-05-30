@@ -13,7 +13,7 @@ var bluebird = require('bluebird');
 var fs = bluebird.promisifyAll(require('fs'));
 var zpad = require('zpad');
 var fetch = require('node-fetch');
-var pick = require('lodash').pick;
+var pick = require('lodash/pick');
 var fetch = require('node-fetch');
 var shortRevs = require('short-revs');
 

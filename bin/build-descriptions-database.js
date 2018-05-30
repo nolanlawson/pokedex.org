@@ -14,7 +14,8 @@ var db = new PouchDB('inmem', {db: memdown});
 var bluebird = require('bluebird');
 var fs = bluebird.promisifyAll(require('fs'));
 var zpad = require('zpad');
-var lodash = require('lodash');
+var find = require('lodash/find');
+var uniq = require('lodash/uniq');
 var shortRevs = require('short-revs');
 
 var monstersDB = new PouchDB('monsters', {db: memdown});
@@ -27,12 +28,12 @@ async function doIt() {
   var descriptionIds = allMonsters.rows.map(row => {
     var monster = row.doc;
     // get just generation-5 descriptions
-    var desc = lodash.find(monster.descriptions, x => /_gen_5$/.test(x.name));
+    var desc = find(monster.descriptions, x => /_gen_5$/.test(x.name));
     var descId = parseInt(desc.resource_uri.match(/\/(\d+)\/$/)[1], 10);
     return descId;
   });
 
-  descriptionIds = lodash.uniq(descriptionIds);
+  descriptionIds = uniq(descriptionIds);
 
   for (var i = 0; i < descriptionIds.length; i++) {
     var descId = descriptionIds[i];

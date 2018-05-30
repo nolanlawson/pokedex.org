@@ -11,7 +11,7 @@ PouchDB.plugin({loadIt: load.load});
 var memdown = require('memdown');
 var bluebird = require('bluebird');
 var fs = bluebird.promisifyAll(require('fs'));
-var pick = require('lodash').pick;
+var pick = require('lodash/pick');
 var shortRevs = require('short-revs');
 
 var source = new PouchDB('inmem', {db: memdown});
