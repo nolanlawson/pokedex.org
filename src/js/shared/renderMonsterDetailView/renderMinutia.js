@@ -5,7 +5,7 @@ var getMonsterHeight = require('../monster/getMonsterHeight');
 var getMonsterGenderRatio = require('../monster/getMonsterGenderRatio');
 var getMonsterDarkTheme = require('../monster/getMonsterDarkTheme');
 
-var capitalize = require('lodash/string/capitalize');
+var capitalize = require('lodash/capitalize');
 
 var EV_LABELS_AND_NAMES = [
   ['HP', 'hpEV'],

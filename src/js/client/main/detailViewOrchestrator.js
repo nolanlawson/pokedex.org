@@ -4,7 +4,7 @@
 var utils = require('./utils');
 var themeManager = require('./themeManager');
 var worker = require('./../shared/worker');
-var each = require('lodash/collection/each');
+var each = require('lodash/each');
 var marky = require('marky');
 
 var $ = require('./jqueryLite');

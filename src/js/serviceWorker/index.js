@@ -5,7 +5,7 @@ var semver = require('../shared/util/semverLite');
 var keyValueStore = require('../shared/db/keyValueStore');
 var constants = require('../shared/util/constants');
 var numSpriteCssFiles = constants.numSpriteCssFiles;
-var range = require('lodash/utility/range');
+var range = require('lodash/range');
 
 // Using jake archibald's service worker "semver" style here
 // Pattern here is "a.b.c"

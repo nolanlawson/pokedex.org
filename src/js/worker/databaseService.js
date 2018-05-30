@@ -1,8 +1,8 @@
 require('regenerator-runtime/runtime');
 
 var zpad = require('zpad');
-var find = require('lodash/collection/find');
-var assign = require('lodash/object/assign');
+var find = require('lodash/find');
+var assign = require('lodash/assign');
 var PouchDB = require('./pouchdb');
 var inMemoryDB = require('./inMemoryDatabase');
 var Stopwatch = require('../shared/util/stopwatch');

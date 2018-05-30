@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-require('regenerator/runtime');
+require('regenerator-runtime/runtime');
 
 var PouchDB = require('pouchdb');
 var repStream = require('pouchdb-replication-stream');
@@ -13,7 +13,7 @@ var bluebird = require('bluebird');
 var fs = bluebird.promisifyAll(require('fs'));
 var zpad = require('zpad');
 var fetch = require('node-fetch');
-var pick = require('lodash').pick;
+var pick = require('lodash/pick');
 var fetch = require('node-fetch');
 var shortRevs = require('short-revs');
 

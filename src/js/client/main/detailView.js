@@ -1,6 +1,6 @@
 var worker = require('./../shared/worker');
 var applyPatch = require('vdom-serialized-patch/patch');
-var indexOf = require('lodash/array/indexOf');
+var indexOf = require('lodash/indexOf');
 var orchestrator = require('./detailViewOrchestrator');
 var Promise = require('../../shared/util/promise');
 var toMainView = require('./router').toMainView;
