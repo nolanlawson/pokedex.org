@@ -5,6 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build-csv": "async-node bin/build-from-csv.js",
     "get-csv": "async-node bin/download-csv.js",
     "serve": "async-node bin/dev-server.js",
     "lint": "eslint bin/*js src/js",

@@ -9,8 +9,16 @@ const fs = require('fs');
   const csv_base_URL = 'https://raw.githubusercontent.com/PokeAPI/pokeapi/master/data/v2/csv/';
   const files = [
     'types.csv',
+    'stats.csv',
+    'move_names.csv',
+    'evolution_triggers.csv',
+    'pokemon_evolution.csv',
     'pokemon_moves.csv',
+    'pokemon_move_methods.csv',
     'pokemon.csv',
+    'pokemon_stats.csv',
+    'pokemon_types.csv',
+    'pokemon_species.csv',
   ];
 
   for (let i = 0; i < files.length; i++) {
