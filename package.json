@@ -5,6 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "get-csv": "async-node bin/download-csv.js",
     "serve": "async-node bin/dev-server.js",
     "lint": "eslint bin/*js src/js",
     "build-pokeapi": "bash ./bin/build-pokeapi.sh",
@@ -30,6 +31,7 @@
     "color": "^0.11.4",
     "concat-stream": "^1.5.1",
     "cp": "^0.2.0",
+    "csv-parse": "^2.5.0",
     "debounce": "^1.0.0",
     "envify": "^4.1.0",
     "errorify": "^0.3.1",
@@ -49,6 +51,7 @@
     "node-watch": "^0.5.8",
     "package-json-versionify": "^1.0.1",
     "postcss": "^6.0.22",
+    "pouchdb": "^6.4.3",
     "pouchdb-adapter-http": "^6.4.3",
     "pouchdb-adapter-idb": "^6.4.3",
     "pouchdb-adapter-leveldb": "^6.4.3",
