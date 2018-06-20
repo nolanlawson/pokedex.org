@@ -17,6 +17,7 @@ var shortRevs = require('short-revs');
 async function build() {
   // some descriptions are missing for Sun/Moon, so just use the maximum version present.
   const descriptions = await loadCSV.object('csv/pokemon_species_flavor_text.csv', 'species_id', row => row.language_id === '9');
+
   for (let i = 1; i <= 802; i++) {
     await db.put({
       _id: `${i}`.padStart(7, '0'),

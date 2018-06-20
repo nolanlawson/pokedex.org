@@ -11,6 +11,9 @@ const fs = require('fs');
     'ability_names.csv',
     'types.csv',
     'stats.csv',
+    'moves.csv',
+    'move_names.csv',
+    'move_flavor_text.csv',
     'egg_group_prose.csv',
     'growth_rate_prose.csv',
     'move_names.csv',
@@ -25,6 +28,7 @@ const fs = require('fs');
     'pokemon_types.csv',
     'pokemon_species.csv',
     'pokemon_species_names.csv',
+    'pokemon_species_flavor_text.csv',
   ];
 
   for (let i = 0; i < files.length; i++) {
