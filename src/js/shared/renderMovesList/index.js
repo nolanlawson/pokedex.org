@@ -51,10 +51,10 @@ module.exports = (monster, moves) => {
 
   var fontColor = color(typesToColors[monster.type]).darken(0.2).hexString();
 
-  var levelUpMoves = moves.filter(m => m.learn_type === 'level up').sort(sortByLevel);
+  var levelUpMoves = moves.filter(m => m.learn_type === 'level-up').sort(sortByLevel);
   var machineMoves = moves.filter(m => m.learn_type === 'machine').sort(sortByName);
   var tutorMoves = moves.filter(m => m.learn_type === 'tutor').sort(sortByName);
-  var eggMoves = moves.filter(m => m.learn_type === 'egg move').sort(sortByName);
+  var eggMoves = moves.filter(m => m.learn_type === 'egg').sort(sortByName);
 
   var res = [];
   if (levelUpMoves.length) {

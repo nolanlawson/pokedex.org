@@ -10,8 +10,6 @@ var pouchdbLoad = require('pouchdb-load');
 PouchDB.plugin({loadIt: pouchdbLoad.load});
 var memdown = require('memdown');
 var db = new PouchDB('inmem', {db: memdown});
-var bluebird = require('bluebird');
-var fs = bluebird.promisifyAll(require('fs'));
 var shortRevs = require('short-revs');
 
 async function build() {
