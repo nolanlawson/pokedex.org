@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 require('regenerator-runtime/runtime');
 
 const PouchDB = require('pouchdb');
@@ -17,7 +19,7 @@ async function build() {
 
   const pokemon = {};
   moveArr.forEach(row => {
-    const pkmnId = row['pokemon_id'];
+    const pkmnId = row.pokemon_id;
 
     if (!pokemon[pkmnId]) {
       pokemon[pkmnId] = {
@@ -28,11 +30,11 @@ async function build() {
     }
 
     // make sure moves aren't duplicated
-    if (!pokemon[pkmnId]._moves[row['move_id']]) {
-      const moveMethod = moveMethods[row['pokemon_move_method_id']]['identifier'];
+    if (!pokemon[pkmnId]._moves[row.move_id]) {
+      const moveMethod = moveMethods[row.pokemon_move_method_id].identifier;
       const out = {
         learn_type: moveMethod,
-        id: parseInt(row['move_id']),
+        id: parseInt(row.move_id, 10),
       };
 
       if (moveMethod === 'level-up') {
@@ -40,7 +42,7 @@ async function build() {
       }
 
       pokemon[pkmnId].moves.push(out);
-      pokemon[pkmnId]._moves[row['move_id']] = true;
+      pokemon[pkmnId]._moves[row.move_id] = true;
     }
   });
 
@@ -49,8 +51,8 @@ async function build() {
     await db.put(pokemon[i]);
   }
 
-  var out = fs.createWriteStream('src/assets/monster-moves.txt');
-  var stream = shortRevs();
+  const out = fs.createWriteStream('src/assets/monster-moves.txt');
+  const stream = shortRevs();
   await db.dump(stream);
   stream.pipe(out);
 }

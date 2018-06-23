@@ -5,8 +5,6 @@ var getMonsterHeight = require('../monster/getMonsterHeight');
 var getMonsterGenderRatio = require('../monster/getMonsterGenderRatio');
 var getMonsterDarkTheme = require('../monster/getMonsterDarkTheme');
 
-var capitalize = require('lodash/capitalize');
-
 var EV_LABELS_AND_NAMES = [
   ['HP', 'hpEV'],
   ['Attack', 'attackEV'],
@@ -54,7 +52,7 @@ module.exports = (monster, supplemental) => {
     ]),
     h('div.monster-minutia', [
       h('strong', 'Abilities:'),
-      h('span', monster.abilities.map(ability => capitalize(ability.name)).join(', ')),
+      h('span', monster.abilities.join(', ')),
       h('strong', 'EVs:'),
       h('span', getEVsYield(supplemental))
     ])

@@ -2,16 +2,14 @@
 
 require('regenerator-runtime/runtime');
 
-var PouchDB = require('pouchdb');
-var repStream = require('pouchdb-replication-stream');
-var load = require('pouchdb-load');
+const PouchDB = require('pouchdb');
+const repStream = require('pouchdb-replication-stream');
 PouchDB.plugin(repStream.plugin);
 PouchDB.adapter('writableStream', repStream.adapters.writableStream);
-PouchDB.plugin({loadIt: load.load});
-var memdown = require('memdown');
-var fs = require('fs');
-var shortRevs = require('short-revs');
-var db = new PouchDB('inmem2', {db: memdown});
+const memdown = require('memdown');
+const fs = require('fs');
+const shortRevs = require('short-revs');
+const db = new PouchDB('inmem2', {db: memdown});
 const loadCSV = require('./csv-load.js');
 
 async function build() {
@@ -34,8 +32,8 @@ async function build() {
     });
   }
 
-  var out = fs.createWriteStream('src/assets/moves.txt');
-  var stream = shortRevs();
+  const out = fs.createWriteStream('src/assets/moves.txt');
+  const stream = shortRevs();
   await db.dump(stream);
   stream.pipe(out);
 }

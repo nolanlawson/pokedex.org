@@ -1,11 +1,7 @@
 const PouchDB = require('pouchdb');
 const repStream = require('pouchdb-replication-stream');
-const transformPouch = require('transform-pouch');
-const load = require('pouchdb-load');
 PouchDB.plugin(repStream.plugin);
 PouchDB.adapter('writableStream', repStream.adapters.writableStream);
-PouchDB.plugin(transformPouch);
-PouchDB.plugin({loadIt: load.load});
 const memdown = require('memdown');
 const fs = require('fs');
 const db = new PouchDB('inmem2', { db: memdown });
@@ -18,11 +14,11 @@ async function assignStats(pokemon) {
   const statArr = await loadCSV.array('csv/pokemon_stats.csv');
 
   statArr.forEach(row => {
-    const pkmnId = row['pokemon_id'];
+    const pkmnId = row.pokemon_id;
 
     if (pokemon[pkmnId]) {
-      const statName = statIds[row['stat_id']]['identifier'];
-      pokemon[pkmnId][statName] = parseInt(row['base_stat'], 10);
+      const statName = statIds[row.stat_id].identifier;
+      pokemon[pkmnId][statName] = parseInt(row.base_stat, 10);
     }
   });
 }
@@ -32,10 +28,10 @@ async function assignTypes(pokemon) {
   const typeArr = await loadCSV.array('csv/pokemon_types.csv');
 
   typeArr.forEach(row => {
-    const pkmnId = row['pokemon_id'];
+    const pkmnId = row.pokemon_id;
 
     if (pokemon[pkmnId]) {
-      const typeName = typeIds[row['type_id']]['identifier'];
+      const typeName = typeIds[row.type_id].identifier;
       if (!pokemon[pkmnId].types) {
         pokemon[pkmnId].types = [];
       }
@@ -56,9 +52,6 @@ async function assignSpeciesData(pokemon) {
     if (pokemon[pkmnId]) {
       pokemon[pkmnId].catch_rate = parseInt(row.capture_rate, 10);
       pokemon[pkmnId].name = pokemonNames[pkmnId].name;
-      // male/female ratio
-      const chanceFemale = parseInt(row['gender_rate']) * 12.5;
-      pokemon[pkmnId].male_female_ratio = `${100 - chanceFemale}/${chanceFemale}`;
     }
   });
 }
@@ -68,14 +61,12 @@ async function assignAbilities(pokemon) {
   const abilityArr = await loadCSV.array('csv/pokemon_abilities.csv');
 
   abilityArr.forEach(row => {
-    const pkmnId = row['pokemon_id'];
+    const pkmnId = row.pokemon_id;
     if (pokemon[pkmnId]) {
       if (!pokemon[pkmnId].abilities) {
         pokemon[pkmnId].abilities = [];
       }
-      pokemon[pkmnId].abilities.push({
-        name: abilityName[row['ability_id']]['name'],
-      });
+      pokemon[pkmnId].abilities.push(abilityName[row.ability_id].name);
     }
   });
 }
@@ -97,8 +88,8 @@ async function build() {
       'abilities', 'catch_rate'));
   }
 
-  var out = fs.createWriteStream('src/assets/skim-monsters.txt');
-  var stream = shortRevs();
+  const out = fs.createWriteStream('src/assets/skim-monsters.txt');
+  const stream = shortRevs();
   await db.dump(stream);
   stream.pipe(out);
 }

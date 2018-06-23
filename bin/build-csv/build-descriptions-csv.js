@@ -6,8 +6,6 @@ const PouchDB = require('pouchdb');
 const repStream = require('pouchdb-replication-stream');
 PouchDB.plugin(repStream.plugin);
 PouchDB.adapter('writableStream', repStream.adapters.writableStream);
-const pouchdbLoad = require('pouchdb-load');
-PouchDB.plugin({loadIt: pouchdbLoad.load});
 const memdown = require('memdown');
 const db = new PouchDB('inmem', {db: memdown});
 const shortRevs = require('short-revs');
@@ -23,8 +21,8 @@ async function build() {
     });
   }
 
-  var out = fs.createWriteStream('src/assets/descriptions.txt');
-  var stream = shortRevs();
+  const out = fs.createWriteStream('src/assets/descriptions.txt');
+  const stream = shortRevs();
   await db.dump(stream);
   stream.pipe(out);
 }
