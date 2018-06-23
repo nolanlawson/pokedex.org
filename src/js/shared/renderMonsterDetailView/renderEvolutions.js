@@ -30,9 +30,9 @@ function renderLabel(evolution, sourceMonster, direction) {
   }
 
   var bold;
-  if (method === 'level_up') {
+  if (method === 'level-up') {
     bold = `at level ${evolution.level}`;
-  } else if (method === 'stone') {
+  } else if (method === 'use-item') {
     bold = `using a stone`;
   } else if (method === 'trade') {
     bold = `by trading`;

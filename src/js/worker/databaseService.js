@@ -1,7 +1,6 @@
 require('regenerator-runtime/runtime');
 
 var zpad = require('zpad');
-var find = require('lodash/find');
 var assign = require('lodash/assign');
 var PouchDB = require('./pouchdb');
 var inMemoryDB = require('./inMemoryDatabase');
@@ -156,7 +155,8 @@ module.exports = {
     var promises = [
       doLocalFirst(db => getById(db, monsterDocId), dbs.monsters),
       doLocalFirst(db => getById(db, descDocId), dbs.descriptions),
-      doLocalFirst(db => getById(db, monsterDocId), dbs.evolutions),
+      // if evolution doc doesn't exist, return empty object
+      doLocalFirst(db => getById(db, monsterDocId), dbs.evolutions).catch(() => {}),
       doLocalFirst(db => getById(db, monsterDocId), dbs.supplemental),
       doLocalFirst(db => getManyByIds(db, monsterSummary.types.map(type => type.name)), dbs.types)
     ];

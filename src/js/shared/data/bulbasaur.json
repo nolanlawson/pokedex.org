@@ -166,7 +166,7 @@
       {
         "nationalId": 2,
         "name": "Ivysaur",
-        "method": "level_up",
+        "method": "level-up",
         "level": 16
       }
     ]
