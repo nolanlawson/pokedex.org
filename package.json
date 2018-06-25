@@ -5,12 +5,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build-csv": "async-node bin/build-from-csv.js",
-    "get-csv": "async-node bin/download-csv.js",
+    "get-csv": "async-node bin/build-csv/download-csv.js",
     "serve": "async-node bin/dev-server.js",
     "lint": "eslint bin/*js src/js",
-    "build-pokeapi": "bash ./bin/build-pokeapi.sh",
-    "build-monsters-database": "async-node ./bin/build-monsters-database.js",
     "build": "async-node bin/build-production.js"
   },
   "keywords": [],

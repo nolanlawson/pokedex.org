@@ -44,12 +44,12 @@ function renderLabel(evolution, sourceMonster, direction) {
 }
 
 function renderEvolutionRows(monster, evolutions) {
-  var from = evolutions.from || [];
-  var to = evolutions.to || [];
-
-  if (!to.length && !from.length) {
+  if (!evolutions) {
     return [h('span', `${monster.name} has no evolutions.`)];
   }
+
+  var from = evolutions.from || [];
+  var to = evolutions.to || [];
 
   var darkColor = getMonsterDarkTheme(monster);
 

@@ -10,6 +10,7 @@ const fs = require('fs');
   const files = [
     'ability_names.csv',
     'types.csv',
+    'type_efficacy.csv',
     'stats.csv',
     'moves.csv',
     'move_names.csv',
