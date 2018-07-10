@@ -27,8 +27,8 @@ function renderStats(monster) {
     ['attack', 'Attack'],
     ['defense', 'Defense'],
     ['speed', 'Speed'],
-    ['sp_atk', 'Sp Atk'],
-    ['sp_def', 'Sp Def']
+    ['special-attack', 'Sp Atk'],
+    ['special-defense', 'Sp Def']
   ];
 
   return stats.map(stat => {

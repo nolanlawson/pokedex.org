@@ -166,7 +166,7 @@
       {
         "nationalId": 2,
         "name": "Ivysaur",
-        "method": "level_up",
+        "method": "level-up",
         "level": 16
       }
     ]
@@ -215,8 +215,8 @@
     "national_id": 1,
     "pkdx_id": 1,
     "resource_uri": "/api/v1/pokemon/1/",
-    "sp_atk": 65,
-    "sp_def": 65,
+    "special-attack": 65,
+    "special-defense": 65,
     "species": "seed pokemon",
     "speed": 45,
     "total": 0,

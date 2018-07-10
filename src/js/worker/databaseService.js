@@ -1,7 +1,6 @@
 require('regenerator-runtime/runtime');
 
 var zpad = require('zpad');
-var find = require('lodash/find');
 var assign = require('lodash/assign');
 var PouchDB = require('./pouchdb');
 var inMemoryDB = require('./inMemoryDatabase');
@@ -92,10 +91,7 @@ async function initDBs(couchHome) {
 }
 
 function getGeneration5DescriptionDocId(monster) {
-  // get a generation-5 description
-  var desc = find(monster.descriptions, x => /_gen_5$/.test(x.name));
-  var descId = desc.resource_uri.match(/\/(\d+)\/$/)[1];
-  return zpad(parseInt(descId, 10), 7);
+  return zpad(monster.national_id, 7);
 }
 
 function getDocId(monster) {

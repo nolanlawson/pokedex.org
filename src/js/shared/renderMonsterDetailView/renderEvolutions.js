@@ -30,9 +30,9 @@ function renderLabel(evolution, sourceMonster, direction) {
   }
 
   var bold;
-  if (method === 'level_up') {
+  if (method === 'level-up') {
     bold = `at level ${evolution.level}`;
-  } else if (method === 'stone') {
+  } else if (method === 'use-item') {
     bold = `using a stone`;
   } else if (method === 'trade') {
     bold = `by trading`;
@@ -44,12 +44,12 @@ function renderLabel(evolution, sourceMonster, direction) {
 }
 
 function renderEvolutionRows(monster, evolutions) {
-  var from = evolutions.from || [];
-  var to = evolutions.to || [];
-
-  if (!to.length && !from.length) {
+  if (!evolutions) {
     return [h('span', `${monster.name} has no evolutions.`)];
   }
+
+  var from = evolutions.from || [];
+  var to = evolutions.to || [];
 
   var darkColor = getMonsterDarkTheme(monster);
 
