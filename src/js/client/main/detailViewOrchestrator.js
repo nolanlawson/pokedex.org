@@ -183,7 +183,6 @@ function doInAnimationPartTwo(nationalId) {
   clearTimeout(spinnerTimeout);
   detailPanel.style.overflowY = 'scroll'; // re-enable overflow on the panel
   document.body.style.overflowY = 'hidden'; // disable scrolling
-  document.documentElement.style.overflowY = 'hidden'; //disable scrolling
 
   // hide monster moves until they're shown after the panel
   detailPanel.querySelector('.monster-moves').classList.add('hidden');
