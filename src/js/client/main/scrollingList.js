@@ -104,6 +104,8 @@ document.addEventListener('DOMContentLoaded', () => {
       e.stopPropagation();
       e.preventDefault();
       rippleEffect(e, e.target, e.offsetX, e.offsetY);
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      window.sessionStorage.setItem('scroll', scrollTop);
       var nationalId = getNationalIdFromElement(e.target);
       showMonsterDetail(nationalId);
     }

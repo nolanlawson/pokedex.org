@@ -26,8 +26,12 @@ function toMonsterDetail(nationalId) {
 }
 
 function toMainView() {
-  if (landedOnMainView) {
+  if (landedOnMainView) {    
     history.back();
+    setTimeout(() => {
+      let scrollTop = window.sessionStorage.getItem('scroll');
+      document.documentElement.scrollTop = scrollTop;
+    }, 100);
   } else { // didn't land on main view, don't do a back action
     router.navigate('/');
   }
