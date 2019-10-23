@@ -29,7 +29,7 @@
     "color": "^0.11.4",
     "concat-stream": "^1.5.1",
     "cp": "^0.2.0",
-    "csv-parse": "^2.5.0",
+    "csv-parse": "^4.4.6",
     "debounce": "^1.0.0",
     "envify": "^4.1.0",
     "errorify": "^0.3.1",
