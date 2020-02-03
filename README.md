@@ -40,7 +40,7 @@ Building up the database via PokéAPI
 
 _**Note:** you don't need to build up the database to start developing; these are just steps to generate the database files (src/assets/*.txt) from scratch._
 
-This site uses data provided by [PokéAPI](http://pokeapi.co/). To build up the database, you'll need to run:
+This site uses data provided by [PokéAPI](https://pokeapi.co/). To build up the database, you'll need to run:
 
 ```
 ./node_modules/.bin/babel-node bin/build-monsters-database.js
@@ -59,4 +59,4 @@ Credits
 ---
 
 
-Thanks to [PokeAPI](http://pokeapi.co/) and [Bulbapedia](http://bulbapedia.bulbagarden.net/) for the Pokémon data, and of course to Nintendo, Game Freak, and The Pokémon Company for making such an awesome series of games.
+Thanks to [PokeAPI](https://pokeapi.co/) and [Bulbapedia](https://bulbapedia.bulbagarden.net/) for the Pokémon data, and of course to Nintendo, Game Freak, and The Pokémon Company for making such an awesome series of games.
