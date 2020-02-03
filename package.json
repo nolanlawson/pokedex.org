@@ -2,7 +2,8 @@
   "name": "pokedex",
   "version": "9.0.0",
   "repository": "https://github.com/nolanlawson/pokedex.git",
-  "description": "",
+  "homepage": "https://pokedex.org",
+  "description": "An index of Pokémon, built as a client-side JavaScript webapp",
   "main": "index.js",
   "scripts": {
     "get-csv": "async-node bin/build-csv/download-csv.js",
