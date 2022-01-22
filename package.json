@@ -45,7 +45,7 @@
     "mkdirp": "^0.5.1",
     "navigo": "^7.1.2",
     "ncp": "^2.0.0",
-    "node-fetch": "^2.1.2",
+    "node-fetch": "^3.1.1",
     "node-watch": "^0.5.8",
     "package-json-versionify": "^1.0.1",
     "postcss": "^6.0.22",
