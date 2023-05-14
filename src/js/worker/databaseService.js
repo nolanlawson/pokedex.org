@@ -153,11 +153,38 @@ module.exports = {
     var monsterDocId = getDocId(monsterSummary);
     var descDocId = getGeneration5DescriptionDocId(monsterSummary);
     var promises = [
-      doLocalFirst(db => getById(db, monsterDocId), dbs.monsters),
-      doLocalFirst(db => getById(db, descDocId), dbs.descriptions),
-      doLocalFirst(db => getById(db, monsterDocId), dbs.evolutions),
-      doLocalFirst(db => getById(db, monsterDocId), dbs.supplemental),
-      doLocalFirst(db => getManyByIds(db, monsterSummary.types.map(type => type.name)), dbs.types)
+      doLocalFirst((db) => getById(db, monsterDocId), dbs.monsters).catch(
+        (e) => {
+          console.log('monsters fail', e);
+          throw e;
+        }
+      ),
+      doLocalFirst((db) => getById(db, descDocId), dbs.descriptions).catch(
+        (e) => {
+          console.log('descriptions fail', e);
+          throw e;
+        }
+      ),
+      doLocalFirst((db) => getById(db, monsterDocId), dbs.evolutions).catch(
+        (e) => {
+          console.log('evolutions fail', e);
+          return null;
+        }
+      ),
+      doLocalFirst((db) => getById(db, monsterDocId), dbs.supplemental).catch(
+        (e) => {
+          console.log('supplemental fail', e);
+          throw e;
+        }
+      ),
+      doLocalFirst(
+        (db) =>
+          getManyByIds(
+            db,
+            monsterSummary.types.map((type) => type.name)
+          ),
+        dbs.types
+      ),
     ];
 
     var results = await Promise.all(promises);

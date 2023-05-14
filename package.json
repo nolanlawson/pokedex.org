@@ -4,11 +4,14 @@
   "repository": "https://github.com/nolanlawson/pokedex.git",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "18.8.0"
+  },
   "scripts": {
     "get-csv": "async-node bin/build-csv/download-csv.js",
     "serve": "async-node bin/dev-server.js",
     "lint": "eslint bin/*js src/js",
-    "build": "async-node bin/build-production.js"
+    "build": "node bin/build-production.js"
   },
   "keywords": [],
   "author": "Nolan Lawson <nolan@nolanlawson.com>",
@@ -49,10 +52,10 @@
     "node-watch": "^0.5.8",
     "package-json-versionify": "^1.0.1",
     "postcss": "^6.0.22",
-    "pouchdb": "^6.4.3",
+    "pouchdb": "^8.0.1",
     "pouchdb-adapter-http": "^6.4.3",
     "pouchdb-adapter-idb": "^6.4.3",
-    "pouchdb-adapter-leveldb": "^6.4.3",
+    "pouchdb-adapter-leveldb": "^8.0.1",
     "pouchdb-adapter-websql": "^6.4.3",
     "pouchdb-core": "^6.4.3",
     "pouchdb-load": "^1.4.2",
