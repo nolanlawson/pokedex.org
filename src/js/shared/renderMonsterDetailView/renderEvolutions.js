@@ -3,30 +3,41 @@ var getMonsterDarkTheme = require('../monster/getMonsterDarkTheme');
 var getMonsterDisplayName = require('../monster/getMonsterDisplayName');
 
 function renderArrow(color) {
-  return h("svg", {
-    style: {
-      fill: color,
-      stroke: color
+  return h(
+    'svg',
+    {
+      style: {
+        fill: color,
+        stroke: color,
+      },
+      attributes: {
+        xmlns: 'http://www.w3.org/2000/svg',
+        width: '48',
+        height: '48',
+        viewBox: '0 0 48 48',
+      },
+      namespace: 'http://www.w3.org/2000/svg',
     },
-    "attributes": {
-      "xmlns": "http://www.w3.org/2000/svg",
-      "width": "48",
-      "height": "48",
-      "viewBox": "0 0 48 48"
-    }, "namespace": "http://www.w3.org/2000/svg"
-  }, [h("path", {
-    "attributes": {"d": "M24 16V8l16 16-16 16v-8H8V16z"},
-    "namespace": "http://www.w3.org/2000/svg"
-  })]);
+    [
+      h('path', {
+        attributes: { d: 'M24 16V8l16 16-16 16v-8H8V16z' },
+        namespace: 'http://www.w3.org/2000/svg',
+      }),
+    ]
+  );
 }
 
 function renderLabel(evolution, sourceMonster, direction) {
   var method = evolution.method;
   var str;
   if (direction === 'from') {
-    str = `${getMonsterDisplayName(evolution.name)} evolves into ${getMonsterDisplayName(sourceMonster.name)} `;
+    str = `${getMonsterDisplayName(
+      evolution.name
+    )} evolves into ${getMonsterDisplayName(sourceMonster.name)} `;
   } else {
-    str = `${getMonsterDisplayName(sourceMonster.name)} evolves into ${getMonsterDisplayName(evolution.name)} `;
+    str = `${getMonsterDisplayName(
+      sourceMonster.name
+    )} evolves into ${getMonsterDisplayName(evolution.name)} `;
   }
 
   var bold;
@@ -53,33 +64,52 @@ function renderEvolutionRows(monster, evolutions) {
 
   var darkColor = getMonsterDarkTheme(monster);
 
-  return from.map(evolution => {
-    return h('div.evolution-row', [
-      h('div.evolution-row-inner', [
-        h(`div.evolution-sprite.monster-sprite.sprite-${evolution.nationalId}`),
-        renderArrow(darkColor),
-        h(`div.evolution-sprite.monster-sprite.sprite-${monster.national_id}`)
-      ]),
-      h('div.evolution-label', renderLabel(evolution, monster, 'from'))
-    ]);
-  }).concat(to.map(evolution => {
-    return h('div.evolution-row', [
-      h('div.evolution-row-inner', [
-        h(`div.evolution-sprite.monster-sprite.sprite-${monster.national_id}`),
-        renderArrow(darkColor),
-        h(`div.evolution-sprite.monster-sprite.sprite-${evolution.nationalId}`)
-      ]),
-      h('div.evolution-label', renderLabel(evolution, monster, 'to'))
-    ]);
-  }));
+  return from
+    .map((evolution) => {
+      return h('div.evolution-row', [
+        h('div.evolution-row-inner', [
+          h(
+            `a.evolution-sprite.monster-sprite.sprite-${evolution.nationalId}`,
+            { href: `/#/pokemon/${evolution.nationalId}` }
+          ),
+          renderArrow(darkColor),
+          h(`a.evolution-sprite.monster-sprite.sprite-${monster.national_id}`, {
+            href: `/#/pokemon/${monster.national_id}`,
+          }),
+        ]),
+        h('div.evolution-label', renderLabel(evolution, monster, 'from')),
+      ]);
+    })
+    .concat(
+      to.map((evolution) => {
+        return h('div.evolution-row', [
+          h('div.evolution-row-inner', [
+            h(
+              `a.evolution-sprite.monster-sprite.sprite-${monster.national_id}`,
+              { href: `/#/pokemon/${monster.national_id}` }
+            ),
+            renderArrow(darkColor),
+            h(
+              `a.evolution-sprite.monster-sprite.sprite-${evolution.nationalId}`,
+              { href: `/#/pokemon/${evolution.nationalId}` }
+            ),
+          ]),
+          h('div.evolution-label', renderLabel(evolution, monster, 'to')),
+        ]);
+      })
+    );
 }
 
 module.exports = function renderEvolutions(monster, evolutions) {
   var darkColor = getMonsterDarkTheme(monster);
   return [
-    h('h2.detail-subheader', {
-      style: {background: darkColor}
-    }, 'Evolutions'),
-    h('div.evolutions', renderEvolutionRows(monster, evolutions))
+    h(
+      'h2.detail-subheader',
+      {
+        style: { background: darkColor },
+      },
+      'Evolutions'
+    ),
+    h('div.evolutions', renderEvolutionRows(monster, evolutions)),
   ];
 };

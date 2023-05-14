@@ -11,13 +11,16 @@ var PouchDB = require('pouchdb-core')
 var fetch = require('node-fetch');
 var build = require('./build');
 
+const host = '0.0.0.0';
+
 async function startPouchServer() {
   await mkdirp('db');
 
   var child = childProcess.spawn(
     require.resolve('pouchdb-server/bin/pouchdb-server'),
-    ['-p', '6984'], {
-      cwd: 'db'
+    ['-p', '6984'],
+    {
+      cwd: 'db',
     }
   );
   child.stdout.on('data', function (data) {
@@ -30,47 +33,59 @@ async function startPouchServer() {
   // wait for pouchdb-server to start up
   var count = 0;
   while (true) {
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 500));
     try {
-      var json = await (await fetch('http://localhost:6984')).json();
+      var json = await (await fetch(`http://0.0.0.0:6984`)).json();
       if (json.version) {
         break;
       }
     } catch (e) {
-      console.log('Waiting for http://localhost:6984 to be up...');
+      console.log(`Waiting for http://${host}:6984 to be up...`);
       if (++count === 10) {
         console.log(e.stack);
         throw new Error('cannot connect to pouchdb-server');
       }
     }
   }
-
 }
 
 async function doIt() {
-
   startPouchServer();
 
   // wait for pouch server to start
-  await new Promise(function (resolve) { setTimeout(resolve, 1000); });
+  await new Promise(function (resolve) {
+    setTimeout(resolve, 1000);
+  });
 
   // dump monsters.txt
-  var monstersDB = new PouchDB('http://localhost:6984/monsters');
-  var descriptionsDB = new PouchDB('http://localhost:6984/descriptions');
-  var evolutionsDB = new PouchDB('http://localhost:6984/evolutions');
-  var typesDB = new PouchDB('http://localhost:6984/types');
-  var movesDB = new PouchDB('http://localhost:6984/moves');
-  var monsterMovesDB = new PouchDB('http://localhost:6984/monster-moves');
-  var monstersSupplementalDB = new PouchDB('http://localhost:6984/monsters-supplemental');
+  var monstersDB = new PouchDB(`http://${host}:6984/monsters`);
+  var descriptionsDB = new PouchDB(`http://${host}:6984/descriptions`);
+  var evolutionsDB = new PouchDB(`http://${host}:6984/evolutions`);
+  var typesDB = new PouchDB(`http://${host}:6984/types`);
+  var movesDB = new PouchDB(`http://${host}:6984/moves`);
+  var monsterMovesDB = new PouchDB(`http://${host}:6984/monster-moves`);
+  var monstersSupplementalDB = new PouchDB(
+    `http://${host}:6984/monsters-supplemental`
+  );
 
   var loadPromises = [
-    monstersDB.load(await fs.readFileAsync('src/assets/skim-monsters.txt', 'utf-8')),
-    descriptionsDB.load(await fs.readFileAsync('src/assets/descriptions.txt', 'utf-8')),
-    evolutionsDB.load(await fs.readFileAsync('src/assets/evolutions.txt', 'utf-8')),
+    monstersDB.load(
+      await fs.readFileAsync('src/assets/skim-monsters.txt', 'utf-8')
+    ),
+    descriptionsDB.load(
+      await fs.readFileAsync('src/assets/descriptions.txt', 'utf-8')
+    ),
+    evolutionsDB.load(
+      await fs.readFileAsync('src/assets/evolutions.txt', 'utf-8')
+    ),
     typesDB.load(await fs.readFileAsync('src/assets/types.txt', 'utf-8')),
     movesDB.load(await fs.readFileAsync('src/assets/moves.txt', 'utf-8')),
-    monsterMovesDB.load(await fs.readFileAsync('src/assets/monster-moves.txt', 'utf-8')),
-    monstersSupplementalDB.load(await fs.readFileAsync('src/assets/monsters-supplemental.txt', 'utf-8'))
+    monsterMovesDB.load(
+      await fs.readFileAsync('src/assets/monster-moves.txt', 'utf-8')
+    ),
+    monstersSupplementalDB.load(
+      await fs.readFileAsync('src/assets/monsters-supplemental.txt', 'utf-8')
+    ),
   ];
 
   // build with debug=true
@@ -78,7 +93,7 @@ async function doIt() {
 
   // start up dev server
   var serverPromise = new Promise(function (resolve, reject) {
-    hs.createServer({root: './www'}).listen(9000, function (err) {
+    hs.createServer({ root: './www' }).listen(9000, function (err) {
       if (err) {
         return reject(err);
       }
@@ -96,8 +111,8 @@ async function doIt() {
   console.log('started dev server at http://127.0.0.1:9000');
 }
 
-doIt().catch(err => console.error(err));
+doIt().catch((err) => console.error(err));
 
-process.on('unhandledRejection', err => {
+process.on('unhandledRejection', (err) => {
   console.error(err.stack);
 });
